@@ -12,18 +12,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.time.LocalDate;
 
-import org.hibernate.search.v6poc.backend.document.model.spi.FieldModelContext;
 import org.hibernate.search.v6poc.backend.document.model.spi.IndexModelCollector;
-import org.hibernate.search.v6poc.backend.document.model.spi.TypedFieldModelContext;
 import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
 import org.hibernate.search.v6poc.backend.document.spi.IndexFieldReference;
 import org.hibernate.search.v6poc.backend.elasticsearch.impl.ElasticsearchBackendFactory;
+import org.hibernate.search.v6poc.bridge.builtin.impl.DefaultIntegerIdentifierBridge;
 import org.hibernate.search.v6poc.bridge.declaration.spi.BridgeBeanReference;
 import org.hibernate.search.v6poc.bridge.declaration.spi.BridgeMapping;
 import org.hibernate.search.v6poc.bridge.mapping.BridgeDefinitionBase;
 import org.hibernate.search.v6poc.bridge.spi.Bridge;
 import org.hibernate.search.v6poc.bridge.spi.FunctionBridge;
-import org.hibernate.search.v6poc.bridge.spi.IdentifierBridge;
 import org.hibernate.search.v6poc.engine.SearchManagerFactory;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.javabean.mapping.JavaBeanMapper;
@@ -54,11 +52,10 @@ public class PojoElasticsearchIT {
 						.objectName( "customBridgeOnClass" )
 				)
 				.property( "id" )
-						.documentId().bridge( MyIdentifierBridge.class )
+						.documentId()
 				.property( "text" )
 						.field()
 								.name( "myTextField" )
-								.bridge( MyTextFunctionBridge.class )
 				.property( "embedded" )
 						.indexedEmbedded()
 								.maxDepth( 1 );
@@ -68,7 +65,6 @@ public class PojoElasticsearchIT {
 				.property( "localDate" )
 						.field()
 								.name( "myLocalDateField" )
-								.bridge( MyLocalDateFunctionBridge.class )
 				.property( "embedded" )
 						.bridge(
 								new MyBridgeDefinition()
@@ -77,9 +73,10 @@ public class PojoElasticsearchIT {
 		secondMapping.entity( OtherIndexedEntity.class )
 				.indexed( "OtherIndexedEntity" )
 				.property( "id" )
-						.documentId().bridge( MyIdentifierBridge.class )
+						.documentId().bridge( DefaultIntegerIdentifierBridge.class )
 				.property( "numeric" )
-						.field().bridge( MyIntegerFunctionBridge.class );
+						.field()
+						.field().name( "numericAsString" ).bridge( IntegerAsStringFunctionBridge.class );
 
 		managerFactory = SearchManagerFactory.builder()
 				.addMapping( mapping )
@@ -204,60 +201,11 @@ public class PojoElasticsearchIT {
 
 	}
 
-	public static final class MyIdentifierBridge implements IdentifierBridge<Integer> {
-
+	public static final class IntegerAsStringFunctionBridge implements FunctionBridge<Integer, String> {
 		@Override
-		public String toString(Integer id) {
-			return id.toString();
+		public String toDocument(Integer propertyValue) {
+			return propertyValue == null ? null : propertyValue.toString();
 		}
-
-		@Override
-		public Integer fromString(String idString) {
-			return Integer.parseInt( idString );
-		}
-
-	}
-
-	public static final class MyTextFunctionBridge implements FunctionBridge<String, String> {
-
-		@Override
-		public TypedFieldModelContext<String> bind(FieldModelContext context) {
-			return context.fromString();
-		}
-
-		@Override
-		public String toDocument(String propertyValue) {
-			return propertyValue;
-		}
-
-	}
-
-	public static final class MyLocalDateFunctionBridge implements FunctionBridge<LocalDate, LocalDate> {
-
-		@Override
-		public TypedFieldModelContext<LocalDate> bind(FieldModelContext context) {
-			return context.fromLocalDate();
-		}
-
-		@Override
-		public LocalDate toDocument(LocalDate propertyValue) {
-			return propertyValue;
-		}
-
-	}
-
-	public static final class MyIntegerFunctionBridge implements FunctionBridge<Integer, Integer> {
-
-		@Override
-		public TypedFieldModelContext<Integer> bind(FieldModelContext context) {
-			return context.fromInteger();
-		}
-
-		@Override
-		public Integer toDocument(Integer propertyValue) {
-			return propertyValue;
-		}
-
 	}
 
 	@BridgeMapping(implementation = @BridgeBeanReference(type = MyBridgeImpl.class))
