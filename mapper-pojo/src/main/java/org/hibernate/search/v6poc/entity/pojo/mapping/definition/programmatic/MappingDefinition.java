@@ -13,6 +13,6 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.MappingContributor
  */
 public interface MappingDefinition extends MappingContributor  {
 
-	TypeMappingContext entity(Class<?> clazz);
+	TypeMappingContext type(Class<?> clazz);
 
 }
