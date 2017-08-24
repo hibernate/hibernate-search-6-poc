@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.entity.mapping.building.spi;
 /**
  * @author Yoann Rodiere
  */
-public interface MappingContributor<C> {
+public interface MappingContributor {
 
 	void contribute(TypeMappingCollector collector);
 

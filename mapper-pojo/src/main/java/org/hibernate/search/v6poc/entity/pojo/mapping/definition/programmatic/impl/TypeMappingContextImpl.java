@@ -22,7 +22,7 @@ import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoIndexedTypeIdentifi
 /**
  * @author Yoann Rodiere
  */
-public class TypeMappingContextImpl implements TypeMappingContext, MappingContributor<PojoTypeNodeMappingCollector> {
+public class TypeMappingContextImpl implements TypeMappingContext, MappingContributor {
 
 	private final PojoMapperImplementor mappingType;
 	private final Class<?> type;
