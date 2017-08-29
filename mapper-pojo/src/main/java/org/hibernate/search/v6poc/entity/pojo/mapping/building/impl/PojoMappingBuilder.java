@@ -12,7 +12,7 @@ import java.util.Map;
 import org.hibernate.search.v6poc.engine.SearchManagerBuilder;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexManagerBuildingState;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MappingBuilder;
-import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMappingContributorProvider;
+import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
 import org.hibernate.search.v6poc.entity.model.spi.IndexedTypeIdentifier;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoMappingImpl;
@@ -26,7 +26,7 @@ import org.hibernate.search.v6poc.entity.pojo.processing.impl.ProvidedToStringId
 /**
  * @author Yoann Rodiere
  */
-public class PojoMappingBuilder implements MappingBuilder<PojoTypeNodeMappingCollector, SearchManagerBuilder<PojoSearchManager>> {
+public class PojoMappingBuilder implements MappingBuilder<PojoTypeNodeMetadataContributor, SearchManagerBuilder<PojoSearchManager>> {
 
 	private final PojoIntrospector introspector;
 	private final PojoProxyIntrospector proxyIntrospector;
@@ -43,13 +43,14 @@ public class PojoMappingBuilder implements MappingBuilder<PojoTypeNodeMappingCol
 	@Override
 	public void addIndexed(IndexedTypeIdentifier typeId,
 			IndexManagerBuildingState<?> indexManagerBuildingState,
-			TypeMappingContributorProvider<PojoTypeNodeMappingCollector> contributorProvider) {
+			TypeMetadataContributorProvider<PojoTypeNodeMetadataContributor> contributorProvider) {
 		PojoIndexedTypeIdentifier pojoTypeId = (PojoIndexedTypeIdentifier) typeId;
 		Class<?> javaType = pojoTypeId.toJavaType();
 		PojoTypeManagerBuilder<?, ?> builder = new PojoTypeManagerBuilder<>(
-				introspector, proxyIntrospector, javaType, indexManagerBuildingState, contributorProvider,
+				javaType, introspector, proxyIntrospector, indexManagerBuildingState, contributorProvider,
 				implicitProvidedId ? ProvidedToStringIdentifierConverter.get() : null );
-		contributorProvider.get( pojoTypeId ).contribute( builder.asCollector() );
+		PojoTypeNodeMappingCollector collector = builder.asCollector();
+		contributorProvider.get( pojoTypeId ).forEach( c -> c.contributeMapping( collector ) );
 		typeManagerBuilders.put( javaType, builder );
 	}
 

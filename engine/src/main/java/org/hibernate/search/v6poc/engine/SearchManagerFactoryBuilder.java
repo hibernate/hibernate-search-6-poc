@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.engine;
 
 import java.util.Properties;
 
-import org.hibernate.search.v6poc.entity.mapping.building.spi.MappingContributor;
+import org.hibernate.search.v6poc.entity.mapping.building.spi.MetadataContributor;
 
 /**
  * @author Yoann Rodiere
@@ -19,7 +19,7 @@ public interface SearchManagerFactoryBuilder {
 
 	SearchManagerFactoryBuilder setProperties(Properties properties);
 
-	SearchManagerFactoryBuilder addMapping(MappingContributor mappingContributor);
+	SearchManagerFactoryBuilder addMapping(MetadataContributor mappingContributor);
 
 	SearchManagerFactory build();
 

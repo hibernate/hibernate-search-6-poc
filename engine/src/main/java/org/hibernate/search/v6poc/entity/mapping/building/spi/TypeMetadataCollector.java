@@ -11,8 +11,10 @@ import org.hibernate.search.v6poc.entity.model.spi.IndexedTypeIdentifier;
 /**
  * @author Yoann Rodiere
  */
-public interface TypeMappingContributorProvider<C> {
+public interface TypeMetadataCollector {
 
-	TypeMappingContributor<C> get(IndexedTypeIdentifier typeId);
+	<C> void collect(MapperImplementor<C, ?, ?> mapper,
+			IndexedTypeIdentifier typeId, String indexName,
+			C contributor);
 
 }

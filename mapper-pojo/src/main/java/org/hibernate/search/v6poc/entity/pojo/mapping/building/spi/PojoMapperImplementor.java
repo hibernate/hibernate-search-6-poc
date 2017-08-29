@@ -8,11 +8,10 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.building.spi;
 
 import org.hibernate.search.v6poc.engine.SearchManagerBuilder;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MapperImplementor;
-import org.hibernate.search.v6poc.entity.mapping.building.spi.MappingBuilder;
 import org.hibernate.search.v6poc.entity.model.spi.IndexableTypeOrdering;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoMappingBuilder;
-import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeMappingCollector;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoProxyIntrospector;
 
@@ -21,7 +20,7 @@ import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoProxyIntrospector;
  * @author Yoann Rodiere
  */
 public abstract class PojoMapperImplementor
-		implements MapperImplementor<PojoTypeNodeMappingCollector, PojoSearchManager, SearchManagerBuilder<PojoSearchManager>> {
+		implements MapperImplementor<PojoTypeNodeMetadataContributor, PojoSearchManager, SearchManagerBuilder<PojoSearchManager>> {
 
 	private final PojoIntrospector introspector;
 	private final PojoProxyIntrospector proxyIntrospector;
@@ -39,7 +38,7 @@ public abstract class PojoMapperImplementor
 	}
 
 	@Override
-	public MappingBuilder<PojoTypeNodeMappingCollector, SearchManagerBuilder<PojoSearchManager>> createBuilder() {
+	public PojoMappingBuilder createBuilder() {
 		return new PojoMappingBuilder( introspector, proxyIntrospector, implicitProvidedId );
 	}
 

@@ -4,14 +4,12 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.hibernate.search.v6poc.entity.mapping.building.spi;
+package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
 
 /**
  * @author Yoann Rodiere
  */
-public interface TypeMappingContributor<C> {
-
-	void contribute(C collector);
+public interface PojoTypeNodeMetadataContributor extends PojoNodeMetadataContributor<PojoTypeNodeMappingCollector> {
 
 }

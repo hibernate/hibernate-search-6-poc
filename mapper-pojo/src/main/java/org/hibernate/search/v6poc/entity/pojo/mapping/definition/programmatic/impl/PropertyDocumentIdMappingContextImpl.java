@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.i
 import org.hibernate.search.v6poc.bridge.spi.IdentifierBridge;
 import org.hibernate.search.v6poc.engine.spi.BeanReference;
 import org.hibernate.search.v6poc.engine.spi.ImmutableBeanReference;
-import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMappingContributor;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoNodeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoPropertyNodeMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyDocumentIdMappingContext;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyMappingContext;
@@ -19,7 +19,8 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.Pr
  * @author Yoann Rodiere
  */
 public class PropertyDocumentIdMappingContextImpl extends DelegatingPropertyMappingContext
-		implements PropertyDocumentIdMappingContext, TypeMappingContributor<PojoPropertyNodeMappingCollector> {
+		implements PropertyDocumentIdMappingContext,
+				PojoNodeMetadataContributor<PojoPropertyNodeMappingCollector> {
 
 	private BeanReference<IdentifierBridge<?>> bridgeReference;
 
@@ -28,7 +29,7 @@ public class PropertyDocumentIdMappingContextImpl extends DelegatingPropertyMapp
 	}
 
 	@Override
-	public void contribute(PojoPropertyNodeMappingCollector collector) {
+	public void contributeMapping(PojoPropertyNodeMappingCollector collector) {
 		collector.identifierBridge( bridgeReference );
 	}
 
