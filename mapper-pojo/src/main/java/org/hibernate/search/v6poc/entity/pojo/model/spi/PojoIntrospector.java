@@ -11,8 +11,6 @@ package org.hibernate.search.v6poc.entity.pojo.model.spi;
  */
 public interface PojoIntrospector {
 
-	ReadableProperty findReadableProperty(Class<?> holderType, String name);
-
-	ReadableProperty findReadableProperty(Class<?> holderType, String name, Class<?> propertyType);
+	PropertyHandle findReadableProperty(Class<?> holderType, String name);
 
 }

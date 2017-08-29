@@ -9,18 +9,24 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.i
 import org.hibernate.search.v6poc.bridge.mapping.BridgeDefinition;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoNodeMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoNodeMetadataContributor;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoNodeModelCollector;
 
 
 /**
  * @author Yoann Rodiere
  */
 public class BridgeMappingContributor
-		implements PojoNodeMetadataContributor<PojoNodeMappingCollector> {
+		implements PojoNodeMetadataContributor<PojoNodeModelCollector, PojoNodeMappingCollector> {
 
 	private final BridgeDefinition<?> definition;
 
 	public BridgeMappingContributor(BridgeDefinition<?> definition) {
 		this.definition = definition;
+	}
+
+	@Override
+	public void contributeModel(PojoNodeModelCollector collector) {
+		// Nothing to do
 	}
 
 	@Override

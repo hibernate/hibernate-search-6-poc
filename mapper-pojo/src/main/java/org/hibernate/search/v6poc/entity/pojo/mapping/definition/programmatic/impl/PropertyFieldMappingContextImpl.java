@@ -17,6 +17,7 @@ import org.hibernate.search.v6poc.engine.spi.ImmutableBeanReference;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoNodeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoPropertyNodeMappingCollector;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoPropertyNodeModelCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyFieldMappingContext;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyMappingContext;
 
@@ -26,7 +27,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.Pr
  */
 public class PropertyFieldMappingContextImpl extends DelegatingPropertyMappingContext
 		implements PropertyFieldMappingContext,
-				PojoNodeMetadataContributor<PojoPropertyNodeMappingCollector> {
+				PojoNodeMetadataContributor<PojoPropertyNodeModelCollector, PojoPropertyNodeMappingCollector> {
 
 	private BeanReference<FunctionBridge<?, ?>> bridgeReference;
 
@@ -36,6 +37,11 @@ public class PropertyFieldMappingContextImpl extends DelegatingPropertyMappingCo
 
 	public PropertyFieldMappingContextImpl(PropertyMappingContext parent) {
 		super( parent );
+	}
+
+	@Override
+	public void contributeModel(PojoPropertyNodeModelCollector collector) {
+		// Nothing to do
 	}
 
 	@Override

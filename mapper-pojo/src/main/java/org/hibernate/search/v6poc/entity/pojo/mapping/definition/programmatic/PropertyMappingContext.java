@@ -7,6 +7,7 @@
 package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic;
 
 import org.hibernate.search.v6poc.bridge.mapping.BridgeDefinition;
+import org.hibernate.search.v6poc.bridge.mapping.MarkerDefinition;
 
 /**
  * @author Yoann Rodiere
@@ -23,6 +24,8 @@ public interface PropertyMappingContext {
 	PropertyDocumentIdMappingContext documentId();
 
 	PropertyMappingContext bridge(BridgeDefinition<?> definition);
+
+	PropertyMappingContext marker(MarkerDefinition<?> definition);
 
 	PropertyFieldMappingContext field();
 

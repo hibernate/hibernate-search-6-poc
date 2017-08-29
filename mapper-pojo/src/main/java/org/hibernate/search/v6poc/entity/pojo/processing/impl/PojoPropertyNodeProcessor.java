@@ -13,7 +13,7 @@ import java.util.Collections;
 import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
 import org.hibernate.search.v6poc.entity.model.spi.Indexable;
 import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoIndexable;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.ReadableProperty;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 import org.hibernate.search.v6poc.entity.processing.spi.ValueProcessor;
 
 /**
@@ -21,20 +21,22 @@ import org.hibernate.search.v6poc.entity.processing.spi.ValueProcessor;
  */
 public class PojoPropertyNodeProcessor {
 
-	private final ReadableProperty property;
+	private final PropertyHandle handle;
 	private final Collection<ValueProcessor> processors;
 	private final Collection<PojoTypeNodeProcessor> indexedEmbeddedProcessors;
 
-	public PojoPropertyNodeProcessor(ReadableProperty property,
+	public PojoPropertyNodeProcessor(PropertyHandle handle,
 			Collection<ValueProcessor> processors,
-			Collection<PojoTypeNodeProcessor> indexedEmbeddedProcessors) {
-		this.property = property;
+			Collection<PojoTypeNodeProcessorBuilder> indexedEmbeddedProcessorBuilders) {
+		this.handle = handle;
 		this.processors = processors.isEmpty() ? Collections.emptyList() : new ArrayList<>( processors );
-		this.indexedEmbeddedProcessors = indexedEmbeddedProcessors.isEmpty() ? Collections.emptyList() : new ArrayList<>( indexedEmbeddedProcessors );
+		this.indexedEmbeddedProcessors = indexedEmbeddedProcessorBuilders.isEmpty() ?
+				Collections.emptyList() : new ArrayList<>( indexedEmbeddedProcessorBuilders.size() );
+		indexedEmbeddedProcessorBuilders.forEach( builder -> this.indexedEmbeddedProcessors.add( builder.build() ) );
 	}
 
 	public final void process(Object source, DocumentState destination) {
-		Object nestedValue = property.invoke( source );
+		Object nestedValue = handle.get( source );
 		if ( !processors.isEmpty() ) {
 			Indexable indexable = new PojoIndexable( nestedValue );
 			for ( ValueProcessor processor : processors ) {

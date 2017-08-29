@@ -6,14 +6,13 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
+import org.hibernate.search.v6poc.bridge.mapping.MarkerDefinition;
 
 /**
  * @author Yoann Rodiere
  */
-public interface PojoNodeMetadataContributor<CMO extends PojoNodeModelCollector, CMA extends PojoNodeMappingCollector> {
+public interface PojoPropertyNodeModelCollector extends PojoNodeModelCollector {
 
-	void contributeModel(CMO collector);
-
-	void contributeMapping(CMA collector);
+	void marker(MarkerDefinition<?> definition);
 
 }

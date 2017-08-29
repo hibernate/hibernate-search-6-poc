@@ -6,14 +6,10 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
-import org.hibernate.search.v6poc.entity.pojo.model.spi.ReadableProperty;
-
 /**
  * @author Yoann Rodiere
  */
 public interface PojoTypeNodeMappingCollector extends PojoNodeMappingCollector {
-
-	PojoPropertyNodeMappingCollector property(ReadableProperty property);
 
 	PojoPropertyNodeMappingCollector property(String name);
 

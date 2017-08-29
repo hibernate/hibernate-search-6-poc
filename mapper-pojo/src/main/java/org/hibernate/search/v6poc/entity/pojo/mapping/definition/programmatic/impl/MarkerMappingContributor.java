@@ -6,25 +6,32 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.impl;
 
+import org.hibernate.search.v6poc.bridge.mapping.MarkerDefinition;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoNodeMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoNodeMetadataContributor;
-import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoPropertyNodeMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoPropertyNodeModelCollector;
 
 
 /**
  * @author Yoann Rodiere
  */
-public class ContainedInMappingContributor
-		implements PojoNodeMetadataContributor<PojoPropertyNodeModelCollector, PojoPropertyNodeMappingCollector> {
+public class MarkerMappingContributor
+		implements PojoNodeMetadataContributor<PojoPropertyNodeModelCollector, PojoNodeMappingCollector> {
 
-	@Override
-	public void contributeModel(PojoPropertyNodeModelCollector collector) {
-		// Nothing to do
+	private final MarkerDefinition<?> definition;
+
+	public MarkerMappingContributor(MarkerDefinition<?> definition) {
+		this.definition = definition;
 	}
 
 	@Override
-	public void contributeMapping(PojoPropertyNodeMappingCollector collector) {
-		collector.containedIn();
+	public void contributeModel(PojoPropertyNodeModelCollector collector) {
+		collector.marker( definition );
+	}
+
+	@Override
+	public void contributeMapping(PojoNodeMappingCollector collector) {
+		// Nothing to do
 	}
 
 }

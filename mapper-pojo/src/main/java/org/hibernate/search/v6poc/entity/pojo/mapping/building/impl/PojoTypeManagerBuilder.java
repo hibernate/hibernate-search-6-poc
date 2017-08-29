@@ -13,7 +13,7 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContri
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoTypeManager;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoProxyIntrospector;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.ReadableProperty;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.IdentifierConverter;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoTypeNodeProcessorBuilder;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PropertyIdentifierConverter;
@@ -46,8 +46,8 @@ public class PojoTypeManagerBuilder<E, D extends DocumentState> {
 		return processorBuilder;
 	}
 
-	private void setIdentifierBridge(ReadableProperty property, IdentifierBridge<?> bridge) {
-		this.idConverter = new PropertyIdentifierConverter<>( property, bridge );
+	private void setIdentifierBridge(PropertyHandle handle, IdentifierBridge<?> bridge) {
+		this.idConverter = new PropertyIdentifierConverter<>( handle, bridge );
 	}
 
 	public PojoTypeManager<?, E, D> build() {

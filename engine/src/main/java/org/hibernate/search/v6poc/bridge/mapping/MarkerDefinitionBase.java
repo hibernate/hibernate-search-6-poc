@@ -4,16 +4,14 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
+package org.hibernate.search.v6poc.bridge.mapping;
 
+import java.lang.annotation.Annotation;
 
 /**
  * @author Yoann Rodiere
  */
-public interface PojoNodeMetadataContributor<CMO extends PojoNodeModelCollector, CMA extends PojoNodeMappingCollector> {
-
-	void contributeModel(CMO collector);
-
-	void contributeMapping(CMA collector);
+public abstract class MarkerDefinitionBase<A extends Annotation> extends AnnotationDefinitionBase<A>
+		implements MarkerDefinition<A> {
 
 }
