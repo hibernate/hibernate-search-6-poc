@@ -9,6 +9,8 @@ package org.hibernate.search.v6poc.backend.document.model.spi;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import org.hibernate.search.v6poc.bridge.builtin.spatial.GeoPoint;
+
 /**
  * @author Yoann Rodiere
  */
@@ -22,9 +24,10 @@ public interface FieldModelContext {
 
 	TypedFieldModelContext<LocalDate> fromLocalDate();
 
+	TypedFieldModelContext<GeoPoint> fromGeoPoint();
+
 	// TODO NumericBridgeProvider
 	// TODO JavaTimeBridgeProvider
-	// TODO GeoPoint, somehow?
 	// TODO BasicJDKTypesBridgeProvider
 
 	<T extends FieldModelContext> Optional<T> unwrap(Class<T> clazz);
