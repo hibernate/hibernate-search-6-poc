@@ -10,7 +10,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.document.impl.DeferredIn
 import org.hibernate.search.v6poc.backend.elasticsearch.document.impl.ElasticsearchIndexFieldReference;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.DataType;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.PropertyMapping;
-import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
+import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.UnknownTypeJsonAccessor;
 import org.hibernate.search.v6poc.bridge.builtin.spatial.GeoPoint;
 
 import com.google.gson.JsonObject;
@@ -20,35 +20,26 @@ import com.google.gson.JsonObject;
  */
 class CoordinatesFieldModelContext extends AbstractScalarFieldModelContext<GeoPoint> {
 
-	private final JsonAccessor<JsonObject> accessor;
+	private final UnknownTypeJsonAccessor accessor;
 
-	public CoordinatesFieldModelContext(JsonAccessor<JsonObject> accessor) {
+	public CoordinatesFieldModelContext(UnknownTypeJsonAccessor accessor) {
 		this.accessor = accessor;
 	}
 
 	@Override
 	protected void build(DeferredInitializationIndexFieldReference<GeoPoint> reference, PropertyMapping mapping) {
 		super.build( reference, mapping );
-		reference.initialize( new GeoPointElasticsearchIndexFieldReference( accessor ) );
+		reference.initialize( new ElasticsearchIndexFieldReference<>( accessor, CoordinatesFieldModelContext::format ) );
 		mapping.setType( DataType.GEO_POINT );
 	}
 
-	private static class GeoPointElasticsearchIndexFieldReference extends ElasticsearchIndexFieldReference<GeoPoint, JsonObject> {
-
-		protected GeoPointElasticsearchIndexFieldReference(JsonAccessor<JsonObject> accessor) {
-			super( accessor );
+	protected static JsonObject format(GeoPoint value) {
+		if ( value == null ) {
+			return null;
 		}
-
-		@Override
-		protected JsonObject convert(GeoPoint value) {
-			if ( value == null ) {
-				return null;
-			}
-			JsonObject result = new JsonObject();
-			result.addProperty( "lat", value.getLatitude() );
-			result.addProperty( "lon", value.getLongitude() );
-			return result;
-		}
-
+		JsonObject result = new JsonObject();
+		result.addProperty( "lat", value.getLatitude() );
+		result.addProperty( "lon", value.getLongitude() );
+		return result;
 	}
 }
