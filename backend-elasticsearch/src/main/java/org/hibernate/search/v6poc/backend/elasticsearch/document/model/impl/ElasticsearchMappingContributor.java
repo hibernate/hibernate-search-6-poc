@@ -11,7 +11,6 @@ package org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl;
  */
 public interface ElasticsearchMappingContributor<T> {
 
-	// TODO add an error collector
 	void contribute(T mapping);
 
 }
