@@ -16,7 +16,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchW
  */
 public interface ElasticsearchWorkOrchestrator extends AutoCloseable {
 
-	CompletableFuture<?> submit(ElasticsearchWork<?> work);
+	<T> CompletableFuture<T> submit(ElasticsearchWork<T> work);
 
 	CompletableFuture<?> submit(List<ElasticsearchWork<?>> work);
 

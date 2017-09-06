@@ -7,12 +7,16 @@
 package org.hibernate.search.v6poc.entity.pojo.mapping;
 
 import org.hibernate.search.v6poc.engine.SearchManager;
+import org.hibernate.search.v6poc.entity.pojo.search.PojoReference;
+import org.hibernate.search.v6poc.search.spi.SearchResultDefinitionContext;
 
 
 /**
  * @author Yoann Rodiere
  */
 public interface PojoSearchManager extends SearchManager {
+
+	SearchResultDefinitionContext<PojoReference> search(Class<?> ... types);
 
 	/**
 	 * @return The worker for this manager. Calling {@link ChangesetPojoWorker#execute()}

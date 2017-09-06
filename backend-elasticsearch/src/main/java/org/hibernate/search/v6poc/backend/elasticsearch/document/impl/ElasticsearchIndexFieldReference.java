@@ -6,10 +6,9 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.document.impl;
 
-import java.util.function.Function;
-
 import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
 import org.hibernate.search.v6poc.backend.document.spi.IndexFieldReference;
+import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchFieldFormatter;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
 
 import com.google.gson.JsonElement;
@@ -22,17 +21,17 @@ public class ElasticsearchIndexFieldReference<T> implements IndexFieldReference<
 
 	private final JsonAccessor<JsonElement> accessor;
 
-	private final Function<? super T, ? extends JsonElement> formatter;
+	private final ElasticsearchFieldFormatter formatter;
 
 	public ElasticsearchIndexFieldReference(JsonAccessor<JsonElement> accessor,
-			Function<? super T, ? extends JsonElement> formatter) {
+			ElasticsearchFieldFormatter formatter) {
 		this.accessor = accessor;
 		this.formatter = formatter;
 	}
 
 	@Override
 	public void add(DocumentState state, T value) {
-		((ElasticsearchDocumentBuilder) state).add( accessor, formatter.apply( value ) );
+		((ElasticsearchDocumentBuilder) state).add( accessor, formatter.format( value ) );
 	}
 
 }

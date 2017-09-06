@@ -14,6 +14,8 @@ import org.hibernate.search.v6poc.backend.index.spi.IndexManager;
  */
 public interface IndexManagerBuildingState<D extends DocumentState> {
 
+	String getIndexName();
+
 	MappingIndexModelCollector getModelCollector();
 
 	/**
