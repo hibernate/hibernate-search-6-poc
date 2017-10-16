@@ -11,7 +11,7 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.MetadataContributo
 /**
  * @author Yoann Rodiere
  */
-public interface MappingDefinition extends MetadataContributor  {
+public interface MappingDefinition extends MetadataContributor {
 
 	TypeMappingContext type(Class<?> clazz);
 
