@@ -6,15 +6,12 @@
  */
 package org.hibernate.search.v6poc.backend.document.model.spi;
 
-import org.hibernate.search.v6poc.backend.document.model.Store;
 
 /**
  * @author Yoann Rodiere
  */
-public interface TypedFieldModelContext<T> extends TerminalFieldModelContext<T> {
+public interface FieldModelExtension<T> {
 
-	// TODO add common options: stored, sortable, ...
-
-	TypedFieldModelContext<T> store(Store store);
+	T extendOrFail(FieldModelContext original);
 
 }
