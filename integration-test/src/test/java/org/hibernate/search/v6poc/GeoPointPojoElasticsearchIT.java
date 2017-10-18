@@ -24,6 +24,8 @@ import org.hibernate.search.v6poc.entity.javabean.mapping.JavaBeanMappingType;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.MappingDefinition;
 import org.json.JSONException;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -129,6 +131,14 @@ public class GeoPointPojoElasticsearchIT {
 						+ "}"
 					+ "}"
 				+ "}" );
+	}
+
+	@After
+	public void cleanup() {
+		StubElasticsearchClient.drainRequestsByIndex();
+		if ( managerFactory != null ) {
+			managerFactory.close();
+		}
 	}
 
 	@Test
