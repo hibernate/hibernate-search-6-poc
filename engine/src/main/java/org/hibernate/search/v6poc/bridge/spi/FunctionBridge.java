@@ -6,8 +6,8 @@
  */
 package org.hibernate.search.v6poc.bridge.spi;
 
-import org.hibernate.search.v6poc.backend.document.model.spi.TypedFieldModelContext;
 import org.hibernate.search.v6poc.backend.document.model.spi.FieldModelContext;
+import org.hibernate.search.v6poc.backend.document.model.spi.TypedFieldModelContext;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 
 /**
@@ -24,10 +24,6 @@ public interface FunctionBridge<T, R> extends AutoCloseable {
 	}
 
 	R toDocument(T propertyValue);
-
-	default T fromDocument(R fieldValue) {
-		throw new UnsupportedOperationException( "This bridge does not support projections" );
-	}
 
 	@Override
 	default void close() {
