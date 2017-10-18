@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.search.DocumentReference;
-import org.hibernate.search.v6poc.search.spi.SearchResultDefinitionContext;
+import org.hibernate.search.v6poc.search.dsl.SearchResultDefinitionContext;
 
 /**
  * @author Yoann Rodiere

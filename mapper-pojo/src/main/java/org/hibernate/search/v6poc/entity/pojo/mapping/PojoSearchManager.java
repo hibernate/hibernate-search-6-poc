@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.entity.pojo.mapping;
 
 import org.hibernate.search.v6poc.engine.SearchManager;
 import org.hibernate.search.v6poc.entity.pojo.search.PojoReference;
-import org.hibernate.search.v6poc.search.spi.SearchResultDefinitionContext;
+import org.hibernate.search.v6poc.search.dsl.SearchResultDefinitionContext;
 
 
 /**

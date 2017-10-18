@@ -20,7 +20,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.StreamPojoWorker;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoProxyIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.search.PojoReference;
 import org.hibernate.search.v6poc.search.DocumentReference;
-import org.hibernate.search.v6poc.search.spi.SearchResultDefinitionContext;
+import org.hibernate.search.v6poc.search.dsl.SearchResultDefinitionContext;
 import org.hibernate.search.v6poc.util.AssertionFailure;
 import org.hibernate.search.v6poc.util.SearchException;
 

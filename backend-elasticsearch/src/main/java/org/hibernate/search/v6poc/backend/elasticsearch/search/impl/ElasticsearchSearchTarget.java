@@ -29,7 +29,7 @@ import org.hibernate.search.v6poc.backend.index.spi.SearchTarget;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.search.SearchQuery;
-import org.hibernate.search.v6poc.search.spi.SearchResultDefinitionContext;
+import org.hibernate.search.v6poc.search.dsl.SearchResultDefinitionContext;
 import org.hibernate.search.v6poc.search.spi.SearchWrappingDefinitionContext;
 import org.hibernate.search.v6poc.util.spi.LoggerFactory;
 
