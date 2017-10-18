@@ -6,6 +6,8 @@
  */
 package org.hibernate.search.v6poc.backend.index.spi;
 
+import java.util.function.Function;
+
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.search.spi.SearchResultDefinitionContext;
@@ -17,6 +19,11 @@ public interface SearchTarget {
 
 	void add(SearchTarget other);
 
-	SearchResultDefinitionContext<DocumentReference> search(SessionContext context);
+	default SearchResultDefinitionContext<DocumentReference> search(SessionContext context) {
+		return search( context, Function.identity() );
+	}
+
+	<R> SearchResultDefinitionContext<R> search(SessionContext context,
+			Function<DocumentReference, R> documentReferenceTransformer);
 
 }

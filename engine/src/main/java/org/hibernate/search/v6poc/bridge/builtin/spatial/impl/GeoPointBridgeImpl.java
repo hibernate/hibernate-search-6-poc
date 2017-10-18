@@ -14,6 +14,7 @@ import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
 import org.hibernate.search.v6poc.backend.document.spi.IndexFieldReference;
 import org.hibernate.search.v6poc.bridge.builtin.spatial.GeoPoint;
 import org.hibernate.search.v6poc.bridge.builtin.spatial.GeoPointBridge;
+import org.hibernate.search.v6poc.bridge.builtin.spatial.ImmutableGeoPoint;
 import org.hibernate.search.v6poc.bridge.spi.Bridge;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.model.spi.Indexable;
@@ -74,10 +75,7 @@ public class GeoPointBridgeImpl implements Bridge<GeoPointBridge> {
 					return null;
 				}
 
-				MutableCoordinates coordinates = new MutableCoordinates();
-				coordinates.setLatitude( latitude );
-				coordinates.setLongitude( longitude );
-				return coordinates;
+				return new ImmutableGeoPoint( latitude, longitude );
 			};
 		}
 	}
@@ -96,29 +94,6 @@ public class GeoPointBridgeImpl implements Bridge<GeoPointBridge> {
 	public void toDocument(Indexable source, DocumentState target) {
 		GeoPoint coordinates = coordinatesExtractor.apply( source );
 		fieldReference.add( target, coordinates );
-	}
-
-	private static final class MutableCoordinates implements GeoPoint {
-		private double latitude;
-		private double longitude;
-
-		@Override
-		public double getLatitude() {
-			return latitude;
-		}
-
-		public void setLatitude(Double latitude) {
-			this.latitude = latitude;
-		}
-
-		@Override
-		public double getLongitude() {
-			return longitude;
-		}
-
-		public void setLongitude(Double longitude) {
-			this.longitude = longitude;
-		}
 	}
 
 }

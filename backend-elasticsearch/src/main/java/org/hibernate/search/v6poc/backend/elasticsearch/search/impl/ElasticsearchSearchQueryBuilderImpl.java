@@ -7,56 +7,54 @@
 package org.hibernate.search.v6poc.backend.elasticsearch.search.impl;
 
 import java.util.Set;
+import java.util.function.Function;
 
 import org.hibernate.search.v6poc.backend.elasticsearch.orchestration.impl.ElasticsearchWorkOrchestrator;
-import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWork;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWorkFactory;
+import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.search.SearchQuery;
-import org.hibernate.search.v6poc.search.SearchResult;
 
 import com.google.gson.JsonObject;
 
-
-/**
- * @author Yoann Rodiere
- */
-public class ElasticsearchSearchQuery<T> implements SearchQuery<T> {
+class ElasticsearchSearchQueryBuilderImpl<T> implements ElasticsearchSearchQueryBuilder<T> {
 
 	private final ElasticsearchWorkOrchestrator queryOrchestrator;
 	private final ElasticsearchWorkFactory workFactory;
 	private final Set<String> indexNames;
-	private final JsonObject payload;
 	private final HitExtractor<T> hitExtractor;
+	private JsonObject rootQueryClause;
 
-	private Long firstResultIndex;
-	private Long maxResultsCount;
-
-	public ElasticsearchSearchQuery(ElasticsearchWorkOrchestrator queryOrchestrator,
+	public ElasticsearchSearchQueryBuilderImpl(
+			ElasticsearchWorkOrchestrator queryOrchestrator,
 			ElasticsearchWorkFactory workFactory,
-			Set<String> indexNames, JsonObject payload, HitExtractor<T> hitExtractor) {
+			Set<String> indexNames,
+			SessionContext context,
+			HitExtractor<T> hitExtractor) {
+		String tenantId = context.getTenantIdentifier();
+		if ( tenantId != null ) {
+			// TODO handle tenant ID filtering
+		}
 		this.queryOrchestrator = queryOrchestrator;
 		this.workFactory = workFactory;
 		this.indexNames = indexNames;
-		this.payload = payload;
 		this.hitExtractor = hitExtractor;
 	}
 
 	@Override
-	public void setFirstResult(Long firstResultIndex) {
-		this.firstResultIndex = firstResultIndex;
+	public void setRootQueryClause(JsonObject rootQueryClause) {
+		this.rootQueryClause = rootQueryClause;
+	}
+
+	private SearchQuery<T> build() {
+		JsonObject payload = new JsonObject();
+		payload.add( "query", rootQueryClause );
+		hitExtractor.contributeRequest( payload );
+		return new ElasticsearchSearchQuery<>( queryOrchestrator, workFactory, indexNames,
+				payload, hitExtractor );
 	}
 
 	@Override
-	public void setMaxResults(Long maxResultsCount) {
-		this.maxResultsCount = maxResultsCount;
+	public <Q> Q build(Function<SearchQuery<T>, Q> searchQueryWrapperFactory) {
+		return searchQueryWrapperFactory.apply( build() );
 	}
-
-	@Override
-	public SearchResult<T> execute() {
-		ElasticsearchWork<SearchResult<T>> work = workFactory.search(
-				indexNames, payload, hitExtractor,
-				firstResultIndex, maxResultsCount );
-		return queryOrchestrator.submit( work ).join();
-	}
-
 }
