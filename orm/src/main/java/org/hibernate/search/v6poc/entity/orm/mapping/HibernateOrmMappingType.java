@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.entity.orm.mapping;
 
 import org.hibernate.search.v6poc.engine.SearchManagerBuilder;
 import org.hibernate.search.v6poc.entity.javabean.mapping.impl.JavaBeanMapperImplementor;
-import org.hibernate.search.v6poc.entity.mapping.MappingType;
+import org.hibernate.search.v6poc.entity.mapping.MappingKey;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
 
 
@@ -21,7 +21,7 @@ public final class HibernateOrmMappingType {
 		// Private constructor, use get() instead.
 	}
 
-	public static MappingType<PojoSearchManager, SearchManagerBuilder<PojoSearchManager>> get() {
+	public static MappingKey<PojoSearchManager, SearchManagerBuilder<PojoSearchManager>> get() {
 		return JavaBeanMapperImplementor.get();
 	}
 

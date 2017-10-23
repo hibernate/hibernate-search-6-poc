@@ -24,7 +24,7 @@ import org.hibernate.search.v6poc.engine.SearchManagerFactoryBuilder;
 import org.hibernate.search.v6poc.engine.spi.BeanResolver;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.engine.spi.ServiceManager;
-import org.hibernate.search.v6poc.entity.mapping.MappingType;
+import org.hibernate.search.v6poc.entity.mapping.MappingKey;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MapperImplementor;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MappingBuilder;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MetadataContributor;
@@ -40,7 +40,7 @@ import org.hibernate.search.v6poc.util.SearchException;
 public class SearchManagerFactoryBuilderImpl implements SearchManagerFactoryBuilder {
 
 	private final Properties properties = new Properties();
-	private final Map<MappingType<?, ?>, MapperContribution<?, ?>> contributionByMapper = new HashMap<>();
+	private final Map<MappingKey<?, ?>, MapperContribution<?, ?>> contributionByMapper = new HashMap<>();
 
 	@Override
 	public SearchManagerFactoryBuilder setProperty(String name, String value) {
@@ -87,7 +87,7 @@ public class SearchManagerFactoryBuilderImpl implements SearchManagerFactoryBuil
 						bridgeFactory, bridgeReferenceResolver );
 		// TODO close the holder (which will close the backends if anything fails after this
 
-		Map<MappingType<?, ?>, MappingBuilder<?, ?>> mappingBuilders = new HashMap<>();
+		Map<MappingKey<?, ?>, MappingBuilder<?, ?>> mappingBuilders = new HashMap<>();
 		contributionByMapper.forEach( (mapper, contribution) -> {
 			MappingBuilder<?, ?> builder = contribution.preBuild( indexManagerBuildingStateProvider );
 			mappingBuilders.put( mapper, builder );
@@ -96,7 +96,7 @@ public class SearchManagerFactoryBuilderImpl implements SearchManagerFactoryBuil
 		Map<String, IndexManager<?>> indexManagers = indexManagerBuildingStateProvider.build();
 		// TODO close the index managers if anything fails after this
 
-		Map<MappingType<?, ?>, Mapping<?>> mappings = new HashMap<>();
+		Map<MappingKey<?, ?>, Mapping<?>> mappings = new HashMap<>();
 		// TODO close the mappings created so far if anything fails after this
 		mappingBuilders.forEach( (mapper, builder) -> {
 			Mapping<?> mapping = builder.build();

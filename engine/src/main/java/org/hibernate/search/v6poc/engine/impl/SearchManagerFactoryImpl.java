@@ -11,7 +11,7 @@ import java.util.Map;
 import org.hibernate.search.v6poc.engine.SearchManager;
 import org.hibernate.search.v6poc.engine.SearchManagerBuilder;
 import org.hibernate.search.v6poc.engine.SearchManagerFactory;
-import org.hibernate.search.v6poc.entity.mapping.MappingType;
+import org.hibernate.search.v6poc.entity.mapping.MappingKey;
 import org.hibernate.search.v6poc.entity.mapping.spi.Mapping;
 import org.hibernate.search.v6poc.util.SearchException;
 
@@ -21,28 +21,28 @@ import org.hibernate.search.v6poc.util.SearchException;
  */
 public class SearchManagerFactoryImpl implements SearchManagerFactory {
 
-	private final Map<MappingType<?, ?>, Mapping<?>> mappings;
+	private final Map<MappingKey<?, ?>, Mapping<?>> mappings;
 
-	public SearchManagerFactoryImpl(Map<MappingType<?, ?>, Mapping<?>> mappings) {
+	public SearchManagerFactoryImpl(Map<MappingKey<?, ?>, Mapping<?>> mappings) {
 		super();
 		this.mappings = mappings;
 	}
 
 	@Override
-	public <T extends SearchManager> T createSearchManager(MappingType<T, ?> mapper) {
-		return getMapping( mapper ).createManagerBuilder().build();
+	public <T extends SearchManager> T createSearchManager(MappingKey<T, ?> mappingKey) {
+		return getMapping( mappingKey ).createManagerBuilder().build();
 	}
 
 	@Override
-	public <B extends SearchManagerBuilder<?>> B withOptions(MappingType<?, B> mapper) {
-		return getMapping( mapper ).createManagerBuilder();
+	public <B extends SearchManagerBuilder<?>> B withOptions(MappingKey<?, B> mappingKey) {
+		return getMapping( mappingKey ).createManagerBuilder();
 	}
 
-	private <B extends SearchManagerBuilder<?>> Mapping<B> getMapping(MappingType<?, B> mapper) {
+	private <B extends SearchManagerBuilder<?>> Mapping<B> getMapping(MappingKey<?, B> mappingKey) {
 		@SuppressWarnings("unchecked") // See SearchManagerFactoryBuilderImpl: we are sure that, if there is a mapping, it implements Mapping<B>
-		Mapping<B> mapping = (Mapping<B>) mappings.get( mapper );
+		Mapping<B> mapping = (Mapping<B>) mappings.get( mappingKey );
 		if ( mapping == null ) {
-			throw new SearchException( "No mapping registered for mapper '" + mapper + "'" );
+			throw new SearchException( "No mapping registered for mapping key '" + mappingKey + "'" );
 		}
 		return mapping;
 	}

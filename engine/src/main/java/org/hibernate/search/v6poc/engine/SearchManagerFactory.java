@@ -7,16 +7,16 @@
 package org.hibernate.search.v6poc.engine;
 
 import org.hibernate.search.v6poc.engine.impl.SearchManagerFactoryBuilderImpl;
-import org.hibernate.search.v6poc.entity.mapping.MappingType;
+import org.hibernate.search.v6poc.entity.mapping.MappingKey;
 
 /**
  * @author Yoann Rodiere
  */
 public interface SearchManagerFactory extends AutoCloseable {
 
-	<T extends SearchManager> T createSearchManager(MappingType<T, ?> mapper);
+	<T extends SearchManager> T createSearchManager(MappingKey<T, ?> mappingKey);
 
-	<B extends SearchManagerBuilder<?>> B withOptions(MappingType<?, B> mapper);
+	<B extends SearchManagerBuilder<?>> B withOptions(MappingKey<?, B> mappingKey);
 
 	@Override
 	default void close() {
