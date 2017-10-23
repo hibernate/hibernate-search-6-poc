@@ -13,7 +13,7 @@ import org.hibernate.search.v6poc.entity.model.spi.IndexedTypeIdentifier;
  */
 public interface TypeMetadataCollector {
 
-	<C> void collect(MapperImplementor<C, ?, ?> mapper,
+	<C> void collect(MapperFactory<C, ?> mapperFactory,
 			IndexedTypeIdentifier typeId, String indexName,
 			C contributor);
 

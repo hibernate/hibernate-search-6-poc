@@ -6,6 +6,8 @@
  */
 package org.hibernate.search.v6poc.entity.orm.model.impl;
 
+import javax.persistence.EntityManagerFactory;
+
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 
@@ -14,13 +16,7 @@ import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
  */
 public class HibernateOrmIntrospector implements PojoIntrospector {
 
-	private static final HibernateOrmIntrospector INSTANCE = new HibernateOrmIntrospector();
-
-	public static HibernateOrmIntrospector get() {
-		return INSTANCE;
-	}
-
-	private HibernateOrmIntrospector() {
+	public HibernateOrmIntrospector(EntityManagerFactory entityManagerFactory) {
 	}
 
 	@Override

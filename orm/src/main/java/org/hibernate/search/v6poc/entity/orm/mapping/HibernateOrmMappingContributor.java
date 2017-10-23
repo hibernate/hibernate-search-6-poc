@@ -6,8 +6,11 @@
  */
 package org.hibernate.search.v6poc.entity.orm.mapping;
 
-import org.hibernate.search.v6poc.entity.orm.mapping.impl.HibernateOrmMapperImplementor;
-import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMapperImpl;
+import org.hibernate.SessionFactory;
+import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
+import org.hibernate.search.v6poc.entity.orm.mapping.impl.HibernateOrmMapperFactory;
+import org.hibernate.search.v6poc.entity.orm.mapping.impl.HibernateOrmMappingImpl;
+import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingContributorImpl;
 
 /**
  * @author Yoann Rodiere
@@ -21,16 +24,15 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMapperImpl;
  *     when the @DocumentId is NOT the @Id, always ignore the provided ID. See org.hibernate.search.engine.impl.WorkPlan.PerClassWork.extractProperId(Work)
  *  5. And more?
  */
-public class HibernateOrmMapper extends PojoMapperImpl {
+public class HibernateOrmMappingContributor extends PojoMappingContributorImpl<HibernateOrmMapping, HibernateOrmMappingImpl> {
 
-	public static final HibernateOrmMapper INSTANCE = new HibernateOrmMapper();
-
-	public static HibernateOrmMapper get() {
-		return INSTANCE;
+	public HibernateOrmMappingContributor(SearchMappingRepositoryBuilder mappingRepositoryBuilder,
+			SessionFactory sessionFactory) {
+		super( mappingRepositoryBuilder, new HibernateOrmMapperFactory( sessionFactory ) );
 	}
 
-	private HibernateOrmMapper() {
-		super( HibernateOrmMapperImplementor.get() );
+	@Override
+	protected HibernateOrmMapping toReturnType(HibernateOrmMappingImpl mapping) {
+		return mapping;
 	}
-
 }

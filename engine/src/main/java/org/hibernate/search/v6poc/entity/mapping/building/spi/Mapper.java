@@ -6,14 +6,13 @@
  */
 package org.hibernate.search.v6poc.entity.mapping.building.spi;
 
-import org.hibernate.search.v6poc.engine.SearchManagerBuilder;
-import org.hibernate.search.v6poc.entity.mapping.spi.Mapping;
+import org.hibernate.search.v6poc.entity.mapping.spi.MappingImplementor;
 import org.hibernate.search.v6poc.entity.model.spi.IndexedTypeIdentifier;
 
 /**
  * @author Yoann Rodiere
  */
-public interface MappingBuilder<C, B extends SearchManagerBuilder<?>> {
+public interface Mapper<C, M extends MappingImplementor> {
 
 	/**
 	 * @param typeId The identifier of the indexed type to be mapped
@@ -25,6 +24,6 @@ public interface MappingBuilder<C, B extends SearchManagerBuilder<?>> {
 	void addIndexed(IndexedTypeIdentifier typeId, IndexManagerBuildingState<?> indexManagerBuildingState,
 			TypeMetadataContributorProvider<C> contributorProvider);
 
-	Mapping<B> build();
+	M build();
 
 }

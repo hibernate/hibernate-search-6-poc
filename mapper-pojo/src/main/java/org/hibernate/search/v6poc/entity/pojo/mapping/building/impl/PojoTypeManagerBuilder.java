@@ -13,7 +13,6 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContri
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoTypeManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoTypeManagerContainer;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoIntrospector;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoProxyIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.IdentifierConverter;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoTypeNodeProcessorBuilder;
@@ -21,7 +20,6 @@ import org.hibernate.search.v6poc.entity.pojo.processing.impl.PropertyIdentifier
 import org.hibernate.search.v6poc.util.SearchException;
 
 public class PojoTypeManagerBuilder<E, D extends DocumentState> {
-	private final PojoProxyIntrospector proxyIntrospector;
 	private final Class<E> javaType;
 	private final IndexManagerBuildingState<D> indexManagerBuildingState;
 
@@ -29,11 +27,10 @@ public class PojoTypeManagerBuilder<E, D extends DocumentState> {
 	private IdentifierConverter<?, E> idConverter;
 
 	public PojoTypeManagerBuilder(Class<E> javaType,
-			PojoIntrospector introspector, PojoProxyIntrospector proxyIntrospector,
+			PojoIntrospector introspector,
 			IndexManagerBuildingState<D> indexManagerBuildingState,
 			TypeMetadataContributorProvider<PojoTypeNodeMetadataContributor> contributorProvider,
 			IdentifierConverter<?, E> defaultIdentifierConverter) {
-		this.proxyIntrospector = proxyIntrospector;
 		this.javaType = javaType;
 		this.indexManagerBuildingState = indexManagerBuildingState;
 		this.processorBuilder = new PojoTypeNodeProcessorBuilder(
@@ -55,8 +52,8 @@ public class PojoTypeManagerBuilder<E, D extends DocumentState> {
 		if ( idConverter == null ) {
 			throw new SearchException( "Missing identifier mapping for indexed type '" + javaType + "'" );
 		}
-		PojoTypeManager<?, E, D> typeManager = new PojoTypeManager<>( proxyIntrospector, idConverter, javaType,
-				processorBuilder.build(), indexManagerBuildingState.getResult() );
+		PojoTypeManager<?, E, D> typeManager = new PojoTypeManager<>( idConverter, javaType,
+				processorBuilder.build(), indexManagerBuildingState.build() );
 		builder.add( indexManagerBuildingState.getIndexName(), javaType, typeManager );
 	}
 }
