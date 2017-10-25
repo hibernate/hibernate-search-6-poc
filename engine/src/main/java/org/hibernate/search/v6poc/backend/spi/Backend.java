@@ -6,10 +6,9 @@
  */
 package org.hibernate.search.v6poc.backend.spi;
 
-import java.util.Properties;
-
 import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManagerBuilder;
+import org.hibernate.search.v6poc.cfg.spi.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 
 /**
@@ -17,7 +16,7 @@ import org.hibernate.search.v6poc.engine.spi.BuildContext;
  */
 public interface Backend<D extends DocumentState> extends AutoCloseable {
 
-	IndexManagerBuilder<D> createIndexManagerBuilder(String name, BuildContext context, Properties indexProperties);
+	IndexManagerBuilder<D> createIndexManagerBuilder(String name, BuildContext context, ConfigurationPropertySource propertySource);
 
 	@Override
 	void close();
