@@ -12,8 +12,8 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexManagerBuildi
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoTypeManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoTypeManagerContainer;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.TypeModel;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.IdentifierConverter;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoTypeNodeProcessorBuilder;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PropertyIdentifierConverter;
@@ -26,15 +26,14 @@ public class PojoTypeManagerBuilder<E, D extends DocumentState> {
 	private final PojoTypeNodeProcessorBuilder processorBuilder;
 	private IdentifierConverter<?, E> idConverter;
 
-	public PojoTypeManagerBuilder(Class<E> javaType,
-			PojoIntrospector introspector,
+	public PojoTypeManagerBuilder(TypeModel<E> typeModel,
 			IndexManagerBuildingState<D> indexManagerBuildingState,
 			TypeMetadataContributorProvider<PojoTypeNodeMetadataContributor> contributorProvider,
 			IdentifierConverter<?, E> defaultIdentifierConverter) {
-		this.javaType = javaType;
+		this.javaType = typeModel.getJavaType();
 		this.indexManagerBuildingState = indexManagerBuildingState;
 		this.processorBuilder = new PojoTypeNodeProcessorBuilder(
-				javaType, introspector, contributorProvider,
+				typeModel, contributorProvider,
 				indexManagerBuildingState.getModelCollector(),
 				this::setIdentifierBridge );
 		this.idConverter = defaultIdentifierConverter;

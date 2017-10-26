@@ -11,8 +11,6 @@ package org.hibernate.search.v6poc.entity.pojo.model.spi;
  */
 public interface PropertyHandle {
 
-	String getName();
-
 	Class<?> getType();
 
 	Object get(Object thiz);

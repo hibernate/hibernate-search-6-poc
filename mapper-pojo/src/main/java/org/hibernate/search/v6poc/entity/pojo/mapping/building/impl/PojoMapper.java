@@ -21,6 +21,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoTypeManagerContai
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingDelegate;
 import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoIndexedTypeIdentifier;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoIntrospector;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.TypeModel;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.ProvidedToStringIdentifierConverter;
 
 
@@ -53,8 +54,9 @@ public class PojoMapper<M extends MappingImplementor> implements Mapper<PojoType
 			TypeMetadataContributorProvider<PojoTypeNodeMetadataContributor> contributorProvider) {
 		PojoIndexedTypeIdentifier pojoTypeId = (PojoIndexedTypeIdentifier) typeId;
 		Class<?> javaType = pojoTypeId.toJavaType();
+		TypeModel<?> typeModel = introspector.getEntityTypeModel( javaType );
 		PojoTypeManagerBuilder<?, ?> builder = new PojoTypeManagerBuilder<>(
-				javaType, introspector, indexManagerBuildingState, contributorProvider,
+				typeModel, indexManagerBuildingState, contributorProvider,
 				implicitProvidedId ? ProvidedToStringIdentifierConverter.get() : null );
 		PojoTypeNodeMappingCollector collector = builder.asCollector();
 		contributorProvider.get( pojoTypeId ).forEach( c -> c.contributeMapping( collector ) );

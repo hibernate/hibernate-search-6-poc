@@ -14,8 +14,8 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContri
 import org.hibernate.search.v6poc.entity.model.spi.IndexableModel;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeModelCollector;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoIntrospector;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyModel;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.TypeModel;
 
 
 /**
@@ -23,20 +23,13 @@ import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
  */
 public abstract class PojoIndexableModel implements IndexableModel, PojoTypeNodeModelCollector {
 
-	private final PojoIntrospector introspector;
-
-	private final Class<?> type;
-
 	private final TypeMetadataContributorProvider<PojoTypeNodeMetadataContributor> modelContributorProvider;
 
 	private final Map<String, PojoPropertyIndexableModel> propertyModelsByName = new HashMap<>();
 
 	private boolean markersForTypeInitialized = false;
 
-	public PojoIndexableModel(Class<?> type, PojoIntrospector introspector,
-			TypeMetadataContributorProvider<PojoTypeNodeMetadataContributor> modelContributorProvider) {
-		this.introspector = introspector;
-		this.type = type;
+	public PojoIndexableModel(TypeMetadataContributorProvider<PojoTypeNodeMetadataContributor> modelContributorProvider) {
 		this.modelContributorProvider = modelContributorProvider;
 	}
 
@@ -45,15 +38,15 @@ public abstract class PojoIndexableModel implements IndexableModel, PojoTypeNode
 
 	@Override
 	public boolean isAssignableTo(Class<?> clazz) {
-		return clazz.isAssignableFrom( type );
+		return clazz.isAssignableFrom( getJavaType() );
 	}
 
 	@Override
 	public PojoPropertyIndexableModel property(String relativeName) {
 		initMarkersForType();
 		return propertyModelsByName.computeIfAbsent( relativeName, name -> {
-			PropertyHandle handle = introspector.findReadableProperty( type, name );
-			return new PojoPropertyIndexableModel( this, handle, introspector, modelContributorProvider );
+			PropertyModel<?> model = getTypeModel().getProperty( name );
+			return new PojoPropertyIndexableModel( this, model, modelContributorProvider );
 		} );
 	}
 
@@ -71,14 +64,14 @@ public abstract class PojoIndexableModel implements IndexableModel, PojoTypeNode
 	private void initMarkersForType() {
 		if ( !markersForTypeInitialized ) {
 			this.markersForTypeInitialized = true;
-			getModelContributorProvider().get( new PojoIndexedTypeIdentifier( getType() ) )
+			getModelContributorProvider().get( new PojoIndexedTypeIdentifier( getJavaType() ) )
 					.forEach( c -> c.contributeModel( this ) );
 		}
 	}
 
-	protected Class<?> getType() {
-		return type;
-	}
+	protected abstract TypeModel<?> getTypeModel();
+
+	protected abstract Class<?> getJavaType();
 
 	protected TypeMetadataContributorProvider<PojoTypeNodeMetadataContributor> getModelContributorProvider() {
 		return modelContributorProvider;
