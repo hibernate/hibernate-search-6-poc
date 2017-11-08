@@ -6,9 +6,9 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl;
 
+import org.hibernate.search.v6poc.backend.document.impl.DeferredInitializationIndexFieldReference;
 import org.hibernate.search.v6poc.backend.document.model.spi.TerminalFieldModelContext;
 import org.hibernate.search.v6poc.backend.document.spi.IndexFieldReference;
-import org.hibernate.search.v6poc.backend.elasticsearch.document.impl.DeferredInitializationIndexFieldReference;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.impl.ElasticsearchIndexFieldReference;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.PropertyMapping;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.UnknownTypeJsonAccessor;
