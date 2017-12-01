@@ -15,6 +15,7 @@ import org.hibernate.search.v6poc.bridge.spi.IdentifierBridge;
 import org.hibernate.search.v6poc.engine.spi.BeanReference;
 import org.hibernate.search.v6poc.entity.model.spi.IndexableModel;
 import org.hibernate.search.v6poc.entity.model.spi.IndexedTypeIdentifier;
+import org.hibernate.search.v6poc.entity.processing.RoutingKeyBridge;
 import org.hibernate.search.v6poc.entity.processing.spi.ValueProcessor;
 
 /**
@@ -27,7 +28,11 @@ import org.hibernate.search.v6poc.entity.processing.spi.ValueProcessor;
  */
 public interface MappingIndexModelCollector {
 
-	<T> IdentifierBridge<T> createIdentifierBridge(Class<T> sourceType, BeanReference<? extends IdentifierBridge<?>> reference);
+	<T> IdentifierBridge<T> createIdentifierBridge(Class<T> sourceType,
+			BeanReference<? extends IdentifierBridge<?>> reference);
+
+	RoutingKeyBridge addRoutingKeyBridge(IndexableModel indexableModel,
+			BeanReference<? extends RoutingKeyBridge> reference);
 
 	ValueProcessor addBridge(IndexableModel indexableModel, BridgeDefinition<?> definition);
 

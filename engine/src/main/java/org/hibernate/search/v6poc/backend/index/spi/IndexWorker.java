@@ -6,17 +6,15 @@
  */
 package org.hibernate.search.v6poc.backend.index.spi;
 
-import org.hibernate.search.v6poc.backend.document.spi.DocumentContributor;
-
 /**
  * @author Yoann Rodiere
  */
 public interface IndexWorker<D> {
 
-	void add(String id, DocumentContributor<D> documentContributor);
+	void add(DocumentReferenceProvider documentReferenceProvider, DocumentContributor<D> documentContributor);
 
-	void update(String id, DocumentContributor<D> documentContributor);
+	void update(DocumentReferenceProvider documentReferenceProvider, DocumentContributor<D> documentContributor);
 
-	void delete(String id);
+	void delete(DocumentReferenceProvider documentReferenceProvider);
 
 }

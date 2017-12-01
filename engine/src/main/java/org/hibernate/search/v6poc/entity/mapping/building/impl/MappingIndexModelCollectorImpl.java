@@ -29,6 +29,7 @@ import org.hibernate.search.v6poc.entity.model.spi.IndexableModel;
 import org.hibernate.search.v6poc.entity.model.spi.IndexableReference;
 import org.hibernate.search.v6poc.entity.model.spi.IndexableTypeOrdering;
 import org.hibernate.search.v6poc.entity.model.spi.IndexedTypeIdentifier;
+import org.hibernate.search.v6poc.entity.processing.RoutingKeyBridge;
 import org.hibernate.search.v6poc.entity.processing.impl.BridgeValueProcessor;
 import org.hibernate.search.v6poc.entity.processing.impl.FunctionBridgeValueProcessor;
 import org.hibernate.search.v6poc.entity.processing.spi.ValueProcessor;
@@ -88,6 +89,17 @@ public class MappingIndexModelCollectorImpl implements MappingIndexModelCollecto
 		IdentifierBridge<?> bridge = bridgeFactory.createIdentifierBridge( defaultedReference );
 
 		return (IdentifierBridge<T>) bridge;
+	}
+
+	@Override
+	public RoutingKeyBridge addRoutingKeyBridge(IndexableModel indexableModel,
+			BeanReference<? extends RoutingKeyBridge> reference) {
+		RoutingKeyBridge bridge = bridgeFactory.createRoutingKeyBridge( reference );
+		bridge.bind( indexableModel );
+
+		collector.explicitRouting();
+
+		return bridge;
 	}
 
 	@Override

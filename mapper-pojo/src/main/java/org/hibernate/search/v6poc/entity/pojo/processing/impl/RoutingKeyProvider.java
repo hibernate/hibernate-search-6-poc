@@ -6,13 +6,17 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.processing.impl;
 
+import java.util.function.Supplier;
+
 /**
  * @author Yoann Rodiere
  */
-public interface IdentifierConverter<I, E> {
+public interface RoutingKeyProvider<E> {
 
-	String toDocumentId(Object providedId, E entity);
+	String toRoutingKey(Object identifier, Supplier<E> entitySupplier);
 
-	I fromDocumentId(String id);
+	static <E> RoutingKeyProvider<E> alwaysNull() {
+		return (identifier, entity) -> null;
+	}
 
 }

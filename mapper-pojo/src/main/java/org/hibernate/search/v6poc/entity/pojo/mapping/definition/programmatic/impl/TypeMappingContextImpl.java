@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.search.v6poc.bridge.mapping.BridgeDefinition;
+import org.hibernate.search.v6poc.engine.spi.BeanReference;
+import org.hibernate.search.v6poc.engine.spi.ImmutableBeanReference;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MetadataContributor;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoNodeMetadataContributor;
@@ -20,6 +22,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMapperFac
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyMappingContext;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.TypeMappingContext;
 import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoIndexedTypeIdentifier;
+import org.hibernate.search.v6poc.entity.processing.RoutingKeyBridge;
 
 /**
  * @author Yoann Rodiere
@@ -30,6 +33,8 @@ public class TypeMappingContextImpl implements TypeMappingContext, MetadataContr
 	private final Class<?> type;
 
 	private String indexName;
+	private BeanReference<RoutingKeyBridge> routingKeyBridgeReference;
+
 	private final List<PojoNodeMetadataContributor<? super PojoTypeNodeModelCollector, ? super PojoTypeNodeMappingCollector>>
 			children = new ArrayList<>();
 
@@ -50,6 +55,9 @@ public class TypeMappingContextImpl implements TypeMappingContext, MetadataContr
 
 	@Override
 	public void contributeMapping(PojoTypeNodeMappingCollector collector) {
+		if ( routingKeyBridgeReference != null ) {
+			collector.routingKeyBridge( routingKeyBridgeReference );
+		}
 		children.stream().forEach( c -> c.contributeMapping( collector ) );
 	}
 
@@ -61,6 +69,25 @@ public class TypeMappingContextImpl implements TypeMappingContext, MetadataContr
 	@Override
 	public TypeMappingContext indexed(String indexName) {
 		this.indexName = indexName;
+		return this;
+	}
+
+	@Override
+	public TypeMappingContext routingKeyBridge(String bridgeName) {
+		this.routingKeyBridgeReference = new ImmutableBeanReference<>( bridgeName );
+		return this;
+	}
+
+	@Override
+	public TypeMappingContext routingKeyBridge(Class<? extends RoutingKeyBridge> bridgeClass) {
+		this.routingKeyBridgeReference = new ImmutableBeanReference<>( bridgeClass );
+		return this;
+	}
+
+	@Override
+	public TypeMappingContext routingKeyBridge(
+			String bridgeName, Class<? extends RoutingKeyBridge> bridgeClass) {
+		this.routingKeyBridgeReference = new ImmutableBeanReference<>( bridgeName, bridgeClass );
 		return this;
 	}
 
