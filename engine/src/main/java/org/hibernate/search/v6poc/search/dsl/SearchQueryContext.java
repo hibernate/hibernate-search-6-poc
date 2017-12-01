@@ -7,10 +7,16 @@
 package org.hibernate.search.v6poc.search.dsl;
 
 
+import java.util.Collection;
+
 /**
  * @author Yoann Rodiere
  */
 public interface SearchQueryContext<Q> {
+
+	SearchQueryContext<Q> routing(String routingKey);
+
+	SearchQueryContext<Q> routing(Collection<String> routingKeys);
 
 	Q build();
 
