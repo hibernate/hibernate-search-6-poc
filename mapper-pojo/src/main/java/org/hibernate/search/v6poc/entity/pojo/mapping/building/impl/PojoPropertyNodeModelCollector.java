@@ -6,13 +6,13 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
-import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.MarkerDefinition;
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.MarkerBuilder;
 
 /**
  * @author Yoann Rodiere
  */
 public interface PojoPropertyNodeModelCollector extends PojoNodeModelCollector {
 
-	void marker(MarkerDefinition<?> definition);
+	void marker(MarkerBuilder definition);
 
 }
