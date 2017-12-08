@@ -655,12 +655,12 @@ public class JavaBeanElasticsearchIT {
 		}
 	}
 
-	public static final class MyBridgeImpl implements Bridge<MyBridge> {
+	public static final class MyBridgeImpl implements Bridge<Color, MyBridge> {
 
 		private MyBridge parameters;
-		private IndexableReference<IndexedEntity> sourceRef;
-		private IndexFieldReference<String> textFieldRef;
-		private IndexFieldReference<LocalDate> localDateFieldRef;
+		private BridgedElementReader<Color> colorReader;
+		private IndexFieldAccessor<String> rgbAccessor;
+		private IndexFieldAccessor<String> nameAccessor;
 
 		@Override
 		public void initialize(BuildContext buildContext, MyBridge parameters) {
@@ -668,22 +668,38 @@ public class JavaBeanElasticsearchIT {
 		}
 
 		@Override
-		public void bind(IndexableModel indexableModel, IndexModelCollector indexModelCollector) {
-			sourceRef = indexableModel.asReference( IndexedEntity.class );
-			IndexModelCollector objectRef = indexModelCollector.childObject( parameters.objectName() );
-			textFieldRef = objectRef.field( "text" ).fromString().asReference();
-			localDateFieldRef = objectRef.field( "date" ).fromLocalDate().asReference();
+		public void contribute(BridgedElementModel<Color> model, IndexSchemaElement indexSchemaElement,
+				EngineHandle /* TODO RENAME */ queryBinder) {
+			// Entity properties
+			colorReader = model.createReader( Color.class );
+
+			// Index fields
+			IndexSchemaElement colorModel = indexSchemaElement.childObject( parameters.objectName() );
+			rgbAccessor = colorModel.field( "rgb" ).asString().createWriter();
+			nameAccessor = colorModel.field( "name" ).asString().createWriter();
+
+			queryBinder.registerDefaultProjection( new Projection() {
+				Set<IndexFieldAccessor<?>> getRequiredAccessors() {
+
+				}
+
+				T project(DocumentState state) {
+
+				}
+			} );
 		}
 
 		@Override
-		public void toDocument(Indexable source, DocumentState target) {
-			IndexedEntity sourceValue = source.get( sourceRef );
+		public void write(DocumentState target, Indexable<Color> color) {
+			Color color = colorReader.read( car );
 			if ( sourceValue != null ) {
-				textFieldRef.add( target, sourceValue.getText() );
-				localDateFieldRef.add( target, sourceValue.getLocalDate() );
+				rgbAccessor.write( target, color.getText() );
+				nameAccessor.write( target, color.getLocalDate() );
 			}
 		}
 
 	}
 
 }
+
+// TODO also add SimpleBridge, without Indexable or BridgedElementModel
