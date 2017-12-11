@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.entity.pojo.processing.impl;
 
 import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
 import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.BridgedElement;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoState;
 
 
 /**
@@ -23,7 +23,7 @@ public class BridgeValueProcessor implements ValueProcessor {
 	}
 
 	@Override
-	public void process(DocumentState target, BridgedElement source) {
+	public void process(DocumentState target, PojoState source) {
 		bridge.write( target, source );
 	}
 

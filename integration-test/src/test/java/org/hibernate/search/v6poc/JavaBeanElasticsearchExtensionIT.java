@@ -21,7 +21,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.ElasticsearchExtension;
 import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.StubElasticsearchClient;
 import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.StubElasticsearchClient.Request;
 import org.hibernate.search.v6poc.backend.elasticsearch.impl.ElasticsearchBackendFactory;
-import org.hibernate.search.v6poc.entity.model.spi.EngineHandle;
+import org.hibernate.search.v6poc.entity.model.spi.SearchModel;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.spi.BridgeBeanReference;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.spi.BridgeMapping;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeDefinitionBase;
@@ -29,9 +29,9 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingContributor;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.BridgedElement;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.BridgedElementReader;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.BridgedElementModel;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoState;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElementAccessor;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElement;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.MappingDefinition;
@@ -217,13 +217,13 @@ public class JavaBeanElasticsearchExtensionIT {
 
 	public static final class MyElasticsearchBridgeImpl implements Bridge<MyElasticsearchBridge> {
 
-		private BridgedElementReader<String> sourceReader;
+		private PojoModelElementAccessor<String> sourceAccessor;
 		private IndexFieldAccessor<String> fieldAccessor;
 
 		@Override
-		public void contribute(IndexSchemaElement indexSchemaElement, BridgedElementModel bridgedElementModel,
-				EngineHandle engineHandle) {
-			sourceReader = bridgedElementModel.createReader( String.class );
+		public void contribute(IndexSchemaElement indexSchemaElement, PojoModelElement bridgedPojoModelElement,
+				SearchModel searchModel) {
+			sourceAccessor = bridgedPojoModelElement.createAccessor( String.class );
 			fieldAccessor = indexSchemaElement.field( "jsonStringField" )
 					.withExtension( ElasticsearchExtension.get() )
 					.asJsonString(
@@ -234,8 +234,8 @@ public class JavaBeanElasticsearchExtensionIT {
 		}
 
 		@Override
-		public void write(DocumentState target, BridgedElement source) {
-			String sourceValue = sourceReader.read( source );
+		public void write(DocumentState target, PojoState source) {
+			String sourceValue = sourceAccessor.read( source );
 			fieldAccessor.write( target, sourceValue );
 		}
 
