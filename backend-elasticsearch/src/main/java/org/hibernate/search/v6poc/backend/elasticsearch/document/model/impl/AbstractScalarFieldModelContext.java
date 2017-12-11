@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl;
 
-import org.hibernate.search.v6poc.backend.document.impl.DeferredInitializationIndexFieldReference;
+import org.hibernate.search.v6poc.backend.document.impl.DeferredInitializationIndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.Store;
 import org.hibernate.search.v6poc.backend.document.model.spi.TypedFieldModelContext;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.PropertyMapping;
@@ -28,7 +28,7 @@ abstract class AbstractScalarFieldModelContext<T> extends AbstractElasticsearchT
 	}
 
 	@Override
-	protected PropertyMapping contribute(DeferredInitializationIndexFieldReference<T> reference,
+	protected PropertyMapping contribute(DeferredInitializationIndexFieldAccessor<T> reference,
 			ElasticsearchFieldModelCollector collector) {
 		PropertyMapping mapping = new PropertyMapping();
 

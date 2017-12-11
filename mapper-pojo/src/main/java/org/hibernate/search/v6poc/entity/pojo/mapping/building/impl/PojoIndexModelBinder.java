@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
-import org.hibernate.search.v6poc.backend.document.model.spi.IndexModelCollector;
+import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaElement;
 import org.hibernate.search.v6poc.engine.spi.BeanReference;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
@@ -20,7 +20,7 @@ import org.hibernate.search.v6poc.entity.pojo.processing.impl.ValueProcessor;
 /**
  * Provides the ability to bind the entity model to the index model
  * by creating bridges and
- * {@link org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge#bind(BridgedElementModel, IndexModelCollector) binding}
+ * {@link org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge#bind(BridgedElementModel, IndexSchemaElement) binding}
  * them.
  * <p>
  * Incidentally, this will also generate the index model,
