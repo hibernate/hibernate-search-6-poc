@@ -11,7 +11,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.hibernate.search.v6poc.bridge.spi.FunctionBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.spi.FunctionBridge;
 
 /**
  * @author Yoann Rodiere

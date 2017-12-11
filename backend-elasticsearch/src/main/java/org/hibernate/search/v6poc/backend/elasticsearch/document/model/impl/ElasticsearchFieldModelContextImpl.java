@@ -13,7 +13,7 @@ import org.hibernate.search.v6poc.backend.document.model.spi.TypedFieldModelCont
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.ElasticsearchFieldModelContext;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.PropertyMapping;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.UnknownTypeJsonAccessor;
-import org.hibernate.search.v6poc.bridge.builtin.spatial.GeoPoint;
+import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.util.SearchException;
 
 

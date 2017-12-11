@@ -16,13 +16,13 @@ import org.hibernate.search.v6poc.engine.SearchMappingRepository;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingContributor;
-import org.hibernate.search.v6poc.entity.model.spi.Indexable;
-import org.hibernate.search.v6poc.entity.model.spi.IndexableModel;
-import org.hibernate.search.v6poc.entity.model.spi.IndexableReference;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.Indexable;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.IndexableModel;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.IndexableReference;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.MappingDefinition;
 import org.hibernate.search.v6poc.entity.pojo.search.PojoReference;
-import org.hibernate.search.v6poc.entity.processing.RoutingKeyBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.spi.RoutingKeyBridge;
 import org.hibernate.search.v6poc.search.SearchQuery;
 
 import org.junit.After;

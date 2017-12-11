@@ -7,9 +7,11 @@
 package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
 import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
-import org.hibernate.search.v6poc.bridge.spi.IdentifierBridge;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexManagerBuildingState;
+import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
+import org.hibernate.search.v6poc.entity.pojo.bridge.spi.IdentifierBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.spi.RoutingKeyBridge;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoTypeManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoTypeManagerContainer;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
@@ -19,7 +21,6 @@ import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoTypeNodeProces
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PropertyIdentifierMapping;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.RoutingKeyBridgeProvider;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.RoutingKeyProvider;
-import org.hibernate.search.v6poc.entity.processing.RoutingKeyBridge;
 import org.hibernate.search.v6poc.util.SearchException;
 
 public class PojoTypeManagerBuilder<E, D extends DocumentState> {
@@ -30,16 +31,16 @@ public class PojoTypeManagerBuilder<E, D extends DocumentState> {
 	private final PojoTypeNodeProcessorBuilder processorBuilder;
 
 	public PojoTypeManagerBuilder(TypeModel<E> typeModel,
-			IndexManagerBuildingState<D> indexManagerBuildingState,
 			TypeMetadataContributorProvider<PojoTypeNodeMetadataContributor> contributorProvider,
+			PojoIndexModelBinder indexModelBinder,
+			IndexManagerBuildingState<D> indexManagerBuildingState,
 			IdentifierMapping<?, E> defaultIdentifierMapping) {
 		this.javaType = typeModel.getJavaType();
 		this.indexManagerBuildingState = indexManagerBuildingState;
 		this.identityMappingCollector = new PojoTypeNodeIdentityMappingCollectorImpl( defaultIdentifierMapping );
+		IndexModelBindingContext bindingContext = indexManagerBuildingState.getRootBindingContext();
 		this.processorBuilder = new PojoTypeNodeProcessorBuilder(
-				typeModel, contributorProvider,
-				indexManagerBuildingState.getModelCollector(),
-				identityMappingCollector
+				typeModel, contributorProvider, indexModelBinder, bindingContext, identityMappingCollector
 		);
 	}
 

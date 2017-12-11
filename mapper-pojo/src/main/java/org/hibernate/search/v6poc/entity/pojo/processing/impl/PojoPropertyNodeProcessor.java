@@ -11,10 +11,9 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
-import org.hibernate.search.v6poc.entity.model.spi.Indexable;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.Indexable;
 import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoIndexable;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
-import org.hibernate.search.v6poc.entity.processing.spi.ValueProcessor;
 
 /**
  * @author Yoann Rodiere
