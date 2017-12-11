@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic;
 
 import org.hibernate.search.v6poc.backend.document.model.Store;
-import org.hibernate.search.v6poc.bridge.spi.FunctionBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.spi.FunctionBridge;
 
 /**
  * @author Yoann Rodiere

@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
 import org.hibernate.search.v6poc.engine.spi.BeanReference;
-import org.hibernate.search.v6poc.entity.processing.RoutingKeyBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.spi.RoutingKeyBridge;
 
 /**
  * @author Yoann Rodiere

@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.model.impl;
 
-import org.hibernate.search.v6poc.entity.model.spi.IndexableReference;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.IndexableReference;
 
 /**
  * @author Yoann Rodiere

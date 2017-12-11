@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
-import org.hibernate.search.v6poc.bridge.mapping.BridgeDefinition;
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeDefinition;
 
 /**
  * @author Yoann Rodiere

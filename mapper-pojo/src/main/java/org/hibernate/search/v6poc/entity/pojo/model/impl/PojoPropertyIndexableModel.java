@@ -14,10 +14,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import org.hibernate.search.v6poc.bridge.mapping.MarkerDefinition;
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.MarkerDefinition;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
-import org.hibernate.search.v6poc.entity.model.spi.IndexableModel;
-import org.hibernate.search.v6poc.entity.model.spi.IndexableReference;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.IndexableModel;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.IndexableReference;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoPropertyNodeModelCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;

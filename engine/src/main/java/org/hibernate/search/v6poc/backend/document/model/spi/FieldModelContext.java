@@ -8,7 +8,8 @@ package org.hibernate.search.v6poc.backend.document.model.spi;
 
 import java.time.LocalDate;
 
-import org.hibernate.search.v6poc.bridge.builtin.spatial.GeoPoint;
+import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
+
 
 /**
  * @author Yoann Rodiere

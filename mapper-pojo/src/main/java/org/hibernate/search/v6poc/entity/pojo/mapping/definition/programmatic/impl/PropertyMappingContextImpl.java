@@ -9,8 +9,8 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.i
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.search.v6poc.bridge.mapping.BridgeDefinition;
-import org.hibernate.search.v6poc.bridge.mapping.MarkerDefinition;
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeDefinition;
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.MarkerDefinition;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoNodeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoPropertyNodeMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoPropertyNodeModelCollector;

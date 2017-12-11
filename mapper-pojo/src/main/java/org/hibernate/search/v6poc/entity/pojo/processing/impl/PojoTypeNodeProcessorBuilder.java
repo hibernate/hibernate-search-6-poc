@@ -10,7 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.hibernate.search.v6poc.engine.spi.BeanReference;
-import org.hibernate.search.v6poc.entity.mapping.building.spi.MappingIndexModelCollector;
+import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoIndexModelBinder;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeIdentityMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoPropertyNodeMappingCollector;
@@ -18,7 +19,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNode
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.TypeModel;
-import org.hibernate.search.v6poc.entity.processing.RoutingKeyBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.spi.RoutingKeyBridge;
 
 /**
  * @author Yoann Rodiere
@@ -31,15 +32,15 @@ public class PojoTypeNodeProcessorBuilder extends AbstractPojoProcessorBuilder
 	public PojoTypeNodeProcessorBuilder(
 			TypeModel<?> typeModel,
 			TypeMetadataContributorProvider<PojoTypeNodeMetadataContributor> contributorProvider,
-			MappingIndexModelCollector indexModelBuilder,
+			PojoIndexModelBinder indexModelBinder, IndexModelBindingContext bindingContext,
 			PojoTypeNodeIdentityMappingCollector identityMappingCollector) {
-		super( typeModel, contributorProvider, indexModelBuilder,
+		super( typeModel, contributorProvider, indexModelBinder, bindingContext,
 				identityMappingCollector );
 	}
 
 	@Override
 	public void routingKeyBridge(BeanReference<? extends RoutingKeyBridge> reference) {
-		RoutingKeyBridge bridge = indexModelCollector.addRoutingKeyBridge( indexableModel, reference );
+		RoutingKeyBridge bridge = indexModelBinder.addRoutingKeyBridge( bindingContext, indexableModel, reference );
 		identityMappingCollector.routingKeyBridge( bridge );
 	}
 
@@ -51,7 +52,7 @@ public class PojoTypeNodeProcessorBuilder extends AbstractPojoProcessorBuilder
 	private PojoPropertyNodeProcessorBuilder createPropertyProcessorBuilder(String name) {
 		PropertyModel<?> propertyModel = indexableModel.property( name ).getPropertyModel();
 		return new PojoPropertyNodeProcessorBuilder( propertyModel,
-				contributorProvider, indexModelCollector, identityMappingCollector
+				contributorProvider, indexModelBinder, bindingContext, identityMappingCollector
 		);
 	}
 
