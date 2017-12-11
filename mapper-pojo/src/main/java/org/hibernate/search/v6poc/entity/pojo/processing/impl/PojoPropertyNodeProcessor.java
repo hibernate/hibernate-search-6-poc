@@ -11,8 +11,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.Indexable;
-import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoIndexable;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.BridgedElement;
+import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoBridgedElement;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 
 /**
@@ -37,9 +37,9 @@ public class PojoPropertyNodeProcessor {
 	public final void process(Object source, DocumentState destination) {
 		Object nestedValue = handle.get( source );
 		if ( !processors.isEmpty() ) {
-			Indexable indexable = new PojoIndexable( nestedValue );
+			BridgedElement bridgedElement = new PojoBridgedElement( nestedValue );
 			for ( ValueProcessor processor : processors ) {
-				processor.process( indexable, destination );
+				processor.process( destination, bridgedElement );
 			}
 		}
 		for ( PojoTypeNodeProcessor processor : indexedEmbeddedProcessors ) {

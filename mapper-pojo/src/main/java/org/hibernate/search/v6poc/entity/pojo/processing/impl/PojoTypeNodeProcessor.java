@@ -11,8 +11,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.Indexable;
-import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoIndexable;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.BridgedElement;
+import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoBridgedElement;
 
 /**
  * @author Yoann Rodiere
@@ -35,9 +35,9 @@ public class PojoTypeNodeProcessor {
 			return;
 		}
 		if ( !typeScopedProcessors.isEmpty() ) {
-			Indexable indexable = new PojoIndexable( source );
+			BridgedElement bridgedElement = new PojoBridgedElement( source );
 			for ( ValueProcessor processor : typeScopedProcessors ) {
-				processor.process( indexable, destination );
+				processor.process( destination, bridgedElement );
 			}
 		}
 		for ( PojoPropertyNodeProcessor processor : propertyScopedProcessors ) {

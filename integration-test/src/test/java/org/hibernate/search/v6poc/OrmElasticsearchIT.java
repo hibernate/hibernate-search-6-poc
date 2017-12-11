@@ -41,9 +41,9 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeDefinitionBas
 import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.spi.FunctionBridge;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.Indexable;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.IndexableModel;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.IndexableReference;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.BridgedElement;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.BridgedElementReader;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.BridgedElementModel;
 import org.hibernate.search.v6poc.entity.orm.Search;
 import org.hibernate.search.v6poc.entity.orm.cfg.AvailableSettings;
 import org.hibernate.search.v6poc.entity.orm.hibernate.FullTextQuery;
@@ -709,7 +709,7 @@ public class OrmElasticsearchIT {
 	public static final class MyBridgeImpl implements Bridge<MyBridge> {
 
 		private MyBridge parameters;
-		private IndexableReference<IndexedEntity> sourceRef;
+		private BridgedElementReader<IndexedEntity> sourceReader;
 		private IndexFieldReference<String> textFieldRef;
 		private IndexFieldReference<LocalDate> localDateFieldRef;
 
@@ -719,16 +719,16 @@ public class OrmElasticsearchIT {
 		}
 
 		@Override
-		public void bind(IndexableModel indexableModel, IndexModelCollector indexModelCollector) {
-			sourceRef = indexableModel.asReference( IndexedEntity.class );
+		public void bind(BridgedElementModel bridgedElementModel, IndexModelCollector indexModelCollector) {
+			sourceReader = bridgedElementModel.createReader( IndexedEntity.class );
 			IndexModelCollector objectRef = indexModelCollector.childObject( parameters.objectName() );
 			textFieldRef = objectRef.field( "text" ).fromString().asReference();
 			localDateFieldRef = objectRef.field( "date" ).fromLocalDate().asReference();
 		}
 
 		@Override
-		public void toDocument(Indexable source, DocumentState target) {
-			IndexedEntity sourceValue = source.get( sourceRef );
+		public void toDocument(BridgedElement source, DocumentState target) {
+			IndexedEntity sourceValue = sourceReader.read( source );
 			if ( sourceValue != null ) {
 				textFieldRef.add( target, sourceValue.getText() );
 				localDateFieldRef.add( target, sourceValue.getLocalDate() );

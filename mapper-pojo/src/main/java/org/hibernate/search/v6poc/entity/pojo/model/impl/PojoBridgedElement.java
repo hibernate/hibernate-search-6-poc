@@ -6,15 +6,23 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.model.impl;
 
-import org.hibernate.search.v6poc.entity.pojo.model.spi.IndexableReference;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.BridgedElement;
+
 
 /**
  * @author Yoann Rodiere
  */
-public interface PojoIndexableReference<T> extends IndexableReference<T> {
+public class PojoBridgedElement implements BridgedElement {
 
-	Class<T> getType();
+	private final Object root;
 
-	T get(Object root);
+	public PojoBridgedElement(Object root) {
+		super();
+		this.root = root;
+	}
+
+	Object get() {
+		return root;
+	}
 
 }
