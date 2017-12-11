@@ -10,6 +10,10 @@ package org.hibernate.search.v6poc.entity.pojo.model.spi;
 /**
  * @author Yoann Rodiere
  */
-public interface IndexableReference<T> {
+public interface BridgedElementReader<T> {
+
+	Class<T> getType();
+
+	T read(BridgedElement bridgedElement);
 
 }

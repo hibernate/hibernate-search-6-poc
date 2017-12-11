@@ -11,8 +11,8 @@ import java.lang.annotation.Annotation;
 import org.hibernate.search.v6poc.backend.document.model.spi.IndexModelCollector;
 import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.Indexable;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.IndexableModel;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.BridgedElement;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.BridgedElementModel;
 
 /**
  * @author Yoann Rodiere
@@ -28,9 +28,9 @@ public interface Bridge<A extends Annotation> extends AutoCloseable {
 	 * TODO add an object to define "virtual" fields: fields which are not in the index,
 	 * but can be simulated on the client side when projecting and querying.
 	 */
-	void bind(IndexableModel indexableModel, IndexModelCollector indexModelCollector);
+	void bind(BridgedElementModel bridgedElementModel, IndexModelCollector indexModelCollector);
 
-	void toDocument(Indexable source, DocumentState target);
+	void toDocument(BridgedElement source, DocumentState target);
 
 	@Override
 	default void close() {
