@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.backend.elasticsearch.document.impl;
 
 import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
-import org.hibernate.search.v6poc.backend.document.spi.IndexFieldReference;
+import org.hibernate.search.v6poc.backend.document.spi.IndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchFieldModel;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
 
@@ -18,20 +18,20 @@ import com.google.gson.JsonElement;
  * @author Yoann Rodiere
  * @author Guillaume Smet
  */
-public class ElasticsearchIndexFieldReference<T> implements IndexFieldReference<T> {
+public class ElasticsearchIndexFieldAccessor<T> implements IndexFieldAccessor<T> {
 
 	private final JsonAccessor<JsonElement> accessor;
 
 	private final ElasticsearchFieldModel model;
 
-	public ElasticsearchIndexFieldReference(JsonAccessor<JsonElement> accessor,
+	public ElasticsearchIndexFieldAccessor(JsonAccessor<JsonElement> accessor,
 			ElasticsearchFieldModel model) {
 		this.accessor = accessor;
 		this.model = model;
 	}
 
 	@Override
-	public void add(DocumentState state, T value) {
+	public void write(DocumentState state, T value) {
 		((ElasticsearchDocumentBuilder) state).add( accessor, model.getFormatter().format( value ) );
 	}
 

@@ -6,8 +6,8 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl;
 
-import org.hibernate.search.v6poc.backend.document.impl.DeferredInitializationIndexFieldReference;
-import org.hibernate.search.v6poc.backend.elasticsearch.document.impl.ElasticsearchIndexFieldReference;
+import org.hibernate.search.v6poc.backend.document.impl.DeferredInitializationIndexFieldAccessor;
+import org.hibernate.search.v6poc.backend.elasticsearch.document.impl.ElasticsearchIndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.DataType;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.PropertyMapping;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
@@ -33,13 +33,13 @@ class GeoPointFieldModelContext extends AbstractScalarFieldModelContext<GeoPoint
 	}
 
 	@Override
-	protected PropertyMapping contribute(DeferredInitializationIndexFieldReference<GeoPoint> reference,
+	protected PropertyMapping contribute(DeferredInitializationIndexFieldAccessor<GeoPoint> reference,
 			ElasticsearchFieldModelCollector collector) {
 		PropertyMapping mapping = super.contribute( reference, collector );
 
 		ElasticsearchFieldModel model = new ElasticsearchFieldModel( GeoPointFieldFormatter.INSTANCE );
 
-		reference.initialize( new ElasticsearchIndexFieldReference<>( accessor, model ) );
+		reference.initialize( new ElasticsearchIndexFieldAccessor<>( accessor, model ) );
 		mapping.setType( DataType.GEO_POINT );
 
 		String absolutePath = accessor.getStaticAbsolutePath();
