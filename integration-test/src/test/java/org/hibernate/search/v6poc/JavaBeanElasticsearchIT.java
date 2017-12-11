@@ -22,6 +22,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.StubElastics
 import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.StubElasticsearchClient.Request;
 import org.hibernate.search.v6poc.backend.elasticsearch.impl.ElasticsearchBackendFactory;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.impl.ElasticsearchDocumentReference;
+import org.hibernate.search.v6poc.entity.model.spi.EngineHandle;
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.impl.DefaultIntegerIdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.spi.BridgeBeanReference;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.spi.BridgeMapping;
@@ -668,7 +669,8 @@ public class JavaBeanElasticsearchIT {
 		}
 
 		@Override
-		public void bind(IndexSchemaElement indexSchemaElement, BridgedElementModel bridgedElementModel) {
+		public void bind(IndexSchemaElement indexSchemaElement, BridgedElementModel bridgedElementModel,
+				EngineHandle engineHandle) {
 			sourceReader = bridgedElementModel.createReader( IndexedEntity.class );
 			IndexSchemaElement objectSchemaElement = indexSchemaElement.childObject( parameters.objectName() );
 			textFieldAccessor = objectSchemaElement.field( "text" ).asString().createAccessor();
