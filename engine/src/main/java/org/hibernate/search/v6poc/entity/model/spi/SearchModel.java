@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.entity.model.spi;
 
-public interface EngineHandle {
+public interface SearchModel {
 
 	/*
 	 * TODO add a method to define how to query and project on entity properties
