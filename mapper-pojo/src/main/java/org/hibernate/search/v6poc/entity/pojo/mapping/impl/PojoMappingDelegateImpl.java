@@ -11,11 +11,12 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.entity.pojo.logging.impl.Log;
 import org.hibernate.search.v6poc.entity.pojo.mapping.ChangesetPojoWorker;
 import org.hibernate.search.v6poc.entity.pojo.mapping.StreamPojoWorker;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingDelegate;
-import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoSearchTarget;
+import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoSearchTargetDelegate;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoSessionContext;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoIntrospector;
 import org.hibernate.search.v6poc.util.SearchException;
@@ -50,7 +51,8 @@ public class PojoMappingDelegateImpl implements PojoMappingDelegate {
 	}
 
 	@Override
-	public <T> PojoSearchTarget<T> createPojoSearchTarget(Collection<? extends Class<? extends T>> targetedTypes) {
+	public <T> PojoSearchTargetDelegate<T> createPojoSearchTarget(Collection<? extends Class<? extends T>> targetedTypes,
+			SessionContext sessionContext) {
 		if ( targetedTypes.isEmpty() ) {
 			throw log.cannotSearchOnEmptyTarget();
 		}
@@ -60,7 +62,7 @@ public class PojoMappingDelegateImpl implements PojoMappingDelegate {
 						.stream()
 				)
 				.collect( Collectors.toCollection( LinkedHashSet::new ) );
-		return new PojoSearchTargetImpl<>( typeManagers, targetedTypeManagers );
+		return new PojoSearchTargetDelegateImpl<>( typeManagers, targetedTypeManagers, sessionContext );
 	}
 
 	@Override
