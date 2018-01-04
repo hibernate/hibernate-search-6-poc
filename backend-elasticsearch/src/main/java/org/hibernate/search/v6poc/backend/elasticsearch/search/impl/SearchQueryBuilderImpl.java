@@ -17,6 +17,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.search.dsl.impl.Elastics
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWorkFactory;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.search.SearchQuery;
+import org.hibernate.search.v6poc.search.dsl.spi.SearchQueryBuilder;
 import org.hibernate.search.v6poc.search.spi.HitAggregator;
 
 import com.google.gson.JsonObject;

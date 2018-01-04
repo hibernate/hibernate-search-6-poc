@@ -17,10 +17,9 @@ import org.hibernate.search.v6poc.backend.elasticsearch.orchestration.impl.Elast
 import org.hibernate.search.v6poc.backend.elasticsearch.search.dsl.impl.ElasticsearchSearchPredicateCollector;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.dsl.impl.ElasticsearchSearchTargetContext;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.dsl.impl.ElasticsearchSingleSearchPredicateCollector;
-import org.hibernate.search.v6poc.backend.elasticsearch.search.dsl.impl.QuerySearchPredicateBuildingRootContextImpl;
-import org.hibernate.search.v6poc.backend.elasticsearch.search.dsl.impl.SearchPredicateContainerContextImpl;
 import org.hibernate.search.v6poc.search.dsl.spi.SearchPredicateContributor;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.impl.SearchQueryResultDefinitionContextImpl;
+import org.hibernate.search.v6poc.search.dsl.spi.SearchTargetPredicateRootContext;
 import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateFactory;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.predicate.impl.SearchPredicateFactoryImpl;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWorkFactory;
@@ -69,8 +68,7 @@ class ElasticsearchIndexSearchTarget implements IndexSearchTarget, Elasticsearch
 
 	@Override
 	public SearchPredicateContainerContext<SearchPredicate> predicate() {
-		return new SearchPredicateContainerContextImpl<>(
-				this, new QuerySearchPredicateBuildingRootContextImpl<>( this ) );
+		return new SearchTargetPredicateRootContext<>( this );
 	}
 
 	@Override
