@@ -4,13 +4,12 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.hibernate.search.v6poc.backend.elasticsearch.search.predicate.impl;
+package org.hibernate.search.v6poc.search.predicate.spi;
 
 /**
  * @author Yoann Rodiere
  */
-// TODO move that to engine?
-public interface RangePredicateBuilder extends SearchPredicateBuilder {
+public interface RangePredicateBuilder<C> extends SearchPredicateBuilder<C> {
 
 	void lowerLimit(Object value);
 
