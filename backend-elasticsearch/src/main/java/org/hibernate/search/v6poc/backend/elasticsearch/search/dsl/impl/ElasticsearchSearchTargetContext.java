@@ -13,9 +13,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.orchestration.impl.Elast
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWorkFactory;
 import org.hibernate.search.v6poc.search.dsl.spi.SearchTargetContext;
 
-/**
- * @author Yoann Rodiere
- */
+
 public interface ElasticsearchSearchTargetContext extends SearchTargetContext<ElasticsearchSearchPredicateCollector> {
 
 	Set<String> getIndexNames();

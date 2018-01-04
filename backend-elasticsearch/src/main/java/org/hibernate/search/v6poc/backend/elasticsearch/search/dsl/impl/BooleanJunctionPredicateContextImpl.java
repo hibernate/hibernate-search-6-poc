@@ -20,9 +20,6 @@ import org.hibernate.search.v6poc.search.dsl.spi.SearchDslContext;
 import org.hibernate.search.v6poc.search.dsl.spi.SearchPredicateContributor;
 
 
-/**
- * @author Yoann Rodiere
- */
 class BooleanJunctionPredicateContextImpl<N, C>
 		implements BooleanJunctionPredicateContext<N>, SearchPredicateContributor<C> {
 
