@@ -6,12 +6,19 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.search.dsl.impl;
 
-import java.util.function.Consumer;
-
 import com.google.gson.JsonObject;
 
-public interface ElasticsearchSearchPredicateContributor {
+public class ElasticsearchSingleSearchPredicateCollector implements ElasticsearchSearchPredicateCollector {
 
-	void contribute(Consumer<JsonObject> collector);
+	private JsonObject jsonQuery;
+
+	@Override
+	public void collect(JsonObject jsonQuery) {
+		this.jsonQuery = jsonQuery;
+	}
+
+	public JsonObject toJson() {
+		return jsonQuery;
+	}
 
 }
