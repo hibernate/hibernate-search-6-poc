@@ -22,9 +22,6 @@ import org.hibernate.search.v6poc.search.dsl.predicate.RangePredicateFieldSetCon
 import org.hibernate.search.v6poc.search.dsl.predicate.RangePredicateFromContext;
 
 
-/**
- * @author Yoann Rodiere
- */
 class RangePredicateFieldSetContextImpl<N, C>
 		implements RangePredicateFieldSetContext<N>, MultiFieldPredicateCommonState.FieldSetContext<C> {
 

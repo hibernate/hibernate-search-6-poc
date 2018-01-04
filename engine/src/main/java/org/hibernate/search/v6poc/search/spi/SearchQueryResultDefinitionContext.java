@@ -12,7 +12,7 @@ import java.util.function.Function;
 import org.hibernate.search.v6poc.search.SearchQuery;
 
 /**
- * @author Yoann Rodiere
+ * The context used when building a query, when the search result type must be defined.
  */
 public interface SearchQueryResultDefinitionContext<R, O> {
 

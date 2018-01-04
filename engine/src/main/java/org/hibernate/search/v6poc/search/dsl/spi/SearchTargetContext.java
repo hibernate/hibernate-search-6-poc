@@ -10,7 +10,7 @@ import org.hibernate.search.v6poc.search.SearchPredicate;
 import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateFactory;
 
 /**
- * @author Yoann Rodiere
+ * The target context during a search, aware of the targeted indexes and of the underlying technology (backend).
  */
 public interface SearchTargetContext<C> {
 

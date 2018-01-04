@@ -19,9 +19,6 @@ import org.hibernate.search.v6poc.search.dsl.spi.SearchTargetContext;
 import org.hibernate.search.v6poc.search.spi.SearchQueryWrappingDefinitionResultContext;
 
 
-/**
- * @author Yoann Rodiere
- */
 public class SearchQueryWrappingDefinitionResultContextImpl<T, C, Q>
 		implements SearchQueryResultContext<Q>, SearchQueryWrappingDefinitionResultContext<Q> {
 
