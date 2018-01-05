@@ -20,7 +20,7 @@ import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;
 import org.hibernate.search.v6poc.search.ObjectLoader;
 import org.hibernate.search.v6poc.search.SearchPredicate;
 import org.hibernate.search.v6poc.search.dsl.predicate.SearchPredicateContainerContext;
-import org.hibernate.search.v6poc.search.spi.SearchQueryResultDefinitionContext;
+import org.hibernate.search.v6poc.search.dsl.query.SearchQueryResultDefinitionContext;
 import org.hibernate.search.v6poc.util.AssertionFailure;
 
 public class PojoSearchTargetDelegateImpl<T> implements PojoSearchTargetDelegate<T> {

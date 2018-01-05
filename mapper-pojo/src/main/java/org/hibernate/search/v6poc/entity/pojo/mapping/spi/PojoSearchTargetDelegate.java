@@ -11,7 +11,7 @@ import java.util.Set;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchTarget;
 import org.hibernate.search.v6poc.entity.pojo.search.PojoReference;
 import org.hibernate.search.v6poc.search.ObjectLoader;
-import org.hibernate.search.v6poc.search.spi.SearchQueryResultDefinitionContext;
+import org.hibernate.search.v6poc.search.dsl.query.SearchQueryResultDefinitionContext;
 
 public interface PojoSearchTargetDelegate<T> extends PojoSearchTarget<PojoReference> {
 

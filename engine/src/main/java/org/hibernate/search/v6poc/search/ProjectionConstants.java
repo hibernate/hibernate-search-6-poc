@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.search;
 
-import org.hibernate.search.v6poc.search.spi.SearchQueryResultDefinitionContext;
+import org.hibernate.search.v6poc.search.dsl.query.SearchQueryResultDefinitionContext;
 
 public final class ProjectionConstants {
 

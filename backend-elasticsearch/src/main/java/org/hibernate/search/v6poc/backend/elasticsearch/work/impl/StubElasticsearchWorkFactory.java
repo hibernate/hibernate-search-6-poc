@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.backend.elasticsearch.work.impl;
 
 import java.util.Set;
 
-import org.hibernate.search.v6poc.backend.elasticsearch.search.impl.SearchResultExtractor;
+import org.hibernate.search.v6poc.backend.elasticsearch.search.query.impl.SearchResultExtractor;
 import org.hibernate.search.v6poc.search.SearchResult;
 
 import com.google.gson.JsonObject;
