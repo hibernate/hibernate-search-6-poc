@@ -13,7 +13,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoSearchTargetDelega
 import org.hibernate.search.v6poc.entity.pojo.search.PojoReference;
 import org.hibernate.search.v6poc.search.SearchPredicate;
 import org.hibernate.search.v6poc.search.dsl.predicate.SearchPredicateContainerContext;
-import org.hibernate.search.v6poc.search.spi.SearchQueryResultDefinitionContext;
+import org.hibernate.search.v6poc.search.dsl.query.SearchQueryResultDefinitionContext;
 
 public class HibernateOrmSearchTargetImpl<T> implements HibernateOrmSearchTarget<T> {
 

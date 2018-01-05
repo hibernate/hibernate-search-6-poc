@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.search.dsl.query.impl;
 import java.util.Collection;
 import java.util.function.Function;
 
-import org.hibernate.search.v6poc.search.dsl.spi.SearchQueryBuilder;
+import org.hibernate.search.v6poc.search.query.spi.SearchQueryBuilder;
 import org.hibernate.search.v6poc.search.SearchQuery;
 import org.hibernate.search.v6poc.search.dsl.query.SearchQueryContext;
 

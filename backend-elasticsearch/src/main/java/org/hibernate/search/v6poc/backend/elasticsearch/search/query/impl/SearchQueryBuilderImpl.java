@@ -4,7 +4,7 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.hibernate.search.v6poc.backend.elasticsearch.search.impl;
+package org.hibernate.search.v6poc.backend.elasticsearch.search.query.impl;
 
 import java.util.HashSet;
 import java.util.List;
@@ -17,8 +17,8 @@ import org.hibernate.search.v6poc.backend.elasticsearch.search.dsl.impl.Elastics
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWorkFactory;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.search.SearchQuery;
-import org.hibernate.search.v6poc.search.dsl.spi.SearchQueryBuilder;
-import org.hibernate.search.v6poc.search.spi.HitAggregator;
+import org.hibernate.search.v6poc.search.query.spi.SearchQueryBuilder;
+import org.hibernate.search.v6poc.search.query.spi.HitAggregator;
 
 import com.google.gson.JsonObject;
 

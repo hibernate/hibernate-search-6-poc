@@ -8,6 +8,7 @@ package org.hibernate.search.v6poc.search.dsl.spi;
 
 import org.hibernate.search.v6poc.search.SearchPredicate;
 import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateFactory;
+import org.hibernate.search.v6poc.search.query.spi.SearchQueryFactory;
 
 /**
  * The target context during a search, aware of the targeted indexes and of the underlying technology (backend).
@@ -19,5 +20,7 @@ public interface SearchTargetContext<C> {
 	SearchPredicateContributor<C> toContributor(SearchPredicate predicate);
 
 	SearchPredicateFactory<C> getSearchPredicateFactory();
+
+	SearchQueryFactory<C> getSearchQueryFactory();
 
 }

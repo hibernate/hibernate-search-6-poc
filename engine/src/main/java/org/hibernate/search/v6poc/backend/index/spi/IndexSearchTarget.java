@@ -13,7 +13,7 @@ import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.search.ObjectLoader;
 import org.hibernate.search.v6poc.search.SearchPredicate;
 import org.hibernate.search.v6poc.search.dsl.predicate.SearchPredicateContainerContext;
-import org.hibernate.search.v6poc.search.spi.SearchQueryResultDefinitionContext;
+import org.hibernate.search.v6poc.search.dsl.query.SearchQueryResultDefinitionContext;
 
 public interface IndexSearchTarget {
 
