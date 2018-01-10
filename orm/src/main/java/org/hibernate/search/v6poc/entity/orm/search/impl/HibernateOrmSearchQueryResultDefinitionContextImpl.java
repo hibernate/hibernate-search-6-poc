@@ -11,13 +11,13 @@ import java.util.function.Function;
 
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.search.v6poc.entity.orm.hibernate.FullTextQuery;
-import org.hibernate.search.v6poc.entity.orm.hibernate.HibernateOrmSearchQueryQueryResultDefinitionContext;
+import org.hibernate.search.v6poc.entity.orm.hibernate.HibernateOrmSearchQueryResultDefinitionContext;
 import org.hibernate.search.v6poc.entity.orm.impl.FullTextQueryImpl;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoSearchTargetDelegate;
 import org.hibernate.search.v6poc.search.dsl.query.SearchQueryResultContext;
 
 public class HibernateOrmSearchQueryResultDefinitionContextImpl<O>
-		implements HibernateOrmSearchQueryQueryResultDefinitionContext<O> {
+		implements HibernateOrmSearchQueryResultDefinitionContext<O> {
 	private final PojoSearchTargetDelegate<O> searchTargetDelegate;
 	private final SessionImplementor sessionImplementor;
 	private final ObjectLoaderBuilder<O> objectLoaderBuilder;
