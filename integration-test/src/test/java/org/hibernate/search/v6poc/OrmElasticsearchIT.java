@@ -6,10 +6,6 @@
  */
 package org.hibernate.search.v6poc;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -34,26 +30,24 @@ import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.StubElastics
 import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.StubElasticsearchClient.Request;
 import org.hibernate.search.v6poc.backend.elasticsearch.impl.ElasticsearchBackendFactory;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.impl.ElasticsearchDocumentReference;
-import org.hibernate.search.v6poc.entity.model.spi.SearchModel;
-import org.hibernate.search.v6poc.entity.orm.hibernate.FullTextSearchTarget;
-import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.impl.DefaultIntegerIdentifierBridge;
-import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.spi.BridgeBeanReference;
-import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.spi.BridgeMapping;
-import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeDefinitionBase;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.FunctionBridge;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoState;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElementAccessor;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElement;
+import org.hibernate.search.v6poc.entity.model.spi.SearchModel;
 import org.hibernate.search.v6poc.entity.orm.Search;
 import org.hibernate.search.v6poc.entity.orm.cfg.AvailableSettings;
 import org.hibernate.search.v6poc.entity.orm.hibernate.FullTextQuery;
+import org.hibernate.search.v6poc.entity.orm.hibernate.FullTextSearchTarget;
 import org.hibernate.search.v6poc.entity.orm.hibernate.FullTextSession;
 import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmMappingContributor;
 import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmSearchMappingContributor;
+import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.impl.DefaultIntegerIdentifierBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
+import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.spi.FunctionBridge;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.MappingDefinition;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoReferenceImpl;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElement;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElementAccessor;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoState;
 import org.hibernate.search.v6poc.search.ProjectionConstants;
 import org.hibernate.search.v6poc.search.SearchPredicate;
 import org.hibernate.search.v6poc.search.dsl.predicate.RangeBoundInclusion;
@@ -636,7 +630,7 @@ public class OrmElasticsearchIT {
 			mapping.type( IndexedEntity.class )
 					.indexed( IndexedEntity.INDEX )
 					.bridge(
-							new MyBridgeDefinition()
+							new MyBridgeBuilder()
 							.objectName( "customBridgeOnClass" )
 					)
 					.property( "id" )
@@ -656,7 +650,7 @@ public class OrmElasticsearchIT {
 									.name( "myLocalDateField" )
 					.property( "embedded" )
 							.bridge(
-									new MyBridgeDefinition()
+									new MyBridgeBuilder()
 									.objectName( "customBridgeOnProperty" )
 							);
 			secondMapping.type( OtherIndexedEntity.class )
@@ -665,7 +659,7 @@ public class OrmElasticsearchIT {
 							.documentId().identifierBridge( DefaultIntegerIdentifierBridge.class )
 					.property( "numeric" )
 							.field()
-							.field().name( "numericAsString" ).bridge( IntegerAsStringFunctionBridge.class );
+							.field().name( "numericAsString" ).functionBridge( IntegerAsStringFunctionBridge.class );
 			secondMapping.type( YetAnotherIndexedEntity.class )
 					.indexed( YetAnotherIndexedEntity.INDEX )
 					.property( "id" )
@@ -794,43 +788,38 @@ public class OrmElasticsearchIT {
 		}
 	}
 
-	@BridgeMapping(implementation = @BridgeBeanReference(type = MyBridgeImpl.class))
-	@Target(value = { ElementType.TYPE, ElementType.METHOD, ElementType.FIELD })
-	@Retention(RetentionPolicy.RUNTIME)
-	public @interface MyBridge {
-		String objectName();
-	}
+	public static final class MyBridgeBuilder implements BridgeBuilder<Bridge> {
 
-	public static final class MyBridgeDefinition extends BridgeDefinitionBase<MyBridge> {
+		private String objectName;
 
-		@Override
-		protected Class<MyBridge> getAnnotationClass() {
-			return MyBridge.class;
-		}
-
-		public MyBridgeDefinition objectName(String value) {
-			addParameter( "objectName", value );
+		public MyBridgeBuilder objectName(String value) {
+			this.objectName = value;
 			return this;
 		}
+
+		@Override
+		public Bridge build(BuildContext buildContext) {
+			return new MyBridgeImpl( objectName );
+		}
 	}
 
-	public static final class MyBridgeImpl implements Bridge<MyBridge> {
+	private static final class MyBridgeImpl implements Bridge {
 
-		private MyBridge parameters;
+		private final String objectName;
+
 		private PojoModelElementAccessor<IndexedEntity> sourceAccessor;
 		private IndexFieldAccessor<String> textFieldAccessor;
 		private IndexFieldAccessor<LocalDate> localDateFieldAccessor;
 
-		@Override
-		public void initialize(BuildContext buildContext, MyBridge parameters) {
-			this.parameters = parameters;
+		MyBridgeImpl(String objectName) {
+			this.objectName = objectName;
 		}
 
 		@Override
 		public void contribute(IndexSchemaElement indexSchemaElement, PojoModelElement bridgedPojoModelElement,
 				SearchModel searchModel) {
 			sourceAccessor = bridgedPojoModelElement.createAccessor( IndexedEntity.class );
-			IndexSchemaElement objectFieldMetadata = indexSchemaElement.childObject( parameters.objectName() );
+			IndexSchemaElement objectFieldMetadata = indexSchemaElement.childObject( objectName );
 			textFieldAccessor = objectFieldMetadata.field( "text" ).asString().createAccessor();
 			localDateFieldAccessor = objectFieldMetadata.field( "date" ).asLocalDate().createAccessor();
 		}

@@ -11,6 +11,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.bridge.spi.FunctionBridge;
 
 /**
@@ -20,16 +21,17 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.spi.FunctionBridge;
 @Target({}) // Only used as a component in other annotations
 @Retention(RetentionPolicy.RUNTIME)
 // TODO repeatable
-public @interface FunctionBridgeBeanReference {
+public @interface FunctionBridgeBuilderBeanReference {
 
 	String name() default "";
 
-	Class<? extends FunctionBridge<?, ?>> type() default UndefinedImplementationType.class;
+	Class<? extends BridgeBuilder<? extends FunctionBridge<?, ?>>> type()
+			default UndefinedImplementationType.class;
 
 	/**
 	 * Class used as a marker for the default value of the {@link #type()} attribute.
 	 */
-	abstract class UndefinedImplementationType implements FunctionBridge<Object, Object> {
+	abstract class UndefinedImplementationType implements BridgeBuilder<FunctionBridge<Object, Object>> {
 		private UndefinedImplementationType() {
 		}
 	}

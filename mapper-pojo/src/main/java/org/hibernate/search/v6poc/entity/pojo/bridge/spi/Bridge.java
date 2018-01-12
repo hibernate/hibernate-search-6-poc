@@ -6,24 +6,16 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.bridge.spi;
 
-import java.lang.annotation.Annotation;
-
 import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaElement;
 import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
-import org.hibernate.search.v6poc.engine.spi.BuildContext;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoState;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElement;
 import org.hibernate.search.v6poc.entity.model.spi.SearchModel;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElement;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoState;
 
 /**
  * @author Yoann Rodiere
  */
-public interface Bridge<A extends Annotation> extends AutoCloseable {
-
-	/* Solves HSEARCH-1306 */
-	default void initialize(BuildContext buildContext, A parameters) {
-		// Default does nothing
-	}
+public interface Bridge extends AutoCloseable {
 
 	void contribute(IndexSchemaElement indexSchemaElement, PojoModelElement bridgedPojoModelElement,
 			SearchModel searchModel);
