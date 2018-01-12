@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
-import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeDefinition;
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
+import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoIndexModelBinder;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeIdentityMappingCollector;
@@ -51,8 +52,8 @@ abstract class AbstractPojoProcessorBuilder implements PojoNodeMappingCollector 
 	}
 
 	@Override
-	public void bridge(BridgeDefinition<?> definition) {
-		processors.add( indexModelBinder.addBridge( bindingContext, indexableModel, definition ) );
+	public void bridge(BridgeBuilder<? extends Bridge> builder) {
+		processors.add( indexModelBinder.addBridge( bindingContext, indexableModel, builder ) );
 	}
 
 }

@@ -13,10 +13,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.backend.document.model.Store;
-import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.impl.GeoPointBridgeImpl;
-import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.spi.BridgeBeanReference;
+import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
+import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.spi.BridgeMappingBuilderReference;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.spi.BridgeMapping;
 
 /**
@@ -62,7 +61,7 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.spi.BridgeMappi
  * @hsearch.experimental Spatial support is still considered experimental
  * @author Nicolas Helleringer
  */
-@BridgeMapping(implementation = @BridgeBeanReference(type = GeoPointBridgeImpl.class))
+@BridgeMapping(builderType = @BridgeMappingBuilderReference(type = GeoPointBridgeBuilder.class))
 @Retention(RetentionPolicy.RUNTIME)
 @Target( { ElementType.METHOD, ElementType.FIELD, ElementType.TYPE })
 @Documented

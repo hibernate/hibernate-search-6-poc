@@ -9,17 +9,17 @@ package org.hibernate.search.v6poc.entity.pojo.processing.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.hibernate.search.v6poc.engine.spi.BeanReference;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
-import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoIndexModelBinder;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
-import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeIdentityMappingCollector;
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
+import org.hibernate.search.v6poc.entity.pojo.bridge.spi.RoutingKeyBridge;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoIndexModelBinder;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoPropertyNodeMappingCollector;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeIdentityMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.TypeModel;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.RoutingKeyBridge;
 
 /**
  * @author Yoann Rodiere
@@ -39,8 +39,8 @@ public class PojoTypeNodeProcessorBuilder extends AbstractPojoProcessorBuilder
 	}
 
 	@Override
-	public void routingKeyBridge(BeanReference<? extends RoutingKeyBridge> reference) {
-		RoutingKeyBridge bridge = indexModelBinder.addRoutingKeyBridge( bindingContext, indexableModel, reference );
+	public void routingKeyBridge(BridgeBuilder<? extends RoutingKeyBridge> builder) {
+		RoutingKeyBridge bridge = indexModelBinder.addRoutingKeyBridge( bindingContext, indexableModel, builder );
 		identityMappingCollector.routingKeyBridge( bridge );
 	}
 

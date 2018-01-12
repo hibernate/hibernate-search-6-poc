@@ -6,45 +6,47 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.impl;
 
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collector;
 
+import org.hibernate.search.v6poc.backend.document.model.Store;
 import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaElement;
 import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
 import org.hibernate.search.v6poc.backend.document.spi.IndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
+import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoPoint;
 import org.hibernate.search.v6poc.entity.model.spi.SearchModel;
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.GeoPointBridge;
-import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoPoint;
 import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
-import org.hibernate.search.v6poc.engine.spi.BuildContext;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoState;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElementAccessor;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElement;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElementAccessor;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoState;
 import org.hibernate.search.v6poc.util.SearchException;
 import org.hibernate.search.v6poc.util.StreamHelper;
 
 /**
  * @author Yoann Rodiere
  */
-public class GeoPointBridgeImpl implements Bridge<GeoPointBridge> {
+public class GeoPointBridgeImpl implements Bridge {
 
-	private GeoPointBridge parameters;
+	private final String fieldName;
+	private final Store store;
+	private final String markerSet;
 
 	private IndexFieldAccessor<GeoPoint> fieldAccessor;
 	private Function<PojoState, GeoPoint> coordinatesExtractor;
 
-	@Override
-	public void initialize(BuildContext buildContext, GeoPointBridge parameters) {
-		this.parameters = parameters;
+	public GeoPointBridgeImpl(String fieldName, Store store, String markerSet) {
+		this.fieldName = fieldName;
+		this.store = store;
+		this.markerSet = markerSet;
 	}
 
 	@Override
 	public void contribute(IndexSchemaElement indexSchemaElement, PojoModelElement bridgedPojoModelElement,
 			SearchModel searchModel) {
-		String fieldName = parameters.fieldName();
-
-		if ( fieldName.isEmpty() ) {
+		if ( fieldName == null || fieldName.isEmpty() ) {
 			// TODO retrieve the default name somehow when parameters.name() is empty
 			throw new UnsupportedOperationException( "Default field name not implemented yet" );
 		}
@@ -56,16 +58,14 @@ public class GeoPointBridgeImpl implements Bridge<GeoPointBridge> {
 			coordinatesExtractor = sourceAccessor::read;
 		}
 		else {
-			String markerSet = parameters.markerSet();
-
 			PojoModelElementAccessor<Double> latitudeAccessor = bridgedPojoModelElement.properties()
 					.filter( model -> model.markers( GeoPointBridge.Latitude.class )
-							.anyMatch( m -> markerSet.equals( m.markerSet() ) ) )
+							.anyMatch( m -> Objects.equals( markerSet, m.markerSet() ) ) )
 					.collect( singleMarkedProperty( "latitude", fieldName, markerSet ) )
 					.createAccessor( Double.class );
 			PojoModelElementAccessor<Double> longitudeAccessor = bridgedPojoModelElement.properties()
 					.filter( model -> model.markers( GeoPointBridge.Longitude.class )
-							.anyMatch( m -> markerSet.equals( m.markerSet() ) ) )
+							.anyMatch( m -> Objects.equals( markerSet, m.markerSet() ) ) )
 					.collect( singleMarkedProperty( "longitude", fieldName, markerSet ) )
 					.createAccessor( Double.class );
 

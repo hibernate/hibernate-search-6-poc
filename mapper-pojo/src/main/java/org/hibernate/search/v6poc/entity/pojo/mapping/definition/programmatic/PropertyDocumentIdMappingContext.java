@@ -6,6 +6,7 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic;
 
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.bridge.spi.IdentifierBridge;
 
 /**
@@ -18,5 +19,7 @@ public interface PropertyDocumentIdMappingContext extends PropertyMappingContext
 	PropertyDocumentIdMappingContext identifierBridge(Class<? extends IdentifierBridge<?>> bridgeClass);
 
 	PropertyDocumentIdMappingContext identifierBridge(String bridgeName, Class<? extends IdentifierBridge<?>> bridgeClass);
+
+	PropertyDocumentIdMappingContext identifierBridge(BridgeBuilder<? extends IdentifierBridge<?>> builder);
 
 }

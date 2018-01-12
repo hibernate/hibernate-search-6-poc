@@ -4,15 +4,15 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.hibernate.search.v6poc.entity.pojo.bridge.declaration.spi;
+package org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation;
 
-import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
+import org.hibernate.search.v6poc.entity.pojo.bridge.spi.IdentifierBridge;
 
 /**
  * @author Yoann Rodiere
@@ -20,18 +20,19 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
 @Documented
 @Target({}) // Only used as a component in other annotations
 @Retention(RetentionPolicy.RUNTIME)
-public @interface BridgeBeanReference {
+// TODO repeatable
+public @interface IdentifierBridgeBuilderBeanReference {
 
 	String name() default "";
 
-	Class<? extends Bridge<?>> type() default UndefinedImplementationType.class;
+	Class<? extends BridgeBuilder<? extends IdentifierBridge<?>>> type()
+			default UndefinedImplementationType.class;
 
 	/**
-	 * Class used as a marker for the default value of the {@link BridgeBeanReference#type()} attribute.
+	 * Class used as a marker for the default value of the {@link #type()} attribute.
 	 */
-	abstract class UndefinedImplementationType implements Bridge<Annotation> {
+	abstract class UndefinedImplementationType implements BridgeBuilder<IdentifierBridge<Object>> {
 		private UndefinedImplementationType() {
 		}
 	}
 }
-

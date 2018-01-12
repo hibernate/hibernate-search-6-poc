@@ -8,16 +8,11 @@ package org.hibernate.search.v6poc.entity.pojo.bridge.spi;
 
 import org.hibernate.search.v6poc.backend.document.model.spi.FieldModelContext;
 import org.hibernate.search.v6poc.backend.document.model.spi.TypedFieldModelContext;
-import org.hibernate.search.v6poc.engine.spi.BuildContext;
 
 /**
  * @author Yoann Rodiere
  */
 public interface FunctionBridge<T, R> extends AutoCloseable {
-
-	/* Solves HSEARCH-1306 */
-	default void initialize(BuildContext buildContext) {
-	}
 
 	default TypedFieldModelContext<R> bind(FieldModelContext context) {
 		return null; // Auto-detect the return type and use default encoding

@@ -15,9 +15,9 @@ import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.StubElastics
 import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.StubElasticsearchClient.Request;
 import org.hibernate.search.v6poc.backend.elasticsearch.impl.ElasticsearchBackendFactory;
 import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
-import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.GeoPointBridgeDefinition;
-import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.GeoPointBridgeDefinition.LatitudeMarkerDefinition;
-import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.GeoPointBridgeDefinition.LongitudeMarkerDefinition;
+import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.GeoPointBridgeBuilder;
+import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.GeoPointBridgeBuilder.LatitudeMarkerDefinition;
+import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.GeoPointBridgeBuilder.LongitudeMarkerDefinition;
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingContributor;
@@ -53,12 +53,12 @@ public class JavaBeanElasticsearchGeoPointIT {
 		MappingDefinition mappingDefinition = contributor.programmaticMapping();
 		mappingDefinition.type( GeoPointOnTypeEntity.class )
 				.indexed( GeoPointOnTypeEntity.INDEX )
-				.bridge( new GeoPointBridgeDefinition()
+				.bridge( new GeoPointBridgeBuilder()
 						.fieldName( "homeLocation" )
 						.markerSet( "home" )
 				)
 				.bridge(
-						new GeoPointBridgeDefinition()
+						new GeoPointBridgeBuilder()
 						.fieldName( "workLocation" )
 						.markerSet( "work" )
 				)
@@ -78,7 +78,7 @@ public class JavaBeanElasticsearchGeoPointIT {
 				.property( "id" )
 						.documentId()
 				.property( "coord" )
-						.bridge( new GeoPointBridgeDefinition()
+						.bridge( new GeoPointBridgeBuilder()
 								.fieldName( "location" )
 						);
 
@@ -87,7 +87,7 @@ public class JavaBeanElasticsearchGeoPointIT {
 				.property( "id" )
 						.documentId()
 				.property( "coord" )
-						.bridge( new GeoPointBridgeDefinition()
+						.bridge( new GeoPointBridgeBuilder()
 								.fieldName( "location" )
 						);
 

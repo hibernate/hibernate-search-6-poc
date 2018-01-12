@@ -27,7 +27,7 @@ public @interface IdentifierBridgeBeanReference {
 	Class<? extends IdentifierBridge<?>> type() default UndefinedImplementationType.class;
 
 	/**
-	 * Class used as a marker for the default value of the {@link IdentifierBridgeBeanReference#type()} attribute.
+	 * Class used as a marker for the default value of the {@link #type()} attribute.
 	 */
 	abstract class UndefinedImplementationType implements IdentifierBridge<Object> {
 		private UndefinedImplementationType() {

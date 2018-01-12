@@ -6,10 +6,6 @@
  */
 package org.hibernate.search.v6poc;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -26,9 +22,6 @@ import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingContributor;
 import org.hibernate.search.v6poc.entity.model.spi.SearchModel;
-import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.spi.BridgeBeanReference;
-import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.spi.BridgeMapping;
-import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeDefinitionBase;
 import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.MappingDefinition;
@@ -72,9 +65,7 @@ public class JavaBeanElasticsearchExtensionIT {
 				.property( "id" )
 						.documentId()
 				.property( "jsonString" )
-					.bridge(
-							new MyElasticsearchBridgeDefinition()
-					);
+						.bridge( MyElasticsearchBridgeImpl.class );
 
 		mappingRepository = mappingRepositoryBuilder.build();
 		mapping = contributor.getResult();
@@ -197,26 +188,7 @@ public class JavaBeanElasticsearchExtensionIT {
 
 	}
 
-	@BridgeMapping(implementation = @BridgeBeanReference(type = MyElasticsearchBridgeImpl.class))
-	@Target(value = { ElementType.TYPE, ElementType.METHOD, ElementType.FIELD })
-	@Retention(RetentionPolicy.RUNTIME)
-	public @interface MyElasticsearchBridge {
-	}
-
-	public static final class MyElasticsearchBridgeDefinition extends BridgeDefinitionBase<MyElasticsearchBridge> {
-
-		@Override
-		protected Class<MyElasticsearchBridge> getAnnotationClass() {
-			return MyElasticsearchBridge.class;
-		}
-
-		public MyElasticsearchBridgeDefinition objectName(String value) {
-			addParameter( "objectName", value );
-			return this;
-		}
-	}
-
-	public static final class MyElasticsearchBridgeImpl implements Bridge<MyElasticsearchBridge> {
+	public static final class MyElasticsearchBridgeImpl implements Bridge {
 
 		private PojoModelElementAccessor<String> sourceAccessor;
 		private IndexFieldAccessor<String> fieldAccessor;
