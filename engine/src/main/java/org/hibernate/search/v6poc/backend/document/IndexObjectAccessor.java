@@ -10,7 +10,7 @@ package org.hibernate.search.v6poc.backend.document;
 /**
  * @author Yoann Rodiere
  */
-public interface IndexObjectReference {
+public interface IndexObjectAccessor {
 
 	/**
 	 * Add a new object to the given state at the target of this reference.

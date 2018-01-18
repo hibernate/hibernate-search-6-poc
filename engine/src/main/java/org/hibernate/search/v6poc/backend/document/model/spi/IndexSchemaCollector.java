@@ -13,7 +13,7 @@ import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
  */
 public interface IndexSchemaCollector {
 
-	IndexSchemaCollector childObject(String relativeName);
+	IndexSchemaCollector objectField(String relativeName);
 
 	IndexSchemaElement withContext(IndexSchemaNestingContext context);
 
