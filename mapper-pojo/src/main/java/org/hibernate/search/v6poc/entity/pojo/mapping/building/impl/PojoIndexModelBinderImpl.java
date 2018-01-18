@@ -6,21 +6,21 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
-import org.hibernate.search.v6poc.backend.document.model.spi.FieldModelContext;
-import org.hibernate.search.v6poc.backend.document.model.spi.TypedFieldModelContext;
-import org.hibernate.search.v6poc.backend.document.spi.IndexFieldAccessor;
+import org.hibernate.search.v6poc.backend.document.model.FieldModelContext;
+import org.hibernate.search.v6poc.backend.document.model.TypedFieldModelContext;
+import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 import org.hibernate.search.v6poc.entity.pojo.bridge.impl.BridgeResolver;
 import org.hibernate.search.v6poc.entity.pojo.bridge.impl.FunctionBridgeUtil;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.FunctionBridge;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.IdentifierBridge;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.RoutingKeyBridge;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElement;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElementAccessor;
+import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.BridgeValueProcessor;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.FunctionBridgeValueProcessor;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.ValueProcessor;

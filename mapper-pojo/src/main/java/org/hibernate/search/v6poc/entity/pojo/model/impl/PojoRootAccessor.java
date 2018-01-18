@@ -6,8 +6,8 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.model.impl;
 
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoState;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElementAccessor;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoState;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 
 class PojoRootAccessor<T> implements PojoModelElementAccessor<T> {
 

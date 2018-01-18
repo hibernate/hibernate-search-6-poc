@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.entity.pojo.logging.impl;
 
 import java.lang.annotation.Annotation;
 
-import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.spi.BridgeMapping;
+import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.BridgeMapping;
 import org.hibernate.search.v6poc.util.SearchException;
 
 import org.jboss.logging.BasicLogger;

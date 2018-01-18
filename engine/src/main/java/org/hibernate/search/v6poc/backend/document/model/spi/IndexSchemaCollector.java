@@ -6,6 +6,8 @@
  */
 package org.hibernate.search.v6poc.backend.document.model.spi;
 
+import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
+
 /**
  * @author Yoann Rodiere
  */

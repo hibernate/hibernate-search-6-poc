@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.document.model;
 
-import org.hibernate.search.v6poc.backend.document.model.spi.TypedFieldModelContext;
+import org.hibernate.search.v6poc.backend.document.model.TypedFieldModelContext;
 
 
 /**

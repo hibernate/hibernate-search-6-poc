@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.impl;
 
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoNodeMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoNodeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoNodeModelCollector;

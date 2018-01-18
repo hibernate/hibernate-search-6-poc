@@ -16,14 +16,14 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.stream.Stream;
 
-import org.hibernate.search.v6poc.cfg.spi.ConfigurationPropertySource;
+import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.engine.spi.BeanResolver;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.engine.spi.ReflectionBeanResolver;
 import org.hibernate.search.v6poc.engine.spi.ServiceManager;
-import org.hibernate.search.v6poc.entity.mapping.MappingKey;
+import org.hibernate.search.v6poc.entity.mapping.spi.MappingKey;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.Mapper;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MapperFactory;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MetadataContributor;

@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.engine.impl;
 import java.util.Map;
 
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
-import org.hibernate.search.v6poc.entity.mapping.MappingKey;
+import org.hibernate.search.v6poc.entity.mapping.spi.MappingKey;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingImplementor;
 import org.hibernate.search.v6poc.util.SearchException;
 

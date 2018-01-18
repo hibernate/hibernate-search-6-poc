@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 
-import org.hibernate.search.v6poc.cfg.spi.ConfigurationPropertySource;
+import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexManagerBuildingState;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.Mapper;

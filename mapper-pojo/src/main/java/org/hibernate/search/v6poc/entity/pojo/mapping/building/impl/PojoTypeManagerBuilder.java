@@ -6,12 +6,12 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
-import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
+import org.hibernate.search.v6poc.backend.document.DocumentState;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexManagerBuildingState;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.IdentifierBridge;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.RoutingKeyBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoTypeManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoTypeManagerContainer;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;

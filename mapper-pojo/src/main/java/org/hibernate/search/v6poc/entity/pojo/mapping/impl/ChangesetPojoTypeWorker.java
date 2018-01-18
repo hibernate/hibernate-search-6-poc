@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.impl;
 
 import java.util.concurrent.CompletableFuture;
 
-import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
+import org.hibernate.search.v6poc.backend.document.DocumentState;
 import org.hibernate.search.v6poc.backend.index.spi.ChangesetIndexWorker;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoSessionContext;
 

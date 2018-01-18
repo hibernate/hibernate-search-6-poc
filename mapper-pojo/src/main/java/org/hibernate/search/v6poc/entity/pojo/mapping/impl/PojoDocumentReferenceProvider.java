@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.impl;
 
 import java.util.function.Supplier;
 
-import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
+import org.hibernate.search.v6poc.backend.document.DocumentState;
 import org.hibernate.search.v6poc.backend.index.spi.DocumentReferenceProvider;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.RoutingKeyProvider;
 

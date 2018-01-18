@@ -6,9 +6,9 @@
  */
 package org.hibernate.search.v6poc.entity.mapping.building.spi;
 
-import org.hibernate.search.v6poc.cfg.spi.ConfigurationPropertySource;
+import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
-import org.hibernate.search.v6poc.entity.mapping.MappingKey;
+import org.hibernate.search.v6poc.entity.mapping.spi.MappingKey;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingImplementor;
 import org.hibernate.search.v6poc.entity.model.spi.IndexableTypeOrdering;
 

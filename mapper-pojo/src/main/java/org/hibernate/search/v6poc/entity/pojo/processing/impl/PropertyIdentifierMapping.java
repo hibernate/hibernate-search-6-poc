@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.entity.pojo.processing.impl;
 
 import java.util.function.Supplier;
 
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.IdentifierBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 import org.hibernate.search.v6poc.util.SearchException;
 

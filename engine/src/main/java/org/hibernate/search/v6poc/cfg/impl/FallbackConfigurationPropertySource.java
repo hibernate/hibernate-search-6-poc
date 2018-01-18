@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.cfg.impl;
 
 import java.util.Optional;
 
-import org.hibernate.search.v6poc.cfg.spi.ConfigurationPropertySource;
+import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 
 public class FallbackConfigurationPropertySource implements ConfigurationPropertySource {
 	private final ConfigurationPropertySource main;

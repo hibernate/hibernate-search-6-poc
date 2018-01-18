@@ -15,7 +15,7 @@ import org.hibernate.search.v6poc.engine.spi.BeanReference;
 import org.hibernate.search.v6poc.engine.spi.ImmutableBeanReference;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MetadataContributor;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataCollector;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoNodeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeMetadataContributor;
@@ -24,7 +24,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMapperFac
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyMappingContext;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.TypeMappingContext;
 import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoIndexedTypeIdentifier;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.RoutingKeyBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
 
 /**
  * @author Yoann Rodiere

@@ -6,9 +6,9 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.bridge.builtin.impl;
 
-import org.hibernate.search.v6poc.backend.document.model.spi.FieldModelContext;
-import org.hibernate.search.v6poc.backend.document.model.spi.TypedFieldModelContext;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.FunctionBridge;
+import org.hibernate.search.v6poc.backend.document.model.FieldModelContext;
+import org.hibernate.search.v6poc.backend.document.model.TypedFieldModelContext;
+import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
 
 public final class DefaultIntegerFunctionBridge implements FunctionBridge<Integer, Integer> {
 

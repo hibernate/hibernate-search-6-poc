@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.cfg.impl;
 import java.util.Optional;
 import java.util.Properties;
 
-import org.hibernate.search.v6poc.cfg.spi.ConfigurationPropertySource;
+import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 
 public class PropertiesConfigurationPropertySource implements ConfigurationPropertySource {
 

@@ -15,8 +15,8 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContribu
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.FunctionBridge;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.IdentifierBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoIndexModelBinder;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoPropertyNodeMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeIdentityMappingCollector;

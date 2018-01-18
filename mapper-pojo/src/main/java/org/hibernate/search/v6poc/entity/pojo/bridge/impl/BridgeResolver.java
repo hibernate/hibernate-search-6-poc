@@ -15,8 +15,8 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.impl.DefaultInteger
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.impl.DefaultLocalDateFunctionBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.impl.DefaultStringFunctionBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.FunctionBridge;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.IdentifierBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.logging.impl.Log;
 import org.hibernate.search.v6poc.util.spi.LoggerFactory;
 

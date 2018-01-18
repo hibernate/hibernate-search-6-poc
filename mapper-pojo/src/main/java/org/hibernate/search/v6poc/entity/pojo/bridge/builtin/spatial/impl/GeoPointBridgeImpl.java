@@ -11,16 +11,16 @@ import java.util.function.Function;
 import java.util.stream.Collector;
 
 import org.hibernate.search.v6poc.backend.document.model.Store;
-import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaElement;
-import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
-import org.hibernate.search.v6poc.backend.document.spi.IndexFieldAccessor;
+import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
+import org.hibernate.search.v6poc.backend.document.DocumentState;
+import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoPoint;
-import org.hibernate.search.v6poc.entity.model.spi.SearchModel;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElement;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElementAccessor;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoState;
+import org.hibernate.search.v6poc.entity.model.SearchModel;
+import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoState;
 import org.hibernate.search.v6poc.util.SearchException;
 import org.hibernate.search.v6poc.util.StreamHelper;
 

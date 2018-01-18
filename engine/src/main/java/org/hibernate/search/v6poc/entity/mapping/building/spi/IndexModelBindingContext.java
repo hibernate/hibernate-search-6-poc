@@ -9,8 +9,8 @@ package org.hibernate.search.v6poc.entity.mapping.building.spi;
 import java.util.Optional;
 import java.util.Set;
 
-import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaElement;
-import org.hibernate.search.v6poc.entity.model.spi.SearchModel;
+import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
+import org.hibernate.search.v6poc.entity.model.SearchModel;
 import org.hibernate.search.v6poc.entity.model.spi.IndexedTypeIdentifier;
 
 public interface IndexModelBindingContext {

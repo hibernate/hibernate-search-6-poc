@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.entity.javabean.mapping.impl;
 
-import org.hibernate.search.v6poc.cfg.spi.ConfigurationPropertySource;
+import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.entity.javabean.model.impl.JavaBeanIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMapperFactory;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingDelegate;

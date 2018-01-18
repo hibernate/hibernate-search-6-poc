@@ -14,7 +14,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.orchestration.impl.StubE
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWorkFactory;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManagerBuilder;
 import org.hibernate.search.v6poc.backend.spi.Backend;
-import org.hibernate.search.v6poc.cfg.spi.ConfigurationPropertySource;
+import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 
 

@@ -4,13 +4,13 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.hibernate.search.v6poc.entity.pojo.bridge.spi;
+package org.hibernate.search.v6poc.entity.pojo.bridge;
 
-import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaElement;
-import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
-import org.hibernate.search.v6poc.entity.model.spi.SearchModel;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElement;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoState;
+import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
+import org.hibernate.search.v6poc.backend.document.DocumentState;
+import org.hibernate.search.v6poc.entity.model.SearchModel;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoState;
 
 /**
  * @author Yoann Rodiere

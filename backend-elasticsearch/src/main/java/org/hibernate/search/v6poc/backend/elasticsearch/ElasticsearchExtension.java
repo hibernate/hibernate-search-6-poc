@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.backend.elasticsearch;
 
 import java.util.Optional;
 
-import org.hibernate.search.v6poc.backend.document.model.spi.FieldModelContext;
+import org.hibernate.search.v6poc.backend.document.model.FieldModelContext;
 import org.hibernate.search.v6poc.backend.document.model.spi.FieldModelExtension;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.ElasticsearchFieldModelContext;
 import org.hibernate.search.v6poc.backend.elasticsearch.logging.impl.Log;

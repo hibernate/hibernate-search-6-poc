@@ -6,8 +6,8 @@
  */
 package org.hibernate.search.v6poc.backend.document.impl;
 
-import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
-import org.hibernate.search.v6poc.backend.document.spi.IndexFieldAccessor;
+import org.hibernate.search.v6poc.backend.document.DocumentState;
+import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 
 
 /**

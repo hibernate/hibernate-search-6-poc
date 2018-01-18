@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic;
 
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.MarkerBuilder;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
 
 /**
  * @author Yoann Rodiere

@@ -8,8 +8,8 @@ package org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl;
 
 import java.time.LocalDate;
 
-import org.hibernate.search.v6poc.backend.document.model.spi.TerminalFieldModelContext;
-import org.hibernate.search.v6poc.backend.document.model.spi.TypedFieldModelContext;
+import org.hibernate.search.v6poc.backend.document.model.TerminalFieldModelContext;
+import org.hibernate.search.v6poc.backend.document.model.TypedFieldModelContext;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.ElasticsearchFieldModelContext;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.PropertyMapping;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.UnknownTypeJsonAccessor;

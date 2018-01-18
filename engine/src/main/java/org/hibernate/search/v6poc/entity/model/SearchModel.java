@@ -4,16 +4,13 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.hibernate.search.v6poc.entity.pojo.model.spi;
+package org.hibernate.search.v6poc.entity.model;
 
+public interface SearchModel {
 
-/**
- * @author Yoann Rodiere
- */
-public interface PojoModelElementAccessor<T> {
-
-	Class<T> getType();
-
-	T read(PojoState bridgedElement);
+	/*
+	 * TODO add a method to define how to query and project on entity properties
+	 * (using existing index fields).
+	 */
 
 }

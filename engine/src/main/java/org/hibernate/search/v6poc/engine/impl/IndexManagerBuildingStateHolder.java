@@ -11,14 +11,14 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaCollector;
-import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
+import org.hibernate.search.v6poc.backend.document.DocumentState;
 import org.hibernate.search.v6poc.backend.index.impl.SimplifyingIndexManager;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManager;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManagerBuilder;
 import org.hibernate.search.v6poc.backend.spi.Backend;
 import org.hibernate.search.v6poc.backend.spi.BackendFactory;
 import org.hibernate.search.v6poc.cfg.spi.ConfigurationProperty;
-import org.hibernate.search.v6poc.cfg.spi.ConfigurationPropertySource;
+import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.spi.BeanResolver;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.mapping.building.impl.IndexModelBindingContextImpl;

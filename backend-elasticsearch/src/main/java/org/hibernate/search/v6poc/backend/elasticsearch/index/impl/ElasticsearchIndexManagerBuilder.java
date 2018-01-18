@@ -14,7 +14,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esna
 import org.hibernate.search.v6poc.backend.elasticsearch.impl.ElasticsearchBackend;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWork;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManagerBuilder;
-import org.hibernate.search.v6poc.cfg.spi.ConfigurationPropertySource;
+import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 
 import com.google.gson.Gson;

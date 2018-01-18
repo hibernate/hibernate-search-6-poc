@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.i
 
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.MarkerBuilder;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyDocumentIdMappingContext;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyFieldMappingContext;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyIndexedEmbeddedMappingContext;

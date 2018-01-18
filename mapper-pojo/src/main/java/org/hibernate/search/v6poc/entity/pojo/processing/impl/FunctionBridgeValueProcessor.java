@@ -6,11 +6,11 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.processing.impl;
 
-import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
-import org.hibernate.search.v6poc.backend.document.spi.IndexFieldAccessor;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.FunctionBridge;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoState;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElementAccessor;
+import org.hibernate.search.v6poc.backend.document.DocumentState;
+import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
+import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoState;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 
 
 /**

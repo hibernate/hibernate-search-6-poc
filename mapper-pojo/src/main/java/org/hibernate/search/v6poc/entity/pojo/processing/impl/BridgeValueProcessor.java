@@ -6,9 +6,9 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.processing.impl;
 
-import org.hibernate.search.v6poc.backend.document.spi.DocumentState;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoState;
+import org.hibernate.search.v6poc.backend.document.DocumentState;
+import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoState;
 
 
 /**

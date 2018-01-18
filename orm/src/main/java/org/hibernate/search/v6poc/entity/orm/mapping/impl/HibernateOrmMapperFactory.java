@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.entity.orm.mapping.impl;
 
 import org.hibernate.engine.spi.SessionFactoryImplementor;
-import org.hibernate.search.v6poc.cfg.spi.ConfigurationPropertySource;
+import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.entity.orm.model.impl.HibernateOrmIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMapperFactory;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingDelegate;

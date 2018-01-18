@@ -6,9 +6,9 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.IdentifierBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.RoutingKeyBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
 
 /**
  * @author Yoann Rodiere

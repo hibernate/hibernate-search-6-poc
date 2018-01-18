@@ -10,7 +10,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Optional;
 
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.FunctionBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
 import org.hibernate.search.v6poc.util.SearchException;
 
 /**

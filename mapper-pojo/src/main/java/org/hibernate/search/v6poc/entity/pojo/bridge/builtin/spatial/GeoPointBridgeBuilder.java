@@ -10,7 +10,7 @@ import org.hibernate.search.v6poc.backend.document.model.Store;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.impl.GeoPointBridgeImpl;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.AnnotationBridgeBuilder;
-import org.hibernate.search.v6poc.entity.pojo.bridge.spi.Bridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
 
 
 /**

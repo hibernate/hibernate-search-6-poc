@@ -16,8 +16,8 @@ import java.util.stream.Stream;
 
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.MarkerBuilder;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElementAccessor;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoModelElement;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoPropertyNodeModelCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;

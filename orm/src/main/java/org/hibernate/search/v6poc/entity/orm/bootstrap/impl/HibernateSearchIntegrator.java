@@ -17,7 +17,7 @@ import org.hibernate.event.service.spi.EventListenerRegistry;
 import org.hibernate.event.spi.EventType;
 import org.hibernate.integrator.spi.Integrator;
 import org.hibernate.search.v6poc.cfg.spi.ConfigurationProperty;
-import org.hibernate.search.v6poc.cfg.spi.ConfigurationPropertySource;
+import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.entity.orm.cfg.AvailableSettings;
 import org.hibernate.search.v6poc.entity.orm.cfg.impl.HibernateOrmConfigurationPropertySource;
 import org.hibernate.search.v6poc.entity.orm.event.impl.FullTextIndexEventListener;
