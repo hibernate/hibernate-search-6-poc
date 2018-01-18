@@ -8,14 +8,14 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.impl;
 
 import java.util.concurrent.CompletableFuture;
 
-import org.hibernate.search.v6poc.backend.document.DocumentState;
+import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.index.spi.ChangesetIndexWorker;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoSessionContext;
 
 /**
  * @author Yoann Rodiere
  */
-class ChangesetPojoTypeWorker<D extends DocumentState, E> extends PojoTypeWorker<D, E, ChangesetIndexWorker<D>> {
+class ChangesetPojoTypeWorker<D extends DocumentElement, E> extends PojoTypeWorker<D, E, ChangesetIndexWorker<D>> {
 
 	public ChangesetPojoTypeWorker(PojoTypeManager<?, E, D> typeManager, PojoSessionContext sessionContext,
 			ChangesetIndexWorker<D> delegate) {

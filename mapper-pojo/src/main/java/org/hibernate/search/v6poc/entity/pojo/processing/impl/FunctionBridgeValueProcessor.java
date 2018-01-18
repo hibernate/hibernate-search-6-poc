@@ -6,10 +6,10 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.processing.impl;
 
-import org.hibernate.search.v6poc.backend.document.DocumentState;
+import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoState;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 
 
@@ -31,7 +31,7 @@ public class FunctionBridgeValueProcessor<T, R> implements ValueProcessor {
 	}
 
 	@Override
-	public void process(DocumentState target, PojoState source) {
+	public void process(DocumentElement target, PojoElement source) {
 		T bridgedElement = pojoModelElementAccessor.read( source );
 		R indexFieldValue = bridge.toIndexedValue( bridgedElement );
 		indexFieldAccessor.write( target, indexFieldValue );

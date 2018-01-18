@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.impl;
 
 import java.util.function.Supplier;
 
-import org.hibernate.search.v6poc.backend.document.DocumentState;
+import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.index.spi.IndexWorker;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoSessionContext;
 
@@ -16,7 +16,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoSessionContext;
 /**
  * @author Yoann Rodiere
  */
-class PojoTypeWorker<D extends DocumentState, E, C extends IndexWorker<D>> {
+class PojoTypeWorker<D extends DocumentElement, E, C extends IndexWorker<D>> {
 
 	private final PojoTypeManager<?, E, D> typeManager;
 	private final PojoSessionContext sessionContext;

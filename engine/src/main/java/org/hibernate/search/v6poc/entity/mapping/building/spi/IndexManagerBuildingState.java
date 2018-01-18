@@ -6,13 +6,13 @@
  */
 package org.hibernate.search.v6poc.entity.mapping.building.spi;
 
-import org.hibernate.search.v6poc.backend.document.DocumentState;
+import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManager;
 
 /**
  * @author Yoann Rodiere
  */
-public interface IndexManagerBuildingState<D extends DocumentState> {
+public interface IndexManagerBuildingState<D extends DocumentElement> {
 
 	String getIndexName();
 

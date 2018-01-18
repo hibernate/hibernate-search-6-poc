@@ -6,13 +6,13 @@
  */
 package org.hibernate.search.v6poc.backend.index.spi;
 
-import org.hibernate.search.v6poc.backend.document.DocumentState;
+import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 
 /**
  * @author Yoann Rodiere
  */
-public interface IndexManager<D extends DocumentState> {
+public interface IndexManager<D extends DocumentElement> {
 
 	ChangesetIndexWorker<D> createWorker(SessionContext context);
 

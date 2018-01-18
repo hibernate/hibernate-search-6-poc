@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.hibernate.search.v6poc.backend.document.DocumentState;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoState;
-import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoStateImpl;
+import org.hibernate.search.v6poc.backend.document.DocumentElement;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
+import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoElementImpl;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 
 /**
@@ -34,10 +34,10 @@ public class PojoPropertyNodeProcessor {
 		indexedEmbeddedProcessorBuilders.forEach( builder -> this.indexedEmbeddedProcessors.add( builder.build() ) );
 	}
 
-	public final void process(Object source, DocumentState destination) {
+	public final void process(Object source, DocumentElement destination) {
 		Object nestedValue = handle.get( source );
 		if ( !processors.isEmpty() ) {
-			PojoState bridgedElement = new PojoStateImpl( nestedValue );
+			PojoElement bridgedElement = new PojoElementImpl( nestedValue );
 			for ( ValueProcessor processor : processors ) {
 				processor.process( destination, bridgedElement );
 			}

@@ -10,9 +10,9 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collector;
 
+import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.document.model.Store;
 import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
-import org.hibernate.search.v6poc.backend.document.DocumentState;
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoPoint;
@@ -20,7 +20,7 @@ import org.hibernate.search.v6poc.entity.model.SearchModel;
 import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoState;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.util.SearchException;
 import org.hibernate.search.v6poc.util.StreamHelper;
 
@@ -34,7 +34,7 @@ public class GeoPointBridgeImpl implements Bridge {
 	private final String markerSet;
 
 	private IndexFieldAccessor<GeoPoint> fieldAccessor;
-	private Function<PojoState, GeoPoint> coordinatesExtractor;
+	private Function<PojoElement, GeoPoint> coordinatesExtractor;
 
 	public GeoPointBridgeImpl(String fieldName, Store store, String markerSet) {
 		this.fieldName = fieldName;
@@ -92,7 +92,7 @@ public class GeoPointBridgeImpl implements Bridge {
 	}
 
 	@Override
-	public void write(DocumentState target, PojoState source) {
+	public void write(DocumentElement target, PojoElement source) {
 		GeoPoint coordinates = coordinatesExtractor.apply( source );
 		fieldAccessor.write( target, coordinates );
 	}

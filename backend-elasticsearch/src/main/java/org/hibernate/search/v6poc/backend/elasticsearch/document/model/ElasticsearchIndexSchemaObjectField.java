@@ -6,14 +6,12 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.document.model;
 
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
+import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaObjectField;
 
 /**
  * @author Yoann Rodiere
  */
-public interface ElasticsearchIndexSchemaElement extends IndexSchemaElement {
-
-	@Override
-	ElasticsearchIndexSchemaObjectField objectField(String relativeName);
+public interface ElasticsearchIndexSchemaObjectField
+		extends ElasticsearchIndexSchemaElement, IndexSchemaObjectField {
 
 }

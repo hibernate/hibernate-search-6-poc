@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.backend.document.impl;
 
-import org.hibernate.search.v6poc.backend.document.DocumentState;
+import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 
 
@@ -22,7 +22,7 @@ public class DeferredInitializationIndexFieldAccessor<T> implements IndexFieldAc
 	}
 
 	@Override
-	public void write(DocumentState state, T value) {
+	public void write(DocumentElement state, T value) {
 		if ( delegate != null ) {
 			delegate.write( state, value );
 		}

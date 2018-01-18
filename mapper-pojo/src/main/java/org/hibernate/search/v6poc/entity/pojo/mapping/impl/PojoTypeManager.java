@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.impl;
 
 import java.util.function.Supplier;
 
-import org.hibernate.search.v6poc.backend.document.DocumentState;
+import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.index.spi.DocumentContributor;
 import org.hibernate.search.v6poc.backend.index.spi.DocumentReferenceProvider;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManager;
@@ -22,7 +22,7 @@ import org.hibernate.search.v6poc.entity.pojo.processing.impl.RoutingKeyProvider
 /**
  * @author Yoann Rodiere
  */
-public class PojoTypeManager<I, E, D extends DocumentState> {
+public class PojoTypeManager<I, E, D extends DocumentElement> {
 
 	private final Class<E> entityType;
 	private final IdentifierMapping<I, E> identifierMapping;

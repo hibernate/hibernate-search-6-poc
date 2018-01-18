@@ -6,14 +6,26 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl;
 
-import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonObjectAccessor;
+import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaNestingContext;
+import org.hibernate.search.v6poc.backend.document.model.spi.ObjectFieldIndexSchemaCollector;
+import org.hibernate.search.v6poc.backend.elasticsearch.document.model.ElasticsearchIndexSchemaObjectField;
 import org.hibernate.search.v6poc.util.AssertionFailure;
 
 public class ElasticsearchObjectFieldIndexSchemaCollectorImpl
-		extends AbstractElasticsearchIndexSchemaCollector<IndexSchemaObjectPropertyNodeBuilder> {
-	ElasticsearchObjectFieldIndexSchemaCollectorImpl(JsonObjectAccessor accessor,
-			IndexSchemaObjectPropertyNodeBuilder nodeBuilder) {
-		super( accessor, nodeBuilder );
+		extends AbstractElasticsearchIndexSchemaCollector<IndexSchemaObjectPropertyNodeBuilder>
+		implements ObjectFieldIndexSchemaCollector {
+
+	ElasticsearchObjectFieldIndexSchemaCollectorImpl(IndexSchemaObjectPropertyNodeBuilder nodeBuilder) {
+		super( nodeBuilder );
+	}
+
+	@Override
+	public ElasticsearchIndexSchemaObjectField withContext(IndexSchemaNestingContext context) {
+		/*
+		 * Note: this ignores any previous nesting context, but that's alright since
+		 * nesting context composition is handled in the engine.
+		 */
+		return new ElasticsearchIndexSchemaObjectFieldImpl( nodeBuilder, context );
 	}
 
 	@Override

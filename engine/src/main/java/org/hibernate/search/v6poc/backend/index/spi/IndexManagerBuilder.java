@@ -6,13 +6,13 @@
  */
 package org.hibernate.search.v6poc.backend.index.spi;
 
+import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaCollector;
-import org.hibernate.search.v6poc.backend.document.DocumentState;
 
 /**
  * @author Yoann Rodiere
  */
-public interface IndexManagerBuilder<D extends DocumentState> {
+public interface IndexManagerBuilder<D extends DocumentElement> {
 
 	IndexSchemaCollector getSchemaCollector();
 

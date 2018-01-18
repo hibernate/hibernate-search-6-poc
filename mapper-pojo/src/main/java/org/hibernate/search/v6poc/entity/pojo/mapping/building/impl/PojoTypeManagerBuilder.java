@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
-import org.hibernate.search.v6poc.backend.document.DocumentState;
+import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexManagerBuildingState;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
@@ -23,7 +23,7 @@ import org.hibernate.search.v6poc.entity.pojo.processing.impl.RoutingKeyBridgePr
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.RoutingKeyProvider;
 import org.hibernate.search.v6poc.util.SearchException;
 
-public class PojoTypeManagerBuilder<E, D extends DocumentState> {
+public class PojoTypeManagerBuilder<E, D extends DocumentElement> {
 	private final Class<E> javaType;
 	private final IndexManagerBuildingState<D> indexManagerBuildingState;
 
