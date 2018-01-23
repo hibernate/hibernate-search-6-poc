@@ -24,7 +24,7 @@ import org.hibernate.search.v6poc.entity.pojo.processing.impl.ValueProcessor;
  * them.
  * <p>
  * Incidentally, this will also generate the index model,
- * due to bridges contributing to the index model as we contribute them.
+ * due to bridges contributing to the index model as we bind them.
  *
  * @author Yoann Rodiere
  */
