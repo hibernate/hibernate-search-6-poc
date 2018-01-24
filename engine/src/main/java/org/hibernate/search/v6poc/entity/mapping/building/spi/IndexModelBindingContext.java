@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
+import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
 import org.hibernate.search.v6poc.entity.model.SearchModel;
 import org.hibernate.search.v6poc.entity.model.spi.IndexedTypeIdentifier;
 
@@ -30,5 +31,5 @@ public interface IndexModelBindingContext {
 	void explicitRouting();
 
 	Optional<IndexModelBindingContext> addIndexedEmbeddedIfIncluded(IndexedTypeIdentifier parentTypeId,
-			String relativePrefix, Integer maxDepth, Set<String> pathFilters);
+			String relativePrefix, ObjectFieldStorage storage, Integer maxDepth, Set<String> pathFilters);
 }
