@@ -6,43 +6,62 @@
  */
 package org.hibernate.search.v6poc.integrationtest;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.SessionFactoryBuilder;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
+import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
-import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaObjectField;
 import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.StubElasticsearchClient;
 import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.StubElasticsearchClient.Request;
 import org.hibernate.search.v6poc.backend.elasticsearch.impl.ElasticsearchBackendFactory;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.impl.ElasticsearchDocumentReference;
-import org.hibernate.search.v6poc.engine.SearchMappingRepository;
-import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
-import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
-import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingContributor;
 import org.hibernate.search.v6poc.entity.model.SearchModel;
-import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.impl.DefaultIntegerIdentifierBridge;
-import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
+import org.hibernate.search.v6poc.entity.orm.Search;
+import org.hibernate.search.v6poc.entity.orm.hibernate.FullTextQuery;
+import org.hibernate.search.v6poc.entity.orm.hibernate.FullTextSearchTarget;
+import org.hibernate.search.v6poc.entity.orm.hibernate.FullTextSession;
 import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
-import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
-import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchTarget;
-import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.ProgrammaticMappingDefinition;
+import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.impl.DefaultIntegerIdentifierBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.BridgeMapping;
+import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.BridgeMappingBuilderReference;
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.AnnotationBridgeBuilder;
+import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.DocumentId;
+import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Field;
+import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.FunctionBridgeBeanReference;
+import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.IdentifierBridgeBeanReference;
+import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Indexed;
+import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.IndexedEmbedded;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoReferenceImpl;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
-import org.hibernate.search.v6poc.entity.pojo.search.PojoReference;
 import org.hibernate.search.v6poc.search.ProjectionConstants;
 import org.hibernate.search.v6poc.search.SearchPredicate;
-import org.hibernate.search.v6poc.search.SearchQuery;
-import org.hibernate.search.v6poc.search.SearchResult;
 import org.hibernate.search.v6poc.search.dsl.predicate.RangeBoundInclusion;
+import org.hibernate.service.spi.ServiceRegistryImplementor;
 
 import org.junit.After;
 import org.junit.Before;
@@ -56,71 +75,37 @@ import static org.hibernate.search.v6poc.integrationtest.util.StubAssert.assertR
 /**
  * @author Yoann Rodiere
  */
-public class JavaBeanElasticsearchIT {
+public class OrmElasticsearchAnnotationMappingIT {
 
-	private SearchMappingRepository mappingRepository;
-
-	private JavaBeanMapping mapping;
+	private static final String PREFIX = "hibernate.search.";
 
 	private static final String HOST_1 = "http://es1.mycompany.com:9200/";
 	private static final String HOST_2 = "http://es2.mycompany.com:9200/";
 
+	private SessionFactory sessionFactory;
+
 	@Before
 	public void setup() throws JSONException {
-		SearchMappingRepositoryBuilder mappingRepositoryBuilder = SearchMappingRepository.builder()
-				.setProperty( "backend.elasticsearchBackend_1.type", ElasticsearchBackendFactory.class.getName() )
-				.setProperty( "backend.elasticsearchBackend_1.host", HOST_1 )
-				.setProperty( "backend.elasticsearchBackend_2.type", ElasticsearchBackendFactory.class.getName() )
-				.setProperty( "backend.elasticsearchBackend_2.host", HOST_2 )
-				.setProperty( "index.default.backend", "elasticsearchBackend_1" )
-				.setProperty( "index.OtherIndexedEntity.backend", "elasticsearchBackend_2" );
+		StandardServiceRegistryBuilder registryBuilder = new StandardServiceRegistryBuilder()
+				.applySetting( PREFIX + "backend.elasticsearchBackend_1.type", ElasticsearchBackendFactory.class.getName() )
+				.applySetting( PREFIX + "backend.elasticsearchBackend_1.host", HOST_1 )
+				.applySetting( PREFIX + "backend.elasticsearchBackend_2.type", ElasticsearchBackendFactory.class.getName() )
+				.applySetting( PREFIX + "backend.elasticsearchBackend_2.host", HOST_2 )
+				.applySetting( PREFIX + "index.default.backend", "elasticsearchBackend_1" )
+				.applySetting( PREFIX + "index.OtherIndexedEntity.backend", "elasticsearchBackend_2" );
 
-		JavaBeanMappingContributor contributor = new JavaBeanMappingContributor( mappingRepositoryBuilder );
+		ServiceRegistryImplementor serviceRegistry = (ServiceRegistryImplementor) registryBuilder.build();
 
-		ProgrammaticMappingDefinition mappingDefinition = contributor.programmaticMapping();
-		mappingDefinition.type( IndexedEntity.class )
-				.indexed( IndexedEntity.INDEX )
-				.bridge(
-						new MyBridgeBuilder()
-						.objectName( "customBridgeOnClass" )
-				)
-				.property( "id" )
-						.documentId()
-				.property( "text" )
-						.field()
-								.name( "myTextField" )
-				.property( "embedded" )
-						.indexedEmbedded()
-								.prefix( "embedded.prefix_" )
-								.maxDepth( 1 )
-								.includePaths( "embedded.prefix_customBridgeOnClass.text" );
+		MetadataSources ms = new MetadataSources( serviceRegistry )
+				.addAnnotatedClass( IndexedEntity.class )
+				.addAnnotatedClass( ParentIndexedEntity.class )
+				.addAnnotatedClass( OtherIndexedEntity.class )
+				.addAnnotatedClass( YetAnotherIndexedEntity.class );
 
-		ProgrammaticMappingDefinition secondMappingDefinition = contributor.programmaticMapping();
-		secondMappingDefinition.type( ParentIndexedEntity.class )
-				.property( "localDate" )
-						.field()
-								.name( "myLocalDateField" )
-				.property( "embedded" )
-						.bridge(
-								new MyBridgeBuilder()
-								.objectName( "customBridgeOnProperty" )
-						);
-		secondMappingDefinition.type( OtherIndexedEntity.class )
-				.indexed( OtherIndexedEntity.INDEX )
-				.property( "id" )
-						.documentId().identifierBridge( DefaultIntegerIdentifierBridge.class )
-				.property( "numeric" )
-						.field()
-						.field().name( "numericAsString" ).functionBridge( IntegerAsStringFunctionBridge.class );
-		secondMappingDefinition.type( YetAnotherIndexedEntity.class )
-				.indexed( YetAnotherIndexedEntity.INDEX )
-				.property( "id" )
-						.documentId()
-				.property( "numeric" )
-						.field();
+		Metadata metadata = ms.buildMetadata();
 
-		mappingRepository = mappingRepositoryBuilder.build();
-		mapping = contributor.getResult();
+		final SessionFactoryBuilder sfb = metadata.getSessionFactoryBuilder();
+		this.sessionFactory = sfb.build();
 
 		Map<String, List<Request>> requests = StubElasticsearchClient.drainRequestsByIndex();
 
@@ -255,38 +240,52 @@ public class JavaBeanElasticsearchIT {
 	@After
 	public void cleanup() {
 		StubElasticsearchClient.drainRequestsByIndex();
-		if ( mappingRepository != null ) {
-			mappingRepository.close();
+		if ( sessionFactory != null ) {
+			sessionFactory.close();
 		}
 	}
 
 	@Test
 	public void index() throws JSONException {
-		try (PojoSearchManager manager = mapping.createSearchManager()) {
-			IndexedEntity entity1 = new IndexedEntity();
-			entity1.setId( 1 );
-			entity1.setText( "this is text (1)" );
-			entity1.setLocalDate( LocalDate.of( 2017, 11, 1 ) );
-			IndexedEntity entity2 = new IndexedEntity();
-			entity2.setId( 2 );
-			entity2.setText( "some more text (2)" );
-			entity2.setLocalDate( LocalDate.of( 2017, 11, 2 ) );
-			IndexedEntity entity3 = new IndexedEntity();
-			entity3.setId( 3 );
-			entity3.setText( "some more text (3)" );
-			entity3.setLocalDate( LocalDate.of( 2017, 11, 3 ) );
-			OtherIndexedEntity entity4 = new OtherIndexedEntity();
-			entity4.setId( 4 );
-			entity4.setNumeric( 404 );
+		try ( Session session = sessionFactory.openSession() ) {
+			Transaction tx = session.beginTransaction();
 
-			entity1.setEmbedded( entity2 );
-			entity2.setEmbedded( entity3 );
+			try {
+				IndexedEntity entity1 = new IndexedEntity();
+				entity1.setId( 1 );
+				entity1.setText( "this is text (1)" );
+				entity1.setLocalDate( LocalDate.of( 2017, 11, 1 ) );
+				IndexedEntity entity2 = new IndexedEntity();
+				entity2.setId( 2 );
+				entity2.setText( "some more text (2)" );
+				entity2.setLocalDate( LocalDate.of( 2017, 11, 2 ) );
+				IndexedEntity entity3 = new IndexedEntity();
+				entity3.setId( 3 );
+				entity3.setText( "some more text (3)" );
+				entity3.setLocalDate( LocalDate.of( 2017, 11, 3 ) );
+				OtherIndexedEntity entity4 = new OtherIndexedEntity();
+				entity4.setId( 4 );
+				entity4.setNumeric( 404 );
 
-			manager.getMainWorker().add( entity1 );
-			manager.getMainWorker().add( entity2 );
-			manager.getMainWorker().add( entity4 );
-			manager.getMainWorker().delete( entity1 );
-			manager.getMainWorker().add( entity3 );
+				entity1.setEmbedded( entity2 );
+				entity2.setEmbedded( entity3 );
+
+				session.persist( entity1 );
+				session.persist( entity2 );
+				session.persist( entity4 );
+				session.delete( entity1 );
+				session.persist( entity3 );
+				tx.commit();
+			}
+			catch (Throwable t) {
+				try {
+					tx.rollback();
+				}
+				catch (Throwable t2) {
+					t.addSuppressed( t2 );
+				}
+				throw t;
+			}
 		}
 
 		Map<String, List<Request>> requests = StubElasticsearchClient.drainRequestsByIndex();
@@ -330,12 +329,13 @@ public class JavaBeanElasticsearchIT {
 
 	@Test
 	public void search() throws JSONException {
-		try (PojoSearchManager manager = mapping.createSearchManager()) {
-			SearchQuery<PojoReference> query = manager.search(
+		try (Session session = sessionFactory.openSession()) {
+			FullTextSession ftSession = Search.getFullTextSession( session );
+			FullTextQuery<ParentIndexedEntity> query = ftSession.search(
 							Arrays.asList( IndexedEntity.class, YetAnotherIndexedEntity.class )
 					)
 					.query()
-					.asReferences()
+					.asEntities()
 					.predicate( root -> root.bool()
 							.must().match()
 									.onField( "myTextField" ).boostedTo( 1.5f )
@@ -359,8 +359,8 @@ public class JavaBeanElasticsearchIT {
 							} )
 					)
 					.build();
-			query.setFirstResult( 3L );
-			query.setMaxResults( 2L );
+			query.setFirstResult( 3 );
+			query.setMaxResults( 2 );
 
 			StubElasticsearchClient.pushStubResponse(
 					"{"
@@ -379,13 +379,13 @@ public class JavaBeanElasticsearchIT {
 						+ "}"
 					+ "}"
 			);
-			SearchResult<PojoReference> result = query.execute();
-			Assertions.assertThat( result.getHits() ).hasSize( 2 )
+			List<ParentIndexedEntity> result = query.list();
+			Assertions.assertThat( result ).hasSize( 2 )
 					.containsExactly(
-							new PojoReferenceImpl( IndexedEntity.class, 0 ),
-							new PojoReferenceImpl( YetAnotherIndexedEntity.class, 1 )
+							session.get( IndexedEntity.class, 0 ),
+							session.get( YetAnotherIndexedEntity.class, 1 )
 					);
-			Assertions.assertThat( result.getHitCount() ).isEqualTo( 6 );
+			// TODO getResultSize
 		}
 
 		Map<String, List<Request>> requests = StubElasticsearchClient.drainRequestsByIndex();
@@ -444,8 +444,9 @@ public class JavaBeanElasticsearchIT {
 
 	@Test
 	public void search_separatePredicate() throws JSONException {
-		try (PojoSearchManager manager = mapping.createSearchManager()) {
-			PojoSearchTarget<?> target = manager.search(
+		try (Session session = sessionFactory.openSession()) {
+			FullTextSession ftSession = Search.getFullTextSession( session );
+			FullTextSearchTarget<ParentIndexedEntity> target = ftSession.search(
 					Arrays.asList( IndexedEntity.class, YetAnotherIndexedEntity.class )
 			);
 
@@ -467,8 +468,8 @@ public class JavaBeanElasticsearchIT {
 							.should( nestedPredicate )
 							.mustNot().predicate( otherNestedPredicate )
 					.end();
-			SearchQuery<PojoReference> query = target.query()
-					.asReferences()
+			FullTextQuery<ParentIndexedEntity> query = target.query()
+					.asEntities()
 					.predicate( predicate )
 					.build();
 
@@ -489,7 +490,7 @@ public class JavaBeanElasticsearchIT {
 						+ "}"
 					+ "}"
 			);
-			query.execute();
+			query.list();
 		}
 
 		Map<String, List<Request>> requests = StubElasticsearchClient.drainRequestsByIndex();
@@ -543,8 +544,9 @@ public class JavaBeanElasticsearchIT {
 
 	@Test
 	public void search_projection() throws JSONException {
-		try (PojoSearchManager manager = mapping.createSearchManager()) {
-			SearchQuery<List<?>> query = manager.search(
+		try (Session session = sessionFactory.openSession()) {
+			FullTextSession ftSession = Search.getFullTextSession( session );
+			FullTextQuery<List<?>> query = ftSession.search(
 							Arrays.asList( IndexedEntity.class, YetAnotherIndexedEntity.class )
 					)
 					.query()
@@ -553,6 +555,7 @@ public class JavaBeanElasticsearchIT {
 							ProjectionConstants.REFERENCE,
 							"myLocalDateField",
 							ProjectionConstants.DOCUMENT_REFERENCE,
+							ProjectionConstants.OBJECT,
 							"customBridgeOnClass.text"
 					)
 					.predicate( root -> root.match()
@@ -586,14 +589,15 @@ public class JavaBeanElasticsearchIT {
 						+ "}"
 					+ "}"
 			);
-			SearchResult<List<?>> result = query.execute();
-			Assertions.assertThat( result.getHits() ).hasSize( 2 )
+			List<List<?>> result = query.list();
+			Assertions.assertThat( result ).hasSize( 2 )
 					.containsExactly(
 							Arrays.asList(
 									"text1",
 									new PojoReferenceImpl( IndexedEntity.class, 0 ),
 									LocalDate.of( 2017, 11, 1 ),
 									new ElasticsearchDocumentReference( IndexedEntity.INDEX, "0" ),
+									session.get( IndexedEntity.class, 0 ),
 									"text2"
 							),
 							Arrays.asList(
@@ -601,10 +605,10 @@ public class JavaBeanElasticsearchIT {
 									new PojoReferenceImpl( YetAnotherIndexedEntity.class, 1 ),
 									LocalDate.of( 2017, 11, 2 ),
 									new ElasticsearchDocumentReference( YetAnotherIndexedEntity.INDEX, "1" ),
+									session.get( YetAnotherIndexedEntity.class, 1 ),
 									null
 							)
 					);
-			Assertions.assertThat( result.getHitCount() ).isEqualTo( 2 );
 		}
 
 		Map<String, List<Request>> requests = StubElasticsearchClient.drainRequestsByIndex();
@@ -627,10 +631,21 @@ public class JavaBeanElasticsearchIT {
 				+ "}" );
 	}
 
+	public static final class IntegerAsStringFunctionBridge implements FunctionBridge<Integer, String> {
+		@Override
+		public String toIndexedValue(Integer propertyValue) {
+			return propertyValue == null ? null : propertyValue.toString();
+		}
+	}
+
+	@MappedSuperclass
 	public static class ParentIndexedEntity {
 
+		@Field(name = "myLocalDateField")
 		private LocalDate localDate;
 
+		@ManyToOne
+		@MyBridge(objectName = "customBridgeOnProperty")
 		private IndexedEntity embedded;
 
 		public LocalDate getLocalDate() {
@@ -651,13 +666,19 @@ public class JavaBeanElasticsearchIT {
 
 	}
 
-	public static final class IndexedEntity extends ParentIndexedEntity {
+	@Entity
+	@Table(name = "indexed")
+	@Indexed(index = IndexedEntity.INDEX)
+	@MyBridge(objectName = "customBridgeOnClass")
+	public static class IndexedEntity extends ParentIndexedEntity {
 
 		public static final String INDEX = "IndexedEntity";
 
-		// TODO make it work with a primitive int too
+		@Id
+		@DocumentId
 		private Integer id;
 
+		@Field(name = "myTextField")
 		private String text;
 
 		public Integer getId() {
@@ -676,17 +697,28 @@ public class JavaBeanElasticsearchIT {
 			this.text = text;
 		}
 
+		@Override
+		@IndexedEmbedded(prefix = "embedded.prefix_", maxDepth = 1,
+				includePaths = "embedded.prefix_customBridgeOnClass.text")
+		public IndexedEntity getEmbedded() {
+			return super.getEmbedded();
+		}
 	}
 
-	public static final class OtherIndexedEntity {
+	@Entity
+	@Table(name = "other")
+	@Indexed(index = OtherIndexedEntity.INDEX)
+	public static class OtherIndexedEntity {
 
 		public static final String INDEX = "OtherIndexedEntity";
 
-		// TODO make it work with a primitive int too
+		@Id
 		private Integer id;
 
+		@Field(name = "numericAsString", functionBridge = @FunctionBridgeBeanReference(type = IntegerAsStringFunctionBridge.class))
 		private Integer numeric;
 
+		@DocumentId(identifierBridge = @IdentifierBridgeBeanReference(type = DefaultIntegerIdentifierBridge.class))
 		public Integer getId() {
 			return id;
 		}
@@ -695,6 +727,7 @@ public class JavaBeanElasticsearchIT {
 			this.id = id;
 		}
 
+		@Field
 		public Integer getNumeric() {
 			return numeric;
 		}
@@ -705,12 +738,18 @@ public class JavaBeanElasticsearchIT {
 
 	}
 
-	public static final class YetAnotherIndexedEntity extends ParentIndexedEntity {
+	@Entity
+	@Table(name = "yetanother")
+	@Indexed(index = YetAnotherIndexedEntity.INDEX)
+	public static class YetAnotherIndexedEntity extends ParentIndexedEntity {
 
 		public static final String INDEX = "YetAnotherIndexedEntity";
 
+		@Id
+		@DocumentId
 		private Integer id;
 
+		@Field
 		private Integer numeric;
 
 		public Integer getId() {
@@ -730,20 +769,27 @@ public class JavaBeanElasticsearchIT {
 		}
 	}
 
-	public static final class IntegerAsStringFunctionBridge implements FunctionBridge<Integer, String> {
-		@Override
-		public String toIndexedValue(Integer propertyValue) {
-			return propertyValue == null ? null : propertyValue.toString();
-		}
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target({ ElementType.FIELD, ElementType.METHOD, ElementType.TYPE })
+	@BridgeMapping(builder = @BridgeMappingBuilderReference(type = MyBridgeBuilder.class))
+	public @interface MyBridge {
+
+		String objectName();
+
 	}
 
-	public static final class MyBridgeBuilder implements BridgeBuilder<Bridge> {
+	public static final class MyBridgeBuilder implements AnnotationBridgeBuilder<Bridge, MyBridge> {
 
 		private String objectName;
 
 		public MyBridgeBuilder objectName(String value) {
 			this.objectName = value;
 			return this;
+		}
+
+		@Override
+		public void initialize(MyBridge annotation) {
+			objectName( annotation.objectName() );
 		}
 
 		@Override
@@ -786,5 +832,4 @@ public class JavaBeanElasticsearchIT {
 		}
 
 	}
-
 }
