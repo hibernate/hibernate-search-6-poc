@@ -4,11 +4,16 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.hibernate.search.v6poc;
+package org.hibernate.search.v6poc.integrationtest;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.search.v6poc.backend.document.DocumentElement;
+import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
+import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
+import org.hibernate.search.v6poc.backend.elasticsearch.ElasticsearchExtension;
 import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.StubElasticsearchClient;
 import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.StubElasticsearchClient.Request;
 import org.hibernate.search.v6poc.backend.elasticsearch.impl.ElasticsearchBackendFactory;
@@ -16,13 +21,14 @@ import org.hibernate.search.v6poc.engine.SearchMappingRepository;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingContributor;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
+import org.hibernate.search.v6poc.entity.model.SearchModel;
+import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.MappingDefinition;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.search.PojoReference;
-import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
 import org.hibernate.search.v6poc.search.SearchQuery;
 
 import org.junit.After;
@@ -31,12 +37,12 @@ import org.junit.Test;
 
 import org.json.JSONException;
 
-import static org.hibernate.search.v6poc.util.StubAssert.assertRequest;
+import static org.hibernate.search.v6poc.integrationtest.util.StubAssert.assertRequest;
 
 /**
  * @author Yoann Rodiere
  */
-public class JavaBeanElasticsearchRoutingIT {
+public class JavaBeanElasticsearchExtensionIT {
 
 	private SearchMappingRepository mappingRepository;
 
@@ -56,10 +62,10 @@ public class JavaBeanElasticsearchRoutingIT {
 		MappingDefinition mappingDefinition = contributor.programmaticMapping();
 		mappingDefinition.type( IndexedEntity.class )
 				.indexed( IndexedEntity.INDEX )
-				.routingKeyBridge( MyRoutingKeyBridge.class )
 				.property( "id" )
 						.documentId()
-				.property( "value" ).field();
+				.property( "jsonString" )
+						.bridge( MyElasticsearchBridgeImpl.class );
 
 		mappingRepository = mappingRepositoryBuilder.build();
 		mapping = contributor.getResult();
@@ -69,12 +75,10 @@ public class JavaBeanElasticsearchRoutingIT {
 		assertRequest( requests, IndexedEntity.INDEX, 0, HOST_1, "createIndex", null,
 				"{"
 					+ "'mapping': {"
-						+ "'_routing': {"
-							+ "'required': true"
-						+ "},"
 						+ "'properties': {"
-							+ "'value': {"
-								+ "'type': 'keyword'"
+							+ "'jsonStringField': {"
+								// As defined in MyElasticsearchBridgeImpl
+								+ "'esAttribute1': 'val1'"
 							+ "}"
 						+ "}"
 					+ "}"
@@ -94,43 +98,19 @@ public class JavaBeanElasticsearchRoutingIT {
 		try (PojoSearchManager manager = mapping.createSearchManager()) {
 			IndexedEntity entity1 = new IndexedEntity();
 			entity1.setId( 1 );
-			entity1.setCategory( EntityCategory.CATEGORY_2 );
-			entity1.setValue( "val1" );
+			entity1.setJsonString( "{'esProperty1':'val1'}" );
 
 			manager.getMainWorker().add( entity1 );
 		}
 
 		Map<String, List<Request>> requests = StubElasticsearchClient.drainRequestsByIndex();
-		assertRequest( requests, IndexedEntity.INDEX, 0, HOST_1, "add", "1",
-				c -> {
-					c.accept( "_routing", "category_2" );
-				},
+		// We expect the first add to be removed due to the delete
+		assertRequest( requests, IndexedEntity.INDEX, 0, HOST_1, "add", "2",
 				"{"
-					+ "'value': 'val1'"
+					+ "'jsonStringField': {"
+						+ "'esProperty1': 'val1'"
+					+ "}"
 				+ "}" );
-	}
-
-	@Test
-	public void index_multiTenancy() throws JSONException {
-		try (PojoSearchManager manager = mapping.createSearchManagerWithOptions()
-				.tenantId( "myTenantId" )
-				.build() ) {
-			IndexedEntity entity1 = new IndexedEntity();
-			entity1.setId( 1 );
-			entity1.setCategory( EntityCategory.CATEGORY_2 );
-			entity1.setValue( "val1" );
-
-			manager.getMainWorker().add( entity1 );
-		}
-
-		Map<String, List<Request>> requests = StubElasticsearchClient.drainRequestsByIndex();
-		assertRequest( requests, IndexedEntity.INDEX, 0, HOST_1, "add", "1",
-				c -> {
-					c.accept( "_routing", "myTenantId/category_2" );
-				},
-				"{"
-						+ "'value': 'val1'"
-						+ "}" );
 	}
 
 	@Test
@@ -139,54 +119,47 @@ public class JavaBeanElasticsearchRoutingIT {
 			SearchQuery<PojoReference> query = manager.search( IndexedEntity.class )
 					.query()
 					.asReferences()
-					.predicate( root -> root.match()
-							.onField( "value" )
-							.matching( "val1" )
+					.predicate( root -> root.bool()
+							.should().withExtension( ElasticsearchExtension.get() )
+									.fromJsonString( "{'es1': 'val1'}" )
+							.should().withExtensionOptional(
+									ElasticsearchExtension.get(),
+									// FIXME find some way to forbid using the context twice... ?
+									c -> c.fromJsonString( "{'es2': 'val2'}" )
+							)
+							.must().withExtensionOptional(
+									ElasticsearchExtension.get(),
+									// FIXME find some way to forbid using the context twice... ?
+									c -> c.fromJsonString( "{'es3': 'val3'}" ),
+									c -> c.match().onField( "fallback1" ).matching( "val1" )
+							)
 					)
-					.routing( "category_2" )
 					.build();
 
-			StubElasticsearchClient.pushStubResponse(
-					"{"
-						+ "'hits': {"
-							+ "'hits': ["
-								+ "{"
-									+ "'_index': '" + IndexedEntity.INDEX + "',"
-									+ "'_id': '0'"
-								+ "},"
-								+ "{"
-									+ "'_index': '" + IndexedEntity.INDEX + "',"
-									+ "'_id': '1'"
-								+ "}"
-							+ "]"
-						+ "}"
-					+ "}"
-			);
 			query.execute();
 		}
 
 		Map<String, List<Request>> requests = StubElasticsearchClient.drainRequestsByIndex();
-		assertRequest( requests, IndexedEntity.INDEX, 0,
+		assertRequest( requests, Arrays.asList( IndexedEntity.INDEX ), 0,
 				HOST_1, "query", null /* No ID */,
-				c -> {
-					c.accept( "_routing", "category_2" );
-				},
+				null,
 				"{"
 					+ "'query': {"
-						+ "'match': {"
-							+ "'value': {"
-								+ "'value': 'val1'"
+						+ "'bool': {"
+							+ "'should': ["
+								+ "{"
+									+ "'es1': 'val1'"
+								+ "},"
+								+ "{"
+									+ "'es2': 'val2'"
+								+ "}"
+							+ "],"
+							+ "'must': {"
+								+ "'es3': 'val3'"
 							+ "}"
 						+ "}"
 					+ "}"
 				+ "}" );
-	}
-
-	// TODO implement filters and allow them to use routing predicates, then test this here
-
-	public enum EntityCategory {
-		CATEGORY_1,
-		CATEGORY_2;
 	}
 
 	public static final class IndexedEntity {
@@ -195,9 +168,7 @@ public class JavaBeanElasticsearchRoutingIT {
 
 		private Integer id;
 
-		private EntityCategory category;
-
-		private String value;
+		private String jsonString;
 
 		public Integer getId() {
 			return id;
@@ -207,52 +178,39 @@ public class JavaBeanElasticsearchRoutingIT {
 			this.id = id;
 		}
 
-		public EntityCategory getCategory() {
-			return category;
+		public String getJsonString() {
+			return jsonString;
 		}
 
-		public void setCategory(EntityCategory category) {
-			this.category = category;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		public void setValue(String value) {
-			this.value = value;
+		public void setJsonString(String jsonString) {
+			this.jsonString = jsonString;
 		}
 
 	}
 
-	public static final class MyRoutingKeyBridge implements RoutingKeyBridge {
+	public static final class MyElasticsearchBridgeImpl implements Bridge {
 
-		private PojoModelElementAccessor<EntityCategory> categoryAccessor;
+		private PojoModelElementAccessor<String> sourceAccessor;
+		private IndexFieldAccessor<String> fieldAccessor;
 
 		@Override
-		public void bind(PojoModelElement pojoModelElement) {
-			categoryAccessor = pojoModelElement.property( "category" ).createAccessor( EntityCategory.class );
+		public void bind(IndexSchemaElement indexSchemaElement, PojoModelElement bridgedPojoModelElement,
+				SearchModel searchModel) {
+			sourceAccessor = bridgedPojoModelElement.createAccessor( String.class );
+			fieldAccessor = indexSchemaElement.field( "jsonStringField" )
+					.withExtension( ElasticsearchExtension.get() )
+					.asJsonString(
+							"{"
+								+ "'esAttribute1': 'val1'"
+							+ "}"
+					).createAccessor();
 		}
 
 		@Override
-		public String toRoutingKey(String tenantIdentifier, Object entityIdentifier, PojoElement source) {
-			EntityCategory category = categoryAccessor.read( source );
-			StringBuilder keyBuilder = new StringBuilder();
-			if ( tenantIdentifier != null ) {
-				keyBuilder.append( tenantIdentifier ).append( "/" );
-			}
-			switch ( category ) {
-				case CATEGORY_1:
-					keyBuilder.append( "category_1" );
-					break;
-				case CATEGORY_2:
-					keyBuilder.append( "category_2" );
-					break;
-				default:
-					throw new RuntimeException( "Unknown category: " + category );
-			}
-			return keyBuilder.toString();
+		public void write(DocumentElement target, PojoElement source) {
+			String sourceValue = sourceAccessor.read( source );
+			fieldAccessor.write( target, sourceValue );
 		}
+
 	}
-
 }
