@@ -23,7 +23,7 @@ import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingContributor;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
-import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.MappingDefinition;
+import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.ProgrammaticMappingDefinition;
 import org.json.JSONException;
 
 import org.junit.After;
@@ -50,7 +50,7 @@ public class JavaBeanElasticsearchGeoPointIT {
 
 		JavaBeanMappingContributor contributor = new JavaBeanMappingContributor( mappingRepositoryBuilder );
 
-		MappingDefinition mappingDefinition = contributor.programmaticMapping();
+		ProgrammaticMappingDefinition mappingDefinition = contributor.programmaticMapping();
 		mappingDefinition.type( GeoPointOnTypeEntity.class )
 				.indexed( GeoPointOnTypeEntity.INDEX )
 				.bridge( new GeoPointBridgeBuilder()

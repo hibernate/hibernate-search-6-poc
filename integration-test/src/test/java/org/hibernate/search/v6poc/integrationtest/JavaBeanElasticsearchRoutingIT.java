@@ -20,7 +20,7 @@ import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
-import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.MappingDefinition;
+import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.ProgrammaticMappingDefinition;
 import org.hibernate.search.v6poc.entity.pojo.search.PojoReference;
 import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
 import org.hibernate.search.v6poc.search.SearchQuery;
@@ -53,7 +53,7 @@ public class JavaBeanElasticsearchRoutingIT {
 
 		JavaBeanMappingContributor contributor = new JavaBeanMappingContributor( mappingRepositoryBuilder );
 
-		MappingDefinition mappingDefinition = contributor.programmaticMapping();
+		ProgrammaticMappingDefinition mappingDefinition = contributor.programmaticMapping();
 		mappingDefinition.type( IndexedEntity.class )
 				.indexed( IndexedEntity.INDEX )
 				.routingKeyBridge( MyRoutingKeyBridge.class )

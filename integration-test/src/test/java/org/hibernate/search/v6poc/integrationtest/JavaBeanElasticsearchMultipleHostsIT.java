@@ -17,7 +17,7 @@ import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
-import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.MappingDefinition;
+import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.ProgrammaticMappingDefinition;
 
 import org.junit.After;
 import org.junit.Before;
@@ -59,7 +59,7 @@ public class JavaBeanElasticsearchMultipleHostsIT {
 
 		JavaBeanMappingContributor contributor = new JavaBeanMappingContributor( mappingRepositoryBuilder );
 
-		MappingDefinition mappingDefinition = contributor.programmaticMapping();
+		ProgrammaticMappingDefinition mappingDefinition = contributor.programmaticMapping();
 		mappingDefinition.type( IndexedEntity.class )
 				.indexed( IndexedEntity.INDEX )
 				.property( "id" )
