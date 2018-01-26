@@ -6,8 +6,6 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping;
 
-import java.util.Set;
-
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.AnnotationMappingDefinition;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.ProgrammaticMappingDefinition;
 
