@@ -12,7 +12,7 @@ package org.hibernate.search.v6poc.entity.orm.cfg;
  */
 public final class AvailableSettings {
 
-	public static final String PREFIX = "hibernate.query.";
+	public static final String PREFIX = "hibernate.search.";
 
 	/**
 	 * Enable listeners auto registration in Hibernate Annotations and EntityManager. Default to true.

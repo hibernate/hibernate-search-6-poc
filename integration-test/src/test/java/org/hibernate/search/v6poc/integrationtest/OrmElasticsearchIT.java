@@ -69,7 +69,7 @@ import static org.hibernate.search.v6poc.integrationtest.util.StubAssert.assertR
  */
 public class OrmElasticsearchIT {
 
-	private static final String PREFIX = "hibernate.query.";
+	private static final String PREFIX = "hibernate.search.";
 
 	private static final String HOST_1 = "http://es1.mycompany.com:9200/";
 	private static final String HOST_2 = "http://es2.mycompany.com:9200/";
