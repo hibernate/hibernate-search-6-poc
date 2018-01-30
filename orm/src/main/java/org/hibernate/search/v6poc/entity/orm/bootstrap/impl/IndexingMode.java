@@ -7,6 +7,8 @@
 package org.hibernate.search.v6poc.entity.orm.bootstrap.impl;
 
 
+import java.lang.invoke.MethodHandles;
+
 import org.hibernate.search.v6poc.entity.orm.logging.impl.Log;
 import org.hibernate.search.v6poc.util.spi.LoggerFactory;
 
@@ -27,7 +29,7 @@ public enum IndexingMode {
 	 */
 	MANUAL("manual");
 
-	private static Log LOG = LoggerFactory.make( Log.class );
+	private static Log LOG = LoggerFactory.make( Log.class, MethodHandles.lookup() );
 
 	private String externalRepresentation;
 
