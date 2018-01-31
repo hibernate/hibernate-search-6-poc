@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.backend.elasticsearch.document.impl;
 import java.util.Objects;
 
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
-import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchObjectNodeModel;
+import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexSchemaObjectNode;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
 import org.hibernate.search.v6poc.logging.impl.Log;
 import org.hibernate.search.v6poc.util.spi.LoggerFactory;
@@ -23,21 +23,21 @@ public class ElasticsearchDocumentObjectBuilder implements DocumentElement {
 
 	private static final Log log = LoggerFactory.make( Log.class );
 
-	private final ElasticsearchObjectNodeModel model;
+	private final ElasticsearchIndexSchemaObjectNode schemaNode;
 	private final JsonObject content;
 
 	public ElasticsearchDocumentObjectBuilder() {
-		this( ElasticsearchObjectNodeModel.root(), new JsonObject() );
+		this( ElasticsearchIndexSchemaObjectNode.root(), new JsonObject() );
 	}
 
-	ElasticsearchDocumentObjectBuilder(ElasticsearchObjectNodeModel model, JsonObject content) {
-		this.model = model;
+	ElasticsearchDocumentObjectBuilder(ElasticsearchIndexSchemaObjectNode schemaNode, JsonObject content) {
+		this.schemaNode = schemaNode;
 		this.content = content;
 	}
 
-	public <T> void add(ElasticsearchObjectNodeModel expectedParentModel, JsonAccessor<T> relativeAccessor, T value) {
-		if ( !Objects.equals( expectedParentModel, model ) ) {
-			throw log.invalidParentDocumentObjectState( expectedParentModel.getAbsolutePath(), model.getAbsolutePath() );
+	public <T> void add(ElasticsearchIndexSchemaObjectNode expectedParentNode, JsonAccessor<T> relativeAccessor, T value) {
+		if ( !Objects.equals( expectedParentNode, schemaNode ) ) {
+			throw log.invalidParentDocumentObjectState( expectedParentNode.getAbsolutePath(), schemaNode.getAbsolutePath() );
 		}
 		relativeAccessor.add( content, value );
 	}
