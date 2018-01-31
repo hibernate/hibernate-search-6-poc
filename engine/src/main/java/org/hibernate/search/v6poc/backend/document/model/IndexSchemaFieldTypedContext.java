@@ -9,10 +9,10 @@ package org.hibernate.search.v6poc.backend.document.model;
 /**
  * @author Yoann Rodiere
  */
-public interface TypedFieldModelContext<T> extends TerminalFieldModelContext<T> {
+public interface IndexSchemaFieldTypedContext<T> extends IndexSchemaFieldTerminalContext<T> {
 
 	// TODO add common options: stored, sortable, ...
 
-	TypedFieldModelContext<T> store(Store store);
+	IndexSchemaFieldTypedContext<T> store(Store store);
 
 }

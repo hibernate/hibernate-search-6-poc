@@ -6,15 +6,15 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.document.model;
 
-import org.hibernate.search.v6poc.backend.document.model.FieldModelContext;
-import org.hibernate.search.v6poc.backend.document.model.TerminalFieldModelContext;
+import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldContext;
+import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTerminalContext;
 
 
 /**
  * @author Yoann Rodiere
  */
-public interface ElasticsearchFieldModelContext extends FieldModelContext {
+public interface ElasticsearchIndexSchemaFieldContext extends IndexSchemaFieldContext {
 
-	TerminalFieldModelContext<String> asJsonString(String mappingJsonString);
+	IndexSchemaFieldTerminalContext<String> asJsonString(String mappingJsonString);
 
 }

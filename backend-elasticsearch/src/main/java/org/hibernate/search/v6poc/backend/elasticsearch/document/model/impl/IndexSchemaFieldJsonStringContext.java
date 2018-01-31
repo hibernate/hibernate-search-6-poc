@@ -6,40 +6,53 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl;
 
+import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.impl.DeferredInitializationIndexFieldAccessor;
+import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTerminalContext;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.impl.ElasticsearchIndexFieldAccessor;
-import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.DataType;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.PropertyMapping;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
-import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonElementType;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
-import com.google.gson.JsonPrimitive;
 
 /**
  * @author Yoann Rodiere
  * @author Guillaume Smet
  */
-class IntegerFieldModelContext extends AbstractScalarFieldModelContext<Integer> {
+class IndexSchemaFieldJsonStringContext implements IndexSchemaFieldTerminalContext<String>,
+		ElasticsearchIndexSchemaNodeContributor<PropertyMapping> {
+
+	private static final Gson GSON = new GsonBuilder().create();
+
+	private DeferredInitializationIndexFieldAccessor<String> reference =
+			new DeferredInitializationIndexFieldAccessor<>();
 
 	private final String relativeName;
 
-	public IntegerFieldModelContext(String relativeName) {
+	private final String mappingJsonString;
+
+	public IndexSchemaFieldJsonStringContext(String relativeName, String mappingJsonString) {
 		this.relativeName = relativeName;
+		this.mappingJsonString = mappingJsonString;
 	}
 
 	@Override
-	protected PropertyMapping contribute(DeferredInitializationIndexFieldAccessor<Integer> reference,
-			ElasticsearchIndexSchemaNodeCollector collector,
-			ElasticsearchIndexSchemaObjectNode parentNode) {
-		PropertyMapping mapping = super.contribute( reference, collector, parentNode );
+	public IndexFieldAccessor<String> createAccessor() {
+		return reference;
+	}
 
-		ElasticsearchIndexSchemaFieldNode node = new ElasticsearchIndexSchemaFieldNode( parentNode, IntegerFieldFormatter.INSTANCE );
+	@Override
+	public PropertyMapping contribute(ElasticsearchIndexSchemaNodeCollector collector,
+			ElasticsearchIndexSchemaObjectNode parentNode) {
+		PropertyMapping mapping = GSON.fromJson( mappingJsonString, PropertyMapping.class );
+
+		ElasticsearchIndexSchemaFieldNode node = new ElasticsearchIndexSchemaFieldNode( parentNode, JsonStringFieldFormatter.INSTANCE );
 
 		JsonAccessor<JsonElement> jsonAccessor = JsonAccessor.root().property( relativeName );
 		reference.initialize( new ElasticsearchIndexFieldAccessor<>( jsonAccessor, node ) );
-		mapping.setType( DataType.INTEGER );
 
 		String absolutePath = parentNode.getAbsolutePath( relativeName );
 		collector.collect( absolutePath, node );
@@ -47,11 +60,11 @@ class IntegerFieldModelContext extends AbstractScalarFieldModelContext<Integer> 
 		return mapping;
 	}
 
-	private static final class IntegerFieldFormatter implements ElasticsearchFieldFormatter {
+	private static final class JsonStringFieldFormatter implements ElasticsearchFieldFormatter {
 		// Must be a singleton so that equals() works as required by the interface
-		public static final IntegerFieldFormatter INSTANCE = new IntegerFieldFormatter();
+		public static final JsonStringFieldFormatter INSTANCE = new JsonStringFieldFormatter();
 
-		private IntegerFieldFormatter() {
+		private JsonStringFieldFormatter() {
 		}
 
 		@Override
@@ -59,8 +72,8 @@ class IntegerFieldModelContext extends AbstractScalarFieldModelContext<Integer> 
 			if ( object == null ) {
 				return JsonNull.INSTANCE;
 			}
-			Integer value = (Integer) object;
-			return new JsonPrimitive( value );
+			String jsonString = (String) object;
+			return GSON.fromJson( jsonString, JsonElement.class );
 		}
 
 		@Override
@@ -68,7 +81,7 @@ class IntegerFieldModelContext extends AbstractScalarFieldModelContext<Integer> 
 			if ( element == null || element.isJsonNull() ) {
 				return null;
 			}
-			return JsonElementType.INTEGER.fromElement( element );
+			return GSON.toJson( element );
 		}
 	}
 }

@@ -14,7 +14,7 @@ import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaObjectFi
  */
 public interface IndexSchemaElement {
 
-	FieldModelContext field(String relativeName);
+	IndexSchemaFieldContext field(String relativeName);
 
 	default IndexSchemaObjectField objectField(String relativeName) {
 		return objectField( relativeName, ObjectFieldStorage.DEFAULT );

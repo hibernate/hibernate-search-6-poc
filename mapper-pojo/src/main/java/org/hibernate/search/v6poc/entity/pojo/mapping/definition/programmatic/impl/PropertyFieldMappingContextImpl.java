@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.search.v6poc.backend.document.model.Store;
-import org.hibernate.search.v6poc.backend.document.model.TypedFieldModelContext;
+import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedContext;
 import org.hibernate.search.v6poc.entity.pojo.bridge.impl.BeanResolverBridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
@@ -101,7 +101,7 @@ public class PropertyFieldMappingContextImpl extends DelegatingPropertyMappingCo
 		}
 
 		@Override
-		public void contribute(TypedFieldModelContext<?> context) {
+		public void contribute(IndexSchemaFieldTypedContext<?> context) {
 			delegates.forEach( c -> c.contribute( context ) );
 		}
 	}

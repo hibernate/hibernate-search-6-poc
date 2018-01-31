@@ -7,11 +7,8 @@
 package org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl;
 
 import org.hibernate.search.v6poc.backend.document.impl.DeferredInitializationIndexFieldAccessor;
-import org.hibernate.search.v6poc.backend.document.model.Store;
-import org.hibernate.search.v6poc.backend.document.model.TypedFieldModelContext;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.impl.ElasticsearchIndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.DataType;
-import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.FieldDataType;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.PropertyMapping;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonElementType;
@@ -24,46 +21,25 @@ import com.google.gson.JsonPrimitive;
  * @author Yoann Rodiere
  * @author Guillaume Smet
  */
-class StringFieldModelContext extends AbstractElasticsearchTypedFieldModelContext<String> {
+class IndexSchemaFieldIntegerContext extends AbstractScalarFieldTypedContext<Integer> {
 
 	private final String relativeName;
-	private Store store;
 
-	public StringFieldModelContext(String relativeName) {
+	public IndexSchemaFieldIntegerContext(String relativeName) {
 		this.relativeName = relativeName;
 	}
 
 	@Override
-	public TypedFieldModelContext<String> store(Store store) {
-		this.store = store;
-		return this;
-	}
-
-	@Override
-	protected PropertyMapping contribute(DeferredInitializationIndexFieldAccessor<String> reference,
+	protected PropertyMapping contribute(DeferredInitializationIndexFieldAccessor<Integer> reference,
 			ElasticsearchIndexSchemaNodeCollector collector,
 			ElasticsearchIndexSchemaObjectNode parentNode) {
-		PropertyMapping mapping = new PropertyMapping();
+		PropertyMapping mapping = super.contribute( reference, collector, parentNode );
 
-		ElasticsearchIndexSchemaFieldNode node = new ElasticsearchIndexSchemaFieldNode( parentNode, StringFieldFormatter.INSTANCE );
+		ElasticsearchIndexSchemaFieldNode node = new ElasticsearchIndexSchemaFieldNode( parentNode, IntegerFieldFormatter.INSTANCE );
 
 		JsonAccessor<JsonElement> jsonAccessor = JsonAccessor.root().property( relativeName );
 		reference.initialize( new ElasticsearchIndexFieldAccessor<>( jsonAccessor, node ) );
-		// TODO auto-select type, or use sub-fields (but in that case, adjust projections accordingly)
-		if ( false ) {
-			mapping.setType( DataType.TEXT );
-			if ( store != null && Store.YES.equals( store ) ) {
-				// TODO what about Store.COMPRESS?
-				mapping.setFieldData( FieldDataType.TRUE );
-			}
-		}
-		else {
-			mapping.setType( DataType.KEYWORD );
-			if ( store != null && Store.YES.equals( store ) ) {
-				// TODO what about Store.COMPRESS?
-				mapping.setStore( true );
-			}
-		}
+		mapping.setType( DataType.INTEGER );
 
 		String absolutePath = parentNode.getAbsolutePath( relativeName );
 		collector.collect( absolutePath, node );
@@ -71,11 +47,11 @@ class StringFieldModelContext extends AbstractElasticsearchTypedFieldModelContex
 		return mapping;
 	}
 
-	private static final class StringFieldFormatter implements ElasticsearchFieldFormatter {
+	private static final class IntegerFieldFormatter implements ElasticsearchFieldFormatter {
 		// Must be a singleton so that equals() works as required by the interface
-		public static final StringFieldFormatter INSTANCE = new StringFieldFormatter();
+		public static final IntegerFieldFormatter INSTANCE = new IntegerFieldFormatter();
 
-		private StringFieldFormatter() {
+		private IntegerFieldFormatter() {
 		}
 
 		@Override
@@ -83,7 +59,7 @@ class StringFieldModelContext extends AbstractElasticsearchTypedFieldModelContex
 			if ( object == null ) {
 				return JsonNull.INSTANCE;
 			}
-			String value = (String) object;
+			Integer value = (Integer) object;
 			return new JsonPrimitive( value );
 		}
 
@@ -92,7 +68,7 @@ class StringFieldModelContext extends AbstractElasticsearchTypedFieldModelContex
 			if ( element == null || element.isJsonNull() ) {
 				return null;
 			}
-			return JsonElementType.STRING.fromElement( element );
+			return JsonElementType.INTEGER.fromElement( element );
 		}
 	}
 }

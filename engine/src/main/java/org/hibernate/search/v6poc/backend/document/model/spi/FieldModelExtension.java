@@ -7,13 +7,13 @@
 package org.hibernate.search.v6poc.backend.document.model.spi;
 
 
-import org.hibernate.search.v6poc.backend.document.model.FieldModelContext;
+import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldContext;
 
 /**
  * @author Yoann Rodiere
  */
 public interface FieldModelExtension<T> {
 
-	T extendOrFail(FieldModelContext original);
+	T extendOrFail(IndexSchemaFieldContext original);
 
 }
