@@ -11,8 +11,6 @@ import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
 import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaObjectField;
-import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.StubElasticsearchClient;
-import org.hibernate.search.v6poc.backend.elasticsearch.impl.ElasticsearchBackendFactory;
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
@@ -23,9 +21,11 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.ProgrammaticMappingDefinition;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
+import org.hibernate.search.v6poc.integrationtest.util.common.StubClientElasticsearchBackendFactory;
+import org.hibernate.search.v6poc.integrationtest.util.common.StubElasticsearchClient;
 import org.hibernate.search.v6poc.util.SearchException;
 
 import org.junit.After;
@@ -51,7 +51,7 @@ public class JavaBeanElasticsearchObjectFieldInvalidDocumentElementIT {
 	@Before
 	public void setup() {
 		SearchMappingRepositoryBuilder mappingRepositoryBuilder = SearchMappingRepository.builder()
-				.setProperty( "backend.elasticsearchBackend.type", ElasticsearchBackendFactory.class.getName() )
+				.setProperty( "backend.elasticsearchBackend.type", StubClientElasticsearchBackendFactory.class.getName() )
 				.setProperty( "backend.elasticsearchBackend.host", HOST )
 				.setProperty( "index.default.backend", "elasticsearchBackend" );
 
