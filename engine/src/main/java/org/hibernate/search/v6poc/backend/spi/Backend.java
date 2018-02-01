@@ -16,6 +16,8 @@ import org.hibernate.search.v6poc.engine.spi.BuildContext;
  */
 public interface Backend<D extends DocumentElement> extends AutoCloseable {
 
+	String normalizeIndexName(String rawIndexName);
+
 	IndexManagerBuilder<D> createIndexManagerBuilder(String name, BuildContext context, ConfigurationPropertySource propertySource);
 
 	@Override

@@ -9,6 +9,7 @@ package org.hibernate.search.v6poc.integrationtest.mapper.pojo;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.search.v6poc.backend.elasticsearch.impl.ElasticsearchIndexNameNormalizer;
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
@@ -150,11 +151,11 @@ public class JavaBeanElasticsearchRoutingIT {
 						+ "'hits': {"
 							+ "'hits': ["
 								+ "{"
-									+ "'_index': '" + IndexedEntity.INDEX + "',"
+									+ "'_index': '" + ElasticsearchIndexNameNormalizer.normalize( IndexedEntity.INDEX ) + "',"
 									+ "'_id': '0'"
 								+ "},"
 								+ "{"
-									+ "'_index': '" + IndexedEntity.INDEX + "',"
+									+ "'_index': '" + ElasticsearchIndexNameNormalizer.normalize( IndexedEntity.INDEX ) + "',"
 									+ "'_id': '1'"
 								+ "}"
 							+ "]"
