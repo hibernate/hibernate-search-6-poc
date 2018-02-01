@@ -30,7 +30,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.search.impl.Elasticsearc
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.model.SearchModel;
 import org.hibernate.search.v6poc.entity.orm.Search;
-import org.hibernate.search.v6poc.entity.orm.cfg.AvailableSettings;
+import org.hibernate.search.v6poc.entity.orm.cfg.SearchOrmSettings;
 import org.hibernate.search.v6poc.entity.orm.hibernate.FullTextQuery;
 import org.hibernate.search.v6poc.entity.orm.hibernate.FullTextSearchTarget;
 import org.hibernate.search.v6poc.entity.orm.hibernate.FullTextSession;
@@ -71,7 +71,7 @@ import static org.hibernate.search.v6poc.integrationtest.util.common.StubAssert.
  */
 public class OrmElasticsearchProgrammaticMappingIT {
 
-	private static final String PREFIX = AvailableSettings.PREFIX;
+	private static final String PREFIX = SearchOrmSettings.PREFIX;
 
 	private static final String HOST_1 = "http://es1.mycompany.com:9200/";
 	private static final String HOST_2 = "http://es2.mycompany.com:9200/";
@@ -87,7 +87,7 @@ public class OrmElasticsearchProgrammaticMappingIT {
 				.applySetting( PREFIX + "backend.elasticsearchBackend_2.host", HOST_2 )
 				.applySetting( PREFIX + "index.default.backend", "elasticsearchBackend_1" )
 				.applySetting( PREFIX + "index.OtherIndexedEntity.backend", "elasticsearchBackend_2" )
-				.applySetting( AvailableSettings.MAPPING_CONTRIBUTOR, new MyMappingContributor() );
+				.applySetting( SearchOrmSettings.MAPPING_CONTRIBUTOR, new MyMappingContributor() );
 
 		ServiceRegistry serviceRegistry = registryBuilder.build();
 
