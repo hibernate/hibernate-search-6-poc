@@ -8,7 +8,6 @@ package org.hibernate.search.v6poc.backend.elasticsearch.search.predicate.impl;
 
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchFieldFormatter;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
-import org.hibernate.search.v6poc.backend.elasticsearch.search.dsl.impl.ElasticsearchSearchPredicateCollector;
 import org.hibernate.search.v6poc.search.predicate.spi.MatchPredicateBuilder;
 
 import com.google.gson.JsonElement;

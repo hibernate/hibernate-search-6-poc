@@ -12,8 +12,8 @@ import java.util.Set;
 import java.util.function.Function;
 
 import org.hibernate.search.v6poc.backend.elasticsearch.orchestration.impl.ElasticsearchWorkOrchestrator;
-import org.hibernate.search.v6poc.backend.elasticsearch.search.dsl.impl.ElasticsearchSearchPredicateCollector;
-import org.hibernate.search.v6poc.backend.elasticsearch.search.dsl.impl.ElasticsearchSingleSearchPredicateCollector;
+import org.hibernate.search.v6poc.backend.elasticsearch.search.predicate.impl.ElasticsearchSearchPredicateCollector;
+import org.hibernate.search.v6poc.backend.elasticsearch.search.dsl.predicate.impl.ElasticsearchSingleSearchPredicateCollector;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWorkFactory;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.search.SearchQuery;

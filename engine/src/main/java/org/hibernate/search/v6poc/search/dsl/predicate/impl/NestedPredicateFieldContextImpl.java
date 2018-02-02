@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.search.dsl.predicate.impl;
 
 import org.hibernate.search.v6poc.search.dsl.predicate.NestedPredicateFieldContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.SearchPredicateContainerContext;
-import org.hibernate.search.v6poc.search.dsl.spi.DelegatingSearchPredicateContainerContextImpl;
+import org.hibernate.search.v6poc.search.dsl.predicate.spi.DelegatingSearchPredicateContainerContextImpl;
 import org.hibernate.search.v6poc.search.predicate.spi.NestedPredicateBuilder;
 
 class NestedPredicateFieldContextImpl<N, C> extends DelegatingSearchPredicateContainerContextImpl<N>

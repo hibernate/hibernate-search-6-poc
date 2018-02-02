@@ -6,6 +6,8 @@
  */
 package org.hibernate.search.v6poc.search.predicate.spi;
 
+import org.hibernate.search.v6poc.search.SearchPredicate;
+
 /**
  * A factory for search predicates.
  * <p>
@@ -16,6 +18,10 @@ package org.hibernate.search.v6poc.search.predicate.spi;
  * This type is backend-specific. See {@link SearchPredicateBuilder#contribute(Object)}
  */
 public interface SearchPredicateFactory<C> {
+
+	SearchPredicate toSearchPredicate(SearchPredicateContributor<C> contributor);
+
+	SearchPredicateContributor<C> toContributor(SearchPredicate predicate);
 
 	BooleanJunctionPredicateBuilder<C> bool();
 
