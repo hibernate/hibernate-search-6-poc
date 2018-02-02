@@ -9,15 +9,16 @@ package org.hibernate.search.v6poc.search.dsl.query.impl;
 import java.util.Collection;
 import java.util.function.Function;
 
-import org.hibernate.search.v6poc.search.query.spi.SearchQueryBuilder;
 import org.hibernate.search.v6poc.search.SearchQuery;
 import org.hibernate.search.v6poc.search.dsl.query.SearchQueryContext;
+import org.hibernate.search.v6poc.search.dsl.spi.SearchTargetContext;
+import org.hibernate.search.v6poc.search.query.spi.SearchQueryBuilder;
 
 
 /**
  * @author Yoann Rodiere
  */
-public class SearchQueryContextImpl<T, Q, C> implements SearchQueryContext<Q> {
+public final class SearchQueryContextImpl<T, Q, C> implements SearchQueryContext<Q> {
 
 	private final SearchQueryBuilder<T, C> searchQueryBuilder;
 

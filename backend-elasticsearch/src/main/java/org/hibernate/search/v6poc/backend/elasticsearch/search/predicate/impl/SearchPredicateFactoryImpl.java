@@ -16,7 +16,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.Elas
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexSchemaFieldNode;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexSchemaObjectNode;
 import org.hibernate.search.v6poc.backend.elasticsearch.logging.impl.Log;
-import org.hibernate.search.v6poc.backend.elasticsearch.search.dsl.predicate.impl.ElasticsearchSingleSearchPredicateCollector;
+import org.hibernate.search.v6poc.backend.elasticsearch.search.impl.ElasticsearchSearchQueryElementCollector;
 import org.hibernate.search.v6poc.search.SearchPredicate;
 import org.hibernate.search.v6poc.search.predicate.spi.BooleanJunctionPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.MatchPredicateBuilder;
@@ -47,9 +47,9 @@ public class SearchPredicateFactoryImpl implements ElasticsearchSearchPredicateF
 
 	@Override
 	public SearchPredicate toSearchPredicate(SearchPredicateContributor<ElasticsearchSearchPredicateCollector> contributor) {
-		ElasticsearchSingleSearchPredicateCollector collector = new ElasticsearchSingleSearchPredicateCollector();
+		ElasticsearchSearchQueryElementCollector collector = new ElasticsearchSearchQueryElementCollector();
 		contributor.contribute( collector );
-		return new ElasticsearchSearchPredicate( collector.toJson() );
+		return new ElasticsearchSearchPredicate( collector.toJsonPredicate() );
 	}
 
 	@Override

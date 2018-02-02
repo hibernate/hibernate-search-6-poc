@@ -19,10 +19,10 @@ import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.search.ObjectLoader;
 import org.hibernate.search.v6poc.search.SearchPredicate;
 import org.hibernate.search.v6poc.search.dsl.predicate.SearchPredicateContainerContext;
-import org.hibernate.search.v6poc.search.dsl.spi.SearchTargetContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.spi.SearchTargetPredicateRootContext;
 import org.hibernate.search.v6poc.search.dsl.query.SearchQueryResultDefinitionContext;
 import org.hibernate.search.v6poc.search.dsl.query.spi.SearchQueryResultDefinitionContextImpl;
+import org.hibernate.search.v6poc.search.dsl.spi.SearchTargetContext;
 
 
 /**
