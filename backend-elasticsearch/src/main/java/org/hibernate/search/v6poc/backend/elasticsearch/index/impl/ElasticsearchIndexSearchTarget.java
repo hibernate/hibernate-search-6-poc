@@ -8,10 +8,10 @@ package org.hibernate.search.v6poc.backend.elasticsearch.index.impl;
 
 import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexModel;
 import org.hibernate.search.v6poc.backend.elasticsearch.impl.ElasticsearchBackend;
+import org.hibernate.search.v6poc.backend.elasticsearch.search.impl.ElasticsearchSearchTargetModel;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.query.impl.ElasticsearchSearchTargetContext;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
@@ -30,15 +30,12 @@ import org.hibernate.search.v6poc.search.dsl.spi.SearchTargetContext;
  */
 class ElasticsearchIndexSearchTarget implements IndexSearchTarget {
 
+	private final ElasticsearchSearchTargetModel searchTargetModel;
 	private final SearchTargetContext<?> searchTargetContext;
 
-	private final Set<String> indexNames;
-
 	ElasticsearchIndexSearchTarget(ElasticsearchBackend backend, Set<ElasticsearchIndexModel> indexModels) {
-		this.searchTargetContext = new ElasticsearchSearchTargetContext( backend, indexModels );
-		this.indexNames = indexModels.stream()
-				.map( ElasticsearchIndexModel::getIndexName )
-				.collect( Collectors.toSet() );
+		this.searchTargetModel = new ElasticsearchSearchTargetModel( indexModels );
+		this.searchTargetContext = new ElasticsearchSearchTargetContext( backend, searchTargetModel );
 	}
 
 	@Override
@@ -59,7 +56,7 @@ class ElasticsearchIndexSearchTarget implements IndexSearchTarget {
 	public String toString() {
 		return new StringBuilder( getClass().getSimpleName() )
 				.append( "[" )
-				.append( "indexNames=" ).append( indexNames )
+				.append( "indexNames=" ).append( searchTargetModel.getIndexNames() )
 				.append( "]")
 				.toString();
 	}
