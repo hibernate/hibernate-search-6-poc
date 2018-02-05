@@ -19,8 +19,10 @@ import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;
 import org.hibernate.search.v6poc.search.ObjectLoader;
 import org.hibernate.search.v6poc.search.SearchPredicate;
+import org.hibernate.search.v6poc.search.SearchSort;
 import org.hibernate.search.v6poc.search.dsl.predicate.SearchPredicateContainerContext;
 import org.hibernate.search.v6poc.search.dsl.query.SearchQueryResultDefinitionContext;
+import org.hibernate.search.v6poc.search.dsl.sort.SearchSortContainerContext;
 import org.hibernate.search.v6poc.util.AssertionFailure;
 
 public class PojoSearchTargetDelegateImpl<T> implements PojoSearchTargetDelegate<T> {
@@ -58,6 +60,11 @@ public class PojoSearchTargetDelegateImpl<T> implements PojoSearchTargetDelegate
 	@Override
 	public SearchPredicateContainerContext<SearchPredicate> predicate() {
 		return getIndexSearchTarget().predicate();
+	}
+
+	@Override
+	public SearchSortContainerContext<SearchSort> sort() {
+		return getIndexSearchTarget().sort();
 	}
 
 	private IndexSearchTarget getIndexSearchTarget() {

@@ -12,8 +12,10 @@ import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.search.ObjectLoader;
 import org.hibernate.search.v6poc.search.SearchPredicate;
+import org.hibernate.search.v6poc.search.SearchSort;
 import org.hibernate.search.v6poc.search.dsl.predicate.SearchPredicateContainerContext;
 import org.hibernate.search.v6poc.search.dsl.query.SearchQueryResultDefinitionContext;
+import org.hibernate.search.v6poc.search.dsl.sort.SearchSortContainerContext;
 
 public interface IndexSearchTarget {
 
@@ -26,5 +28,7 @@ public interface IndexSearchTarget {
 			ObjectLoader<R, O> objectLoader);
 
 	SearchPredicateContainerContext<SearchPredicate> predicate();
+
+	SearchSortContainerContext<SearchSort> sort();
 
 }

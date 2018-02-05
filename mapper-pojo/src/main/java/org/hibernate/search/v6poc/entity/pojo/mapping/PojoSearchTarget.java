@@ -8,13 +8,17 @@ package org.hibernate.search.v6poc.entity.pojo.mapping;
 
 import org.hibernate.search.v6poc.entity.pojo.search.PojoReference;
 import org.hibernate.search.v6poc.search.SearchPredicate;
+import org.hibernate.search.v6poc.search.SearchSort;
 import org.hibernate.search.v6poc.search.dsl.predicate.SearchPredicateContainerContext;
 import org.hibernate.search.v6poc.search.dsl.query.SearchQueryResultDefinitionContext;
+import org.hibernate.search.v6poc.search.dsl.sort.SearchSortContainerContext;
 
 public interface PojoSearchTarget<T> {
 
 	SearchQueryResultDefinitionContext<PojoReference, T> query();
 
 	SearchPredicateContainerContext<SearchPredicate> predicate();
+
+	SearchSortContainerContext<SearchSort> sort();
 
 }
