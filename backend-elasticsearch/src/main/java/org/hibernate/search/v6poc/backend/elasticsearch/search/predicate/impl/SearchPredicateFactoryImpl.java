@@ -10,6 +10,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.impl.ElasticsearchSearchQueryElementCollector;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.impl.ElasticsearchSearchTargetModel;
 import org.hibernate.search.v6poc.search.SearchPredicate;
+import org.hibernate.search.v6poc.search.predicate.spi.AllPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.BooleanJunctionPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.MatchPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.NestedPredicateBuilder;
@@ -50,6 +51,11 @@ public class SearchPredicateFactoryImpl implements ElasticsearchSearchPredicateF
 			throw log.cannotMixElasticsearchSearchQueryWithOtherPredicates( predicate );
 		}
 		return (ElasticsearchSearchPredicate) predicate;
+	}
+
+	@Override
+	public AllPredicateBuilder<ElasticsearchSearchPredicateCollector> all() {
+		return new AllPredicateBuilderImpl();
 	}
 
 	@Override

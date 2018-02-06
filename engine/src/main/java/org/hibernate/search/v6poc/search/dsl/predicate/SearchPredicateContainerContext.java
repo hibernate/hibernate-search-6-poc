@@ -20,6 +20,8 @@ import org.hibernate.search.v6poc.search.dsl.predicate.spi.SearchPredicateContai
  */
 public interface SearchPredicateContainerContext<N> {
 
+	AllPredicateContext<N> all();
+
 	BooleanJunctionPredicateContext<N> bool();
 
 	MatchPredicateContext<N> match();
