@@ -6,23 +6,21 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.search.query.impl;
 
-import java.util.function.Function;
-
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.impl.ElasticsearchDocumentReference;
 import org.hibernate.search.v6poc.search.DocumentReference;
-import org.hibernate.search.v6poc.search.query.spi.HitCollector;
+import org.hibernate.search.v6poc.search.query.spi.DocumentReferenceHitCollector;
 
 import com.google.gson.JsonObject;
 
-class DocumentReferenceHitExtractor<R> implements HitExtractor<HitCollector<? super R>> {
+class DocumentReferenceHitExtractor implements HitExtractor<DocumentReferenceHitCollector> {
 	private static final JsonAccessor<String> HIT_INDEX_NAME_ACCESSOR = JsonAccessor.root().property( "_index" ).asString();
 	private static final JsonAccessor<String> HIT_ID_ACCESSOR = JsonAccessor.root().property( "_id" ).asString();
 
-	private final Function<DocumentReference, R> referenceTransformer;
+	private static final DocumentReferenceHitExtractor INSTANCE = new DocumentReferenceHitExtractor();
 
-	public DocumentReferenceHitExtractor(Function<DocumentReference, R> referenceTransformer) {
-		this.referenceTransformer = referenceTransformer;
+	public static DocumentReferenceHitExtractor get() {
+		return INSTANCE;
 	}
 
 	@Override
@@ -31,12 +29,11 @@ class DocumentReferenceHitExtractor<R> implements HitExtractor<HitCollector<? su
 	}
 
 	@Override
-	public void extract(HitCollector<? super R> collector, JsonObject responseBody, JsonObject hit) {
+	public void extract(DocumentReferenceHitCollector collector, JsonObject responseBody, JsonObject hit) {
 		String indexName = HIT_INDEX_NAME_ACCESSOR.get( hit ).get();
 		String id = HIT_ID_ACCESSOR.get( hit ).get();
 		DocumentReference documentReference = new ElasticsearchDocumentReference( indexName, id );
-		R reference = referenceTransformer.apply( documentReference );
-		collector.collect( reference );
+		collector.collectReference( documentReference );
 	}
 
 }
