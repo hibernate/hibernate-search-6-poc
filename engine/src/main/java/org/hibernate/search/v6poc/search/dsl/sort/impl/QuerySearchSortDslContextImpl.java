@@ -9,34 +9,36 @@ package org.hibernate.search.v6poc.search.dsl.sort.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.search.v6poc.search.SearchSort;
+import org.hibernate.search.v6poc.search.dsl.query.SearchQueryContext;
 import org.hibernate.search.v6poc.search.dsl.sort.spi.SearchSortDslContext;
 import org.hibernate.search.v6poc.search.sort.spi.SearchSortContributor;
-import org.hibernate.search.v6poc.search.sort.spi.SearchSortFactory;
 
-public final class QuerySearchSortBuildingRootContextImpl<C>
-		implements SearchSortDslContext<SearchSort, C>, SearchSortContributor<C> {
+/**
+ * A DSL context used when calling {@link SearchQueryContext#sort()} to build the sort
+ * in a fluid way (in the same call chain as the query).
+ */
+public final class QuerySearchSortDslContextImpl<N, C>
+		implements SearchSortDslContext<N, C> {
 
-	private final SearchSortFactory<C> factory;
+	private final C collector;
+	private final N nextContext;
 
 	private List<SearchSortContributor<C>> sortContributors = new ArrayList<>();
 
-	public QuerySearchSortBuildingRootContextImpl(SearchSortFactory<C> factory) {
-		this.factory = factory;
+	public QuerySearchSortDslContextImpl(C collector, N nextContext) {
+		this.collector = collector;
+		this.nextContext = nextContext;
 	}
 
 	@Override
 	public void addContributor(SearchSortContributor<C> child) {
-		sortContributors.add( child );
+		this.sortContributors.add( child );
 	}
 
 	@Override
-	public SearchSort getNextContext() {
-		return factory.toSearchSort( this );
-	}
-
-	@Override
-	public void contribute(C collector) {
+	public N getNextContext() {
 		sortContributors.forEach( c -> c.contribute( collector ) );
+		return nextContext;
 	}
+
 }
