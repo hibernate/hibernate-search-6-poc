@@ -6,7 +6,6 @@
  */
 package org.hibernate.search.v6poc.search.dsl.predicate.impl;
 
-import java.lang.invoke.MethodHandles;
 import java.util.function.Supplier;
 
 import org.hibernate.search.v6poc.logging.impl.Log;
@@ -22,7 +21,7 @@ import org.hibernate.search.v6poc.util.spi.LoggerFactory;
 public final class QuerySearchPredicateDslContextImpl<N, C>
 		implements SearchPredicateDslContext<N, C> {
 
-	private static final Log log = LoggerFactory.make( Log.class, MethodHandles.lookup() );
+	private static final Log log = LoggerFactory.make( Log.class );
 
 	private final C collector;
 	private final Supplier<N> nextContextSupplier;
