@@ -13,7 +13,7 @@ import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateContributo
 import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateFactory;
 import org.hibernate.search.v6poc.util.spi.LoggerFactory;
 
-public final class QuerySearchPredicateBuildingRootContextImpl<C>
+public final class BuildingRootSearchPredicateDslContextImpl<C>
 		implements SearchPredicateDslContext<SearchPredicate, C>, SearchPredicateContributor<C> {
 
 	private static final Log log = LoggerFactory.make( Log.class );
@@ -22,7 +22,7 @@ public final class QuerySearchPredicateBuildingRootContextImpl<C>
 
 	private SearchPredicateContributor<C> singlePredicateContributor;
 
-	public QuerySearchPredicateBuildingRootContextImpl(SearchPredicateFactory<C> factory) {
+	public BuildingRootSearchPredicateDslContextImpl(SearchPredicateFactory<C> factory) {
 		this.factory = factory;
 	}
 

@@ -7,14 +7,14 @@
 package org.hibernate.search.v6poc.search.dsl.sort.spi;
 
 import org.hibernate.search.v6poc.search.SearchSort;
-import org.hibernate.search.v6poc.search.dsl.sort.impl.QuerySearchSortBuildingRootContextImpl;
+import org.hibernate.search.v6poc.search.dsl.sort.impl.BuildingRootSearchSortDslContextImpl;
 import org.hibernate.search.v6poc.search.dsl.sort.impl.SearchSortContainerContextImpl;
 import org.hibernate.search.v6poc.search.sort.spi.SearchSortFactory;
 
 public final class SearchTargetSortRootContext<C> extends SearchSortContainerContextImpl<SearchSort, C> {
 
 	public SearchTargetSortRootContext(SearchSortFactory<C> factory) {
-		super( factory, new QuerySearchSortBuildingRootContextImpl<>( factory ) );
+		super( factory, new BuildingRootSearchSortDslContextImpl<>( factory ) );
 	}
 
 }
