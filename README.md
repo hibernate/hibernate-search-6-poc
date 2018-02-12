@@ -1,5 +1,8 @@
 # Hibernate Search 6 Proof-of-Concept
 
+[![Build Status](https://travis-ci.org/hibernate/hibernate-search-6-poc.svg?branch=master)](https://travis-ci.org/hibernate/hibernate-search-6-poc)
+[![Coverage Status](https://coveralls.io/repos/github/hibernate/hibernate-search-6-poc/badge.svg?branch=master)](https://coveralls.io/github/hibernate/hibernate-search-6-poc?branch=master)
+
 This is where the Hibernate Search team experiments with concepts that may,
 or may not, end up in Hibernate Search 6.
 
