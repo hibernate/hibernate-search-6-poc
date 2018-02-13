@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedContext;
+import org.hibernate.search.v6poc.backend.document.model.Sortable;
 import org.hibernate.search.v6poc.backend.document.model.Store;
 import org.hibernate.search.v6poc.engine.spi.BeanReference;
 import org.hibernate.search.v6poc.engine.spi.BeanResolver;
@@ -274,6 +275,9 @@ class AnnotationPojoTypeNodeMetadataContributorImpl implements PojoTypeNodeMetad
 		public void contribute(IndexSchemaFieldTypedContext<?> context) {
 			if ( !Store.DEFAULT.equals( annotation.store() ) ) {
 				context.store( annotation.store() );
+			}
+			if ( !Sortable.DEFAULT.equals( annotation.sortable() ) ) {
+				context.sortable( annotation.sortable() );
 			}
 			if ( !annotation.analyzer().isEmpty() ) {
 				context.analyzer( annotation.analyzer() );
