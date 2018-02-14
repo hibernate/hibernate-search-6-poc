@@ -8,10 +8,12 @@ package org.hibernate.search.v6poc.engine.impl;
 
 import java.util.Map;
 
+import org.hibernate.search.v6poc.backend.spi.Backend;
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingKey;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingImplementor;
 import org.hibernate.search.v6poc.util.SearchException;
+import org.hibernate.search.v6poc.util.spi.Closer;
 
 
 /**
@@ -20,10 +22,11 @@ import org.hibernate.search.v6poc.util.SearchException;
 public class SearchMappingRepositoryImpl implements SearchMappingRepository {
 
 	private final Map<MappingKey<?>, MappingImplementor> mappings;
+	private final Map<String, Backend<?>> backends;
 
-	SearchMappingRepositoryImpl(Map<MappingKey<?>, MappingImplementor> mappings) {
-		super();
+	SearchMappingRepositoryImpl(Map<MappingKey<?>, MappingImplementor> mappings, Map<String, Backend<?>> backends) {
 		this.mappings = mappings;
+		this.backends = backends;
 	}
 
 	@Override
@@ -38,10 +41,9 @@ public class SearchMappingRepositoryImpl implements SearchMappingRepository {
 
 	@Override
 	public void close() {
-		// TODO use a Closer
-		for ( MappingImplementor mapping : mappings.values() ) {
-			mapping.close();
+		try ( Closer<RuntimeException> closer = new Closer<>() ) {
+			closer.pushAll( MappingImplementor::close, mappings.values() );
+			closer.pushAll( Backend::close, backends.values() );
 		}
-		// FIXME close backends too
 	}
 }
