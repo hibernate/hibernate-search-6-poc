@@ -20,8 +20,7 @@ import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaNestingC
 import org.hibernate.search.v6poc.backend.document.model.spi.ObjectFieldIndexSchemaCollector;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 import org.hibernate.search.v6poc.entity.model.SearchModel;
-import org.hibernate.search.v6poc.entity.model.spi.IndexableTypeOrdering;
-import org.hibernate.search.v6poc.entity.model.spi.IndexedTypeIdentifier;
+import org.hibernate.search.v6poc.entity.model.spi.TypeModel;
 
 public class IndexModelBindingContextImpl implements IndexModelBindingContext {
 
@@ -34,9 +33,8 @@ public class IndexModelBindingContextImpl implements IndexModelBindingContext {
 
 	private IndexSchemaElement schemaElementWithNestingContext;
 
-	public IndexModelBindingContextImpl(IndexSchemaCollector schemaCollector,
-			IndexableTypeOrdering typeOrdering) {
-		this( schemaCollector, Collections.emptyList(), new IndexSchemaNestingContextImpl( typeOrdering ) );
+	public IndexModelBindingContextImpl(IndexSchemaCollector schemaCollector) {
+		this( schemaCollector, Collections.emptyList(), IndexSchemaNestingContextImpl.root() );
 	}
 
 	private IndexModelBindingContextImpl(IndexSchemaCollector schemaCollector,
@@ -81,14 +79,13 @@ public class IndexModelBindingContextImpl implements IndexModelBindingContext {
 	}
 
 	@Override
-	public Optional<IndexModelBindingContext> addIndexedEmbeddedIfIncluded(IndexedTypeIdentifier parentTypeId,
+	public Optional<IndexModelBindingContext> addIndexedEmbeddedIfIncluded(TypeModel parentTypeModel,
 			String relativePrefix, ObjectFieldStorage storage, Integer maxDepth, Set<String> includePaths) {
 		return nestingContext.addIndexedEmbeddedIfIncluded(
-				parentTypeId, relativePrefix, maxDepth, includePaths,
+				parentTypeModel, relativePrefix, maxDepth, includePaths,
 				new Builder( schemaCollector, storage )
 		);
 	}
-
 
 	private static class Builder
 			implements IndexSchemaNestingContextImpl.NestedContextBuilder<IndexModelBindingContext> {

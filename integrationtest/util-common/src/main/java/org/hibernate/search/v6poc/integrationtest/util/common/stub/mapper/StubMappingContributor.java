@@ -14,11 +14,11 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataCollec
 
 class StubMappingContributor {
 
-	private final StubTypeIdentifier typeIdentifier;
+	private final StubTypeModel typeIdentifier;
 	private final String indexName;
 	private final Consumer<IndexModelBindingContext> delegate;
 
-	public StubMappingContributor(StubTypeIdentifier typeIdentifier, String indexName, Consumer<IndexModelBindingContext> delegate) {
+	public StubMappingContributor(StubTypeModel typeIdentifier, String indexName, Consumer<IndexModelBindingContext> delegate) {
 		this.typeIdentifier = typeIdentifier;
 		this.indexName = indexName;
 		this.delegate = delegate;

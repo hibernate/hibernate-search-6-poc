@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTargetBuilder;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoSearchTargetDelegate;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoIndexableTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.search.PojoReference;
 import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;
@@ -41,10 +42,10 @@ public class PojoSearchTargetDelegateImpl<T> implements PojoSearchTargetDelegate
 	}
 
 	@Override
-	public Set<Class<? extends T>> getTargetedIndexedTypes() {
+	public Set<PojoIndexableTypeModel<? extends T>> getTargetedIndexedTypes() {
 		return targetedTypeManagers.stream()
-				.map( PojoTypeManager::getEntityType )
-				.collect( Collectors.toCollection( LinkedHashSet::new) );
+				.map( PojoTypeManager::getTypeModel )
+				.collect( Collectors.toCollection( LinkedHashSet::new ) );
 	}
 
 	@Override
@@ -85,6 +86,6 @@ public class PojoSearchTargetDelegateImpl<T> implements PojoSearchTargetDelegate
 						"Document reference " + documentReference + " could not be converted to a PojoReference" ) );
 		// TODO error handling if typeManager is null
 		Object id = typeManager.getIdentifierMapping().fromDocumentIdentifier( documentReference.getId() );
-		return new PojoReferenceImpl( typeManager.getEntityType(), id );
+		return new PojoReferenceImpl( typeManager.getTypeModel().getJavaClass(), id );
 	}
 }

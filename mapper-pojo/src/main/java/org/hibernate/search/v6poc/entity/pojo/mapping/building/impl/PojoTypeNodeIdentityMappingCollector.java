@@ -9,13 +9,14 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
 
 /**
  * @author Yoann Rodiere
  */
 public interface PojoTypeNodeIdentityMappingCollector {
 
-	void identifierBridge(PropertyHandle handle, IdentifierBridge<?> bridge);
+	<T> void identifierBridge(PojoTypeModel<T> propertyTypeModel, PropertyHandle handle, IdentifierBridge<T> bridge);
 
 	void routingKeyBridge(RoutingKeyBridge bridge);
 

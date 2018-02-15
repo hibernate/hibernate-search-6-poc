@@ -13,7 +13,7 @@ import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
 import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
 import org.hibernate.search.v6poc.entity.model.SearchModel;
-import org.hibernate.search.v6poc.entity.model.spi.IndexedTypeIdentifier;
+import org.hibernate.search.v6poc.entity.model.spi.TypeModel;
 
 public interface IndexModelBindingContext {
 
@@ -30,6 +30,6 @@ public interface IndexModelBindingContext {
 	 */
 	void explicitRouting();
 
-	Optional<IndexModelBindingContext> addIndexedEmbeddedIfIncluded(IndexedTypeIdentifier parentTypeId,
+	Optional<IndexModelBindingContext> addIndexedEmbeddedIfIncluded(TypeModel parentTypeModel,
 			String relativePrefix, ObjectFieldStorage storage, Integer maxDepth, Set<String> includePaths);
 }

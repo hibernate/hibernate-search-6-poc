@@ -10,15 +10,12 @@ import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingKey;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingImplementor;
-import org.hibernate.search.v6poc.entity.model.spi.IndexableTypeOrdering;
 
 /**
  * @author Yoann Rodiere
  */
 public interface MapperFactory<C, M extends MappingImplementor>
 		extends MappingKey<M> {
-
-	IndexableTypeOrdering getTypeOrdering();
 
 	Mapper<C, M> createMapper(BuildContext buildContext, ConfigurationPropertySource propertySource);
 

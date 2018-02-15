@@ -9,13 +9,14 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
 
 class NoOpPojoTypeNodeIdentityMappingCollector implements PojoTypeNodeIdentityMappingCollector {
 
 	static final NoOpPojoTypeNodeIdentityMappingCollector INSTANCE = new NoOpPojoTypeNodeIdentityMappingCollector();
 
 	@Override
-	public void identifierBridge(PropertyHandle handle, IdentifierBridge<?> bridge) {
+	public <T> void identifierBridge(PojoTypeModel<T> propertyTypeModel, PropertyHandle handle, IdentifierBridge<T> bridge) {
 		// No-op
 	}
 
