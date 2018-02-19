@@ -7,26 +7,19 @@
 package org.hibernate.search.v6poc.integrationtest.util.common.stub.backend.document.model.impl;
 
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
-import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
+import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 import org.hibernate.search.v6poc.integrationtest.util.common.stub.backend.document.impl.StubDocumentElement;
 
-class StubIndexObjectFieldAccessor implements IndexObjectFieldAccessor {
-
+class StubIncludedIndexFieldAccessor<T> implements IndexFieldAccessor<T> {
 	private final String relativeName;
 
-	StubIndexObjectFieldAccessor(String relativeName) {
+	StubIncludedIndexFieldAccessor(String relativeName) {
 		this.relativeName = relativeName;
 	}
 
 	@Override
-	public DocumentElement add(DocumentElement target) {
+	public void write(DocumentElement target, T value) {
 		StubDocumentElement stubTarget = (StubDocumentElement) target;
-		return stubTarget.putChild( relativeName );
-	}
-
-	@Override
-	public void addMissing(DocumentElement target) {
-		StubDocumentElement stubTarget = (StubDocumentElement) target;
-		stubTarget.putMissingChild( relativeName );
+		stubTarget.putValue( relativeName, value );
 	}
 }
