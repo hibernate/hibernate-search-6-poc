@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 import org.hibernate.search.v6poc.search.SearchPredicate;
-import org.hibernate.search.v6poc.search.dsl.predicate.AllPredicateContext;
+import org.hibernate.search.v6poc.search.dsl.predicate.MatchAllPredicateContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.BooleanJunctionPredicateContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.MatchPredicateContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.NestedPredicateContext;
@@ -33,8 +33,8 @@ public class SearchPredicateContainerContextImpl<N, C> implements SearchPredicat
 	}
 
 	@Override
-	public AllPredicateContext<N> all() {
-		AllPredicateContextImpl<N, C> child = new AllPredicateContextImpl<>( factory, dslContext::getNextContext );
+	public MatchAllPredicateContext<N> all() {
+		MatchAllPredicateContextImpl<N, C> child = new MatchAllPredicateContextImpl<>( factory, dslContext::getNextContext );
 		dslContext.addContributor( child );
 		return child;
 	}
