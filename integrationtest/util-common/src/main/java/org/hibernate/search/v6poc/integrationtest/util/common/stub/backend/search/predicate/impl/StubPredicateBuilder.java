@@ -7,13 +7,13 @@
 package org.hibernate.search.v6poc.integrationtest.util.common.stub.backend.search.predicate.impl;
 
 import org.hibernate.search.v6poc.integrationtest.util.common.stub.backend.search.StubQueryElementCollector;
-import org.hibernate.search.v6poc.search.predicate.spi.AllPredicateBuilder;
+import org.hibernate.search.v6poc.search.predicate.spi.MatchAllPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.BooleanJunctionPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.MatchPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.NestedPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.RangePredicateBuilder;
 
-public class StubPredicateBuilder implements AllPredicateBuilder<StubQueryElementCollector>,
+public class StubPredicateBuilder implements MatchAllPredicateBuilder<StubQueryElementCollector>,
 		BooleanJunctionPredicateBuilder<StubQueryElementCollector>,
 		MatchPredicateBuilder<StubQueryElementCollector>,
 		RangePredicateBuilder<StubQueryElementCollector>,
