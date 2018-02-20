@@ -9,18 +9,19 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
-import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
+import org.hibernate.search.v6poc.entity.model.SearchModel;
 import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.ValueProcessor;
 
 /**
  * Provides the ability to contribute the entity model to the index model
  * by creating bridges and
- * {@link Bridge#bind(IndexSchemaElement, PojoModelElement) binding}
+ * {@link Bridge#bind(IndexSchemaElement, PojoModelElement, SearchModel) binding}
  * them.
  * <p>
  * Incidentally, this will also generate the index model,
