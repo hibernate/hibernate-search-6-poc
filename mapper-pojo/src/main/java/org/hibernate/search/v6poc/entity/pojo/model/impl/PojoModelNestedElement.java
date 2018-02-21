@@ -17,9 +17,9 @@ import java.util.stream.Stream;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.MarkerBuilder;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoPropertyNodeModelCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeMetadataContributor;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoModelProperty;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoPropertyModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
@@ -29,8 +29,8 @@ import org.hibernate.search.v6poc.util.SearchException;
 /**
  * @author Yoann Rodiere
  */
-public class PojoModelPropertyElement extends AbstractPojoModelElement
-		implements PojoModelElement, PojoPropertyNodeModelCollector {
+public class PojoModelNestedElement extends AbstractPojoModelElement
+		implements PojoModelProperty, PojoPropertyNodeModelCollector {
 
 	private final AbstractPojoModelElement parent;
 
@@ -38,7 +38,7 @@ public class PojoModelPropertyElement extends AbstractPojoModelElement
 
 	private final Map<Class<?>, List<?>> markers = new HashMap<>();
 
-	public PojoModelPropertyElement(AbstractPojoModelElement parent, PojoPropertyModel<?> propertyModel,
+	PojoModelNestedElement(AbstractPojoModelElement parent, PojoPropertyModel<?> propertyModel,
 			TypeMetadataContributorProvider<PojoTypeNodeMetadataContributor> modelContributorProvider) {
 		super( modelContributorProvider );
 		this.parent = parent;
@@ -77,6 +77,11 @@ public class PojoModelPropertyElement extends AbstractPojoModelElement
 	@Override
 	public PojoTypeModel<?> getTypeModel() {
 		return propertyModel.getTypeModel();
+	}
+
+	@Override
+	public String getName() {
+		return propertyModel.getName();
 	}
 
 	@SuppressWarnings("unchecked")

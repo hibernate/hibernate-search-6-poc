@@ -16,22 +16,22 @@ import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
-import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
+import org.hibernate.search.v6poc.entity.pojo.extractor.impl.CollectionValueExtractor;
+import org.hibernate.search.v6poc.entity.pojo.extractor.impl.IterableValueExtractor;
+import org.hibernate.search.v6poc.entity.pojo.extractor.impl.MapValueValueExtractor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoIndexModelBinder;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoPropertyNodeMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeIdentityMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeMetadataContributor;
-import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoModelRootElement;
+import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoModelPropertyRootElement;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoContainerTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoPropertyModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
-import org.hibernate.search.v6poc.entity.pojo.extractor.impl.CollectionValueExtractor;
-import org.hibernate.search.v6poc.entity.pojo.extractor.impl.IterableValueExtractor;
-import org.hibernate.search.v6poc.entity.pojo.extractor.impl.MapValueValueExtractor;
 
 /**
  * @author Yoann Rodiere
@@ -43,7 +43,7 @@ public class PojoPropertyNodeProcessorBuilder<P, T> extends AbstractPojoNodeProc
 	private final PojoPropertyModel<T> propertyModel;
 	private final PropertyHandle propertyHandle;
 	private final PojoTypeModel<T> propertyTypeModel;
-	private final PojoModelRootElement pojoModelRootElement;
+	private final PojoModelPropertyRootElement pojoModelRootElement;
 
 	private final PojoTypeNodeIdentityMappingCollector identityMappingCollector;
 
@@ -65,8 +65,8 @@ public class PojoPropertyNodeProcessorBuilder<P, T> extends AbstractPojoNodeProc
 		this.propertyModel = propertyModel;
 		this.propertyTypeModel = propertyModel.getTypeModel();
 
-		// FIXME do something more with the indexable model, to be able to use it in containedIn processing in particular
-		this.pojoModelRootElement = new PojoModelRootElement( propertyTypeModel, contributorProvider );
+		// FIXME do something more with the pojoModelRootElement, to be able to use it in containedIn processing in particular
+		this.pojoModelRootElement = new PojoModelPropertyRootElement( propertyModel, contributorProvider );
 
 		this.identityMappingCollector = identityMappingCollector;
 	}

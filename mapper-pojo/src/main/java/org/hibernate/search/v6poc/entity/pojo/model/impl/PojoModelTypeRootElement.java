@@ -7,12 +7,11 @@
 package org.hibernate.search.v6poc.entity.pojo.model.impl;
 
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeMetadataContributor;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoModelType;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
 import org.hibernate.search.v6poc.util.SearchException;
 
@@ -20,11 +19,11 @@ import org.hibernate.search.v6poc.util.SearchException;
 /**
  * @author Yoann Rodiere
  */
-public class PojoModelRootElement extends AbstractPojoModelElement implements PojoModelElement {
+public class PojoModelTypeRootElement extends AbstractPojoModelElement implements PojoModelType {
 
 	private final PojoTypeModel<?> typeModel;
 
-	public PojoModelRootElement(PojoTypeModel<?> typeModel,
+	public PojoModelTypeRootElement(PojoTypeModel<?> typeModel,
 			TypeMetadataContributorProvider<PojoTypeNodeMetadataContributor> modelContributorProvider) {
 		super( modelContributorProvider );
 		this.typeModel = typeModel;
@@ -45,12 +44,7 @@ public class PojoModelRootElement extends AbstractPojoModelElement implements Po
 	}
 
 	@Override
-	public <M> Stream<M> markers(Class<M> markerType) {
-		return Stream.empty();
-	}
-
-	@Override
-	public PojoTypeModel<?> getTypeModel() {
+	PojoTypeModel<?> getTypeModel() {
 		return typeModel;
 	}
 }
