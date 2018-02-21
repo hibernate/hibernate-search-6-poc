@@ -11,7 +11,7 @@ import java.util.List;
 
 import org.hibernate.search.v6poc.engine.spi.BeanReference;
 import org.hibernate.search.v6poc.engine.spi.ImmutableBeanReference;
-import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.impl.BeanResolverBridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.MarkerBuilder;
@@ -75,22 +75,22 @@ public class PropertyMappingContextImpl
 	}
 
 	@Override
-	public PropertyMappingContext bridge(Class<? extends Bridge> bridgeClass) {
+	public PropertyMappingContext bridge(Class<? extends PropertyBridge> bridgeClass) {
 		return bridge( new ImmutableBeanReference( bridgeClass ) );
 	}
 
 	@Override
-	public PropertyMappingContext bridge(String bridgeName, Class<? extends Bridge> bridgeClass) {
+	public PropertyMappingContext bridge(String bridgeName, Class<? extends PropertyBridge> bridgeClass) {
 		return bridge( new ImmutableBeanReference( bridgeName, bridgeClass ) );
 	}
 
 	private PropertyMappingContext bridge(BeanReference bridgeReference) {
-		return bridge( new BeanResolverBridgeBuilder<>( Bridge.class, bridgeReference ) );
+		return bridge( new BeanResolverBridgeBuilder<>( PropertyBridge.class, bridgeReference ) );
 	}
 
 	@Override
-	public PropertyMappingContext bridge(BridgeBuilder<? extends Bridge> builder) {
-		children.add( new BridgeMappingContributor( builder ) );
+	public PropertyMappingContext bridge(BridgeBuilder<? extends PropertyBridge> builder) {
+		children.add( new PropertyBridgeMappingContributor( builder ) );
 		return this;
 	}
 

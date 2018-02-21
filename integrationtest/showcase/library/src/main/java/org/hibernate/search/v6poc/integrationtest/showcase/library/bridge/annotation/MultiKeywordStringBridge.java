@@ -13,10 +13,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.BridgeMapping;
-import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.BridgeMappingBuilderReference;
+import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeMapping;
+import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeMappingBuilderReference;
 
-@BridgeMapping( builder = @BridgeMappingBuilderReference(type = org.hibernate.search.v6poc.integrationtest.showcase.library.bridge.MultiKeywordStringBridge.Builder.class))
+@PropertyBridgeMapping( builder = @PropertyBridgeMappingBuilderReference(type = org.hibernate.search.v6poc.integrationtest.showcase.library.bridge.MultiKeywordStringBridge.Builder.class))
 @Retention(RetentionPolicy.RUNTIME)
 @Target( { ElementType.METHOD, ElementType.FIELD, ElementType.TYPE })
 @Documented

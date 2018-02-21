@@ -14,10 +14,11 @@ import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedCo
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
-import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.TypeBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.impl.BridgeResolver;
 import org.hibernate.search.v6poc.entity.pojo.bridge.impl.FunctionBridgeUtil;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
@@ -70,9 +71,25 @@ public class PojoIndexModelBinderImpl implements PojoIndexModelBinder {
 	}
 
 	@Override
-	public Bridge addBridge(IndexModelBindingContext bindingContext,
-			PojoModelElement pojoModelElement, BridgeBuilder<? extends Bridge> builder) {
-		return doAddBridge( bindingContext, pojoModelElement, builder );
+	public TypeBridge addTypeBridge(IndexModelBindingContext bindingContext,
+			PojoModelElement pojoModelElement, BridgeBuilder<? extends TypeBridge> builder) {
+		TypeBridge bridge = builder.build( buildContext );
+
+		// FIXME if all fields are filtered out, we should ignore the processor
+		bridge.bind( bindingContext.getSchemaElement(), pojoModelElement, bindingContext.getSearchModel() );
+
+		return bridge;
+	}
+
+	@Override
+	public PropertyBridge addPropertyBridge(IndexModelBindingContext bindingContext,
+			PojoModelElement pojoModelElement, BridgeBuilder<? extends PropertyBridge> builder) {
+		PropertyBridge bridge = builder.build( buildContext );
+
+		// FIXME if all fields are filtered out, we should ignore the processor
+		bridge.bind( bindingContext.getSchemaElement(), pojoModelElement, bindingContext.getSearchModel() );
+
+		return bridge;
 	}
 
 	@Override
@@ -96,16 +113,6 @@ public class PojoIndexModelBinderImpl implements PojoIndexModelBinder {
 		FunctionBridge<? super T, ?> typedBridge = (FunctionBridge<? super T, ?>) bridge;
 
 		return doAddFunctionBridge( bindingContext, typedBridge, fieldName, contributor );
-	}
-
-	private Bridge doAddBridge(IndexModelBindingContext bindingContext,
-			PojoModelElement pojoModelElement, BridgeBuilder<? extends Bridge> builder) {
-		Bridge bridge = builder.build( buildContext );
-
-		// FIXME if all fields are filtered out, we should ignore the processor
-		bridge.bind( bindingContext.getSchemaElement(), pojoModelElement, bindingContext.getSearchModel() );
-
-		return bridge;
 	}
 
 	private <T, R> FunctionBridgeProcessor<T, R> doAddFunctionBridge(IndexModelBindingContext bindingContext,

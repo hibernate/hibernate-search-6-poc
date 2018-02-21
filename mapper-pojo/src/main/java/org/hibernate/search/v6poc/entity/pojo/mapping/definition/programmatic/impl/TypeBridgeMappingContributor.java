@@ -6,22 +6,22 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.impl;
 
+import org.hibernate.search.v6poc.entity.pojo.bridge.TypeBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
-import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
-import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoNodeMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoNodeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoNodeModelCollector;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeMappingCollector;
 
 
 /**
  * @author Yoann Rodiere
  */
-public class BridgeMappingContributor
-		implements PojoNodeMetadataContributor<PojoNodeModelCollector, PojoNodeMappingCollector> {
+public class TypeBridgeMappingContributor
+		implements PojoNodeMetadataContributor<PojoNodeModelCollector, PojoTypeNodeMappingCollector> {
 
-	private final BridgeBuilder<? extends Bridge> bridgeBuilder;
+	private final BridgeBuilder<? extends TypeBridge> bridgeBuilder;
 
-	public BridgeMappingContributor(BridgeBuilder<? extends Bridge> bridgeBuilder) {
+	TypeBridgeMappingContributor(BridgeBuilder<? extends TypeBridge> bridgeBuilder) {
 		this.bridgeBuilder = bridgeBuilder;
 	}
 
@@ -31,7 +31,7 @@ public class BridgeMappingContributor
 	}
 
 	@Override
-	public void contributeMapping(PojoNodeMappingCollector collector) {
+	public void contributeMapping(PojoTypeNodeMappingCollector collector) {
 		collector.bridge( bridgeBuilder );
 	}
 

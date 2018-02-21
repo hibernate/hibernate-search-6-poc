@@ -13,14 +13,15 @@ import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
 
 /**
- * A bridge between an element of the POJO model and an element of the index schema.
+ * A bridge between a POJO type and an element of the index schema.
  * <p>
- * The {@code Bridge} interface is a more powerful version of {@link FunctionBridge},
- * in which a property can be mapped to more than one field, in particular.
+ * The {@code TypeBridge} interface is a more powerful version of {@link FunctionBridge}
+ * that applies to a whole type instead of a single property,
+ * and can contribute more than one index field, in particular.
  *
  * @author Yoann Rodiere
  */
-public interface Bridge extends AutoCloseable {
+public interface TypeBridge extends AutoCloseable {
 
 	/**
 	 * Bind this bridge instance to the given index schema element and the given POJO model element.

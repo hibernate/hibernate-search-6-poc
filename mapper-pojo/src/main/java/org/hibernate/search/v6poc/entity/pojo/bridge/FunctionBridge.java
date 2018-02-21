@@ -12,7 +12,7 @@ import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedCo
 /**
  * A bridge between a POJO property of type {@code T} and an index field of type {@code R}.
  * <p>
- * The {@code FunctionBridge} interface is a simpler version of {@link Bridge},
+ * The {@code FunctionBridge} interface is a simpler version of {@link PropertyBridge},
  * in which a given value can only be mapped to a single field, in particular.
  *
  * @param <T> The type of values on the POJO side of the bridge.

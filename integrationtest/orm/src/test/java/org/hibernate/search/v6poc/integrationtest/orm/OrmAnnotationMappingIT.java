@@ -41,11 +41,14 @@ import org.hibernate.search.v6poc.entity.orm.Search;
 import org.hibernate.search.v6poc.entity.orm.cfg.SearchOrmSettings;
 import org.hibernate.search.v6poc.entity.orm.hibernate.FullTextQuery;
 import org.hibernate.search.v6poc.entity.orm.hibernate.FullTextSession;
-import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.TypeBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.impl.DefaultIntegerIdentifierBridge;
-import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.BridgeMapping;
-import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.BridgeMappingBuilderReference;
+import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeMapping;
+import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeMappingBuilderReference;
+import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeMapping;
+import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeMappingBuilderReference;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.AnnotationBridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.DocumentId;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Field;
@@ -591,14 +594,15 @@ public class OrmAnnotationMappingIT {
 
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target({ ElementType.FIELD, ElementType.METHOD, ElementType.TYPE })
-	@BridgeMapping(builder = @BridgeMappingBuilderReference(type = MyBridgeBuilder.class))
+	@TypeBridgeMapping(builder = @TypeBridgeMappingBuilderReference(type = MyBridgeBuilder.class))
+	@PropertyBridgeMapping(builder = @PropertyBridgeMappingBuilderReference(type = MyBridgeBuilder.class))
 	public @interface MyBridge {
 
 		String objectName();
 
 	}
 
-	public static final class MyBridgeBuilder implements AnnotationBridgeBuilder<Bridge, MyBridge> {
+	public static final class MyBridgeBuilder implements AnnotationBridgeBuilder<MyBridgeImpl, MyBridge> {
 
 		private String objectName;
 
@@ -613,12 +617,12 @@ public class OrmAnnotationMappingIT {
 		}
 
 		@Override
-		public Bridge build(BuildContext buildContext) {
+		public MyBridgeImpl build(BuildContext buildContext) {
 			return new MyBridgeImpl( objectName );
 		}
 	}
 
-	private static final class MyBridgeImpl implements Bridge {
+	private static final class MyBridgeImpl implements TypeBridge, PropertyBridge {
 
 		private final String objectName;
 
@@ -651,5 +655,9 @@ public class OrmAnnotationMappingIT {
 			}
 		}
 
+		@Override
+		public void close() {
+			// Nothing to do
+		}
 	}
 }

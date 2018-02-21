@@ -16,7 +16,7 @@ import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
-import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
@@ -47,7 +47,7 @@ public class PojoPropertyNodeProcessorBuilder<P, T> extends AbstractPojoNodeProc
 
 	private final PojoTypeNodeIdentityMappingCollector identityMappingCollector;
 
-	private final Collection<Bridge> bridges = new ArrayList<>();
+	private final Collection<PropertyBridge> propertyBridges = new ArrayList<>();
 	private final Collection<FunctionBridgeProcessor<? super T, ?>> functionBridgeProcessors = new ArrayList<>();
 	private final Collection<AbstractPojoNodeProcessorBuilder<? super T>> nestedProcessorBuilders = new ArrayList<>();
 	// Note: if this value is set, it is always also added to nestedProcessorBuilders
@@ -72,8 +72,8 @@ public class PojoPropertyNodeProcessorBuilder<P, T> extends AbstractPojoNodeProc
 	}
 
 	@Override
-	public void bridge(BridgeBuilder<? extends Bridge> builder) {
-		bridges.add( indexModelBinder.addBridge( bindingContext, pojoModelRootElement, builder ) );
+	public void bridge(BridgeBuilder<? extends PropertyBridge> builder) {
+		propertyBridges.add( indexModelBinder.addPropertyBridge( bindingContext, pojoModelRootElement, builder ) );
 	}
 
 	@Override
@@ -180,7 +180,7 @@ public class PojoPropertyNodeProcessorBuilder<P, T> extends AbstractPojoNodeProc
 	@Override
 	PojoPropertyNodeProcessor<P, T> build() {
 		return new PojoPropertyNodeProcessor<>(
-				propertyHandle, bridges, functionBridgeProcessors, nestedProcessorBuilders
+				propertyHandle, propertyBridges, functionBridgeProcessors, nestedProcessorBuilders
 		);
 	}
 }

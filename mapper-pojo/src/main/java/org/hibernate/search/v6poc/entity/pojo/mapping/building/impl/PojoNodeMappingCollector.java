@@ -6,14 +6,10 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
-import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
-import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
 
 /**
  * @author Yoann Rodiere
  */
 public interface PojoNodeMappingCollector {
-
-	void bridge(BridgeBuilder<? extends Bridge> builder);
 
 }
