@@ -19,7 +19,7 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.Bridge;
 public class GeoPointBridgeBuilder implements AnnotationBridgeBuilder<Bridge, GeoPointBridge> {
 
 	private String fieldName;
-	private Store store;
+	private Store store = Store.DEFAULT;
 	private String markerSet;
 
 	@Override
