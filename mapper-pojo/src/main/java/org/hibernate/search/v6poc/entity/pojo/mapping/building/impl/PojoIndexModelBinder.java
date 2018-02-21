@@ -6,6 +6,8 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
+import java.util.Optional;
+
 import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
 import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
@@ -43,13 +45,13 @@ public interface PojoIndexModelBinder {
 	RoutingKeyBridge addRoutingKeyBridge(IndexModelBindingContext bindingContext,
 			PojoModelElement pojoModelElement, BridgeBuilder<? extends RoutingKeyBridge> bridgeBuilder);
 
-	TypeBridge addTypeBridge(IndexModelBindingContext bindingContext,
+	Optional<TypeBridge> addTypeBridge(IndexModelBindingContext bindingContext,
 			PojoModelType pojoModelType, BridgeBuilder<? extends TypeBridge> bridgeBuilder);
 
-	PropertyBridge addPropertyBridge(IndexModelBindingContext bindingContext,
+	Optional<PropertyBridge> addPropertyBridge(IndexModelBindingContext bindingContext,
 			PojoModelProperty pojoModelProperty, BridgeBuilder<? extends PropertyBridge> bridgeBuilder);
 
-	<T> FunctionBridgeProcessor<T, ?> addFunctionBridge(IndexModelBindingContext bindingContext,
+	<T> Optional<FunctionBridgeProcessor<T, ?>> addFunctionBridge(IndexModelBindingContext bindingContext,
 			PojoTypeModel<T> typeModel, BridgeBuilder<? extends FunctionBridge<?, ?>> bridgeBuilder,
 			String fieldName, FieldModelContributor contributor);
 
