@@ -21,6 +21,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoSearchTargetDelega
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoSessionContext;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoIntrospector;
 import org.hibernate.search.v6poc.util.SearchException;
+import org.hibernate.search.v6poc.util.spi.Closer;
 import org.hibernate.search.v6poc.util.spi.LoggerFactory;
 
 
@@ -39,6 +40,13 @@ public class PojoMappingDelegateImpl implements PojoMappingDelegate {
 			PojoIntrospector introspector) {
 		this.typeManagers = typeManagers;
 		this.introspector = introspector;
+	}
+
+	@Override
+	public void close() {
+		try ( Closer<RuntimeException> closer = new Closer<>() ) {
+			closer.pushAll( PojoTypeManager::close, typeManagers.getAll() );
+		}
 	}
 
 	@Override
@@ -79,10 +87,5 @@ public class PojoMappingDelegateImpl implements PojoMappingDelegate {
 	@Override
 	public boolean isSearchable(Class<?> type) {
 		return typeManagers.getAllBySuperClass( type ).isPresent();
-	}
-
-	@Override
-	public void close() {
-		// Nothing to do
 	}
 }
