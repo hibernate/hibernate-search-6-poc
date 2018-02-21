@@ -15,7 +15,9 @@ import javax.persistence.Id;
 
 import org.hibernate.Hibernate;
 import org.hibernate.search.v6poc.backend.document.model.Sortable;
-import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.GeoPointBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.annotation.GeoPointBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.annotation.Latitude;
+import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.annotation.Longitude;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.DocumentId;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Field;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.FunctionBridgeBeanReference;
@@ -45,11 +47,11 @@ public class Library {
 	private Integer collectionSize;
 
 	@Basic
-	@GeoPointBridge.Latitude
+	@Latitude
 	private Double latitude;
 
 	@Basic
-	@GeoPointBridge.Longitude
+	@Longitude
 	private Double longitude;
 
 	@ElementCollection
