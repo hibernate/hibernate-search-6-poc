@@ -14,7 +14,7 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoTypeManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoTypeManagerContainer;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoIndexableTypeModel;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRawTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.IdentifierMapping;
@@ -26,13 +26,13 @@ import org.hibernate.search.v6poc.entity.pojo.processing.impl.RoutingKeyProvider
 import org.hibernate.search.v6poc.util.SearchException;
 
 public class PojoTypeManagerBuilder<E, D extends DocumentElement> {
-	private final PojoIndexableTypeModel<E> typeModel;
+	private final PojoRawTypeModel<E> typeModel;
 	private final IndexManagerBuildingState<D> indexManagerBuildingState;
 
 	private final PojoTypeNodeIdentityMappingCollectorImpl identityMappingCollector;
 	private final PojoTypeNodeProcessorBuilder<E> processorBuilder;
 
-	PojoTypeManagerBuilder(PojoIndexableTypeModel<E> typeModel,
+	PojoTypeManagerBuilder(PojoRawTypeModel<E> typeModel,
 			TypeMetadataContributorProvider<PojoTypeNodeMetadataContributor> contributorProvider,
 			PojoIndexModelBinder indexModelBinder,
 			IndexManagerBuildingState<D> indexManagerBuildingState,
