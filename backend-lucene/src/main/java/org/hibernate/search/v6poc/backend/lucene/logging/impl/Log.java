@@ -7,8 +7,10 @@
 package org.hibernate.search.v6poc.backend.lucene.logging.impl;
 
 import java.nio.file.Path;
-import java.util.List;
+import java.util.Collection;
 
+import org.hibernate.search.v6poc.search.SearchPredicate;
+import org.hibernate.search.v6poc.search.SearchSort;
 import org.hibernate.search.v6poc.util.SearchException;
 import org.jboss.logging.BasicLogger;
 import org.jboss.logging.Logger.Level;
@@ -21,7 +23,7 @@ import org.jboss.logging.annotations.MessageLogger;
 public interface Log extends BasicLogger {
 
 	@Message(id = 4, value = "Unknown field '%1$s' in indexes %2$s." )
-	SearchException unknownFieldForSearch(String absoluteFieldPath, List<String> indexNames);
+	SearchException unknownFieldForSearch(String absoluteFieldPath, Collection<String> indexNames);
 
 	@Message(id = 5, value = "Root directory '%2$s' of backend '%1$s' exists but is not a writable directory.")
 	SearchException localDirectoryBackendRootDirectoryNotWritableDirectory(String backendName, Path rootDirectory);
@@ -30,10 +32,14 @@ public interface Log extends BasicLogger {
 	SearchException unableToCreateRootDirectoryForLocalDirectoryBackend(String backendName, Path rootDirectory, @Cause Exception e);
 
 	@Message(id = 7, value = "Undefined Lucene backend type for backend '%1$s'.")
-	SearchException undefinedLuceneBackendType(String backendName);
+	SearchException undefinedLuceneDirectoryProvider(String backendName);
 
 	@Message(id = 8, value = "Unrecognized Lucene backend type '%2$s' for backend '%1$s'.")
-	SearchException unrecognizedLuceneBackendType(String backendName, String backendType);
+	SearchException unrecognizedLuceneDirectoryProvider(String backendName, String backendType);
+
+	@Message(id = 9, value = "The Lucene extension can only be applied to objects"
+			+ " derived from the Lucene backend. Was applied to '%1$s' instead." )
+	SearchException luceneExtensionOnUnknownType(Object context);
 
 	@Message(id = 12, value = "An analyzer was set on field '%1$s', but fields of this type cannot be analyzed." )
 	SearchException cannotUseAnalyzerOnFieldType(String fieldName);
@@ -51,6 +57,25 @@ public interface Log extends BasicLogger {
 	@Message(id = 16, value = "The analysis of field '%1$s' produced multiple tokens. Tokenization or term generation"
 			+ " (synonyms) should not be used on sortable fields. Only the first token will be indexed.")
 	void multipleTermsInAnalyzedSortableField(String fieldName);
+
+	@Message(id = 17, value = "A Lucene query cannot include search predicates built using a non-Lucene search target."
+			+ " Given predicate was: '%1$s'" )
+	SearchException cannotMixLuceneSearchQueryWithOtherPredicates(SearchPredicate predicate);
+
+	@Message(id = 18, value = "Multiple conflicting types for field '%1$s': '%2$s' in index '%3$s', but '%4$s' in index '%5$s'." )
+	SearchException conflictingFieldTypesForSearch(String absoluteFieldPath,
+			Object typeElement1, String indexName1,
+			Object typeElement2, String indexName2);
+
+	@Message(id = 19, value = "Field '%2$s' is not an object field in index '%1$s'." )
+	SearchException nonObjectFieldForNestedQuery(String indexName, String absoluteFieldPath);
+
+	@Message(id = 20, value = "Object field '%2$s' is not stored as nested in index '%1$s'." )
+	SearchException nonNestedFieldForNestedQuery(String indexName, String absoluteFieldPath);
+
+	@Message(id = 21, value = "A Lucene query cannot include search sorts built using a non-Lucene search target."
+			+ " Given sort was: '%1$s'" )
+	SearchException cannotMixLuceneSearchSortWithOtherSorts(SearchSort sort);
 
 	@Message(id = 22, value = "Unable to create the IndexWriter for backend '%1$s', index '%2$s' and path '%3$s'." )
 	SearchException unableToCreateIndexWriter(String backendName, String indexName, Path directoryPath, @Cause Exception e);
