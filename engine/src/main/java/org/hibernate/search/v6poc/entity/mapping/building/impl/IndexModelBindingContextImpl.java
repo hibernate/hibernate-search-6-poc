@@ -22,7 +22,7 @@ import org.hibernate.search.v6poc.backend.document.model.spi.ObjectFieldIndexSch
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexSchemaContributionListener;
 import org.hibernate.search.v6poc.entity.model.SearchModel;
-import org.hibernate.search.v6poc.entity.model.spi.TypeModel;
+import org.hibernate.search.v6poc.entity.model.spi.MappableTypeModel;
 
 public class IndexModelBindingContextImpl implements IndexModelBindingContext {
 
@@ -76,7 +76,7 @@ public class IndexModelBindingContextImpl implements IndexModelBindingContext {
 	}
 
 	@Override
-	public Optional<IndexModelBindingContext> addIndexedEmbeddedIfIncluded(TypeModel parentTypeModel,
+	public Optional<IndexModelBindingContext> addIndexedEmbeddedIfIncluded(MappableTypeModel parentTypeModel,
 			String relativePrefix, ObjectFieldStorage storage, Integer maxDepth, Set<String> includePaths) {
 		return nestingContext.addIndexedEmbeddedIfIncluded(
 				parentTypeModel, relativePrefix, maxDepth, includePaths,

@@ -16,7 +16,7 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexManagerBuildi
 import org.hibernate.search.v6poc.entity.mapping.building.spi.Mapper;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingImplementor;
-import org.hibernate.search.v6poc.entity.model.spi.TypeModel;
+import org.hibernate.search.v6poc.entity.model.spi.MappableTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.bridge.impl.BridgeResolver;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoMappingDelegateImpl;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoTypeManagerContainer;
@@ -54,7 +54,7 @@ public class PojoMapper<M extends MappingImplementor> implements Mapper<PojoType
 	}
 
 	@Override
-	public void addIndexed(TypeModel typeModel,
+	public void addIndexed(MappableTypeModel typeModel,
 			IndexManagerBuildingState<?> indexManagerBuildingState,
 			TypeMetadataContributorProvider<PojoTypeNodeMetadataContributor> contributorProvider) {
 		if ( !( typeModel instanceof PojoRawTypeModel ) ) {
