@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
-import org.hibernate.search.v6poc.entity.pojo.extractor.impl.ContainerValueExtractor;
+import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;
 import org.hibernate.search.v6poc.util.spi.Closer;
 
 /**

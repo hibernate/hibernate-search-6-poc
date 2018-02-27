@@ -6,6 +6,7 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.extractor.impl;
 
+import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
 
 /**

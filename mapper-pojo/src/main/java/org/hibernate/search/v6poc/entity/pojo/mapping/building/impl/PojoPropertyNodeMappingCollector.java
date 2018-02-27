@@ -6,14 +6,12 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
-import java.util.Set;
+import java.util.List;
 
-import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
-import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
+import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
-import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
-import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
+import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;
 
 /**
  * @author Yoann Rodiere
@@ -22,13 +20,15 @@ public interface PojoPropertyNodeMappingCollector extends PojoNodeMappingCollect
 
 	void bridge(BridgeBuilder<? extends PropertyBridge> builder);
 
-	void functionBridge(BridgeBuilder<? extends FunctionBridge<?, ?>> builder,
-			String fieldName, FieldModelContributor fieldModelContributor);
-
 	void identifierBridge(BridgeBuilder<? extends IdentifierBridge<?>> reference);
 
 	void containedIn();
 
-	void indexedEmbedded(String relativePrefix, ObjectFieldStorage storage, Integer maxDepth, Set<String> includePaths);
+	PojoValueNodeMappingCollector valueWithoutExtractors();
+
+	PojoValueNodeMappingCollector valueWithDefaultExtractors();
+
+	PojoValueNodeMappingCollector valueWithExtractors(
+			List<? extends Class<? extends ContainerValueExtractor>> extractorClasses);
 
 }

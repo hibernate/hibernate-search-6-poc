@@ -8,6 +8,8 @@ package org.hibernate.search.v6poc.entity.pojo.extractor.impl;
 
 import java.util.stream.Stream;
 
+import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;
+
 class ChainingContainerValueExtractor<C, T, U> implements ContainerValueExtractor<C, U> {
 
 	private final ContainerValueExtractor<C, T> parent;

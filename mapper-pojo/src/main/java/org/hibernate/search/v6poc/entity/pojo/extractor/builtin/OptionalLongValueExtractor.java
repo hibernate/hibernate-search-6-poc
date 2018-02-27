@@ -4,16 +4,18 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.hibernate.search.v6poc.entity.pojo.extractor.impl;
+package org.hibernate.search.v6poc.entity.pojo.extractor.builtin;
 
-import java.util.OptionalInt;
+import java.util.OptionalLong;
 import java.util.stream.Stream;
 
-public class OptionalIntValueExtractor implements ContainerValueExtractor<OptionalInt, Integer> {
+import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;
+
+public class OptionalLongValueExtractor implements ContainerValueExtractor<OptionalLong, Long> {
 	@Override
-	public Stream<Integer> extract(OptionalInt container) {
+	public Stream<Long> extract(OptionalLong container) {
 		if ( container != null && container.isPresent() ) {
-			return Stream.of( container.getAsInt() );
+			return Stream.of( container.getAsLong() );
 		}
 		else {
 			return Stream.empty();
