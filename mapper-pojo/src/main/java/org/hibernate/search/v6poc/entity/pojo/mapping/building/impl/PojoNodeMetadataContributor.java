@@ -7,10 +7,19 @@
 package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
 
+import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributor;
+import org.hibernate.search.v6poc.entity.model.spi.MappableTypeModel;
+
 /**
  * @author Yoann Rodiere
  */
-public interface PojoNodeMetadataContributor<CMO extends PojoNodeModelCollector, CMA extends PojoNodeMappingCollector> {
+public interface PojoNodeMetadataContributor<CMO extends PojoNodeModelCollector, CMA extends PojoNodeMappingCollector>
+		extends TypeMetadataContributor {
+
+	@Override
+	default void beforeNestedContributions(MappableTypeModel typeModel) {
+		// No-op by default
+	}
 
 	void contributeModel(CMO collector);
 

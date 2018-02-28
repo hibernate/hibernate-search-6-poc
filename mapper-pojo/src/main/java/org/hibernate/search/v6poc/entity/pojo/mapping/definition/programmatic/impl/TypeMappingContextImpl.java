@@ -16,7 +16,7 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.engine.spi.BeanReference;
 import org.hibernate.search.v6poc.engine.spi.ImmutableBeanReference;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MetadataContributor;
-import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataCollector;
+import org.hibernate.search.v6poc.entity.mapping.building.spi.MetadataCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoNodeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeNodeMetadataContributor;
@@ -49,7 +49,7 @@ public class TypeMappingContextImpl implements TypeMappingContext, MetadataContr
 	}
 
 	@Override
-	public void contribute(BuildContext buildContext, TypeMetadataCollector collector) {
+	public void contribute(BuildContext buildContext, MetadataCollector collector) {
 		collector.collect( mapperFactory, typeModel, indexName, this );
 	}
 

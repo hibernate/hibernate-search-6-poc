@@ -11,10 +11,10 @@ import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.Mapper;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MapperFactory;
 
-class StubMapperFactory implements MapperFactory<StubMappingContributor, StubMapping> {
+class StubMapperFactory implements MapperFactory<StubTypeMetadataContributor, StubMapping> {
 
 	@Override
-	public Mapper<StubMappingContributor, StubMapping> createMapper(
+	public Mapper<StubTypeMetadataContributor, StubMapping> createMapper(
 			BuildContext buildContext, ConfigurationPropertySource propertySource) {
 		return new StubMapper();
 	}
