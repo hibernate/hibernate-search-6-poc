@@ -13,7 +13,7 @@ import org.hibernate.search.v6poc.integrationtest.util.common.stub.StubTreeNodeC
 import org.hibernate.search.v6poc.integrationtest.util.common.stub.StubTreeNodeMismatch;
 import org.hibernate.search.v6poc.integrationtest.util.common.stub.backend.index.StubIndexWork;
 
-import junit.framework.AssertionFailedError;
+import org.junit.Assert;
 
 public class StubIndexWorkAssert {
 
@@ -61,7 +61,7 @@ public class StubIndexWorkAssert {
 		}
 
 		if ( hasAnyMismatch ) {
-			throw new AssertionFailedError( builder.toString() );
+			Assert.fail( builder.toString() );
 		}
 
 		return this;
