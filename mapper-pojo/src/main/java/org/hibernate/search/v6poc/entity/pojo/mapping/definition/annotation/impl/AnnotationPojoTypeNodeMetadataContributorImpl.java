@@ -22,14 +22,14 @@ import org.hibernate.search.v6poc.engine.spi.BeanReference;
 import org.hibernate.search.v6poc.engine.spi.BeanResolver;
 import org.hibernate.search.v6poc.engine.spi.ImmutableBeanReference;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
-import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.TypeBridge;
-import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeMapping;
-import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeMappingBuilderReference;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.MarkerMapping;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.MarkerMappingBuilderReference;
+import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeMapping;
+import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeMappingBuilderReference;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeMapping;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeMappingBuilderReference;
 import org.hibernate.search.v6poc.entity.pojo.bridge.impl.BeanResolverBridgeBuilder;
@@ -51,9 +51,9 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Func
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.IdentifierBridgeBeanReference;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.IdentifierBridgeBuilderBeanReference;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.IndexedEmbedded;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoPropertyModel;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRawTypeModel;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 import org.hibernate.search.v6poc.util.spi.LoggerFactory;
 
 class AnnotationPojoTypeNodeMetadataContributorImpl implements PojoTypeNodeMetadataContributor {
@@ -61,9 +61,9 @@ class AnnotationPojoTypeNodeMetadataContributorImpl implements PojoTypeNodeMetad
 	private static final Log log = LoggerFactory.make( Log.class, MethodHandles.lookup() );
 
 	private final BeanResolver beanResolver;
-	private final PojoTypeModel<?> typeModel;
+	private final PojoRawTypeModel<?> typeModel;
 
-	AnnotationPojoTypeNodeMetadataContributorImpl(BeanResolver beanResolver, PojoTypeModel<?> typeModel) {
+	AnnotationPojoTypeNodeMetadataContributorImpl(BeanResolver beanResolver, PojoRawTypeModel<?> typeModel) {
 		this.beanResolver = beanResolver;
 		this.typeModel = typeModel;
 	}
