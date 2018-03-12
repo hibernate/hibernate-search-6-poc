@@ -13,7 +13,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchTarget;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingDelegate;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoSearchManagerImpl;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoProxyIntrospector;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRuntimeIntrospector;
 
 class JavaBeanSearchManagerImpl extends PojoSearchManagerImpl {
 	private JavaBeanSearchManagerImpl(Builder builder) {
@@ -39,8 +39,8 @@ class JavaBeanSearchManagerImpl extends PojoSearchManagerImpl {
 		}
 
 		@Override
-		protected PojoProxyIntrospector getProxyIntrospector() {
-			return PojoProxyIntrospector.noProxy();
+		protected PojoRuntimeIntrospector getRuntimeIntrospector() {
+			return PojoRuntimeIntrospector.noProxy();
 		}
 
 		@Override

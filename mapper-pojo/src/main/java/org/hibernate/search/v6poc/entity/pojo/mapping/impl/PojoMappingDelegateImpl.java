@@ -19,7 +19,6 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.StreamPojoWorker;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingDelegate;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoSearchTargetDelegate;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoSessionContext;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoIntrospector;
 import org.hibernate.search.v6poc.util.SearchException;
 import org.hibernate.search.v6poc.util.spi.Closer;
 import org.hibernate.search.v6poc.util.spi.LoggerFactory;
@@ -34,12 +33,8 @@ public class PojoMappingDelegateImpl implements PojoMappingDelegate {
 
 	private final PojoTypeManagerContainer typeManagers;
 
-	private final PojoIntrospector introspector;
-
-	public PojoMappingDelegateImpl(PojoTypeManagerContainer typeManagers,
-			PojoIntrospector introspector) {
+	public PojoMappingDelegateImpl(PojoTypeManagerContainer typeManagers) {
 		this.typeManagers = typeManagers;
-		this.introspector = introspector;
 	}
 
 	@Override
@@ -51,12 +46,12 @@ public class PojoMappingDelegateImpl implements PojoMappingDelegate {
 
 	@Override
 	public ChangesetPojoWorker createWorker(PojoSessionContext sessionContext) {
-		return new ChangesetPojoWorkerImpl( typeManagers, introspector, sessionContext );
+		return new ChangesetPojoWorkerImpl( typeManagers, sessionContext );
 	}
 
 	@Override
 	public StreamPojoWorker createStreamWorker(PojoSessionContext sessionContext) {
-		return new StreamPojoWorkerImpl( typeManagers, introspector, sessionContext );
+		return new StreamPojoWorkerImpl( typeManagers, sessionContext );
 	}
 
 	@Override
@@ -77,11 +72,6 @@ public class PojoMappingDelegateImpl implements PojoMappingDelegate {
 	@Override
 	public boolean isIndexable(Class<?> type) {
 		return typeManagers.getByExactClass( type ).isPresent();
-	}
-
-	@Override
-	public boolean isIndexable(Object entity) {
-		return isIndexable( introspector.getClass( entity ) );
 	}
 
 	@Override

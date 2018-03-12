@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.entity.orm.mapping.impl;
 
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
-import org.hibernate.search.v6poc.entity.orm.model.impl.HibernateOrmIntrospector;
+import org.hibernate.search.v6poc.entity.orm.model.impl.HibernateOrmBootstrapIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMapperFactory;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingDelegate;
 
@@ -20,7 +20,7 @@ public final class HibernateOrmMapperFactory extends PojoMapperFactory<Hibernate
 
 	private final SessionFactoryImplementor sessionFactoryImplementor;
 
-	public HibernateOrmMapperFactory(HibernateOrmIntrospector introspector,
+	public HibernateOrmMapperFactory(HibernateOrmBootstrapIntrospector introspector,
 			SessionFactoryImplementor sessionFactoryImplementor) {
 		super( introspector, false );
 		this.sessionFactoryImplementor = sessionFactoryImplementor;

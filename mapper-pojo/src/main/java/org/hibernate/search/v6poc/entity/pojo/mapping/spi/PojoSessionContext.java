@@ -7,10 +7,10 @@
 package org.hibernate.search.v6poc.entity.pojo.mapping.spi;
 
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoProxyIntrospector;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRuntimeIntrospector;
 
 public interface PojoSessionContext extends SessionContext {
 
-	PojoProxyIntrospector getProxyIntrospector();
+	PojoRuntimeIntrospector getRuntimeIntrospector();
 
 }
