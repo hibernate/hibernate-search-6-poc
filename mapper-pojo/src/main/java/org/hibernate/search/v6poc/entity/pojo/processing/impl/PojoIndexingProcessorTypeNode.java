@@ -19,6 +19,8 @@ import org.hibernate.search.v6poc.util.impl.common.ToStringTreeBuilder;
 /**
  * A node inside a {@link PojoIndexingProcessor} responsible for applying processor property nodes
  * as well as {@link TypeBridge}s to a value.
+ *
+ * @param <T> The processed type
  */
 public class PojoIndexingProcessorTypeNode<T> extends PojoIndexingProcessor<T> {
 

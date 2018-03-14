@@ -17,6 +17,7 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
 import org.hibernate.search.v6poc.entity.pojo.logging.impl.Log;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoTypeManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoTypeManagerContainer;
+import org.hibernate.search.v6poc.entity.pojo.model.path.impl.BoundPojoModelPath;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRawTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
@@ -48,7 +49,8 @@ public class PojoTypeManagerBuilder<E, D extends DocumentElement> {
 		this.identityMappingCollector = new PojoIdentityMappingCollectorImpl( defaultIdentifierMapping );
 		IndexModelBindingContext bindingContext = indexManagerBuildingState.getRootBindingContext();
 		this.processorBuilder = new PojoIndexingProcessorTypeNodeBuilder<>(
-				null, typeModel, contributorProvider, indexModelBinder, bindingContext, identityMappingCollector
+				BoundPojoModelPath.root( typeModel ),
+				contributorProvider, indexModelBinder, bindingContext, identityMappingCollector
 		);
 	}
 

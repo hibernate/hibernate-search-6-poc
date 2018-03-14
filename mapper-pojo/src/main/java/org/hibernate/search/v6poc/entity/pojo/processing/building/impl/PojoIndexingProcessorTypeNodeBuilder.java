@@ -19,13 +19,13 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContri
 import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.TypeBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoIdentityMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoIndexModelBinder;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoMappingCollectorPropertyNode;
-import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoIdentityMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoMappingCollectorTypeNode;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoModelTypeRootElement;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
+import org.hibernate.search.v6poc.entity.pojo.model.path.impl.BoundPojoModelPathTypeNode;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessor;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessorPropertyNode;
@@ -34,7 +34,7 @@ import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProces
 public class PojoIndexingProcessorTypeNodeBuilder<T> extends AbstractPojoProcessorNodeBuilder<T>
 		implements PojoMappingCollectorTypeNode {
 
-	private final PojoTypeModel<T> typeModel;
+	private final BoundPojoModelPathTypeNode<T> modelPath;
 	private final PojoModelTypeRootElement pojoModelRootElement;
 
 	private final PojoIdentityMappingCollector identityMappingCollector;
@@ -44,15 +44,16 @@ public class PojoIndexingProcessorTypeNodeBuilder<T> extends AbstractPojoProcess
 			new HashMap<>();
 
 	public PojoIndexingProcessorTypeNodeBuilder(
-			AbstractPojoProcessorNodeBuilder<?> parent, PojoTypeModel<T> typeModel,
+			BoundPojoModelPathTypeNode<T> modelPath,
 			TypeMetadataContributorProvider<PojoTypeMetadataContributor> contributorProvider,
 			PojoIndexModelBinder indexModelBinder, IndexModelBindingContext bindingContext,
 			PojoIdentityMappingCollector identityMappingCollector) {
-		super( parent, contributorProvider, indexModelBinder, bindingContext );
-		this.typeModel = typeModel;
+		super( contributorProvider, indexModelBinder, bindingContext );
+
+		this.modelPath = modelPath;
 
 		// FIXME do something more with the pojoModelRootElement, to be able to use it in containedIn processing in particular
-		this.pojoModelRootElement = new PojoModelTypeRootElement( typeModel, contributorProvider );
+		this.pojoModelRootElement = new PojoModelTypeRootElement( modelPath.getTypeModel(), contributorProvider );
 
 		this.identityMappingCollector = identityMappingCollector;
 	}
@@ -76,14 +77,14 @@ public class PojoIndexingProcessorTypeNodeBuilder<T> extends AbstractPojoProcess
 
 	private PojoIndexingProcessorPropertyNodeBuilder<? super T, ?> createPropertyNodeBuilder(PropertyHandle propertyHandle) {
 		return new PojoIndexingProcessorPropertyNodeBuilder<>(
-				this, typeModel, typeModel.getProperty( propertyHandle.getName() ), propertyHandle,
+				modelPath.property( propertyHandle ),
 				contributorProvider, indexModelBinder, bindingContext, identityMappingCollector
 		);
 	}
 
 	@Override
-	protected void appendSelfPath(StringBuilder builder) {
-		builder.append( "type " ).append( typeModel );
+	BoundPojoModelPathTypeNode<T> getModelPath() {
+		return modelPath;
 	}
 
 	@Override
