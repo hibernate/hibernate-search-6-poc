@@ -8,18 +8,26 @@ package org.hibernate.search.v6poc.backend.elasticsearch.search.query.impl;
 
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.impl.ElasticsearchDocumentReference;
+import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.search.DocumentReference;
+import org.hibernate.search.v6poc.search.query.spi.HitAggregator;
 import org.hibernate.search.v6poc.search.query.spi.LoadingHitCollector;
+import org.hibernate.search.v6poc.search.query.spi.SearchQueryFactory;
 
 import com.google.gson.JsonObject;
 
+/**
+ * A hit extractor used when search results are expected to contain loaded objects.
+ *
+ * @see SearchQueryFactory#asObjects(SessionContext, HitAggregator)
+ */
 class ObjectHitExtractor implements HitExtractor<LoadingHitCollector> {
 	private static final JsonAccessor<String> HIT_INDEX_NAME_ACCESSOR = JsonAccessor.root().property( "_index" ).asString();
 	private static final JsonAccessor<String> HIT_ID_ACCESSOR = JsonAccessor.root().property( "_id" ).asString();
 
 	private static final ObjectHitExtractor INSTANCE = new ObjectHitExtractor();
 
-	public static ObjectHitExtractor get() {
+	static ObjectHitExtractor get() {
 		return INSTANCE;
 	}
 
