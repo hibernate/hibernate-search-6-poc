@@ -7,23 +7,22 @@
 package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.impl;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedContext;
 import org.hibernate.search.v6poc.backend.document.model.Sortable;
 import org.hibernate.search.v6poc.backend.document.model.Store;
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedContext;
-import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
-import org.hibernate.search.v6poc.entity.pojo.bridge.impl.BeanResolverBridgeBuilder;
-import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.engine.spi.BeanReference;
 import org.hibernate.search.v6poc.engine.spi.ImmutableBeanReference;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
+import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.impl.BeanResolverBridgeBuilder;
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;
-import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoMetadataContributor;
+import org.hibernate.search.v6poc.entity.pojo.extractor.impl.ContainerValueExtractorPath;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoMappingCollectorPropertyNode;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoModelCollectorPropertyNode;
-import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoMappingCollectorValueNode;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyFieldMappingContext;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyMappingContext;
 
@@ -38,7 +37,7 @@ public class PropertyFieldMappingContextImpl extends DelegatingPropertyMappingCo
 
 	private final CompositeFieldModelContributor fieldModelContributor = new CompositeFieldModelContributor();
 
-	private List<Class<? extends ContainerValueExtractor>> extractorClasses = null;
+	private ContainerValueExtractorPath extractorPath = ContainerValueExtractorPath.defaultExtractors();
 
 	PropertyFieldMappingContextImpl(PropertyMappingContext parent, String fieldName) {
 		super( parent );
@@ -52,17 +51,8 @@ public class PropertyFieldMappingContextImpl extends DelegatingPropertyMappingCo
 
 	@Override
 	public void contributeMapping(PojoMappingCollectorPropertyNode collector) {
-		PojoMappingCollectorValueNode valueNodeMappingCollector;
-		if ( extractorClasses == null ) {
-			valueNodeMappingCollector = collector.valueWithDefaultExtractors();
-		}
-		else if ( extractorClasses.isEmpty() ) {
-			valueNodeMappingCollector = collector.valueWithoutExtractors();
-		}
-		else {
-			valueNodeMappingCollector = collector.valueWithExtractors( extractorClasses );
-		}
-		valueNodeMappingCollector.valueBridge( bridgeBuilder, fieldName, fieldModelContributor );
+		collector.value( extractorPath )
+				.valueBridge( bridgeBuilder, fieldName, fieldModelContributor );
 	}
 
 	@Override
@@ -122,13 +112,13 @@ public class PropertyFieldMappingContextImpl extends DelegatingPropertyMappingCo
 	@Override
 	public PropertyFieldMappingContext withExtractors(
 			List<? extends Class<? extends ContainerValueExtractor>> extractorClasses) {
-		this.extractorClasses = new ArrayList<>( extractorClasses );
+		this.extractorPath = ContainerValueExtractorPath.explicitExtractors( extractorClasses );
 		return this;
 	}
 
 	@Override
 	public PropertyFieldMappingContext withoutExtractors() {
-		this.extractorClasses = Collections.emptyList();
+		this.extractorPath = ContainerValueExtractorPath.noExtractors();
 		return this;
 	}
 
