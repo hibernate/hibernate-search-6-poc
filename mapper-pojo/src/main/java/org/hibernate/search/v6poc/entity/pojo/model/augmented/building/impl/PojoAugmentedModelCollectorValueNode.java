@@ -6,13 +6,10 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.model.augmented.building.impl;
 
-import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.MarkerBuilder;
 import org.hibernate.search.v6poc.entity.pojo.extractor.impl.ContainerValueExtractorPath;
 
-public interface PojoAugmentedModelCollectorPropertyNode extends PojoAugmentedModelCollector {
+public interface PojoAugmentedModelCollectorValueNode extends PojoAugmentedModelCollector {
 
-	PojoAugmentedModelCollectorValueNode value(ContainerValueExtractorPath extractorPath);
-
-	void marker(MarkerBuilder definition);
+	void associationInverseSide(String inversePropertyName, ContainerValueExtractorPath inverseExtractorPath);
 
 }
