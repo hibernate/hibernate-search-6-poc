@@ -24,7 +24,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoTypeManagerContai
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingDelegate;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRawTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoBootstrapIntrospector;
-import org.hibernate.search.v6poc.entity.pojo.processing.impl.ProvidedStringIdentifierMapping;
+import org.hibernate.search.v6poc.entity.pojo.mapping.impl.ProvidedStringIdentifierMapping;
 import org.hibernate.search.v6poc.util.AssertionFailure;
 
 

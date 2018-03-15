@@ -10,7 +10,6 @@ import java.util.function.Supplier;
 
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.index.spi.DocumentReferenceProvider;
-import org.hibernate.search.v6poc.entity.pojo.processing.impl.RoutingKeyProvider;
 
 class PojoDocumentReferenceProvider<D extends DocumentElement, E> implements DocumentReferenceProvider {
 
