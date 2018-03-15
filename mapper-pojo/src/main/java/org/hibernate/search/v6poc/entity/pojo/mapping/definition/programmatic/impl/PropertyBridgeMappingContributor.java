@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.i
 import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoMetadataContributor;
-import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoModelCollector;
+import org.hibernate.search.v6poc.entity.pojo.model.augmented.building.impl.PojoAugmentedModelCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoMappingCollectorPropertyNode;
 
 
@@ -17,7 +17,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoMappingC
  * @author Yoann Rodiere
  */
 public class PropertyBridgeMappingContributor
-		implements PojoMetadataContributor<PojoModelCollector, PojoMappingCollectorPropertyNode> {
+		implements PojoMetadataContributor<PojoAugmentedModelCollector, PojoMappingCollectorPropertyNode> {
 
 	private final BridgeBuilder<? extends PropertyBridge> bridgeBuilder;
 
@@ -26,7 +26,7 @@ public class PropertyBridgeMappingContributor
 	}
 
 	@Override
-	public void contributeModel(PojoModelCollector collector) {
+	public void contributeModel(PojoAugmentedModelCollector collector) {
 		// Nothing to do
 	}
 

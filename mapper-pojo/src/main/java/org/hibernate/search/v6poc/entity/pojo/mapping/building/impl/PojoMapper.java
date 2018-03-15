@@ -22,6 +22,7 @@ import org.hibernate.search.v6poc.entity.pojo.extractor.impl.ContainerValueExtra
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoMappingDelegateImpl;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoTypeManagerContainer;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingDelegate;
+import org.hibernate.search.v6poc.entity.pojo.model.augmented.building.impl.PojoAugmentedTypeModelProvider;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRawTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoBootstrapIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.ProvidedStringIdentifierMapping;
@@ -62,7 +63,11 @@ public class PojoMapper<M> implements Mapper<PojoTypeMetadataContributor, M> {
 			);
 		}
 
-		PojoMappingHelper mappingHelper = new PojoMappingHelper( contributorProvider, indexModelBinder );
+		PojoAugmentedTypeModelProvider augmentedTypeModelProvider =
+				new PojoAugmentedTypeModelProvider( contributorProvider );
+		PojoMappingHelper mappingHelper = new PojoMappingHelper(
+				contributorProvider, indexModelBinder, augmentedTypeModelProvider
+		);
 
 		PojoRawTypeModel<?> entityTypeModel = (PojoRawTypeModel<?>) typeModel;
 		PojoTypeManagerBuilder<?, ?> builder = new PojoTypeManagerBuilder<>(
