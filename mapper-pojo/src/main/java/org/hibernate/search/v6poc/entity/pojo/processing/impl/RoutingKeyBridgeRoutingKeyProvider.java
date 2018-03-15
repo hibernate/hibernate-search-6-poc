@@ -11,11 +11,11 @@ import java.util.function.Supplier;
 import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoElementImpl;
 import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
 
-public class RoutingKeyBridgeProvider<E> implements RoutingKeyProvider<E> {
+public class RoutingKeyBridgeRoutingKeyProvider<E> implements RoutingKeyProvider<E> {
 
 	private final RoutingKeyBridge bridge;
 
-	public RoutingKeyBridgeProvider(RoutingKeyBridge bridge) {
+	public RoutingKeyBridgeRoutingKeyProvider(RoutingKeyBridge bridge) {
 		this.bridge = bridge;
 	}
 
