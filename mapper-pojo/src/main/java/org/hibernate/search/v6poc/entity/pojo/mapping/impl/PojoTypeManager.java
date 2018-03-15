@@ -17,7 +17,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoSessionContext;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoCaster;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRuntimeIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.IdentifierMapping;
-import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoNodeProcessor;
+import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessor;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.RoutingKeyProvider;
 import org.hibernate.search.v6poc.util.spi.Closer;
 
@@ -30,14 +30,14 @@ public class PojoTypeManager<I, E, D extends DocumentElement> implements AutoClo
 	private final PojoCaster<E> caster;
 	private final IdentifierMapping<I, E> identifierMapping;
 	private final RoutingKeyProvider<E> routingKeyProvider;
-	private final PojoNodeProcessor<E> processor;
+	private final PojoIndexingProcessor<E> processor;
 	private final IndexManager<D> indexManager;
 
 	public PojoTypeManager(Class<E> indexedJavaClass,
 			PojoCaster<E> caster,
 			IdentifierMapping<I, E> identifierMapping,
 			RoutingKeyProvider<E> routingKeyProvider,
-			PojoNodeProcessor<E> processor, IndexManager<D> indexManager) {
+			PojoIndexingProcessor<E> processor, IndexManager<D> indexManager) {
 		this.indexedJavaClass = indexedJavaClass;
 		this.caster = caster;
 		this.identifierMapping = identifierMapping;
