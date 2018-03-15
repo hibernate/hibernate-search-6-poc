@@ -11,16 +11,17 @@ import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
 
-/**
- * @author Yoann Rodiere
- */
-public interface PojoTypeNodeIdentityMappingCollector {
+class NoOpPojoIdentityMappingCollector implements PojoIdentityMappingCollector {
 
-	<T> void identifierBridge(PojoTypeModel<T> propertyTypeModel, PropertyHandle handle, IdentifierBridge<T> bridge);
+	static final NoOpPojoIdentityMappingCollector INSTANCE = new NoOpPojoIdentityMappingCollector();
 
-	void routingKeyBridge(RoutingKeyBridge bridge);
+	@Override
+	public <T> void identifierBridge(PojoTypeModel<T> propertyTypeModel, PropertyHandle handle, IdentifierBridge<T> bridge) {
+		// No-op
+	}
 
-	static PojoTypeNodeIdentityMappingCollector noOp() {
-		return NoOpPojoTypeNodeIdentityMappingCollector.INSTANCE;
+	@Override
+	public void routingKeyBridge(RoutingKeyBridge bridge) {
+		// No-op
 	}
 }

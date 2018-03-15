@@ -13,10 +13,7 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContribu
 import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 
-/**
- * @author Yoann Rodiere
- */
-public interface PojoValueNodeMappingCollector extends PojoNodeMappingCollector {
+public interface PojoMappingCollectorValueNode extends PojoMappingCollector {
 
 	void functionBridge(BridgeBuilder<? extends FunctionBridge<?, ?>> builder,
 			String fieldName, FieldModelContributor fieldModelContributor);
