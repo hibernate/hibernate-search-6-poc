@@ -15,7 +15,7 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContribu
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 import org.hibernate.search.v6poc.entity.model.SearchModel;
 import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
-import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.TypeBridge;
@@ -27,7 +27,7 @@ import org.hibernate.search.v6poc.entity.pojo.model.PojoModelProperty;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelType;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoGenericTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
-import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessorFunctionBridgeNode;
+import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessorValueBridgeNode;
 
 /**
  * Binds a mapping to a given entity model and index model
@@ -36,7 +36,7 @@ import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProces
  * Also binds the bridges where appropriate:
  * {@link TypeBridge#bind(IndexSchemaElement, PojoModelType, SearchModel)},
  * {@link PropertyBridge#bind(IndexSchemaElement, PojoModelProperty, SearchModel)},
- * {@link FunctionBridge#bind(IndexSchemaFieldContext)}.
+ * {@link ValueBridge#bind(IndexSchemaFieldContext)}.
  * <p>
  * Incidentally, this will also generate the index model,
  * due to bridges contributing to the index model as we bind them.
@@ -64,8 +64,8 @@ public interface PojoIndexModelBinder {
 	Optional<PropertyBridge> addPropertyBridge(IndexModelBindingContext bindingContext,
 			PojoModelProperty pojoModelProperty, BridgeBuilder<? extends PropertyBridge> bridgeBuilder);
 
-	<T> Optional<PojoIndexingProcessorFunctionBridgeNode<T, ?>> addFunctionBridge(IndexModelBindingContext bindingContext,
-			PojoTypeModel<T> typeModel, BridgeBuilder<? extends FunctionBridge<?, ?>> bridgeBuilder,
+	<T> Optional<PojoIndexingProcessorValueBridgeNode<T, ?>> addValueBridge(IndexModelBindingContext bindingContext,
+			PojoTypeModel<T> typeModel, BridgeBuilder<? extends ValueBridge<?, ?>> bridgeBuilder,
 			String fieldName, FieldModelContributor contributor);
 
 }

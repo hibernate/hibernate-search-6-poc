@@ -8,18 +8,18 @@ package org.hibernate.search.v6poc.entity.pojo.bridge.builtin.impl;
 
 import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldContext;
 import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedContext;
-import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
 
-public final class DefaultIntegerFunctionBridge implements FunctionBridge<Integer, Integer> {
+public final class DefaultStringValueBridge implements ValueBridge<String, String> {
 
 	@Override
-	public IndexSchemaFieldTypedContext<Integer> bind(IndexSchemaFieldContext context) {
-		return context.asInteger();
+	public IndexSchemaFieldTypedContext<String> bind(IndexSchemaFieldContext context) {
+		return context.asString();
 	}
 
 	@Override
-	public Integer toIndexedValue(Integer propertyValue) {
-		return propertyValue;
+	public String toIndexedValue(String value) {
+		return value;
 	}
 
 }
