@@ -12,6 +12,11 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Fiel
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.FunctionBridgeBeanReference;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.bridge.BookMediumBridge;
 
+/**
+ * A concrete copy of a book document.
+ *
+ * @see DocumentCopy
+ */
 @Entity
 public class BookCopy extends DocumentCopy<Book> {
 

@@ -16,6 +16,11 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Inde
 import org.hibernate.search.v6poc.integrationtest.showcase.library.bridge.ISBNBridge;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.usertype.ISBNUserType;
 
+/**
+ * A mainly textual document.
+ *
+ * @see Document
+ */
 @Entity
 @Indexed(index = Book.INDEX)
 public class Book extends Document<BookCopy> {
