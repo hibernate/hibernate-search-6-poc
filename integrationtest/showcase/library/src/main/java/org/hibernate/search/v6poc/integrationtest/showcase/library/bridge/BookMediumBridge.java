@@ -6,17 +6,17 @@
  */
 package org.hibernate.search.v6poc.integrationtest.showcase.library.bridge;
 
-import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.model.BookMedium;
 
-public class BookMediumBridge implements FunctionBridge<BookMedium, String> {
+public class BookMediumBridge implements ValueBridge<BookMedium, String> {
 	@Override
-	public String toIndexedValue(BookMedium propertyValue) {
-		return propertyValue == null ? null : propertyValue.name();
+	public String toIndexedValue(BookMedium value) {
+		return value == null ? null : value.name();
 	}
 
 	@Override
-	public Object fromIndexedValue(String fieldValue) {
-		return fieldValue == null ? null : BookMedium.valueOf( fieldValue );
+	public Object fromIndexedValue(String indexedValue) {
+		return indexedValue == null ? null : BookMedium.valueOf( indexedValue );
 	}
 }

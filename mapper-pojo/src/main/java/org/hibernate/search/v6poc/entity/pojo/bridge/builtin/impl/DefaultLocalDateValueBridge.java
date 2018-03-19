@@ -6,20 +6,22 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.bridge.builtin.impl;
 
+import java.time.LocalDate;
+
 import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldContext;
 import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedContext;
-import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
 
-public final class DefaultStringFunctionBridge implements FunctionBridge<String, String> {
+public final class DefaultLocalDateValueBridge implements ValueBridge<LocalDate, LocalDate> {
 
 	@Override
-	public IndexSchemaFieldTypedContext<String> bind(IndexSchemaFieldContext context) {
-		return context.asString();
+	public IndexSchemaFieldTypedContext<LocalDate> bind(IndexSchemaFieldContext context) {
+		return context.asLocalDate();
 	}
 
 	@Override
-	public String toIndexedValue(String propertyValue) {
-		return propertyValue;
+	public LocalDate toIndexedValue(LocalDate value) {
+		return value;
 	}
 
 }

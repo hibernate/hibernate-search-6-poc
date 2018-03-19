@@ -16,14 +16,14 @@ import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
-import org.hibernate.search.v6poc.entity.pojo.bridge.FunctionBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoIndexModelBinder;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoIdentityMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoMappingCollectorValueNode;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
-import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessorFunctionBridgeNode;
+import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessorValueBridgeNode;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessor;
 
 public class PojoIndexingProcessorValueNodeBuilderDelegate<T> implements PojoMappingCollectorValueNode {
@@ -38,7 +38,7 @@ public class PojoIndexingProcessorValueNodeBuilderDelegate<T> implements PojoMap
 	private final String defaultName;
 	private final PojoTypeModel<T> valueTypeModel;
 
-	private final Collection<PojoIndexingProcessorFunctionBridgeNode<? super T, ?>> bridgeNodes = new ArrayList<>();
+	private final Collection<PojoIndexingProcessorValueBridgeNode<? super T, ?>> bridgeNodes = new ArrayList<>();
 
 	private final Collection<PojoIndexingProcessorTypeNodeBuilder<? super T>> typeNodeBuilders = new ArrayList<>();
 
@@ -63,14 +63,14 @@ public class PojoIndexingProcessorValueNodeBuilderDelegate<T> implements PojoMap
 	}
 
 	@Override
-	public void functionBridge(BridgeBuilder<? extends FunctionBridge<?, ?>> builder, String fieldName,
+	public void valueBridge(BridgeBuilder<? extends ValueBridge<?, ?>> builder, String fieldName,
 			FieldModelContributor fieldModelContributor) {
 		String defaultedFieldName = fieldName;
 		if ( defaultedFieldName == null ) {
 			defaultedFieldName = defaultName;
 		}
 
-		indexModelBinder.addFunctionBridge(
+		indexModelBinder.addValueBridge(
 				bindingContext, valueTypeModel, builder, defaultedFieldName,
 				fieldModelContributor
 		)

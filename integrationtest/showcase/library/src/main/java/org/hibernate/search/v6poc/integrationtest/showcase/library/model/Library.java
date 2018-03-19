@@ -20,7 +20,7 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.annotation.
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.annotation.Longitude;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.DocumentId;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Field;
-import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.FunctionBridgeBeanReference;
+import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.ValueBridgeBeanReference;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Indexed;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.bridge.LibraryServiceBridge;
 
@@ -59,7 +59,7 @@ public class Library {
 
 	@ElementCollection
 	// TODO add default bridge (and maybe field type?) for enums
-	@Field(functionBridge = @FunctionBridgeBeanReference(type = LibraryServiceBridge.class))
+	@Field(valueBridge = @ValueBridgeBeanReference(type = LibraryServiceBridge.class))
 	private List<LibraryService> services;
 
 	@Override
