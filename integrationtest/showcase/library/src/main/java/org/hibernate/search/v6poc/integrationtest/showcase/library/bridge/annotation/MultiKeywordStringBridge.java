@@ -18,7 +18,7 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeM
 
 @PropertyBridgeMapping( builder = @PropertyBridgeMappingBuilderReference(type = org.hibernate.search.v6poc.integrationtest.showcase.library.bridge.MultiKeywordStringBridge.Builder.class))
 @Retention(RetentionPolicy.RUNTIME)
-@Target( { ElementType.METHOD, ElementType.FIELD, ElementType.TYPE })
+@Target( { ElementType.METHOD, ElementType.FIELD })
 @Documented
 @Repeatable(MultiKeywordStringBridge.List.class)
 public @interface MultiKeywordStringBridge {
@@ -28,7 +28,7 @@ public @interface MultiKeywordStringBridge {
 	String separatorPattern() default org.hibernate.search.v6poc.integrationtest.showcase.library.bridge.MultiKeywordStringBridge.SEPARATOR_PATTERN_DEFAULT;
 
 	@Retention(RetentionPolicy.RUNTIME)
-	@Target( { ElementType.METHOD, ElementType.FIELD, ElementType.TYPE })
+	@Target( { ElementType.METHOD, ElementType.FIELD })
 	@Documented
 	@interface List {
 		MultiKeywordStringBridge[] value();
