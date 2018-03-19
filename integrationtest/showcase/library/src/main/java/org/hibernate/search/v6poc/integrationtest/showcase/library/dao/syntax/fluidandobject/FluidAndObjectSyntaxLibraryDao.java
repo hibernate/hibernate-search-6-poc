@@ -4,7 +4,7 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.hibernate.search.v6poc.integrationtest.showcase.library.dao.syntax.lambda;
+package org.hibernate.search.v6poc.integrationtest.showcase.library.dao.syntax.fluidandobject;
 
 import java.util.Collections;
 import java.util.List;
@@ -14,9 +14,9 @@ import org.hibernate.search.v6poc.entity.orm.jpa.FullTextQuery;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.dao.LibraryDao;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.model.Library;
 
-class LambdaSyntaxLibraryDao extends LibraryDao {
+class FluidAndObjectSyntaxLibraryDao extends LibraryDao {
 
-	LambdaSyntaxLibraryDao(EntityManager entityManager) {
+	FluidAndObjectSyntaxLibraryDao(EntityManager entityManager) {
 		super( entityManager );
 	}
 
@@ -27,11 +27,10 @@ class LambdaSyntaxLibraryDao extends LibraryDao {
 		}
 		FullTextQuery<Library> query = entityManager.search( Library.class ).query()
 				.asEntities()
-				.predicate( c -> c.match().onField( "name" ).matching( terms ) )
-				.sort( c -> {
-					c.byField( "collectionSize" ).desc();
-					c.byField( "name_sort" );
-				} )
+				.predicate().match().onField( "name" ).matching( terms )
+				.sort().byField( "collectionSize" ).desc()
+						.then().byField( "name_sort" )
+						.end()
 				.build();
 
 		query.setFirstResult( offset );

@@ -4,7 +4,7 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.hibernate.search.v6poc.integrationtest.showcase.library.dao.syntax.fluid;
+package org.hibernate.search.v6poc.integrationtest.showcase.library.dao.syntax.fluidandlambda;
 
 import java.util.Collections;
 import java.util.List;
@@ -14,9 +14,9 @@ import org.hibernate.search.v6poc.entity.orm.jpa.FullTextQuery;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.dao.LibraryDao;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.model.Library;
 
-class FluidAndObjectSyntaxLibraryDao extends LibraryDao {
+class FluidAndLambdaSyntaxLibraryDao extends LibraryDao {
 
-	FluidAndObjectSyntaxLibraryDao(EntityManager entityManager) {
+	FluidAndLambdaSyntaxLibraryDao(EntityManager entityManager) {
 		super( entityManager );
 	}
 

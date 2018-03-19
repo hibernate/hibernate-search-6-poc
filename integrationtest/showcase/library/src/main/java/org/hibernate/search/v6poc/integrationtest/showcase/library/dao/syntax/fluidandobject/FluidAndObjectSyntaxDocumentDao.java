@@ -4,7 +4,7 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.hibernate.search.v6poc.integrationtest.showcase.library.dao.syntax.fluid;
+package org.hibernate.search.v6poc.integrationtest.showcase.library.dao.syntax.fluidandobject;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,9 +32,12 @@ class FluidAndObjectSyntaxDocumentDao extends DocumentDao {
 		if ( isbnAsString == null ) {
 			return Optional.empty();
 		}
+
 		// Must use Hibernate ORM types (as opposed to JPA types) to benefit from query.uniqueResult()
+		FullTextSession fullTextSession = entityManager.unwrap( FullTextSession.class );
+
 		org.hibernate.search.v6poc.entity.orm.hibernate.FullTextQuery<Book> query =
-				entityManager.unwrap( FullTextSession.class ).search( Book.class ).query()
+				fullTextSession.search( Book.class ).query()
 				.asEntities()
 				.predicate().match().onField( "isbn" ).matching( isbnAsString )
 				.build();
