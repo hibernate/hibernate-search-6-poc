@@ -9,13 +9,14 @@ package org.hibernate.search.v6poc.backend.document.impl;
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 
-
-/**
- * @author Yoann Rodiere
- */
 public class DeferredInitializationIndexFieldAccessor<T> implements IndexFieldAccessor<T> {
 
 	private IndexFieldAccessor<T> delegate;
+
+	@Override
+	public String toString() {
+		return getClass().getSimpleName() + "[" + delegate + "]";
+	}
 
 	public void initialize(IndexFieldAccessor<T> delegate) {
 		this.delegate = delegate;
@@ -28,5 +29,4 @@ public class DeferredInitializationIndexFieldAccessor<T> implements IndexFieldAc
 		}
 		// else: The field was filtered out - ignore it
 	}
-
 }

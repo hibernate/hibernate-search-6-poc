@@ -14,15 +14,12 @@ import org.hibernate.search.v6poc.integrationtest.util.common.stub.backend.docum
 class StubObjectFieldIndexSchemaCollector extends StubIndexSchemaCollector
 		implements ObjectFieldIndexSchemaCollector {
 
-	private final String relativeName;
-
-	StubObjectFieldIndexSchemaCollector(String relativeName, StubIndexSchemaNode.Builder builder) {
+	StubObjectFieldIndexSchemaCollector(StubIndexSchemaNode.Builder builder) {
 		super( builder );
-		this.relativeName = relativeName;
 	}
 
 	@Override
 	public IndexSchemaObjectField withContext(IndexSchemaNestingContext context) {
-		return new StubIndexSchemaObjectField( relativeName, builder, context, true );
+		return new StubIndexSchemaObjectField( builder, context, true );
 	}
 }
