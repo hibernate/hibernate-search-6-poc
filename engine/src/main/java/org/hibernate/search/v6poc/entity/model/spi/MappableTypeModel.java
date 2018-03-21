@@ -9,12 +9,11 @@ package org.hibernate.search.v6poc.entity.model.spi;
 import java.util.stream.Stream;
 
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexManagerBuildingState;
-import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
 
 /**
  * A representation of an entity type that can be mapped to an index.
  *
- * @see org.hibernate.search.v6poc.entity.mapping.building.spi.Mapper#addIndexed(MappableTypeModel, IndexManagerBuildingState, TypeMetadataContributorProvider)
+ * @see org.hibernate.search.v6poc.entity.mapping.building.spi.Mapper#addIndexed(MappableTypeModel, IndexManagerBuildingState)
  */
 public interface MappableTypeModel {
 

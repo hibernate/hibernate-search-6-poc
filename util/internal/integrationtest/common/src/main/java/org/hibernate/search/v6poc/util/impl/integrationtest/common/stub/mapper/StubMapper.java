@@ -16,13 +16,17 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.Mapper;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
 import org.hibernate.search.v6poc.entity.model.spi.MappableTypeModel;
 
-class StubMapper implements Mapper<StubTypeMetadataContributor, StubMapping> {
+class StubMapper implements Mapper<StubMapping> {
 
+	private final TypeMetadataContributorProvider<StubTypeMetadataContributor> contributorProvider;
 	private final Map<StubTypeModel, IndexManagerBuildingState<?>> indexManagerBuildingStates = new HashMap<>();
 
+	StubMapper(TypeMetadataContributorProvider<StubTypeMetadataContributor> contributorProvider) {
+		this.contributorProvider = contributorProvider;
+	}
+
 	@Override
-	public void addIndexed(MappableTypeModel typeModel, IndexManagerBuildingState<?> indexManagerBuildingState,
-			TypeMetadataContributorProvider<StubTypeMetadataContributor> contributorProvider) {
+	public void addIndexed(MappableTypeModel typeModel, IndexManagerBuildingState<?> indexManagerBuildingState) {
 		indexManagerBuildingStates.put( (StubTypeModel) typeModel, indexManagerBuildingState );
 		contributorProvider.forEach( typeModel, c -> c.contribute( indexManagerBuildingState ) );
 	}

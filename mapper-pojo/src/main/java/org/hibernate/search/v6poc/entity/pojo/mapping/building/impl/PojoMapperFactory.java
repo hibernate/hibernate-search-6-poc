@@ -9,6 +9,7 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MapperFactory;
+import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingKey;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoMapping;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingFactory;
@@ -36,10 +37,12 @@ public class PojoMapperFactory<M extends PojoMapping>
 	}
 
 	@Override
-	public final PojoMapper<M> createMapper(BuildContext buildContext,
-			ConfigurationPropertySource propertySource) {
-		return new PojoMapper<>( buildContext, propertySource, introspector, implicitProvidedId,
-				mappingFactory::createMapping );
+	public final PojoMapper<M> createMapper(BuildContext buildContext, ConfigurationPropertySource propertySource,
+			TypeMetadataContributorProvider<PojoTypeMetadataContributor> contributorProvider) {
+		return new PojoMapper<>(
+				buildContext, propertySource, contributorProvider,
+				introspector, implicitProvidedId, mappingFactory::createMapping
+		);
 	}
 
 }
