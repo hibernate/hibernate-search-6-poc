@@ -8,11 +8,11 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.impl;
 
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoSessionContext;
 
-abstract class PojoTypeWorker {
+abstract class PojoIndexedTypeWorker {
 
 	final PojoSessionContext sessionContext;
 
-	PojoTypeWorker(PojoSessionContext sessionContext) {
+	PojoIndexedTypeWorker(PojoSessionContext sessionContext) {
 		this.sessionContext = sessionContext;
 	}
 
