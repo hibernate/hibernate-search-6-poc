@@ -14,6 +14,7 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingC
 import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
 import org.hibernate.search.v6poc.entity.pojo.logging.impl.Log;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMappingCollectorTypeNode;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.IdentifierMapping;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoIndexedTypeManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoIndexedTypeManagerContainer;

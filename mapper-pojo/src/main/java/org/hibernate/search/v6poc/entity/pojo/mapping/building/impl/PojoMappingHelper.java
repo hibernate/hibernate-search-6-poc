@@ -7,6 +7,7 @@
 package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoTypeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.model.augmented.building.impl.PojoAugmentedTypeModelProvider;
 
 public class PojoMappingHelper {

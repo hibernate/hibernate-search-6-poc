@@ -13,7 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.MarkerBuilder;
-import org.hibernate.search.v6poc.entity.pojo.extractor.impl.ContainerValueExtractorPath;
+import org.hibernate.search.v6poc.entity.pojo.extractor.spi.ContainerValueExtractorPath;
+import org.hibernate.search.v6poc.entity.pojo.model.augmented.building.spi.PojoAugmentedModelCollectorPropertyNode;
+import org.hibernate.search.v6poc.entity.pojo.model.augmented.building.spi.PojoAugmentedModelCollectorValueNode;
 import org.hibernate.search.v6poc.entity.pojo.model.augmented.impl.PojoAugmentedPropertyModel;
 import org.hibernate.search.v6poc.entity.pojo.model.augmented.impl.PojoAugmentedValueModel;
 

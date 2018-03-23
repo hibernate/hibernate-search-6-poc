@@ -36,11 +36,11 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.impl.BeanResolverBridgeBuil
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.AnnotationBridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.AnnotationMarkerBuilder;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
-import org.hibernate.search.v6poc.entity.pojo.extractor.impl.ContainerValueExtractorPath;
+import org.hibernate.search.v6poc.entity.pojo.extractor.spi.ContainerValueExtractorPath;
 import org.hibernate.search.v6poc.entity.pojo.logging.impl.Log;
-import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoMappingCollectorPropertyNode;
-import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoMappingCollectorTypeNode;
-import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeMetadataContributor;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMappingCollectorPropertyNode;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMappingCollectorTypeNode;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoTypeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.AssociationInverseSide;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.ContainerValueExtractorBeanReference;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.DocumentId;
@@ -50,8 +50,8 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Iden
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.IndexedEmbedded;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.ValueBridgeBeanReference;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.ValueBridgeBuilderBeanReference;
-import org.hibernate.search.v6poc.entity.pojo.model.augmented.building.impl.PojoAugmentedModelCollectorPropertyNode;
-import org.hibernate.search.v6poc.entity.pojo.model.augmented.building.impl.PojoAugmentedModelCollectorTypeNode;
+import org.hibernate.search.v6poc.entity.pojo.model.augmented.building.spi.PojoAugmentedModelCollectorPropertyNode;
+import org.hibernate.search.v6poc.entity.pojo.model.augmented.building.spi.PojoAugmentedModelCollectorTypeNode;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoPropertyModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRawTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;

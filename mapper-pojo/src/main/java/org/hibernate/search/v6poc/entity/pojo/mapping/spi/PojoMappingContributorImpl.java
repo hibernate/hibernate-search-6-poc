@@ -7,10 +7,12 @@
 package org.hibernate.search.v6poc.entity.pojo.mapping.spi;
 
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
+import org.hibernate.search.v6poc.entity.mapping.building.spi.MapperFactory;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingKey;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoMapping;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoMappingContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoMapperFactory;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoTypeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.AnnotationMappingDefinition;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.impl.AnnotationMappingDefinitionImpl;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.ProgrammaticMappingDefinition;
@@ -66,5 +68,9 @@ public abstract class PojoMappingContributorImpl<M extends PojoMapping>
 	@Override
 	public M getResult() {
 		return mappingRepositoryBuilder.getBuiltResult().getMapping( mapperFactory.getMappingKey() );
+	}
+
+	protected final MapperFactory<PojoTypeMetadataContributor, ?> getMapperFactory() {
+		return mapperFactory;
 	}
 }
