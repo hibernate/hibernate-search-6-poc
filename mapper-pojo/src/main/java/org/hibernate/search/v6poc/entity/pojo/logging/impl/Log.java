@@ -9,11 +9,13 @@ package org.hibernate.search.v6poc.entity.pojo.logging.impl;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.util.Set;
 
 import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
 import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoIndexedTypeManager;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoGenericTypeModel;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRawTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
 import org.hibernate.search.v6poc.util.impl.common.logging.ToStringTreeAppendableMultilineFormatter;
 import org.hibernate.search.v6poc.util.SearchException;
@@ -108,4 +110,9 @@ public interface Log extends BasicLogger {
 	@Message(id = 17, value = "Created POJO indexed type manager: %1$s")
 	void createdPojoIndexedTypeManager(
 			@FormatWith(ToStringTreeAppendableMultilineFormatter.class) PojoIndexedTypeManager<?, ?, ?> typeManager);
+
+	@LogMessage(level = Logger.Level.DEBUG)
+	@Message(id = 18, value = "Detected entity types: %1$s")
+	void detectedEntityTypes(Set<PojoRawTypeModel<?>> entityTypes);
+
 }

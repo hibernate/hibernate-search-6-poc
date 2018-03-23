@@ -11,6 +11,7 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.entity.orm.mapping.impl.HibernateOrmMappingFactory;
 import org.hibernate.search.v6poc.entity.orm.mapping.impl.HibernateOrmMappingKey;
+import org.hibernate.search.v6poc.entity.orm.mapping.impl.HibernateOrmMetatadaContributor;
 import org.hibernate.search.v6poc.entity.orm.model.impl.HibernateOrmBootstrapIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingContributorImpl;
 
@@ -25,21 +26,33 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingContributor
  */
 public class HibernateOrmMappingContributor extends PojoMappingContributorImpl<HibernateOrmMapping> {
 
-	public HibernateOrmMappingContributor(SearchMappingRepositoryBuilder mappingRepositoryBuilder,
-			Metadata metadata, SessionFactoryImplementor sessionFactoryImplementor,
+	public static HibernateOrmMappingContributor create(SearchMappingRepositoryBuilder mappingRepositoryBuilder,
+			Metadata metadata,
+			SessionFactoryImplementor sessionFactoryImplementor,
 			boolean annotatedTypeDiscoveryEnabled) {
-		this( mappingRepositoryBuilder, new HibernateOrmBootstrapIntrospector( metadata, sessionFactoryImplementor ),
-				sessionFactoryImplementor, annotatedTypeDiscoveryEnabled );
+		HibernateOrmBootstrapIntrospector introspector =
+				new HibernateOrmBootstrapIntrospector( metadata, sessionFactoryImplementor );
+
+		return new HibernateOrmMappingContributor(
+				mappingRepositoryBuilder, metadata,
+				introspector, sessionFactoryImplementor,
+				annotatedTypeDiscoveryEnabled
+		);
 	}
 
 	private HibernateOrmMappingContributor(SearchMappingRepositoryBuilder mappingRepositoryBuilder,
-			HibernateOrmBootstrapIntrospector introspector, SessionFactoryImplementor sessionFactoryImplementor,
+			Metadata metadata,
+			HibernateOrmBootstrapIntrospector introspector,
+			SessionFactoryImplementor sessionFactoryImplementor,
 			boolean annotatedTypeDiscoveryEnabled) {
 		super(
 				mappingRepositoryBuilder, new HibernateOrmMappingKey(),
 				new HibernateOrmMappingFactory( sessionFactoryImplementor ),
 				introspector, false,
 				annotatedTypeDiscoveryEnabled
+		);
+		mappingRepositoryBuilder.addMapping(
+				new HibernateOrmMetatadaContributor( getMapperFactory(), introspector, metadata )
 		);
 	}
 
