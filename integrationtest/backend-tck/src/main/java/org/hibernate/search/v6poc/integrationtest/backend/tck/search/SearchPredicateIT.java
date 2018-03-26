@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.integrationtest.backend.tck.search;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hibernate.search.v6poc.integrationtest.util.common.assertion.DocumentReferencesSearchResultAssert.assertThat;
 import static org.hibernate.search.v6poc.integrationtest.util.common.stub.mapper.StubMapperUtils.referenceProvider;
 import static org.junit.Assert.fail;

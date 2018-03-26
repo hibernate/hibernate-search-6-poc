@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.integrationtest.util.common.assertion;
 import org.hibernate.search.v6poc.search.SearchQuery;
 import org.hibernate.search.v6poc.search.SearchResult;
 
-import org.fest.assertions.Assertions;
+import org.assertj.core.api.Assertions;
 
 public abstract class AbstractSearchResultAssert<S, T> {
 

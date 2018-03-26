@@ -12,7 +12,7 @@ import org.hibernate.search.v6poc.integrationtest.util.common.stub.backend.searc
 import org.hibernate.search.v6poc.search.SearchResult;
 import org.hibernate.search.v6poc.search.query.spi.HitAggregator;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hibernate.search.v6poc.integrationtest.util.common.assertion.StubSearchWorkAssert.assertThat;
 
 class SearchWorkCall<T> {

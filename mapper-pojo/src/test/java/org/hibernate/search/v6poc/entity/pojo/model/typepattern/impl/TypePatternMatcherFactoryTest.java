@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.model.typepattern.impl;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.Serializable;
 import java.util.List;
