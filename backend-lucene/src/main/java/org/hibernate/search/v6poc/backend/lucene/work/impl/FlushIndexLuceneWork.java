@@ -27,7 +27,7 @@ public class FlushIndexLuceneWork extends AbstractLuceneWork<Void> {
 	}
 
 	@Override
-	public CompletableFuture<Void> execute(LuceneWorkExecutionContext context) {
+	public CompletableFuture<Void> execute(LuceneIndexWorkExecutionContext context) {
 		return Futures.create( () -> CompletableFuture.completedFuture( null ).thenRun( () -> flushIndex( context.getIndexWriter() ) ) );
 	}
 

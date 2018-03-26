@@ -27,7 +27,7 @@ public class OptimizeIndexLuceneWork extends AbstractLuceneWork<Long> {
 	}
 
 	@Override
-	public CompletableFuture<Long> execute(LuceneWorkExecutionContext context) {
+	public CompletableFuture<Long> execute(LuceneIndexWorkExecutionContext context) {
 		return Futures.create( () -> commitIndex( context.getIndexWriter() ) );
 	}
 

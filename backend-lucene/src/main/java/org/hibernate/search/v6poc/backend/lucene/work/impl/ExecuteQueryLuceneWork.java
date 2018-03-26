@@ -10,33 +10,39 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.concurrent.CompletableFuture;
 
-import org.apache.lucene.index.IndexWriter;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
+import org.hibernate.search.v6poc.backend.lucene.search.query.impl.LuceneSearcher;
+import org.hibernate.search.v6poc.search.SearchResult;
 import org.hibernate.search.v6poc.util.spi.Futures;
 import org.hibernate.search.v6poc.util.spi.LoggerFactory;
 
 /**
  * @author Guillaume Smet
  */
-public class CommitIndexLuceneWork extends AbstractLuceneWork<Long> {
+public class ExecuteQueryLuceneWork<T> implements LuceneQueryWork<SearchResult<T>> {
 
 	private static final Log log = LoggerFactory.make( Log.class, MethodHandles.lookup() );
 
-	public CommitIndexLuceneWork(String indexName) {
-		super( "commitIndex", indexName );
+	private final LuceneSearcher<T> searcher;
+
+	public ExecuteQueryLuceneWork(LuceneSearcher<T> searcher) {
+		this.searcher = searcher;
 	}
 
 	@Override
-	public CompletableFuture<Long> execute(LuceneIndexWorkExecutionContext context) {
-		return Futures.create( () -> commitIndex( context.getIndexWriter() ) );
+	public CompletableFuture<SearchResult<T>> execute(LuceneQueryWorkExecutionContext context) {
+		return Futures.create( () -> CompletableFuture.completedFuture( executeQuery( searcher ) ) );
 	}
 
-	private CompletableFuture<Long> commitIndex(IndexWriter indexWriter) {
+	private SearchResult<T> executeQuery(LuceneSearcher<T> searcher) {
 		try {
-			return CompletableFuture.completedFuture( indexWriter.commit() );
+			return searcher.execute();
 		}
 		catch (IOException e) {
-			throw log.unableToCommitIndex( indexName );
+			throw log.ioExceptionOnQueryExecution( searcher.getLuceneQuery(), searcher.getIndexNames(), e );
+		}
+		finally {
+			searcher.close();
 		}
 	}
 
@@ -44,8 +50,7 @@ public class CommitIndexLuceneWork extends AbstractLuceneWork<Long> {
 	public String toString() {
 		StringBuilder sb = new StringBuilder( getClass().getSimpleName() )
 				.append( "[" )
-				.append( "type=" ).append( workType )
-				.append( ", indexName=" ).append( indexName )
+				.append( "searcher=" ).append( searcher )
 				.append( "]" );
 		return sb.toString();
 	}

@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexEntry;
-import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFieldNames;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFields;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.util.spi.Futures;
 import org.hibernate.search.v6poc.util.spi.LoggerFactory;
@@ -36,16 +36,13 @@ public class UpdateEntryLuceneWork extends AbstractLuceneWork<Long> {
 	}
 
 	@Override
-	public CompletableFuture<Long> execute(LuceneWorkExecutionContext context) {
+	public CompletableFuture<Long> execute(LuceneIndexWorkExecutionContext context) {
 		return Futures.create( () -> updateEntry( context.getIndexWriter() ) );
 	}
 
 	private CompletableFuture<Long> updateEntry(IndexWriter indexWriter) {
 		try {
-			return CompletableFuture.completedFuture( indexWriter.updateDocuments(
-					new Term( LuceneFieldNames.idFieldName(), id ),
-					indexEntry
-			) );
+			return CompletableFuture.completedFuture( indexWriter.updateDocuments( new Term( LuceneFields.idFieldName(), id ), indexEntry ) );
 		}
 		catch (IOException e) {
 			throw log.unableToIndexEntry( indexName, id );

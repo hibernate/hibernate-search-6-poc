@@ -6,17 +6,12 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.work.impl;
 
+import org.apache.lucene.index.IndexWriter;
+
 /**
  * @author Guillaume Smet
  */
-public abstract class AbstractLuceneWork<T> implements LuceneIndexWork<T> {
+public interface LuceneIndexWorkExecutionContext {
 
-	protected final String workType;
-
-	protected final String indexName;
-
-	public AbstractLuceneWork(String workType, String indexName) {
-		this.workType = workType;
-		this.indexName = indexName;
-	}
+	IndexWriter getIndexWriter();
 }

@@ -6,17 +6,13 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.work.impl;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * @author Guillaume Smet
  */
-public abstract class AbstractLuceneWork<T> implements LuceneIndexWork<T> {
+public interface LuceneIndexWork<T> {
 
-	protected final String workType;
+	CompletableFuture<T> execute(LuceneIndexWorkExecutionContext context);
 
-	protected final String indexName;
-
-	public AbstractLuceneWork(String workType, String indexName) {
-		this.workType = workType;
-		this.indexName = indexName;
-	}
 }

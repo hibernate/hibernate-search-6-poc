@@ -9,16 +9,16 @@ package org.hibernate.search.v6poc.backend.lucene.orchestration.impl;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWork;
+import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneQueryWork;
 
 /**
  * @author Guillaume Smet
  */
-public interface LuceneWorkOrchestrator extends AutoCloseable {
+public interface LuceneQueryWorkOrchestrator extends AutoCloseable {
 
-	<T> CompletableFuture<T> submit(LuceneWork<T> work);
+	<T> CompletableFuture<T> submit(LuceneQueryWork<T> work);
 
-	CompletableFuture<?> submit(List<LuceneWork<?>> work);
+	CompletableFuture<?> submit(List<LuceneQueryWork<?>> work);
 
 	@Override
 	default void close() {

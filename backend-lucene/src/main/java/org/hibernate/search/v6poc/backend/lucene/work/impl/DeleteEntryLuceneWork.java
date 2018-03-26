@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
-import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFieldNames;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFields;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.util.spi.Futures;
 import org.hibernate.search.v6poc.util.spi.LoggerFactory;
@@ -32,13 +32,13 @@ public class DeleteEntryLuceneWork extends AbstractLuceneWork<Long> {
 	}
 
 	@Override
-	public CompletableFuture<Long> execute(LuceneWorkExecutionContext context) {
-		return Futures.create( () -> addDocuments( context.getIndexWriter() ) );
+	public CompletableFuture<Long> execute(LuceneIndexWorkExecutionContext context) {
+		return Futures.create( () -> deleteDocuments( context.getIndexWriter() ) );
 	}
 
-	private CompletableFuture<Long> addDocuments(IndexWriter indexWriter) {
+	private CompletableFuture<Long> deleteDocuments(IndexWriter indexWriter) {
 		try {
-			return CompletableFuture.completedFuture( indexWriter.deleteDocuments( new Term( LuceneFieldNames.idFieldName(), id ) ) );
+			return CompletableFuture.completedFuture( indexWriter.deleteDocuments( new Term( LuceneFields.idFieldName(), id ) ) );
 		}
 		catch (IOException e) {
 			throw log.unableToDeleteEntryFromIndex( indexName, id );

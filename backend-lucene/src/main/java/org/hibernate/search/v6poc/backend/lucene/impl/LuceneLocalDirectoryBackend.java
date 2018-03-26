@@ -14,6 +14,8 @@ import org.hibernate.search.v6poc.backend.index.spi.IndexManagerBuilder;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneRootDocumentBuilder;
 import org.hibernate.search.v6poc.backend.lucene.index.impl.LuceneLocalDirectoryIndexManagerBuilder;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
+import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.LuceneQueryWorkOrchestrator;
+import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.StubLuceneQueryWorkOrchestrator;
 import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWorkFactory;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
@@ -32,11 +34,15 @@ public class LuceneLocalDirectoryBackend implements LuceneBackend {
 
 	private final LuceneWorkFactory workFactory;
 
+	private final LuceneQueryWorkOrchestrator queryOrchestrator;
+
 	public LuceneLocalDirectoryBackend(String name, Path rootDirectory, LuceneWorkFactory workFactory) {
 		this.name = name;
 		this.rootDirectory = rootDirectory;
 
 		this.workFactory = workFactory;
+
+		this.queryOrchestrator = new StubLuceneQueryWorkOrchestrator();
 
 		initializeRootDirectory( name, rootDirectory );
 	}
@@ -52,6 +58,7 @@ public class LuceneLocalDirectoryBackend implements LuceneBackend {
 		return new LuceneLocalDirectoryIndexManagerBuilder( this, normalizeIndexName( indexName ), context, propertySource );
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -63,6 +70,11 @@ public class LuceneLocalDirectoryBackend implements LuceneBackend {
 	@Override
 	public LuceneWorkFactory getWorkFactory() {
 		return workFactory;
+	}
+
+	@Override
+	public LuceneQueryWorkOrchestrator getQueryOrchestrator() {
+		return queryOrchestrator;
 	}
 
 	@Override

@@ -6,9 +6,13 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.logging.impl;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Collection;
 
+import org.apache.lucene.search.Query;
+import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTargetBuilder;
+import org.hibernate.search.v6poc.backend.lucene.index.impl.LuceneIndexManager;
 import org.hibernate.search.v6poc.search.SearchPredicate;
 import org.hibernate.search.v6poc.search.SearchSort;
 import org.hibernate.search.v6poc.util.SearchException;
@@ -97,4 +101,32 @@ public interface Log extends BasicLogger {
 
 	@Message(id = 28, value = "Unable to create index root directory '%2$s' for backend '%1$s'.")
 	SearchException unableToCreateIndexRootDirectoryForLocalDirectoryBackend(String backendName, Path indexDirectory, @Cause Exception e);
+
+	@Message(id = 29, value = "Could not open an index reader for index '%2$s' of backend '%1$s'.")
+	SearchException unableToCreateIndexReader(String backendName, String indexName, @Cause Exception e);
+
+	@LogMessage(level = Level.WARN)
+	@Message(id = 30, value = "Unable to close the index reader for index '%2$s' of backend '%1$s'.")
+	void unableToCloseIndexReader(String backendName, String indexName, @Cause Exception e);
+
+	@Message(id = 31, value = "A search query cannot target both a Lucene index and other types of index."
+			+ " First target was: '%1$s', other target was: '%2$s'" )
+	SearchException cannotMixLuceneSearchTargetWithOtherType(IndexSearchTargetBuilder firstTarget, LuceneIndexManager otherTarget);
+
+	@Message(id = 32, value = "A search query cannot target multiple Lucene backends."
+			+ " First target was: '%1$s', other target was: '%2$s'" )
+	SearchException cannotMixLuceneSearchTargetWithOtherBackend(IndexSearchTargetBuilder firstTarget, LuceneIndexManager otherTarget);
+
+	@Message(id = 33, value = "An IOException happened while opening multiple indexes %1$s." )
+	SearchException ioExceptionOnMultiReaderRefresh(Collection<String> indexNames, @Cause IOException e);
+
+	@LogMessage(level = Level.WARN)
+	@Message(id = 34, value = "Could not close resource.")
+	void couldNotCloseResource(@Cause Exception e);
+
+	@Message(id = 35, value = "Unknown projections %1$s in indexes %2$s." )
+	SearchException unknownProjectionForSearch(Collection<String> projections, Collection<String> indexNames);
+
+	@Message(id = 36, value = "An IOException happened while executing the query '%1$s' on indexes %2$s." )
+	SearchException ioExceptionOnQueryExecution(Query luceneQuery, Collection<String> indexNames, @Cause IOException e);
 }

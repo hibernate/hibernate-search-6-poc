@@ -8,8 +8,8 @@ package org.hibernate.search.v6poc.backend.lucene.index.impl;
 
 import org.hibernate.search.v6poc.backend.index.spi.StreamIndexWorker;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneRootDocumentBuilder;
-import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.LuceneWorkOrchestrator;
-import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWork;
+import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.LuceneIndexWorkOrchestrator;
+import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneIndexWork;
 import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWorkFactory;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 
@@ -19,17 +19,17 @@ import org.hibernate.search.v6poc.engine.spi.SessionContext;
  */
 public class LuceneStreamIndexWorker extends LuceneIndexWorker implements StreamIndexWorker<LuceneRootDocumentBuilder> {
 
-	private final LuceneWorkOrchestrator orchestrator;
+	private final LuceneIndexWorkOrchestrator orchestrator;
 
 	public LuceneStreamIndexWorker(LuceneWorkFactory factory,
-			LuceneWorkOrchestrator orchestrator,
+			LuceneIndexWorkOrchestrator orchestrator,
 			String indexName, SessionContext context) {
 		super( factory, indexName, context );
 		this.orchestrator = orchestrator;
 	}
 
 	@Override
-	protected void collect(LuceneWork<?> work) {
+	protected void collect(LuceneIndexWork<?> work) {
 		orchestrator.submit( work );
 	}
 

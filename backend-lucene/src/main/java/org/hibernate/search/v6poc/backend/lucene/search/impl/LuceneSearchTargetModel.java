@@ -17,6 +17,7 @@ import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneField
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexModel;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaFieldNode;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaObjectNode;
+import org.hibernate.search.v6poc.backend.lucene.index.spi.ReaderProvider;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.util.spi.LoggerFactory;
 
@@ -26,12 +27,14 @@ public class LuceneSearchTargetModel {
 
 	private final Set<LuceneIndexModel> indexModels;
 	private final Set<String> indexNames;
+	private final Set<ReaderProvider> readerProviders;
 
-	public LuceneSearchTargetModel(Set<LuceneIndexModel> indexModels) {
+	public LuceneSearchTargetModel(Set<LuceneIndexModel> indexModels, Set<ReaderProvider> readerProviders) {
 		this.indexModels = indexModels;
 		this.indexNames = indexModels.stream()
 				.map( LuceneIndexModel::getIndexName )
 				.collect( Collectors.toSet() );
+		this.readerProviders = readerProviders;
 	}
 
 	public Set<String> getIndexNames() {
@@ -40,6 +43,10 @@ public class LuceneSearchTargetModel {
 
 	public Set<LuceneIndexModel> getIndexModels() {
 		return indexModels;
+	}
+
+	public Set<ReaderProvider> getReaderProviders() {
+		return readerProviders;
 	}
 
 	public LuceneFieldQueryBuilder getFieldQueryBuilder(String absoluteFieldPath) {

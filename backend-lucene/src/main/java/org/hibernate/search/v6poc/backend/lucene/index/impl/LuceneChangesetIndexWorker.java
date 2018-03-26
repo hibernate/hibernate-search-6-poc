@@ -12,8 +12,8 @@ import java.util.concurrent.CompletableFuture;
 
 import org.hibernate.search.v6poc.backend.index.spi.ChangesetIndexWorker;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneRootDocumentBuilder;
-import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.LuceneWorkOrchestrator;
-import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWork;
+import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.LuceneIndexWorkOrchestrator;
+import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneIndexWork;
 import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWorkFactory;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 
@@ -23,18 +23,18 @@ import org.hibernate.search.v6poc.engine.spi.SessionContext;
  */
 public class LuceneChangesetIndexWorker extends LuceneIndexWorker implements ChangesetIndexWorker<LuceneRootDocumentBuilder> {
 
-	private final LuceneWorkOrchestrator orchestrator;
-	private final List<LuceneWork<?>> works = new ArrayList<>();
+	private final LuceneIndexWorkOrchestrator orchestrator;
+	private final List<LuceneIndexWork<?>> works = new ArrayList<>();
 
 	public LuceneChangesetIndexWorker(LuceneWorkFactory factory,
-			LuceneWorkOrchestrator orchestrator,
+			LuceneIndexWorkOrchestrator orchestrator,
 			String indexName, SessionContext context) {
 		super( factory, indexName, context );
 		this.orchestrator = orchestrator;
 	}
 
 	@Override
-	protected void collect(LuceneWork<?> work) {
+	protected void collect(LuceneIndexWork<?> work) {
 		works.add( work );
 	}
 

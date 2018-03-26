@@ -7,16 +7,16 @@
 package org.hibernate.search.v6poc.backend.lucene.orchestration.impl;
 
 import org.apache.lucene.index.IndexWriter;
-import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWorkExecutionContext;
+import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneIndexWorkExecutionContext;
 
 /**
  * @author Guillaume Smet
  */
-public class StubLuceneWorkExecutionContext implements LuceneWorkExecutionContext {
+public class StubLuceneIndexWorkExecutionContext implements LuceneIndexWorkExecutionContext {
 
 	private final IndexWriter indexWriter;
 
-	public StubLuceneWorkExecutionContext(IndexWriter indexWriter) {
+	public StubLuceneIndexWorkExecutionContext(IndexWriter indexWriter) {
 		this.indexWriter = indexWriter;
 	}
 

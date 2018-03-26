@@ -34,7 +34,7 @@ public class AddEntryLuceneWork extends AbstractLuceneWork<Long> {
 	}
 
 	@Override
-	public CompletableFuture<Long> execute(LuceneWorkExecutionContext context) {
+	public CompletableFuture<Long> execute(LuceneIndexWorkExecutionContext context) {
 		return Futures.create( () -> addEntry( context.getIndexWriter() ) );
 	}
 

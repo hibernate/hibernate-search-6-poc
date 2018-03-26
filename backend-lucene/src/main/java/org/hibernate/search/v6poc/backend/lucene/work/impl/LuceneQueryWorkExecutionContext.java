@@ -6,12 +6,8 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.work.impl;
 
-import org.apache.lucene.index.IndexWriter;
-
 /**
  * @author Guillaume Smet
  */
-public interface LuceneWorkExecutionContext {
-
-	IndexWriter getIndexWriter();
+public interface LuceneQueryWorkExecutionContext {
 }

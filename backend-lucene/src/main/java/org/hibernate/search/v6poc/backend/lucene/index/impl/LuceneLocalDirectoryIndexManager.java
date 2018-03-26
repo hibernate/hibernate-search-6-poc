@@ -7,7 +7,10 @@
 package org.hibernate.search.v6poc.backend.lucene.index.impl;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.hibernate.search.v6poc.backend.index.spi.ChangesetIndexWorker;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTargetBuilder;
@@ -15,12 +18,14 @@ import org.hibernate.search.v6poc.backend.index.spi.StreamIndexWorker;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneRootDocumentBuilder;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexModel;
 import org.hibernate.search.v6poc.backend.lucene.impl.LuceneBackend;
-import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.LuceneWorkOrchestrator;
-import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.StubLuceneWorkOrchestrator;
+import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
+import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.LuceneIndexWorkOrchestrator;
+import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.StubLuceneIndexWorkOrchestrator;
 import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWorkFactory;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.util.SearchException;
 import org.hibernate.search.v6poc.util.spi.Closer;
+import org.hibernate.search.v6poc.util.spi.LoggerFactory;
 
 
 /**
@@ -28,12 +33,14 @@ import org.hibernate.search.v6poc.util.spi.Closer;
  */
 public class LuceneLocalDirectoryIndexManager implements LuceneIndexManager {
 
+	private static final Log log = LoggerFactory.make( Log.class, MethodHandles.lookup() );
+
 	private final LuceneBackend backend;
 	private final String name;
 	private final LuceneIndexModel model;
 	private final LuceneWorkFactory workFactory;
-	private final LuceneWorkOrchestrator changesetOrchestrator;
-	private final LuceneWorkOrchestrator streamOrchestrator;
+	private final LuceneIndexWorkOrchestrator changesetOrchestrator;
+	private final LuceneIndexWorkOrchestrator streamOrchestrator;
 	private final IndexWriter indexWriter;
 
 	public LuceneLocalDirectoryIndexManager(LuceneBackend backend, String name, LuceneIndexModel model, IndexWriter indexWriter) {
@@ -41,15 +48,17 @@ public class LuceneLocalDirectoryIndexManager implements LuceneIndexManager {
 		this.name = name;
 		this.model = model;
 		this.workFactory = backend.getWorkFactory();
-		this.changesetOrchestrator = new StubLuceneWorkOrchestrator( indexWriter );
-		this.streamOrchestrator = new StubLuceneWorkOrchestrator( indexWriter );
+		this.changesetOrchestrator = new StubLuceneIndexWorkOrchestrator( indexWriter );
+		this.streamOrchestrator = new StubLuceneIndexWorkOrchestrator( indexWriter );
 		this.indexWriter = indexWriter;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public LuceneIndexModel getModel() {
 		return model;
 	}
@@ -66,14 +75,17 @@ public class LuceneLocalDirectoryIndexManager implements LuceneIndexManager {
 
 	@Override
 	public IndexSearchTargetBuilder createSearchTarget() {
-		// XXX GSM: implement Search
-		throw new UnsupportedOperationException( "Search is not implemented yet" );
+		return new LuceneIndexSearchTargetBuilder( backend, this );
 	}
 
 	@Override
 	public void addToSearchTarget(IndexSearchTargetBuilder searchTargetBuilder) {
-		// XXX GSM: implement Search
-		throw new UnsupportedOperationException( "Search is not implemented yet" );
+		if ( ! (searchTargetBuilder instanceof LuceneIndexSearchTargetBuilder ) ) {
+			throw log.cannotMixLuceneSearchTargetWithOtherType( searchTargetBuilder, this );
+		}
+
+		LuceneIndexSearchTargetBuilder luceneSearchTargetBuilder = (LuceneIndexSearchTargetBuilder) searchTargetBuilder;
+		luceneSearchTargetBuilder.add( backend, this );
 	}
 
 	@Override
@@ -94,6 +106,26 @@ public class LuceneLocalDirectoryIndexManager implements LuceneIndexManager {
 		}
 		catch (IOException | RuntimeException e) {
 			throw new SearchException( "Failed to shut down the Lucene index manager", e );
+		}
+	}
+
+	@Override
+	public IndexReader openIndexReader() {
+		try {
+			return DirectoryReader.open( indexWriter );
+		}
+		catch (IOException e) {
+			throw log.unableToCreateIndexReader( backend.getName(), name, e );
+		}
+	}
+
+	@Override
+	public void closeIndexReader(IndexReader reader) {
+		try {
+			reader.close();
+		}
+		catch (IOException e) {
+			log.unableToCloseIndexReader( backend.getName(), name, e );
 		}
 	}
 }

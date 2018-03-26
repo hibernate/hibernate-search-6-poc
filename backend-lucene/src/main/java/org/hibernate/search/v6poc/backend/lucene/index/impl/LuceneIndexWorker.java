@@ -10,7 +10,7 @@ import org.hibernate.search.v6poc.backend.index.spi.DocumentContributor;
 import org.hibernate.search.v6poc.backend.index.spi.DocumentReferenceProvider;
 import org.hibernate.search.v6poc.backend.index.spi.IndexWorker;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneRootDocumentBuilder;
-import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWork;
+import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneIndexWork;
 import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWorkFactory;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 
@@ -38,7 +38,7 @@ public abstract class LuceneIndexWorker implements IndexWorker<LuceneRootDocumen
 		LuceneRootDocumentBuilder builder = new LuceneRootDocumentBuilder();
 		documentContributor.contribute( builder );
 		collect( factory.add( indexName, id, routingKey, builder.build( indexName, id ) ) );
-		// XXX GSM: remove this explicit commit
+		// FIXME remove this explicit commit
 		collect( factory.commit( indexName ) );
 	}
 
@@ -50,7 +50,7 @@ public abstract class LuceneIndexWorker implements IndexWorker<LuceneRootDocumen
 		LuceneRootDocumentBuilder builder = new LuceneRootDocumentBuilder();
 		documentContributor.contribute( builder );
 		collect( factory.update( indexName, id, routingKey, builder.build( indexName, id ) ) );
-		// XXX GSM: remove this explicit commit
+		// FIXME remove this explicit commit
 		collect( factory.commit( indexName ) );
 	}
 
@@ -59,7 +59,7 @@ public abstract class LuceneIndexWorker implements IndexWorker<LuceneRootDocumen
 		String id = toActualId( referenceProvider.getIdentifier() );
 		String routingKey = referenceProvider.getRoutingKey();
 		collect( factory.delete( indexName, id, routingKey ) );
-		// XXX GSM: remove this explicit commit
+		// FIXME remove this explicit commit
 		collect( factory.commit( indexName ) );
 	}
 
@@ -67,6 +67,6 @@ public abstract class LuceneIndexWorker implements IndexWorker<LuceneRootDocumen
 		return tenantId == null ? id : tenantId + "_" + id;
 	}
 
-	protected abstract void collect(LuceneWork<?> work);
+	protected abstract void collect(LuceneIndexWork<?> work);
 
 }

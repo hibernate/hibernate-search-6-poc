@@ -6,29 +6,25 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.work.impl;
 
-import java.util.Set;
-
-import org.apache.lucene.search.Query;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexEntry;
-import org.hibernate.search.v6poc.search.SearchResult;
+import org.hibernate.search.v6poc.backend.lucene.search.query.impl.LuceneSearcher;
 
 /**
  * @author Guillaume Smet
  */
 public interface LuceneWorkFactory {
 
-	LuceneWork<?> add(String indexName, String id, String routingKey, LuceneIndexEntry indexEntry);
+	LuceneIndexWork<?> add(String indexName, String id, String routingKey, LuceneIndexEntry indexEntry);
 
-	LuceneWork<?> update(String indexName, String id, String routingKey, LuceneIndexEntry indexEntry);
+	LuceneIndexWork<?> update(String indexName, String id, String routingKey, LuceneIndexEntry indexEntry);
 
-	LuceneWork<?> delete(String indexName, String id, String routingKey);
+	LuceneIndexWork<?> delete(String indexName, String id, String routingKey);
 
-	LuceneWork<?> commit(String indexName);
+	LuceneIndexWork<?> commit(String indexName);
 
-	LuceneWork<?> flush(String indexName);
+	LuceneIndexWork<?> flush(String indexName);
 
-	LuceneWork<?> optimize(String indexName);
+	LuceneIndexWork<?> optimize(String indexName);
 
-	// XXX GSM: see if the SearchResultExtractor makes sense
-	<T> LuceneWork<SearchResult<T>> search(Set<String> indexNames, Query query, Long offset, Long limit);
+	<T> ExecuteQueryLuceneWork<T> search(LuceneSearcher<T> luceneSearcher);
 }

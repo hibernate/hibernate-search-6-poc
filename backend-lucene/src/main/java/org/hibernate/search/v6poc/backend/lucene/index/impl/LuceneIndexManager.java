@@ -8,9 +8,17 @@ package org.hibernate.search.v6poc.backend.lucene.index.impl;
 
 import org.hibernate.search.v6poc.backend.index.spi.IndexManager;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneRootDocumentBuilder;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexModel;
+import org.hibernate.search.v6poc.backend.lucene.index.spi.ReaderProvider;
 
 /**
  * @author Guillaume Smet
  */
-public interface LuceneIndexManager extends IndexManager<LuceneRootDocumentBuilder> {
+// TODO the ReaderProvider will need some work as we will probably need all the complexity
+// of the current ReaderProvider hierarchy but for now having it here will do
+public interface LuceneIndexManager extends IndexManager<LuceneRootDocumentBuilder>, ReaderProvider {
+
+	String getName();
+
+	LuceneIndexModel getModel();
 }

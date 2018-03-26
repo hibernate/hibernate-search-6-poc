@@ -9,8 +9,7 @@ package org.hibernate.search.v6poc.backend.lucene.orchestration.impl;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import org.apache.lucene.index.IndexWriter;
-import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWork;
+import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneQueryWork;
 import org.hibernate.search.v6poc.util.spi.Futures;
 
 
@@ -18,15 +17,15 @@ import org.hibernate.search.v6poc.util.spi.Futures;
  * @author Yoann Rodiere
  * @author Guillaume Smet
  */
-public class StubLuceneWorkOrchestrator implements LuceneWorkOrchestrator {
+public class StubLuceneQueryWorkOrchestrator implements LuceneQueryWorkOrchestrator {
 
-	private final StubLuceneWorkExecutionContext context;
+	private final StubLuceneQueryWorkExecutionContext context;
 
 	// Protected by synchronization on updates
 	private CompletableFuture<?> latestFuture = CompletableFuture.completedFuture( null );
 
-	public StubLuceneWorkOrchestrator(IndexWriter indexWriter) {
-		this.context = new StubLuceneWorkExecutionContext( indexWriter );
+	public StubLuceneQueryWorkOrchestrator() {
+		this.context = new StubLuceneQueryWorkExecutionContext();
 	}
 
 	@Override
@@ -35,7 +34,7 @@ public class StubLuceneWorkOrchestrator implements LuceneWorkOrchestrator {
 	}
 
 	@Override
-	public synchronized <T> CompletableFuture<T> submit(LuceneWork<T> work) {
+	public synchronized <T> CompletableFuture<T> submit(LuceneQueryWork<T> work) {
 		// Ignore errors in unrelated changesets
 		latestFuture = latestFuture.exceptionally( ignore -> null );
 		CompletableFuture<T> future = latestFuture.thenCompose( Futures.safeComposer(
@@ -46,10 +45,10 @@ public class StubLuceneWorkOrchestrator implements LuceneWorkOrchestrator {
 	}
 
 	@Override
-	public synchronized CompletableFuture<?> submit(List<LuceneWork<?>> works) {
+	public synchronized CompletableFuture<?> submit(List<LuceneQueryWork<?>> works) {
 		// Ignore errors in unrelated changesets
 		latestFuture = latestFuture.exceptionally( ignore -> null );
-		for ( LuceneWork<?> work : works ) {
+		for ( LuceneQueryWork<?> work : works ) {
 			latestFuture = latestFuture.thenCompose( Futures.safeComposer(
 					ignored -> work.execute( context )
 			) );
