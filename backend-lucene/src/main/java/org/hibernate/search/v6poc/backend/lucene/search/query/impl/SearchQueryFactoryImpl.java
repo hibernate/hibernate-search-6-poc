@@ -126,8 +126,6 @@ class SearchQueryFactoryImpl
 
 	private <C, T> SearchQueryBuilderImpl<C, T> createSearchQueryBuilder(
 			SessionContext sessionContext, HitExtractor<? super C> hitExtractor, HitAggregator<C, List<T>> hitAggregator) {
-
-
 		return new SearchQueryBuilderImpl<>(
 				backend.getQueryOrchestrator(),
 				backend.getWorkFactory(),
