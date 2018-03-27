@@ -16,8 +16,6 @@ import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateBuilder;
  */
 abstract class AbstractSearchPredicateBuilder implements SearchPredicateBuilder<LuceneSearchPredicateCollector> {
 
-	private static final float DEFAULT_BOOST = 1.0f;
-
 	private Float boost;
 
 	@Override
@@ -29,7 +27,7 @@ abstract class AbstractSearchPredicateBuilder implements SearchPredicateBuilder<
 
 	@Override
 	public void contribute(LuceneSearchPredicateCollector collector) {
-		if ( boost != null && boost != DEFAULT_BOOST ) {
+		if ( boost != null ) {
 			collector.collectPredicate( new BoostQuery( buildQuery(), boost ) );
 		}
 		else {
