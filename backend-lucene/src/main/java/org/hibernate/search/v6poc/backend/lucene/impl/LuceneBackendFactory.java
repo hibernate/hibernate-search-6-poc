@@ -32,9 +32,8 @@ public class LuceneBackendFactory implements BackendFactory {
 			.asString()
 			.build();
 
-	// TODO GSM: probably better to introduce a parser for Paths
-	private static final ConfigurationProperty<Optional<String>> ROOT_DIRECTORY = ConfigurationProperty.forKey( "lucene.root_directory" )
-			.asString()
+	private static final ConfigurationProperty<Optional<Path>> ROOT_DIRECTORY = ConfigurationProperty.forKey( "lucene.root_directory" )
+			.as( Path.class, Paths::get )
 			.build();
 
 	@Override
@@ -50,7 +49,7 @@ public class LuceneBackendFactory implements BackendFactory {
 
 		if ( "local_directory".equals( directoryProvider ) ) {
 			// TODO GSM: implement the checks properly
-			Path rootDirectory = Paths.get( ROOT_DIRECTORY.get( propertySource ).get() ).toAbsolutePath();
+			Path rootDirectory = ROOT_DIRECTORY.get( propertySource ).get().toAbsolutePath();
 
 			return new LuceneLocalDirectoryBackend( name, rootDirectory, new StubLuceneWorkFactory() );
 		}
