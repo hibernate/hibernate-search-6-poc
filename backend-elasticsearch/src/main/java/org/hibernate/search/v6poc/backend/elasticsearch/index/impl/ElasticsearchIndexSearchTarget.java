@@ -13,25 +13,15 @@ import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.Elas
 import org.hibernate.search.v6poc.backend.elasticsearch.impl.ElasticsearchBackend;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.impl.ElasticsearchSearchTargetModel;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.query.impl.ElasticsearchSearchTargetContext;
-import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;
+import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTargetBase;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.search.ObjectLoader;
-import org.hibernate.search.v6poc.search.SearchPredicate;
-import org.hibernate.search.v6poc.search.SearchSort;
-import org.hibernate.search.v6poc.search.dsl.predicate.SearchPredicateContainerContext;
-import org.hibernate.search.v6poc.search.dsl.predicate.spi.SearchTargetPredicateRootContext;
 import org.hibernate.search.v6poc.search.dsl.query.SearchQueryResultDefinitionContext;
 import org.hibernate.search.v6poc.search.dsl.query.spi.SearchQueryResultDefinitionContextImpl;
-import org.hibernate.search.v6poc.search.dsl.sort.SearchSortContainerContext;
-import org.hibernate.search.v6poc.search.dsl.sort.spi.SearchTargetSortRootContext;
 import org.hibernate.search.v6poc.search.dsl.spi.SearchTargetContext;
 
-
-/**
- * @author Yoann Rodiere
- */
-class ElasticsearchIndexSearchTarget implements IndexSearchTarget {
+class ElasticsearchIndexSearchTarget extends IndexSearchTargetBase {
 
 	private final ElasticsearchSearchTargetModel searchTargetModel;
 	private final SearchTargetContext<?> searchTargetContext;
@@ -39,6 +29,15 @@ class ElasticsearchIndexSearchTarget implements IndexSearchTarget {
 	ElasticsearchIndexSearchTarget(ElasticsearchBackend backend, Set<ElasticsearchIndexModel> indexModels) {
 		this.searchTargetModel = new ElasticsearchSearchTargetModel( indexModels );
 		this.searchTargetContext = new ElasticsearchSearchTargetContext( backend, searchTargetModel );
+	}
+
+	@Override
+	public String toString() {
+		return new StringBuilder( getClass().getSimpleName() )
+				.append( "[" )
+				.append( "indexNames=" ).append( searchTargetModel.getIndexNames() )
+				.append( "]")
+				.toString();
 	}
 
 	@Override
@@ -51,21 +50,7 @@ class ElasticsearchIndexSearchTarget implements IndexSearchTarget {
 	}
 
 	@Override
-	public SearchPredicateContainerContext<SearchPredicate> predicate() {
-		return new SearchTargetPredicateRootContext<>( searchTargetContext.getSearchPredicateFactory() );
-	}
-
-	@Override
-	public SearchSortContainerContext<SearchSort> sort() {
-		return new SearchTargetSortRootContext<>( searchTargetContext.getSearchSortFactory() );
-	}
-
-	@Override
-	public String toString() {
-		return new StringBuilder( getClass().getSimpleName() )
-				.append( "[" )
-				.append( "indexNames=" ).append( searchTargetModel.getIndexNames() )
-				.append( "]")
-				.toString();
+	protected SearchTargetContext<?> getSearchTargetContext() {
+		return searchTargetContext;
 	}
 }
