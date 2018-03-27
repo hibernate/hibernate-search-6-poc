@@ -63,16 +63,16 @@ public class LuceneSearchTargetModel {
 		for ( LuceneIndexModel indexModel : indexModels ) {
 			LuceneIndexSchemaFieldNode<?> schemaNode = indexModel.getFieldNode( absoluteFieldPath );
 			if ( schemaNode != null ) {
-				R queryBuilder = getElementFunction.apply( schemaNode );
+				R element = getElementFunction.apply( schemaNode );
 				if ( selectedElement == null ) {
-					selectedElement = queryBuilder;
+					selectedElement = element;
 					indexModelForSelectedFormatter = indexModel;
 				}
-				else if ( !selectedElement.equals( queryBuilder ) ) {
+				else if ( !selectedElement.equals( element ) ) {
 					throw log.conflictingFieldTypesForSearch(
 							absoluteFieldPath,
 							selectedElement, indexModelForSelectedFormatter.getIndexName(),
-							queryBuilder, indexModel.getIndexName()
+							element, indexModel.getIndexName()
 					);
 				}
 			}
