@@ -19,10 +19,10 @@ public class LuceneIndexSchemaFieldNode<T> {
 
 	private final LuceneFieldFormatter<T> formatter;
 
-	private final LuceneFieldQueryBuilder queryBuilder;
+	private final LuceneFieldQueryFactory queryBuilder;
 
 	public LuceneIndexSchemaFieldNode(LuceneIndexSchemaObjectNode parent, String fieldName, LuceneFieldFormatter<T> formatter,
-			LuceneFieldQueryBuilder queryBuilder) {
+			LuceneFieldQueryFactory queryBuilder) {
 		this.parent = parent;
 		this.fieldName = fieldName;
 		this.absoluteFieldPath = parent.getAbsolutePath( fieldName );
@@ -46,7 +46,7 @@ public class LuceneIndexSchemaFieldNode<T> {
 		return formatter;
 	}
 
-	public LuceneFieldQueryBuilder getQueryBuilder() {
+	public LuceneFieldQueryFactory getQueryBuilder() {
 		return queryBuilder;
 	}
 

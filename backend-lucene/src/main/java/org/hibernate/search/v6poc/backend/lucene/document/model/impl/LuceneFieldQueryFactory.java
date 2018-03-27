@@ -11,7 +11,7 @@ import org.apache.lucene.search.Query;
 /**
  * @author Guillaume Smet
  */
-public interface LuceneFieldQueryBuilder {
+public interface LuceneFieldQueryFactory {
 
 	Query createMatchQuery(String fieldName, Object value, MatchQueryOptions matchQueryOptions);
 

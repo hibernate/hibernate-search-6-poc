@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.backend.lucene.search.predicate.impl;
 
 import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.search.Query;
-import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFieldQueryBuilder;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFieldQueryFactory;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.MatchQueryOptions;
 import org.hibernate.search.v6poc.search.predicate.spi.MatchPredicateBuilder;
 
@@ -20,13 +20,13 @@ class MatchPredicateBuilderImpl extends AbstractSearchPredicateBuilder
 
 	private final String absoluteFieldPath;
 
-	private final LuceneFieldQueryBuilder queryBuilder;
+	private final LuceneFieldQueryFactory queryBuilder;
 
 	private final MatchQueryOptions queryOptions = new MatchQueryOptions();
 
 	private Object value;
 
-	public MatchPredicateBuilderImpl(String absoluteFieldPath, LuceneFieldQueryBuilder queryBuilder) {
+	public MatchPredicateBuilderImpl(String absoluteFieldPath, LuceneFieldQueryFactory queryBuilder) {
 		this.absoluteFieldPath = absoluteFieldPath;
 		this.queryBuilder = queryBuilder;
 	}

@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.backend.lucene.search.predicate.impl;
 
 import org.apache.lucene.search.Query;
-import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFieldQueryBuilder;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFieldQueryFactory;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.RangeQueryOptions;
 import org.hibernate.search.v6poc.search.predicate.spi.RangePredicateBuilder;
 
@@ -19,14 +19,14 @@ class RangePredicateBuilderImpl extends AbstractSearchPredicateBuilder
 
 	private final String absoluteFieldPath;
 
-	private final LuceneFieldQueryBuilder queryBuilder;
+	private final LuceneFieldQueryFactory queryBuilder;
 
 	private Object lowerLimit;
 	private Object upperLimit;
 
 	private final RangeQueryOptions queryOptions = new RangeQueryOptions();
 
-	public RangePredicateBuilderImpl(String absoluteFieldPath, LuceneFieldQueryBuilder queryBuilder) {
+	public RangePredicateBuilderImpl(String absoluteFieldPath, LuceneFieldQueryFactory queryBuilder) {
 		this.absoluteFieldPath = absoluteFieldPath;
 		this.queryBuilder = queryBuilder;
 	}

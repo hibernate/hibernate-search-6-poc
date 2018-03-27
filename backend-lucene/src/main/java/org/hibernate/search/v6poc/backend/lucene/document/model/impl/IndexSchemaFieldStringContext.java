@@ -220,7 +220,7 @@ class IndexSchemaFieldStringContext extends AbstractLuceneIndexSchemaFieldTypedC
 		}
 	}
 
-	private static class StringFieldQueryBuilder implements LuceneFieldQueryBuilder {
+	private static class StringFieldQueryBuilder implements LuceneFieldQueryFactory {
 
 		private final Analyzer analyzerOrNormalizer;
 

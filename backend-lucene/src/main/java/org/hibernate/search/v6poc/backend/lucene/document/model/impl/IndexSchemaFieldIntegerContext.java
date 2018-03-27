@@ -144,7 +144,7 @@ class IndexSchemaFieldIntegerContext extends AbstractLuceneIndexSchemaFieldTyped
 		}
 	}
 
-	private static final class IntegerFieldQueryBuilder implements LuceneFieldQueryBuilder {
+	private static final class IntegerFieldQueryBuilder implements LuceneFieldQueryFactory {
 
 		private static final IntegerFieldQueryBuilder INSTANCE = new IntegerFieldQueryBuilder();
 

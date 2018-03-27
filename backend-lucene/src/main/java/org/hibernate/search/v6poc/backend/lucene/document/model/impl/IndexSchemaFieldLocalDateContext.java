@@ -173,7 +173,7 @@ class IndexSchemaFieldLocalDateContext extends AbstractLuceneIndexSchemaFieldTyp
 		}
 	}
 
-	private static final class LocalDateFieldQueryBuilder implements LuceneFieldQueryBuilder {
+	private static final class LocalDateFieldQueryBuilder implements LuceneFieldQueryFactory {
 
 		private final LocalDateFieldFormatter localDateFieldFormatter;
 

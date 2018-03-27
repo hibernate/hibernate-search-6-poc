@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFieldFormatter;
-import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFieldQueryBuilder;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFieldQueryFactory;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexModel;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaFieldNode;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaObjectNode;
@@ -49,7 +49,7 @@ public class LuceneSearchTargetModel {
 		return readerProviders;
 	}
 
-	public LuceneFieldQueryBuilder getFieldQueryBuilder(String absoluteFieldPath) {
+	public LuceneFieldQueryFactory getFieldQueryBuilder(String absoluteFieldPath) {
 		return getFieldElement( LuceneIndexSchemaFieldNode::getQueryBuilder, absoluteFieldPath );
 	}
 
