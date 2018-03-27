@@ -50,7 +50,7 @@ public class DeleteEntryLuceneWork extends AbstractLuceneWork<Long> {
 			}
 		}
 		catch (IOException e) {
-			throw log.unableToDeleteEntryFromIndex( indexName, tenantId, id );
+			throw log.unableToDeleteEntryFromIndex( indexName, tenantId, id, e );
 		}
 	}
 

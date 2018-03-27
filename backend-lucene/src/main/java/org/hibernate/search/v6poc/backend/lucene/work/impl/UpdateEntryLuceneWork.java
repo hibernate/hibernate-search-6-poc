@@ -58,7 +58,7 @@ public class UpdateEntryLuceneWork extends AbstractLuceneWork<Long> {
 			}
 		}
 		catch (IOException e) {
-			throw log.unableToIndexEntry( indexName, tenantId, id );
+			throw log.unableToIndexEntry( indexName, tenantId, id, e );
 		}
 	}
 

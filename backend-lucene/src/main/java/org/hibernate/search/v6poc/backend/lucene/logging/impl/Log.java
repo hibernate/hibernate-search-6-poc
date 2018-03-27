@@ -35,7 +35,7 @@ public interface Log extends BasicLogger {
 	@Message(id = 6, value = "Unable to create root directory '%2$s' for backend '%1$s'.")
 	SearchException unableToCreateRootDirectoryForLocalDirectoryBackend(String backendName, Path rootDirectory, @Cause Exception e);
 
-	@Message(id = 7, value = "Undefined Lucene backend type for backend '%1$s'.")
+	@Message(id = 7, value = "Undefined Lucene directory provider for backend '%1$s'.")
 	SearchException undefinedLuceneDirectoryProvider(String backendName);
 
 	@Message(id = 8, value = "Unrecognized Lucene backend type '%2$s' for backend '%1$s'.")
@@ -85,16 +85,16 @@ public interface Log extends BasicLogger {
 	SearchException unableToCreateIndexWriter(String backendName, String indexName, Path directoryPath, @Cause Exception e);
 
 	@Message(id = 23, value = "Unable to index entry '%3$s' for index '%1$s' and tenantId '%2$s'." )
-	SearchException unableToIndexEntry(String indexName, String tenantId, String id);
+	SearchException unableToIndexEntry(String indexName, String tenantId, String id, @Cause Exception e);
 
 	@Message(id = 24, value = "Unable to delete entry '%3$s' from index '%1$s' and tenantId '%2$s'." )
-	SearchException unableToDeleteEntryFromIndex(String indexName, String tenantId, String id);
+	SearchException unableToDeleteEntryFromIndex(String indexName, String tenantId, String id, @Cause Exception e);
 
 	@Message(id = 25, value = "Unable to flush index '%1$s'." )
-	SearchException unableToFlushIndex(String indexName);
+	SearchException unableToFlushIndex(String indexName, @Cause Exception e);
 
 	@Message(id = 26, value = "Unable to commit index '%1$s'." )
-	SearchException unableToCommitIndex(String indexName);
+	SearchException unableToCommitIndex(String indexName, @Cause Exception e);
 
 	@Message(id = 27, value = "Index directory '%2$s' of backend '%1$s' exists but is not a writable directory.")
 	SearchException localDirectoryIndexRootDirectoryNotWritableDirectory(String backendName, Path indexDirectory);

@@ -46,7 +46,7 @@ public class AddEntryLuceneWork extends AbstractLuceneWork<Long> {
 			return CompletableFuture.completedFuture( indexWriter.addDocuments( indexEntry ) );
 		}
 		catch (IOException e) {
-			throw log.unableToIndexEntry( indexName, tenantId, id );
+			throw log.unableToIndexEntry( indexName, tenantId, id, e );
 		}
 	}
 
