@@ -25,10 +25,18 @@ import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexFieldA
 /**
  * @author Guillaume Smet
  */
-class IndexSchemaFieldIntegerContext extends AbstractLuceneTypedFieldModelContext<Integer> {
+class IndexSchemaFieldIntegerContext extends AbstractLuceneIndexSchemaFieldTypedContext<Integer> {
+
+	private Sortable sortable;
 
 	public IndexSchemaFieldIntegerContext(String fieldName) {
 		super( fieldName );
+	}
+
+	@Override
+	public IndexSchemaFieldIntegerContext sortable(Sortable sortable) {
+		this.sortable = sortable;
+		return this;
 	}
 
 	@Override
@@ -37,7 +45,7 @@ class IndexSchemaFieldIntegerContext extends AbstractLuceneTypedFieldModelContex
 		LuceneIndexSchemaFieldNode<Integer> schemaNode = new LuceneIndexSchemaFieldNode<>(
 				parentNode,
 				getFieldName(),
-				new IntegerFieldFormatter( getStore(), getSortable() ),
+				new IntegerFieldFormatter( getStore(), sortable ),
 				IntegerFieldQueryBuilder.INSTANCE
 		);
 

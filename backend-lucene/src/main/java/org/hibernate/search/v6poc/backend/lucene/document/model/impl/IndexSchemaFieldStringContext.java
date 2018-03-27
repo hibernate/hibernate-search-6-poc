@@ -34,9 +34,11 @@ import org.hibernate.search.v6poc.backend.lucene.util.impl.AnalyzerUtils;
 /**
  * @author Guillaume Smet
  */
-class IndexSchemaFieldStringContext extends AbstractLuceneTypedFieldModelContext<String> {
+class IndexSchemaFieldStringContext extends AbstractLuceneIndexSchemaFieldTypedContext<String> {
 
 	private static final Analyzer STANDARD_ANALYZER = new StandardAnalyzer();
+
+	private Sortable sortable;
 
 	private Analyzer analyzer;
 
@@ -44,6 +46,12 @@ class IndexSchemaFieldStringContext extends AbstractLuceneTypedFieldModelContext
 
 	public IndexSchemaFieldStringContext(String fieldName) {
 		super( fieldName );
+	}
+
+	@Override
+	public IndexSchemaFieldStringContext sortable(Sortable sortable) {
+		this.sortable = sortable;
+		return this;
 	}
 
 	@Override
@@ -62,7 +70,7 @@ class IndexSchemaFieldStringContext extends AbstractLuceneTypedFieldModelContext
 				parentNode,
 				getFieldName(),
 				new StringFieldFormatter(
-						getSortable(),
+						sortable,
 						getFieldType( getStore(), analyzer != null ),
 						analyzerOrNormalizer
 				),

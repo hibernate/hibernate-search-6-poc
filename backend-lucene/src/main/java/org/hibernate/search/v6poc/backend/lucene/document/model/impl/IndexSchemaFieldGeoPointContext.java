@@ -28,7 +28,7 @@ import org.hibernate.search.v6poc.util.impl.CollectionHelper;
 /**
  * @author Guillaume Smet
  */
-class IndexSchemaFieldGeoPointContext extends AbstractLuceneTypedFieldModelContext<GeoPoint> {
+class IndexSchemaFieldGeoPointContext extends AbstractLuceneIndexSchemaFieldTypedContext<GeoPoint> {
 
 	public IndexSchemaFieldGeoPointContext(String fieldName) {
 		super( fieldName );

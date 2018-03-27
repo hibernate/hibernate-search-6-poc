@@ -129,4 +129,7 @@ public interface Log extends BasicLogger {
 
 	@Message(id = 36, value = "An IOException happened while executing the query '%1$s' on indexes %2$s." )
 	SearchException ioExceptionOnQueryExecution(Query luceneQuery, Collection<String> indexNames, @Cause IOException e);
+
+	@Message(id = 37, value = "Cannot set sortable for field '%1$s': fields of this type cannot be sortable." )
+	SearchException cannotUseSortableOnFieldType(String fieldName);
 }

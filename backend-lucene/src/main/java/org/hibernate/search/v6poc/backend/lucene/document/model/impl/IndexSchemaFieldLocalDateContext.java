@@ -35,16 +35,24 @@ import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexFieldA
 /**
  * @author Guillaume Smet
  */
-class IndexSchemaFieldLocalDateContext extends AbstractLuceneTypedFieldModelContext<LocalDate> {
+class IndexSchemaFieldLocalDateContext extends AbstractLuceneIndexSchemaFieldTypedContext<LocalDate> {
+
+	private Sortable sortable;
 
 	public IndexSchemaFieldLocalDateContext(String fieldName) {
 		super( fieldName );
 	}
 
 	@Override
+	public IndexSchemaFieldLocalDateContext sortable(Sortable sortable) {
+		this.sortable = sortable;
+		return this;
+	}
+
+	@Override
 	protected void contribute(DeferredInitializationIndexFieldAccessor<LocalDate> accessor, LuceneIndexSchemaNodeCollector collector,
 			LuceneIndexSchemaObjectNode parentNode) {
-		LocalDateFieldFormatter localDateFieldFormatter = new LocalDateFieldFormatter( getStore(), getSortable() );
+		LocalDateFieldFormatter localDateFieldFormatter = new LocalDateFieldFormatter( getStore(), sortable );
 
 		LuceneIndexSchemaFieldNode<LocalDate> schemaNode = new LuceneIndexSchemaFieldNode<>(
 				parentNode,

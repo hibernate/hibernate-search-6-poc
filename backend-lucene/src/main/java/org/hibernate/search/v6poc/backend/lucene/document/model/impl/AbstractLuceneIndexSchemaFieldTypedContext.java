@@ -21,7 +21,7 @@ import org.hibernate.search.v6poc.util.spi.LoggerFactory;
 /**
  * @author Guillaume Smet
  */
-public abstract class AbstractLuceneTypedFieldModelContext<T>
+public abstract class AbstractLuceneIndexSchemaFieldTypedContext<T>
 		implements LuceneIndexSchemaFieldTypedContext<T>, LuceneIndexSchemaNodeContributor {
 
 	private static final Log log = LoggerFactory.make( Log.class, MethodHandles.lookup() );
@@ -32,9 +32,7 @@ public abstract class AbstractLuceneTypedFieldModelContext<T>
 
 	private Store store;
 
-	private Sortable sortable;
-
-	protected AbstractLuceneTypedFieldModelContext(String fieldName) {
+	protected AbstractLuceneIndexSchemaFieldTypedContext(String fieldName) {
 		this.fieldName = fieldName;
 	}
 
@@ -59,8 +57,7 @@ public abstract class AbstractLuceneTypedFieldModelContext<T>
 
 	@Override
 	public IndexSchemaFieldTypedContext<T> sortable(Sortable sortable) {
-		this.sortable = sortable;
-		return this;
+		throw log.cannotUseSortableOnFieldType( fieldName );
 	}
 
 	@Override
@@ -79,10 +76,6 @@ public abstract class AbstractLuceneTypedFieldModelContext<T>
 
 	protected Store getStore() {
 		return store;
-	}
-
-	protected Sortable getSortable() {
-		return sortable;
 	}
 
 	protected Analyzer getAnalyzer() {
