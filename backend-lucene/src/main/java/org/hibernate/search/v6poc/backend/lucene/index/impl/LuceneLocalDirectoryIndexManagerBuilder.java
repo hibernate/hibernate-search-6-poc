@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
@@ -62,8 +61,11 @@ public class LuceneLocalDirectoryIndexManagerBuilder implements IndexManagerBuil
 	}
 
 	private IndexWriter createIndexWriter(LuceneIndexModel model) {
-		Path directoryPath = Paths.get( backend.getRootDirectory().toString(), normalizedIndexName );
+		Path directoryPath = backend.getRootDirectory().resolve( normalizedIndexName );
 		initializeIndexDirectory( backend.getName(), directoryPath );
+
+		// FIXME properly close all the resources, this will be pretty convoluted and we will likely drop this code
+		// altogether so let's be naive for now
 
 		try {
 			IndexWriterConfig indexWriterConfig = new IndexWriterConfig( model.getScopedAnalyzer() );
