@@ -12,28 +12,26 @@ import java.util.Set;
 
 import org.hibernate.search.v6poc.engine.spi.BeanResolver;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
+import org.hibernate.search.v6poc.entity.mapping.building.spi.MapperFactory;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MetadataCollector;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MetadataContributor;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataDiscoverer;
 import org.hibernate.search.v6poc.entity.model.spi.MappableTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeMetadataContributor;
-import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMapperFactory;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.AnnotationMappingDefinition;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Indexed;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoBootstrapIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRawTypeModel;
 
-/**
- * @author Yoann Rodiere
- */
 public class AnnotationMappingDefinitionImpl implements AnnotationMappingDefinition, MetadataContributor {
 
-	private final PojoMapperFactory<?> mapperFactory;
+	private final MapperFactory<PojoTypeMetadataContributor, ?> mapperFactory;
 	private final PojoBootstrapIntrospector introspector;
 	private final Set<Class<?>> annotatedTypes = new HashSet<>();
 	private final boolean annotatedTypeDiscoveryEnabled;
 
-	public AnnotationMappingDefinitionImpl(PojoMapperFactory<?> mapperFactory, PojoBootstrapIntrospector introspector,
+	public AnnotationMappingDefinitionImpl(MapperFactory<PojoTypeMetadataContributor, ?> mapperFactory,
+			PojoBootstrapIntrospector introspector,
 			boolean annotatedTypeDiscoveryEnabled) {
 		this.mapperFactory = mapperFactory;
 		this.introspector = introspector;

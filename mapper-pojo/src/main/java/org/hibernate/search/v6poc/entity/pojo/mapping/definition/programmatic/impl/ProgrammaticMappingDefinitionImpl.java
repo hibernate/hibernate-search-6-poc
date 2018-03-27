@@ -10,25 +10,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
-import org.hibernate.search.v6poc.entity.mapping.building.spi.MetadataContributor;
+import org.hibernate.search.v6poc.entity.mapping.building.spi.MapperFactory;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MetadataCollector;
-import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMapperFactory;
+import org.hibernate.search.v6poc.entity.mapping.building.spi.MetadataContributor;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.ProgrammaticMappingDefinition;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.TypeMappingContext;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoBootstrapIntrospector;
 
-/**
- * @author Yoann Rodiere
- */
 public class ProgrammaticMappingDefinitionImpl implements ProgrammaticMappingDefinition, MetadataContributor {
 
-	private final PojoMapperFactory<?> mapperFactory;
+	private final MapperFactory<PojoTypeMetadataContributor, ?> mapperFactory;
 
 	private final PojoBootstrapIntrospector introspector;
 
 	private final Map<Class<?>, TypeMappingContextImpl> entities = new HashMap<>();
 
-	public ProgrammaticMappingDefinitionImpl(PojoMapperFactory<?> mapperFactory, PojoBootstrapIntrospector introspector) {
+	public ProgrammaticMappingDefinitionImpl(MapperFactory<PojoTypeMetadataContributor, ?> mapperFactory,
+			PojoBootstrapIntrospector introspector) {
 		this.mapperFactory = mapperFactory;
 		this.introspector = introspector;
 	}
