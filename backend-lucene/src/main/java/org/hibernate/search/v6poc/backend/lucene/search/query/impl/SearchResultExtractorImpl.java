@@ -37,11 +37,13 @@ public class SearchResultExtractorImpl<C, T> implements SearchResultExtractor<T>
 			hitExtractor.extract( hitCollector, indexSearcher, hit );
 		}
 
+		long totalHits = topDocs.totalHits;
+
 		final List<T> finalHits = Collections.unmodifiableList( hitAggregator.build() );
 		return new SearchResult<T>() {
 			@Override
 			public long getHitCount() {
-				return topDocs.totalHits;
+				return totalHits;
 			}
 
 			@Override
