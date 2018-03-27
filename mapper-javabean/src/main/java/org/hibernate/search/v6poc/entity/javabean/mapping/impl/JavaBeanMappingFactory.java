@@ -7,22 +7,14 @@
 package org.hibernate.search.v6poc.entity.javabean.mapping.impl;
 
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
-import org.hibernate.search.v6poc.entity.javabean.model.impl.JavaBeanBootstrapIntrospector;
-import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMapperFactory;
+import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
+import org.hibernate.search.v6poc.entity.mapping.spi.MappingImplementor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingDelegate;
+import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingFactory;
 
-
-/**
- * @author Yoann Rodiere
- */
-public final class JavaBeanMapperFactory extends PojoMapperFactory<JavaBeanMappingImpl> {
-
-	public JavaBeanMapperFactory(JavaBeanBootstrapIntrospector introspector) {
-		super( introspector, false );
-	}
-
+public final class JavaBeanMappingFactory implements PojoMappingFactory<JavaBeanMapping> {
 	@Override
-	protected JavaBeanMappingImpl createMapping(ConfigurationPropertySource propertySource,
+	public MappingImplementor<JavaBeanMapping> createMapping(ConfigurationPropertySource propertySource,
 			PojoMappingDelegate mappingDelegate) {
 		return new JavaBeanMappingImpl( mappingDelegate );
 	}

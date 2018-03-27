@@ -12,10 +12,15 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingDelegate;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingImpl;
 
-public class JavaBeanMappingImpl extends PojoMappingImpl implements JavaBeanMapping {
+public class JavaBeanMappingImpl extends PojoMappingImpl<JavaBeanMapping> implements JavaBeanMapping {
 
 	JavaBeanMappingImpl(PojoMappingDelegate mappingDelegate) {
 		super( mappingDelegate );
+	}
+
+	@Override
+	public JavaBeanMapping toAPI() {
+		return this;
 	}
 
 	@Override

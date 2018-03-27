@@ -10,9 +10,6 @@ import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.impl.SearchMappingRepositoryBuilderImpl;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingKey;
 
-/**
- * @author Yoann Rodiere
- */
 public interface SearchMappingRepository extends AutoCloseable {
 
 	<M> M getMapping(MappingKey<M> mappingKey);
