@@ -8,13 +8,15 @@ package org.hibernate.search.v6poc.integrationtest.backend.tck.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 
 /**
- * Allows to run the tests with different backends depending on the content
- * of the property file at {@value PROPERTIES_PATH} in the classpath.
+ * Allows to run the tests with different backends depending on the content of the property file at
+ * {@value PROPERTIES_PATH} in the classpath.
  */
 public final class TckConfiguration {
 
@@ -29,7 +31,9 @@ public final class TckConfiguration {
 		return instance;
 	}
 
-	private final ConfigurationPropertySource source;
+	private final Properties properties;
+
+	private final String startupTimestamp;
 
 	private TckConfiguration() {
 		Properties properties = new Properties();
@@ -42,11 +46,23 @@ public final class TckConfiguration {
 		catch (IOException e) {
 			throw new IllegalStateException( "Error loading TCK properties file: " + PROPERTIES_PATH );
 		}
-		source = ConfigurationPropertySource.fromProperties( properties );
+
+		this.properties = properties;
+		this.startupTimestamp = new SimpleDateFormat( "yyyy-MM-dd-HH-mm-ss.SSS" ).format( new Date() );
 	}
 
-	public ConfigurationPropertySource getBackendProperties() {
-		return source.withMask( "backend" );
-	}
+	public ConfigurationPropertySource getBackendProperties(String testId) {
+		Properties overriddenProperties = new Properties();
 
+		properties.forEach( (k, v) -> {
+			if ( v instanceof String ) {
+				overriddenProperties.put( k, ( (String) v ).replace( "#{tck.test.id}", testId ).replace( "#{tck.startup.timestamp}", startupTimestamp ) );
+			}
+			else {
+				overriddenProperties.put( k, v );
+			}
+		} );
+
+		return ConfigurationPropertySource.fromProperties( overriddenProperties ).withMask( "backend" );
+	}
 }
