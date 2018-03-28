@@ -19,6 +19,7 @@ import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.StubLuceneQu
 import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWorkFactory;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
+import org.hibernate.search.v6poc.util.spi.Closer;
 import org.hibernate.search.v6poc.util.spi.LoggerFactory;
 
 /**
@@ -79,6 +80,9 @@ public class LuceneLocalDirectoryBackend implements LuceneBackend {
 
 	@Override
 	public void close() {
+		try ( Closer<RuntimeException> closer = new Closer<>() ) {
+			closer.push( queryOrchestrator::close );
+		}
 	}
 
 	@Override
