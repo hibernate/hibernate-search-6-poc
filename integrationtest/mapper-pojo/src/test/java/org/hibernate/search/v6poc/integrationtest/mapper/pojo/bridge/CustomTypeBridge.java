@@ -21,7 +21,7 @@ import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelType;
 import org.hibernate.search.v6poc.integrationtest.mapper.pojo.bridge.annotation.CustomTypeBridgeAnnotation;
-import org.hibernate.search.v6poc.integrationtest.util.common.rule.StaticCounters;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.StaticCounters;
 
 public final class CustomTypeBridge implements TypeBridge {
 

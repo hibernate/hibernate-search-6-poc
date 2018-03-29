@@ -19,10 +19,10 @@ import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 import org.hibernate.search.v6poc.entity.pojo.search.PojoReference;
-import org.hibernate.search.v6poc.integrationtest.util.common.rule.BackendMock;
-import org.hibernate.search.v6poc.integrationtest.util.common.rule.StubSearchWorkBehavior;
-import org.hibernate.search.v6poc.integrationtest.util.common.stub.backend.document.StubDocumentNode;
-import org.hibernate.search.v6poc.integrationtest.util.common.stub.backend.index.impl.StubBackendFactory;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.StubSearchWorkBehavior;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.StubDocumentNode;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.impl.StubBackendFactory;
 import org.hibernate.search.v6poc.search.SearchQuery;
 
 import org.junit.After;

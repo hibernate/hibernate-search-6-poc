@@ -7,8 +7,8 @@
 package org.hibernate.search.v6poc.integrationtest.showcase;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hibernate.search.v6poc.integrationtest.util.orm.OrmUtils.withinSession;
-import static org.hibernate.search.v6poc.integrationtest.util.orm.OrmUtils.withinTransaction;
+import static org.hibernate.search.v6poc.util.impl.integrationtest.orm.OrmUtils.withinSession;
+import static org.hibernate.search.v6poc.util.impl.integrationtest.orm.OrmUtils.withinTransaction;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;

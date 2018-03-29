@@ -19,7 +19,7 @@ import org.hibernate.search.v6poc.backend.index.spi.ChangesetIndexWorker;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManager;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;
 import org.hibernate.search.v6poc.integrationtest.backend.tck.util.rule.SearchSetupHelper;
-import org.hibernate.search.v6poc.integrationtest.util.common.stub.StubSessionContext;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.StubSessionContext;
 import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.search.SearchQuery;
 import org.hibernate.search.v6poc.util.SearchException;
@@ -30,8 +30,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.hibernate.search.v6poc.integrationtest.util.common.assertion.DocumentReferencesSearchResultAssert.assertThat;
-import static org.hibernate.search.v6poc.integrationtest.util.common.stub.mapper.StubMapperUtils.referenceProvider;
+import static org.hibernate.search.v6poc.util.impl.integrationtest.common.assertion.DocumentReferencesSearchResultAssert.assertThat;
+import static org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.mapper.StubMapperUtils.referenceProvider;
 
 public class ObjectFieldStorageIT {
 

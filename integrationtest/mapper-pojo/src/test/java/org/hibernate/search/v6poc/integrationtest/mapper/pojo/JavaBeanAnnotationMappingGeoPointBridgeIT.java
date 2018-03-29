@@ -20,8 +20,8 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.AnnotationMappingDefinition;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.DocumentId;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Indexed;
-import org.hibernate.search.v6poc.integrationtest.util.common.rule.BackendMock;
-import org.hibernate.search.v6poc.integrationtest.util.common.stub.backend.index.impl.StubBackendFactory;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.impl.StubBackendFactory;
 
 import org.junit.After;
 import org.junit.Before;

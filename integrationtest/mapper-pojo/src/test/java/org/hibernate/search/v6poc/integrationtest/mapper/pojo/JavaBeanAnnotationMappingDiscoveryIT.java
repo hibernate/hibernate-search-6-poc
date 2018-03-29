@@ -16,9 +16,9 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Inde
 import org.hibernate.search.v6poc.integrationtest.mapper.pojo.bridge.CustomMarkerConsumingPropertyBridge;
 import org.hibernate.search.v6poc.integrationtest.mapper.pojo.bridge.annotation.CustomMarkerAnnotation;
 import org.hibernate.search.v6poc.integrationtest.mapper.pojo.bridge.annotation.CustomMarkerConsumingPropertyBridgeAnnotation;
-import org.hibernate.search.v6poc.integrationtest.util.common.rule.BackendMock;
-import org.hibernate.search.v6poc.integrationtest.util.common.rule.StaticCounters;
-import org.hibernate.search.v6poc.integrationtest.util.common.stub.backend.index.impl.StubBackendFactory;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.StaticCounters;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.impl.StubBackendFactory;
 
 import org.junit.After;
 import org.junit.Rule;

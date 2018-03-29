@@ -6,13 +6,13 @@
  */
 package org.hibernate.search.v6poc.integrationtest.backend.tck.search;
 
-import static org.hibernate.search.v6poc.integrationtest.util.common.EasyMockUtils.projectionMatcher;
-import static org.hibernate.search.v6poc.integrationtest.util.common.EasyMockUtils.referenceMatcher;
-import static org.hibernate.search.v6poc.integrationtest.util.common.NormalizationUtils.reference;
-import static org.hibernate.search.v6poc.integrationtest.util.common.assertion.DocumentReferencesSearchResultAssert.assertThat;
-import static org.hibernate.search.v6poc.integrationtest.util.common.assertion.ProjectionsSearchResultAssert.assertThat;
-import static org.hibernate.search.v6poc.integrationtest.util.common.assertion.SearchResultAssert.assertThat;
-import static org.hibernate.search.v6poc.integrationtest.util.common.stub.mapper.StubMapperUtils.referenceProvider;
+import static org.hibernate.search.v6poc.util.impl.integrationtest.common.EasyMockUtils.projectionMatcher;
+import static org.hibernate.search.v6poc.util.impl.integrationtest.common.EasyMockUtils.referenceMatcher;
+import static org.hibernate.search.v6poc.util.impl.integrationtest.common.NormalizationUtils.reference;
+import static org.hibernate.search.v6poc.util.impl.integrationtest.common.assertion.DocumentReferencesSearchResultAssert.assertThat;
+import static org.hibernate.search.v6poc.util.impl.integrationtest.common.assertion.ProjectionsSearchResultAssert.assertThat;
+import static org.hibernate.search.v6poc.util.impl.integrationtest.common.assertion.SearchResultAssert.assertThat;
+import static org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.mapper.StubMapperUtils.referenceProvider;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -33,7 +33,7 @@ import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoPoint;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.integrationtest.backend.tck.util.rule.SearchSetupHelper;
-import org.hibernate.search.v6poc.integrationtest.util.common.stub.StubSessionContext;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.StubSessionContext;
 import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.search.ObjectLoader;
 import org.hibernate.search.v6poc.search.ProjectionConstants;

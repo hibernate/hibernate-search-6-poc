@@ -18,8 +18,8 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.LatitudeMar
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.LongitudeMarker;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.ProgrammaticMappingDefinition;
-import org.hibernate.search.v6poc.integrationtest.util.common.rule.BackendMock;
-import org.hibernate.search.v6poc.integrationtest.util.common.stub.backend.index.impl.StubBackendFactory;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.impl.StubBackendFactory;
 
 import org.junit.After;
 import org.junit.Before;
