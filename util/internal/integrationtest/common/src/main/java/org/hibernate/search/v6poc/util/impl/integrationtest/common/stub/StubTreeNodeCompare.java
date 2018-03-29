@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import org.hibernate.search.v6poc.util.spi.ToStringTreeBuilder;
+import org.hibernate.search.v6poc.util.impl.common.ToStringTreeBuilder;
 
 public final class StubTreeNodeCompare {
 

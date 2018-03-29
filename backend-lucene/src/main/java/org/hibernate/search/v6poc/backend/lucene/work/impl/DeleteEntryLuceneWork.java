@@ -15,8 +15,8 @@ import org.apache.lucene.index.Term;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFields;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.lucene.search.impl.LuceneQueries;
-import org.hibernate.search.v6poc.util.spi.Futures;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.Futures;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 /**
  * @author Guillaume Smet

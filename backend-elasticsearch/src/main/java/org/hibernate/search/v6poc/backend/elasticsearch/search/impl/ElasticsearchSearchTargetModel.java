@@ -17,7 +17,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.Elas
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexSchemaFieldNode;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexSchemaObjectNode;
 import org.hibernate.search.v6poc.backend.elasticsearch.logging.impl.Log;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 public class ElasticsearchSearchTargetModel {
 

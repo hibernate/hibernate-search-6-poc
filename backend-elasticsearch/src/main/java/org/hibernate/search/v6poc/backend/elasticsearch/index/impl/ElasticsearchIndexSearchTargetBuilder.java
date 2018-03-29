@@ -16,7 +16,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.impl.ElasticsearchBacken
 import org.hibernate.search.v6poc.backend.elasticsearch.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTargetBuilder;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 
 /**

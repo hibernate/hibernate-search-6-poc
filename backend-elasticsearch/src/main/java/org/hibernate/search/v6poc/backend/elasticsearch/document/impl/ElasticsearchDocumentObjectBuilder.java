@@ -13,7 +13,7 @@ import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexSchemaObjectNode;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
 import org.hibernate.search.v6poc.logging.impl.Log;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 import com.google.gson.JsonObject;
 

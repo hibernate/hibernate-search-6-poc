@@ -10,7 +10,7 @@ import java.util.Map;
 
 import org.hibernate.search.v6poc.backend.index.spi.IndexManager;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingImplementor;
-import org.hibernate.search.v6poc.util.spi.Closer;
+import org.hibernate.search.v6poc.util.impl.common.Closer;
 
 public class StubMapping implements MappingImplementor<StubMapping> {
 

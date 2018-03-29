@@ -15,7 +15,7 @@ import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedCo
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.DataType;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.PropertyMapping;
 import org.hibernate.search.v6poc.backend.elasticsearch.logging.impl.Log;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 /**
  * @author Yoann Rodiere

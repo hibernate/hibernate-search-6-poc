@@ -16,7 +16,7 @@ import org.hibernate.search.v6poc.backend.document.model.Sortable;
 import org.hibernate.search.v6poc.backend.document.model.Store;
 import org.hibernate.search.v6poc.backend.lucene.document.model.LuceneIndexSchemaFieldTypedContext;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 /**
  * @author Guillaume Smet

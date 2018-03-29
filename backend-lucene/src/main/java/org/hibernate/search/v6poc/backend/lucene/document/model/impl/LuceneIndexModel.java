@@ -11,7 +11,7 @@ import java.util.Map;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.core.KeywordAnalyzer;
-import org.hibernate.search.v6poc.util.impl.CollectionHelper;
+import org.hibernate.search.v6poc.util.impl.common.CollectionHelper;
 
 /**
  * @author Guillaume Smet

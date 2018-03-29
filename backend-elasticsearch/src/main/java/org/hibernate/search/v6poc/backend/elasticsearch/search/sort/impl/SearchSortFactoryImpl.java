@@ -15,7 +15,7 @@ import org.hibernate.search.v6poc.search.SearchSort;
 import org.hibernate.search.v6poc.search.sort.spi.FieldSortBuilder;
 import org.hibernate.search.v6poc.search.sort.spi.ScoreSortBuilder;
 import org.hibernate.search.v6poc.search.sort.spi.SearchSortContributor;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

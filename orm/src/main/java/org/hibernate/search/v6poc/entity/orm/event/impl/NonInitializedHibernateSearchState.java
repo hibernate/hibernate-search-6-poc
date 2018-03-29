@@ -12,7 +12,7 @@ import java.lang.invoke.MethodHandles;
 import org.hibernate.search.v6poc.entity.orm.impl.HibernateSearchContextService;
 import org.hibernate.search.v6poc.entity.orm.logging.impl.Log;
 import org.hibernate.search.v6poc.util.SearchException;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 /**
  * The implementation of EventsHibernateSearchState which the

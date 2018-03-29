@@ -22,7 +22,7 @@ import org.hibernate.search.v6poc.search.dsl.predicate.RangePredicateFromContext
 import org.hibernate.search.v6poc.search.predicate.spi.RangePredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateFactory;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 
 class RangePredicateFieldSetContextImpl<N, C>

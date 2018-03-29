@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.entity.pojo.processing.impl;
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
-import org.hibernate.search.v6poc.util.spi.ToStringTreeBuilder;
+import org.hibernate.search.v6poc.util.impl.common.ToStringTreeBuilder;
 
 /**
  * A node inside a {@link PojoIndexingProcessor} responsible for applying a {@link ValueBridge} to a value.

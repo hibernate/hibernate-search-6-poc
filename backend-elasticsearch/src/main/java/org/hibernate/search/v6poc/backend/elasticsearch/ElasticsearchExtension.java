@@ -29,7 +29,7 @@ import org.hibernate.search.v6poc.search.dsl.sort.spi.SearchSortContainerContext
 import org.hibernate.search.v6poc.search.dsl.sort.spi.SearchSortDslContext;
 import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateFactory;
 import org.hibernate.search.v6poc.search.sort.spi.SearchSortFactory;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 public final class ElasticsearchExtension<N>
 		implements SearchPredicateContainerContextExtension<N, ElasticsearchSearchPredicateContainerContext<N>>,

@@ -10,7 +10,7 @@ import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 import org.hibernate.search.v6poc.backend.elasticsearch.logging.impl.Log;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 import org.apache.http.HttpHost;
 

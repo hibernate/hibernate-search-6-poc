@@ -13,8 +13,8 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoElementImpl;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
-import org.hibernate.search.v6poc.util.spi.Closer;
-import org.hibernate.search.v6poc.util.spi.ToStringTreeBuilder;
+import org.hibernate.search.v6poc.util.impl.common.Closer;
+import org.hibernate.search.v6poc.util.impl.common.ToStringTreeBuilder;
 
 /**
  * A node inside a {@link PojoIndexingProcessor} responsible for extracting the value of a property,

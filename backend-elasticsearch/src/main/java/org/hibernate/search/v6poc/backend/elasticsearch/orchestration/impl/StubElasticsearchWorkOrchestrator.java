@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 
 import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.ElasticsearchClient;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWork;
-import org.hibernate.search.v6poc.util.spi.Futures;
+import org.hibernate.search.v6poc.util.impl.common.Futures;
 
 
 /**

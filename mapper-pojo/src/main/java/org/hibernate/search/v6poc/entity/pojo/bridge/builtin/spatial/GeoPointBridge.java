@@ -29,8 +29,8 @@ import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelProperty;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelType;
 import org.hibernate.search.v6poc.util.SearchException;
-import org.hibernate.search.v6poc.util.StreamHelper;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.StreamHelper;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 /**
  * @author Yoann Rodiere

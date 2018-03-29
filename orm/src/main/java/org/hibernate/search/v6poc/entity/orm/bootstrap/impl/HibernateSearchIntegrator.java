@@ -26,7 +26,7 @@ import org.hibernate.search.v6poc.entity.orm.event.impl.FullTextIndexEventListen
 import org.hibernate.search.v6poc.entity.orm.logging.impl.Log;
 import org.hibernate.search.v6poc.entity.orm.spi.BeanResolver;
 import org.hibernate.search.v6poc.entity.orm.spi.EnvironmentSynchronizer;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 import org.hibernate.service.spi.ServiceBinding;
 import org.hibernate.service.spi.SessionFactoryServiceRegistry;
 

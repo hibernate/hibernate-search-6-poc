@@ -13,8 +13,8 @@ import java.util.concurrent.CompletableFuture;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.lucene.search.query.impl.LuceneSearcher;
 import org.hibernate.search.v6poc.search.SearchResult;
-import org.hibernate.search.v6poc.util.spi.Futures;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.Futures;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 /**
  * @author Guillaume Smet

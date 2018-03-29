@@ -16,7 +16,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.DefaultGsonPro
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.GsonProvider;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.cfg.spi.ConfigurationProperty;
-import org.hibernate.search.v6poc.util.impl.SearchThreadFactory;
+import org.hibernate.search.v6poc.util.impl.common.SearchThreadFactory;
 
 import com.google.gson.GsonBuilder;
 import org.apache.http.auth.AuthScope;

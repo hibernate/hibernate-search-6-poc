@@ -13,7 +13,7 @@ import org.hibernate.search.v6poc.logging.impl.Log;
 import org.hibernate.search.v6poc.search.dsl.predicate.spi.SearchPredicateDslContext;
 import org.hibernate.search.v6poc.search.dsl.query.SearchQueryResultContext;
 import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateContributor;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 /**
  * A DSL context used when calling {@link SearchQueryResultContext#predicate()} to build the predicate

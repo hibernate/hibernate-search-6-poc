@@ -14,7 +14,7 @@ import javax.transaction.Synchronization;
 
 import org.hibernate.search.v6poc.entity.orm.logging.impl.Log;
 import org.hibernate.search.v6poc.entity.pojo.mapping.ChangesetPojoWorker;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 /**
  * Execute final work inside a transaction.

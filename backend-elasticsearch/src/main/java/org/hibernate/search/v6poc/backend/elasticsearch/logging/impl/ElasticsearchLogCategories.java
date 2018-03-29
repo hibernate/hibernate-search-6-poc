@@ -6,8 +6,8 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.logging.impl;
 
-import org.hibernate.search.v6poc.util.spi.LogCategory;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LogCategory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 /**
  * Log categories to be used with {@link LoggerFactory#make(Class, LogCategory)}.

@@ -23,7 +23,7 @@ import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneDocumentBui
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoPoint;
-import org.hibernate.search.v6poc.util.impl.CollectionHelper;
+import org.hibernate.search.v6poc.util.impl.common.CollectionHelper;
 
 /**
  * @author Guillaume Smet

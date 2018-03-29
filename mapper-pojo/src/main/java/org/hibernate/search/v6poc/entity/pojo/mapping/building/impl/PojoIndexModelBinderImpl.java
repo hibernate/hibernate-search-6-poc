@@ -37,7 +37,7 @@ import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessorValueBridgeNode;
 import org.hibernate.search.v6poc.entity.pojo.util.impl.GenericTypeContext;
 import org.hibernate.search.v6poc.entity.pojo.util.impl.ReflectionUtils;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 /**
  * @author Yoann Rodiere

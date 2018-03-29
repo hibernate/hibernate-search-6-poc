@@ -18,7 +18,7 @@ import java.util.Optional;
 
 import org.hibernate.search.v6poc.entity.pojo.logging.impl.Log;
 import org.hibernate.search.v6poc.util.AssertionFailure;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 /**
  * A representation of generic parameters and their mapped values.

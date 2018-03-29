@@ -54,7 +54,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Inde
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoPropertyModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRawTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 class AnnotationPojoTypeMetadataContributorImpl implements PojoTypeMetadataContributor {
 

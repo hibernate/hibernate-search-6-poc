@@ -13,7 +13,7 @@ import java.util.function.Function;
 import org.hibernate.search.v6poc.cfg.spi.ConfigurationProperty;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.logging.impl.Log;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 class FunctionConfigurationProperty<T> implements ConfigurationProperty<T> {
 

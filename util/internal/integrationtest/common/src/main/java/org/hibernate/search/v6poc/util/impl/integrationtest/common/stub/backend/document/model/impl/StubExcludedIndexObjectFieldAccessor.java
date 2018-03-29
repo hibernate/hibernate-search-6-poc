@@ -13,7 +13,7 @@ import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.StubDocumentNode;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.impl.StubDocumentElement;
 import org.hibernate.search.v6poc.logging.impl.Log;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 class StubExcludedIndexObjectFieldAccessor implements IndexObjectFieldAccessor {
 

@@ -10,7 +10,7 @@ import java.lang.invoke.MethodHandles;
 import java.util.Locale;
 
 import org.hibernate.search.v6poc.backend.elasticsearch.logging.impl.Log;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 /**
  * Applies rules imposed by Elasticsearch to index names.

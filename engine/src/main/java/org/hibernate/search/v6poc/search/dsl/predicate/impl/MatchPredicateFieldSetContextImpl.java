@@ -20,7 +20,7 @@ import org.hibernate.search.v6poc.search.dsl.predicate.MatchPredicateFieldSetCon
 import org.hibernate.search.v6poc.search.predicate.spi.MatchPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateFactory;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 
 class MatchPredicateFieldSetContextImpl<N, C>

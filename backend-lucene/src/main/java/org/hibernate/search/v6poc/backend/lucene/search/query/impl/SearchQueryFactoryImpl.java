@@ -30,7 +30,7 @@ import org.hibernate.search.v6poc.search.query.spi.LoadingHitCollector;
 import org.hibernate.search.v6poc.search.query.spi.ProjectionHitCollector;
 import org.hibernate.search.v6poc.search.query.spi.SearchQueryBuilder;
 import org.hibernate.search.v6poc.search.query.spi.SearchQueryFactory;
-import org.hibernate.search.v6poc.util.spi.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 class SearchQueryFactoryImpl
 		implements SearchQueryFactory<LuceneSearchQueryElementCollector> {
