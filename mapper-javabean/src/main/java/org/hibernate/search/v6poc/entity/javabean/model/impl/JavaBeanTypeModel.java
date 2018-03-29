@@ -19,9 +19,8 @@ import java.util.stream.Stream;
 import org.hibernate.search.v6poc.entity.model.spi.MappableTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.GenericContextAwarePojoGenericTypeModel.RawTypeDeclaringContext;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoCaster;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRawTypeModel;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoPropertyModel;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRawTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.util.spi.JavaClassOrdering;
 import org.hibernate.search.v6poc.util.SearchException;
 
@@ -77,7 +76,7 @@ class JavaBeanTypeModel<T> implements PojoRawTypeModel<T> {
 	}
 
 	@Override
-	public <U> Optional<PojoTypeModel<U>> getSuperType(Class<U> superClassCandidate) {
+	public <U> Optional<PojoRawTypeModel<U>> getSuperType(Class<U> superClassCandidate) {
 		return superClassCandidate.isAssignableFrom( clazz )
 				? Optional.of( introspector.getTypeModel( superClassCandidate ) )
 				: Optional.empty();
