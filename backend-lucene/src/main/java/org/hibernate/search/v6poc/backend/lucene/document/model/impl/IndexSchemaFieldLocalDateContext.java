@@ -25,12 +25,13 @@ import org.apache.lucene.document.StoredField;
 import org.apache.lucene.index.IndexableField;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.SortField;
-import org.apache.lucene.search.SortField.Type;
 import org.hibernate.search.v6poc.backend.document.impl.DeferredInitializationIndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.Sortable;
 import org.hibernate.search.v6poc.backend.document.model.Store;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneDocumentBuilder;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexFieldAccessor;
+import org.hibernate.search.v6poc.backend.lucene.search.sort.impl.LuceneSearchSortCollector;
+import org.hibernate.search.v6poc.search.dsl.sort.SortOrder;
 
 /**
  * @author Guillaume Smet
@@ -58,7 +59,8 @@ class IndexSchemaFieldLocalDateContext extends AbstractLuceneIndexSchemaFieldTyp
 				parentNode,
 				getFieldName(),
 				localDateFieldFormatter,
-				new LocalDateFieldQueryBuilder( localDateFieldFormatter )
+				new LocalDateFieldQueryFactory( localDateFieldFormatter ),
+				LocalDateFieldSortContributor.INSTANCE
 		);
 
 		accessor.initialize( new LuceneIndexFieldAccessor<>( schemaNode ) );
@@ -132,21 +134,6 @@ class IndexSchemaFieldLocalDateContext extends AbstractLuceneIndexSchemaFieldTyp
 		}
 
 		@Override
-		public Type getDefaultSortFieldType() {
-			return SortField.Type.LONG;
-		}
-
-		@Override
-		public Object getSortMissingFirst() {
-			return Long.MIN_VALUE;
-		}
-
-		@Override
-		public Object getSortMissingLast() {
-			return Long.MAX_VALUE;
-		}
-
-		@Override
 		public boolean equals(Object obj) {
 			if ( this == obj ) {
 				return true;
@@ -160,7 +147,7 @@ class IndexSchemaFieldLocalDateContext extends AbstractLuceneIndexSchemaFieldTyp
 
 			LocalDateFieldFormatter other = (LocalDateFieldFormatter) obj;
 
-			return Objects.equals( store, other.store );
+			return Objects.equals( store, other.store ) && Objects.equals( sortable, other.sortable );
 		}
 
 		@Override
@@ -169,16 +156,19 @@ class IndexSchemaFieldLocalDateContext extends AbstractLuceneIndexSchemaFieldTyp
 		}
 
 		private int buildHashCode() {
-			return Objects.hashCode( store );
+			return Objects.hash( store, sortable );
 		}
 	}
 
-	private static final class LocalDateFieldQueryBuilder implements LuceneFieldQueryFactory {
+	private static final class LocalDateFieldQueryFactory implements LuceneFieldQueryFactory {
 
 		private final LocalDateFieldFormatter localDateFieldFormatter;
 
-		private LocalDateFieldQueryBuilder(LocalDateFieldFormatter localDateFieldFormatter) {
+		private final int hashCode;
+
+		private LocalDateFieldQueryFactory(LocalDateFieldFormatter localDateFieldFormatter) {
 			this.localDateFieldFormatter = localDateFieldFormatter;
+			this.hashCode = buildHashCode();
 		}
 
 		@Override
@@ -213,6 +203,49 @@ class IndexSchemaFieldLocalDateContext extends AbstractLuceneIndexSchemaFieldTyp
 				long upperLimitAsLong = (long) localDateFieldFormatter.format( upperLimit );
 				return excludeUpperLimit ? Math.addExact( upperLimitAsLong, -1 ) : upperLimitAsLong;
 			}
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if ( this == obj ) {
+				return true;
+			}
+			if ( obj == null ) {
+				return false;
+			}
+			if ( LocalDateFieldQueryFactory.class != obj.getClass() ) {
+				return false;
+			}
+
+			LocalDateFieldQueryFactory other = (LocalDateFieldQueryFactory) obj;
+
+			return Objects.equals( localDateFieldFormatter, other.localDateFieldFormatter );
+		}
+
+		@Override
+		public int hashCode() {
+			return hashCode;
+		}
+
+		private int buildHashCode() {
+			return Objects.hash( localDateFieldFormatter );
+		}
+	}
+
+	private static class LocalDateFieldSortContributor extends AbstractScalarLuceneFieldSortContributor {
+
+		private static final LocalDateFieldSortContributor INSTANCE = new LocalDateFieldSortContributor();
+
+		private LocalDateFieldSortContributor() {
+			super( Long.MIN_VALUE, Long.MAX_VALUE );
+		}
+
+		@Override
+		public void contribute(LuceneSearchSortCollector collector, String absoluteFieldPath, SortOrder order, Object missingValue) {
+			SortField sortField = new SortField( absoluteFieldPath, SortField.Type.LONG, order == SortOrder.DESC ? true : false );
+			setEffectiveMissingValue( sortField, missingValue, order );
+
+			collector.collectSortField( sortField );
 		}
 	}
 }

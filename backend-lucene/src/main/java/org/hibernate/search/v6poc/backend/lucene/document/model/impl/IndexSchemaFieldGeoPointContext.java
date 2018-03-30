@@ -16,7 +16,6 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.document.LatLonPoint;
 import org.apache.lucene.document.StoredField;
 import org.apache.lucene.index.IndexableField;
-import org.apache.lucene.search.SortField.Type;
 import org.hibernate.search.v6poc.backend.document.impl.DeferredInitializationIndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.Store;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneDocumentBuilder;
@@ -41,7 +40,8 @@ class IndexSchemaFieldGeoPointContext extends AbstractLuceneIndexSchemaFieldType
 				parentNode,
 				getFieldName(),
 				new LuceneGeoPointFieldFormatter( parentNode.getAbsolutePath( getFieldName() ), getStore() ),
-				null // for now we don't have a query builder for GeoPoint
+				null, // for now we don't have a query builder for GeoPoint
+				null // for now we don't have a sort contributor for GeoPoint
 		);
 
 		accessor.initialize( new LuceneIndexFieldAccessor<>( schemaNode ) );
@@ -115,24 +115,6 @@ class IndexSchemaFieldGeoPointContext extends AbstractLuceneIndexSchemaFieldType
 		public Object format(Object value) {
 			// TODO see what we should do here.
 			throw new UnsupportedOperationException( "format() not supported for GeoPoint" );
-		}
-
-		@Override
-		public Type getDefaultSortFieldType() {
-			// TODO see what we should do here.
-			throw new UnsupportedOperationException( "getDefaultSortFieldType() not supported for GeoPoint" );
-		}
-
-		@Override
-		public Object getSortMissingFirst() {
-			// TODO see what we should do here.
-			throw new UnsupportedOperationException( "getSortMissingFirst() not supported for GeoPoint" );
-		}
-
-		@Override
-		public Object getSortMissingLast() {
-			// TODO see what we should do here.
-			throw new UnsupportedOperationException( "getSortMissingLast() not supported for GeoPoint" );
 		}
 
 		@Override

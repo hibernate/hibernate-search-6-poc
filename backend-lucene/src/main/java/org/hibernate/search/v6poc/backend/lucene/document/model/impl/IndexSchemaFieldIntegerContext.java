@@ -15,12 +15,13 @@ import org.apache.lucene.document.StoredField;
 import org.apache.lucene.index.IndexableField;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.SortField;
-import org.apache.lucene.search.SortField.Type;
 import org.hibernate.search.v6poc.backend.document.impl.DeferredInitializationIndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.Sortable;
 import org.hibernate.search.v6poc.backend.document.model.Store;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneDocumentBuilder;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexFieldAccessor;
+import org.hibernate.search.v6poc.backend.lucene.search.sort.impl.LuceneSearchSortCollector;
+import org.hibernate.search.v6poc.search.dsl.sort.SortOrder;
 
 /**
  * @author Guillaume Smet
@@ -46,7 +47,8 @@ class IndexSchemaFieldIntegerContext extends AbstractLuceneIndexSchemaFieldTyped
 				parentNode,
 				getFieldName(),
 				new IntegerFieldFormatter( getStore(), sortable ),
-				IntegerFieldQueryBuilder.INSTANCE
+				IntegerFieldQueryFactory.INSTANCE,
+				IntegerFieldSortContributor.INSTANCE
 		);
 
 		accessor.initialize( new LuceneIndexFieldAccessor<>( schemaNode ) );
@@ -103,21 +105,6 @@ class IndexSchemaFieldIntegerContext extends AbstractLuceneIndexSchemaFieldTyped
 		}
 
 		@Override
-		public Type getDefaultSortFieldType() {
-			return SortField.Type.INT;
-		}
-
-		@Override
-		public Object getSortMissingFirst() {
-			return Integer.MIN_VALUE;
-		}
-
-		@Override
-		public Object getSortMissingLast() {
-			return Integer.MAX_VALUE;
-		}
-
-		@Override
 		public boolean equals(Object obj) {
 			if ( this == obj ) {
 				return true;
@@ -131,7 +118,7 @@ class IndexSchemaFieldIntegerContext extends AbstractLuceneIndexSchemaFieldTyped
 
 			IntegerFieldFormatter other = (IntegerFieldFormatter) obj;
 
-			return Objects.equals( store, other.store );
+			return Objects.equals( store, other.store ) && Objects.equals( sortable, other.sortable );
 		}
 
 		@Override
@@ -140,15 +127,15 @@ class IndexSchemaFieldIntegerContext extends AbstractLuceneIndexSchemaFieldTyped
 		}
 
 		private int buildHashCode() {
-			return Objects.hashCode( store );
+			return Objects.hash( store, sortable );
 		}
 	}
 
-	private static final class IntegerFieldQueryBuilder implements LuceneFieldQueryFactory {
+	private static final class IntegerFieldQueryFactory implements LuceneFieldQueryFactory {
 
-		private static final IntegerFieldQueryBuilder INSTANCE = new IntegerFieldQueryBuilder();
+		private static final IntegerFieldQueryFactory INSTANCE = new IntegerFieldQueryFactory();
 
-		private IntegerFieldQueryBuilder() {
+		private IntegerFieldQueryFactory() {
 		}
 
 		@Override
@@ -181,6 +168,23 @@ class IndexSchemaFieldIntegerContext extends AbstractLuceneIndexSchemaFieldTyped
 			else {
 				return excludeUpperLimit ? Math.addExact( (int) upperLimit, -1 ) : (int) upperLimit;
 			}
+		}
+	}
+
+	private static class IntegerFieldSortContributor extends AbstractScalarLuceneFieldSortContributor {
+
+		private static final IntegerFieldSortContributor INSTANCE = new IntegerFieldSortContributor();
+
+		private IntegerFieldSortContributor() {
+			super( Integer.MIN_VALUE, Integer.MAX_VALUE );
+		}
+
+		@Override
+		public void contribute(LuceneSearchSortCollector collector, String absoluteFieldPath, SortOrder order, Object missingValue) {
+			SortField sortField = new SortField( absoluteFieldPath, SortField.Type.INT, order == SortOrder.DESC ? true : false );
+			setEffectiveMissingValue( sortField, missingValue, order );
+
+			collector.collectSortField( sortField );
 		}
 	}
 }
