@@ -6,6 +6,8 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.document.model.impl;
 
+import java.util.Objects;
+
 /**
  * @author Guillaume Smet
  */
@@ -21,13 +23,16 @@ public class LuceneIndexSchemaFieldNode<T> {
 
 	private final LuceneFieldQueryFactory queryFactory;
 
+	private final LuceneFieldSortContributor sortContributor;
+
 	public LuceneIndexSchemaFieldNode(LuceneIndexSchemaObjectNode parent, String fieldName, LuceneFieldFormatter<T> formatter,
-			LuceneFieldQueryFactory queryFactory) {
+			LuceneFieldQueryFactory queryFactory, LuceneFieldSortContributor sortContributor) {
 		this.parent = parent;
 		this.fieldName = fieldName;
 		this.absoluteFieldPath = parent.getAbsolutePath( fieldName );
 		this.formatter = formatter;
 		this.queryFactory = queryFactory;
+		this.sortContributor = sortContributor;
 	}
 
 	public LuceneIndexSchemaObjectNode getParent() {
@@ -48,6 +53,18 @@ public class LuceneIndexSchemaFieldNode<T> {
 
 	public LuceneFieldQueryFactory getQueryFactory() {
 		return queryFactory;
+	}
+
+	public LuceneFieldSortContributor getSortContributor() {
+		return sortContributor;
+	}
+
+	public boolean isCompatibleWith(LuceneIndexSchemaFieldNode<?> other) {
+		if ( !Objects.equals( sortContributor, other.sortContributor ) || !Objects.equals( formatter, other.formatter )
+				|| !Objects.equals( queryFactory, other.queryFactory ) ) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override

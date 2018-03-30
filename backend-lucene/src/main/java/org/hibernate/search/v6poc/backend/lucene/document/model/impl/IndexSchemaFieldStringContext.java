@@ -18,7 +18,6 @@ import org.apache.lucene.index.IndexOptions;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.SortField;
-import org.apache.lucene.search.SortField.Type;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TermRangeQuery;
 import org.apache.lucene.util.BytesRef;
@@ -29,7 +28,9 @@ import org.hibernate.search.v6poc.backend.document.model.Sortable;
 import org.hibernate.search.v6poc.backend.document.model.Store;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneDocumentBuilder;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexFieldAccessor;
+import org.hibernate.search.v6poc.backend.lucene.search.sort.impl.LuceneSearchSortCollector;
 import org.hibernate.search.v6poc.backend.lucene.util.impl.AnalyzerUtils;
+import org.hibernate.search.v6poc.search.dsl.sort.SortOrder;
 
 /**
  * @author Guillaume Smet
@@ -74,7 +75,8 @@ class IndexSchemaFieldStringContext extends AbstractLuceneIndexSchemaFieldTypedC
 						getFieldType( getStore(), analyzer != null ),
 						analyzerOrNormalizer
 				),
-				new StringFieldQueryFactory( analyzerOrNormalizer, analyzer != null, queryBuilder )
+				new StringFieldQueryFactory( analyzerOrNormalizer, analyzer != null, queryBuilder ),
+				StringFieldSortContributor.INSTANCE
 		);
 
 		accessor.initialize( new LuceneIndexFieldAccessor<>( schemaNode ) );
@@ -169,21 +171,6 @@ class IndexSchemaFieldStringContext extends AbstractLuceneIndexSchemaFieldTypedC
 		@Override
 		public Object format(Object value) {
 			return value;
-		}
-
-		@Override
-		public Type getDefaultSortFieldType() {
-			return SortField.Type.STRING;
-		}
-
-		@Override
-		public Object getSortMissingFirst() {
-			return SortField.STRING_FIRST;
-		}
-
-		@Override
-		public Object getSortMissingLast() {
-			return SortField.STRING_LAST;
 		}
 
 		@Override
@@ -303,6 +290,23 @@ class IndexSchemaFieldStringContext extends AbstractLuceneIndexSchemaFieldTypedC
 			}
 
 			return AnalyzerUtils.analyzeSortableValue( analyzerOrNormalizer, fieldName, stringValue );
+		}
+	}
+
+	private static class StringFieldSortContributor extends AbstractScalarLuceneFieldSortContributor {
+
+		private static final StringFieldSortContributor INSTANCE = new StringFieldSortContributor();
+
+		private StringFieldSortContributor() {
+			super( SortField.STRING_FIRST, SortField.STRING_LAST );
+		}
+
+		@Override
+		public void contribute(LuceneSearchSortCollector collector, String absoluteFieldPath, SortOrder order, Object missingValue) {
+			SortField sortField = new SortField( absoluteFieldPath, SortField.Type.STRING, order == SortOrder.DESC ? true : false );
+			setEffectiveMissingValue( sortField, missingValue, order );
+
+			collector.collectSortField( sortField );
 		}
 	}
 }
