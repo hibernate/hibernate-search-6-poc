@@ -19,9 +19,6 @@ import org.hibernate.search.v6poc.backend.index.spi.IndexManagerBuilder;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
 /**
  * @author Yoann Rodiere
  */
@@ -55,12 +52,10 @@ public class ElasticsearchIndexManagerBuilder implements IndexManagerBuilder<Ela
 
 		ElasticsearchIndexModel model = new ElasticsearchIndexModel( encodedIndexName, collector );
 
-		Gson gson = new Gson();
-		JsonObject mappingAsJson = gson.toJsonTree( model.getMapping() ).getAsJsonObject();
-
 		// TODO make sure index initialization is performed in parallel for all indexes?
 		ElasticsearchWork<?> dropWork = backend.getWorkFactory().dropIndexIfExists( encodedIndexName );
-		ElasticsearchWork<?> createWork = backend.getWorkFactory().createIndex( encodedIndexName, encodedTypeName, mappingAsJson );
+		ElasticsearchWork<?> createWork = backend.getWorkFactory()
+				.createIndex( encodedIndexName, encodedTypeName, model.getMapping() );
 		backend.getStreamOrchestrator().submit( Arrays.asList( dropWork, createWork ) )
 				.join();
 

@@ -6,6 +6,7 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.client.impl;
 
+import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.GsonProvider;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 
 /**
@@ -15,6 +16,6 @@ import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
  */
 public interface ElasticsearchClientFactory {
 
-	ElasticsearchClientImplementor create(ConfigurationPropertySource propertySource);
+	ElasticsearchClientImplementor create(ConfigurationPropertySource propertySource, GsonProvider initialGsonProvider);
 
 }
