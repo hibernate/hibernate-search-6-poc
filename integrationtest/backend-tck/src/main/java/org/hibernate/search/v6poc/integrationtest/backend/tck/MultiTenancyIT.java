@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.integrationtest.backend.tck;
 
-public class MultitenancyIT {
+public class MultiTenancyIT {
 
 	// TODO
 
