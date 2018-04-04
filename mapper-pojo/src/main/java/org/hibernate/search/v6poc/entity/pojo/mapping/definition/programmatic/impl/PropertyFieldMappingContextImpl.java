@@ -18,8 +18,7 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContribu
 import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.impl.BeanResolverBridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
-import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;
-import org.hibernate.search.v6poc.entity.pojo.extractor.spi.ContainerValueExtractorPath;
+import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractorPath;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMappingCollectorPropertyNode;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyFieldMappingContext;
@@ -110,15 +109,8 @@ public class PropertyFieldMappingContextImpl extends DelegatingPropertyMappingCo
 	}
 
 	@Override
-	public PropertyFieldMappingContext withExtractors(
-			List<? extends Class<? extends ContainerValueExtractor>> extractorClasses) {
-		this.extractorPath = ContainerValueExtractorPath.explicitExtractors( extractorClasses );
-		return this;
-	}
-
-	@Override
-	public PropertyFieldMappingContext withoutExtractors() {
-		this.extractorPath = ContainerValueExtractorPath.noExtractors();
+	public PropertyFieldMappingContext withExtractors(ContainerValueExtractorPath extractorPath) {
+		this.extractorPath = extractorPath;
 		return this;
 	}
 

@@ -22,10 +22,10 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.MetadataCollector;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MetadataContributor;
 import org.hibernate.search.v6poc.entity.orm.model.impl.HibernateOrmBootstrapIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;
+import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractorPath;
 import org.hibernate.search.v6poc.entity.pojo.extractor.builtin.ArrayElementExtractor;
 import org.hibernate.search.v6poc.entity.pojo.extractor.builtin.CollectionElementExtractor;
 import org.hibernate.search.v6poc.entity.pojo.extractor.builtin.MapValueExtractor;
-import org.hibernate.search.v6poc.entity.pojo.extractor.spi.ContainerValueExtractorPath;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoTypeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRawTypeModel;
 

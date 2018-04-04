@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.entity.orm.mapping.impl;
 
-import org.hibernate.search.v6poc.entity.pojo.extractor.spi.ContainerValueExtractorPath;
+import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractorPath;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMappingCollectorTypeNode;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoTypeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.model.augmented.building.spi.PojoAugmentedModelCollectorTypeNode;

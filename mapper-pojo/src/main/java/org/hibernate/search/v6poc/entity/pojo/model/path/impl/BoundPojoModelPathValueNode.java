@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.entity.pojo.model.path.impl;
 
 import org.hibernate.search.v6poc.entity.pojo.extractor.impl.BoundContainerValueExtractorPath;
-import org.hibernate.search.v6poc.entity.pojo.extractor.spi.ContainerValueExtractorPath;
+import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractorPath;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRawTypeModel;
 
 /**

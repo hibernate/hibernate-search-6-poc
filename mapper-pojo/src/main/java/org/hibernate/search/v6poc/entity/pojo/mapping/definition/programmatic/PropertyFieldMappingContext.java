@@ -6,14 +6,12 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.hibernate.search.v6poc.backend.document.model.Sortable;
 import org.hibernate.search.v6poc.backend.document.model.Store;
 import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;
+import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractorPath;
 
 /**
  * @author Yoann Rodiere
@@ -36,13 +34,15 @@ public interface PropertyFieldMappingContext extends PropertyMappingContext {
 
 	PropertyFieldMappingContext sortable(Sortable sortable);
 
-	default PropertyFieldMappingContext withExtractor(Class<? extends ContainerValueExtractor> extractorClass) {
-		return withExtractors( Collections.singletonList( extractorClass ) );
+	default PropertyFieldMappingContext withExtractor(
+			Class<? extends ContainerValueExtractor> extractorClass) {
+		return withExtractors( ContainerValueExtractorPath.explicitExtractor( extractorClass ) );
 	}
 
-	PropertyFieldMappingContext withExtractors(
-			List<? extends Class<? extends ContainerValueExtractor>> extractorClasses);
+	default PropertyFieldMappingContext withoutExtractors() {
+		return withExtractors( ContainerValueExtractorPath.noExtractors() );
+	}
 
-	PropertyFieldMappingContext withoutExtractors();
+	PropertyFieldMappingContext withExtractors(ContainerValueExtractorPath extractorPath);
 
 }
