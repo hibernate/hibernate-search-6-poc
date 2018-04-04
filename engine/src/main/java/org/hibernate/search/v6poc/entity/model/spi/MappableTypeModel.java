@@ -17,6 +17,12 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexManagerBuildi
  */
 public interface MappableTypeModel {
 
+	/**
+	 * @return {@code true} if this type is abstract, i.e. it cannot be instantiated as-is (but may be as a subtype).
+	 * {@code false} otherwise.
+	 */
+	boolean isAbstract();
+
 	boolean isSubTypeOf(MappableTypeModel other);
 
 	Stream<? extends MappableTypeModel> getAscendingSuperTypes();
