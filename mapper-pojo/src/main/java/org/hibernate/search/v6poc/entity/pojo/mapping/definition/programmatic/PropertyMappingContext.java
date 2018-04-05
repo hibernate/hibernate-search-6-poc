@@ -9,6 +9,7 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic;
 import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.MarkerBuilder;
+import org.hibernate.search.v6poc.entity.pojo.model.path.PojoModelPathValueNode;
 
 /**
  * @author Yoann Rodiere
@@ -40,6 +41,6 @@ public interface PropertyMappingContext {
 
 	PropertyIndexedEmbeddedMappingContext indexedEmbedded();
 
-	AssociationInverseSideMappingContext associationInverseSide(String inversePropertyName);
+	AssociationInverseSideMappingContext associationInverseSide(PojoModelPathValueNode inversePath);
 
 }

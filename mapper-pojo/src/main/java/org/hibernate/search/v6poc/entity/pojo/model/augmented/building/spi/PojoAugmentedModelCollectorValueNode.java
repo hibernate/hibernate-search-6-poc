@@ -6,10 +6,10 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.model.augmented.building.spi;
 
-import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractorPath;
+import org.hibernate.search.v6poc.entity.pojo.model.path.PojoModelPathValueNode;
 
 public interface PojoAugmentedModelCollectorValueNode extends PojoAugmentedModelCollector {
 
-	void associationInverseSide(String inversePropertyName, ContainerValueExtractorPath inverseExtractorPath);
+	void associationInverseSide(PojoModelPathValueNode inverseSidePath);
 
 }

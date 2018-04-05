@@ -27,6 +27,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.Pr
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyIndexedEmbeddedMappingContext;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyMappingContext;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.TypeMappingContext;
+import org.hibernate.search.v6poc.entity.pojo.model.path.PojoModelPathValueNode;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 
 public class PropertyMappingContextImpl
@@ -118,9 +119,9 @@ public class PropertyMappingContextImpl
 	}
 
 	@Override
-	public AssociationInverseSideMappingContext associationInverseSide(String inversePropertyName) {
+	public AssociationInverseSideMappingContext associationInverseSide(PojoModelPathValueNode inversePath) {
 		AssociationInverseSideMappingContextImpl child = new AssociationInverseSideMappingContextImpl(
-				this, inversePropertyName
+				this, inversePath
 		);
 		children.add( child );
 		return child;
