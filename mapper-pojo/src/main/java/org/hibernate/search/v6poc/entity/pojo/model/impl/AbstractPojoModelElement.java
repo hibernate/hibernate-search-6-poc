@@ -14,9 +14,11 @@ import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContri
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoModelCollectorTypeNode;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelProperty;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoPropertyModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
+import org.hibernate.search.v6poc.util.SearchException;
 
 
 /**
@@ -35,8 +37,17 @@ abstract class AbstractPojoModelElement implements PojoModelElement, PojoModelCo
 	}
 
 	@Override
+	@SuppressWarnings("unchecked") // The cast is checked using reflection
+	public final <T> PojoModelElementAccessor<T> createAccessor(Class<T> requestedType) {
+		if ( !isAssignableTo( requestedType ) ) {
+			throw new SearchException( "Requested incompatible type for '" + createAccessor() + "': '" + requestedType + "'" );
+		}
+		return (PojoModelElementAccessor<T>) createAccessor();
+	}
+
+	@Override
 	public boolean isAssignableTo(Class<?> clazz) {
-		return getTypeModel().getSuperType( clazz ).isPresent();
+		return getTypeModel().getRawType().isSubTypeOf( clazz );
 	}
 
 	@Override

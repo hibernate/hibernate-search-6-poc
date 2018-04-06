@@ -6,7 +6,6 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.model.impl;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
@@ -14,9 +13,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeMeta
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelProperty;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoPropertyModel;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRawTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
-import org.hibernate.search.v6poc.util.SearchException;
 
 
 /**
@@ -35,15 +32,6 @@ public class PojoModelPropertyRootElement extends AbstractPojoModelElement imple
 	@Override
 	public String toString() {
 		return propertyModel.toString();
-	}
-
-	@Override
-	public <T> PojoModelElementAccessor<T> createAccessor(Class<T> requestedType) {
-		Optional<PojoRawTypeModel<T>> superTypeModel = getTypeModel().getSuperType( requestedType );
-		if ( !superTypeModel.isPresent() ) {
-			throw new SearchException( "Requested incompatible type for '" + createAccessor() + "': '" + requestedType + "'" );
-		}
-		return new PojoModelRootElementAccessor<>( superTypeModel.get().getCaster() );
 	}
 
 	@Override

@@ -14,16 +14,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.MarkerBuilder;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataContributorProvider;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.MarkerBuilder;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoModelCollectorPropertyNode;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoTypeMetadataContributor;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelProperty;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoPropertyModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoTypeModel;
-import org.hibernate.search.v6poc.util.SearchException;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
 
 
 /**
@@ -43,14 +42,6 @@ public class PojoModelNestedElement extends AbstractPojoModelElement
 		super( modelContributorProvider );
 		this.parent = parent;
 		this.propertyModel = propertyModel;
-	}
-
-	@Override
-	public <T> PojoModelElementAccessor<T> createAccessor(Class<T> requestedType) {
-		if ( !isAssignableTo( requestedType ) ) {
-			throw new SearchException( "Requested incompatible type for '" + this.createAccessor() + "': '" + requestedType + "'" );
-		}
-		return new PojoModelPropertyElementAccessor<>( parent.createAccessor(), getHandle() );
 	}
 
 	@Override
