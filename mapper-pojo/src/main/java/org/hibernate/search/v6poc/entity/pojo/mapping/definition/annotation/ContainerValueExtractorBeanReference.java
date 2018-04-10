@@ -19,7 +19,6 @@ import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;
 @Documented
 @Target({}) // Only used as a component in other annotations
 @Retention(RetentionPolicy.RUNTIME)
-// TODO repeatable
 public @interface ContainerValueExtractorBeanReference {
 
 	Class<? extends ContainerValueExtractor> type();
