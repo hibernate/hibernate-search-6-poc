@@ -9,14 +9,14 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.i
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.MarkerBuilder;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMappingCollector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMetadataContributor;
-import org.hibernate.search.v6poc.entity.pojo.model.augmented.building.spi.PojoAugmentedModelCollectorPropertyNode;
+import org.hibernate.search.v6poc.entity.pojo.model.additionalmetadata.building.spi.PojoAdditionalMetadataCollectorPropertyNode;
 
 
 /**
  * @author Yoann Rodiere
  */
 public class MarkerMappingContributor
-		implements PojoMetadataContributor<PojoAugmentedModelCollectorPropertyNode, PojoMappingCollector> {
+		implements PojoMetadataContributor<PojoAdditionalMetadataCollectorPropertyNode, PojoMappingCollector> {
 
 	private final MarkerBuilder markerBuilder;
 
@@ -25,7 +25,7 @@ public class MarkerMappingContributor
 	}
 
 	@Override
-	public void contributeModel(PojoAugmentedModelCollectorPropertyNode collector) {
+	public void contributeModel(PojoAdditionalMetadataCollectorPropertyNode collector) {
 		collector.marker( markerBuilder );
 	}
 

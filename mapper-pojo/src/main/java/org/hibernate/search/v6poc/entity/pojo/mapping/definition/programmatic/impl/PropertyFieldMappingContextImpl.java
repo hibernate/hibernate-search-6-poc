@@ -23,12 +23,12 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMappingCo
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyFieldMappingContext;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyMappingContext;
-import org.hibernate.search.v6poc.entity.pojo.model.augmented.building.spi.PojoAugmentedModelCollectorPropertyNode;
+import org.hibernate.search.v6poc.entity.pojo.model.additionalmetadata.building.spi.PojoAdditionalMetadataCollectorPropertyNode;
 
 
 public class PropertyFieldMappingContextImpl extends DelegatingPropertyMappingContext
 		implements PropertyFieldMappingContext,
-		PojoMetadataContributor<PojoAugmentedModelCollectorPropertyNode, PojoMappingCollectorPropertyNode> {
+		PojoMetadataContributor<PojoAdditionalMetadataCollectorPropertyNode, PojoMappingCollectorPropertyNode> {
 
 	private final String fieldName;
 
@@ -44,7 +44,7 @@ public class PropertyFieldMappingContextImpl extends DelegatingPropertyMappingCo
 	}
 
 	@Override
-	public void contributeModel(PojoAugmentedModelCollectorPropertyNode collector) {
+	public void contributeModel(PojoAdditionalMetadataCollectorPropertyNode collector) {
 		// Nothing to do
 	}
 
