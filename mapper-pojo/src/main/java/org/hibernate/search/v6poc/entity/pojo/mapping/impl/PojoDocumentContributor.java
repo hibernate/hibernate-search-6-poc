@@ -12,6 +12,10 @@ import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.index.spi.DocumentContributor;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessor;
 
+/**
+ * @param <E> The entity type mapped to the index.
+ * @param <D> The document type for the index.
+ */
 class PojoDocumentContributor<D extends DocumentElement, E> implements DocumentContributor<D> {
 
 	private final PojoIndexingProcessor<E> processor;

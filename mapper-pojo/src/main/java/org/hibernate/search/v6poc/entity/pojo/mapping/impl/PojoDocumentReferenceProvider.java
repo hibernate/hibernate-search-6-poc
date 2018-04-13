@@ -8,10 +8,12 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.impl;
 
 import java.util.function.Supplier;
 
-import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.index.spi.DocumentReferenceProvider;
 
-class PojoDocumentReferenceProvider<D extends DocumentElement, E> implements DocumentReferenceProvider {
+/**
+ * @param <E> The entity type mapped to an index.
+ */
+class PojoDocumentReferenceProvider<E> implements DocumentReferenceProvider {
 
 	private final RoutingKeyProvider<E> routingKeyProvider;
 
