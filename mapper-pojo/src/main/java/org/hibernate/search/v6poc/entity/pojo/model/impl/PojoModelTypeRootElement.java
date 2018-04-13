@@ -12,6 +12,9 @@ import org.hibernate.search.v6poc.entity.pojo.model.PojoModelType;
 import org.hibernate.search.v6poc.entity.pojo.model.additionalmetadata.building.impl.PojoTypeAdditionalMetadataProvider;
 import org.hibernate.search.v6poc.entity.pojo.model.path.impl.BoundPojoModelPathTypeNode;
 
+/**
+ * @param <T> The type used as a root element.
+ */
 public class PojoModelTypeRootElement<T> extends AbstractPojoModelElement<T> implements PojoModelType {
 
 	private final BoundPojoModelPathTypeNode<T> modelPath;

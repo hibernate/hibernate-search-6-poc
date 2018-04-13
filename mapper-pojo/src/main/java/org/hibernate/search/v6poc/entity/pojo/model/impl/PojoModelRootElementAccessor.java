@@ -9,6 +9,9 @@ package org.hibernate.search.v6poc.entity.pojo.model.impl;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 
+/**
+ * @param <T> The type of the root element.
+ */
 class PojoModelRootElementAccessor<T> implements PojoModelElementAccessor<T> {
 
 	PojoModelRootElementAccessor() {
