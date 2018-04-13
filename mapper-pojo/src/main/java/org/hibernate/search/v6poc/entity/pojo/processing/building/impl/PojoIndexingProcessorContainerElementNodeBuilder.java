@@ -18,7 +18,14 @@ import org.hibernate.search.v6poc.entity.pojo.model.path.impl.BoundPojoModelPath
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessor;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessorContainerElementNode;
 
-public class PojoIndexingProcessorContainerElementNodeBuilder<P extends C, C, V> extends AbstractPojoProcessorNodeBuilder<C> {
+/**
+ * A builder of {@link PojoIndexingProcessorContainerElementNode}.
+ *
+ * @param <P> The type of the property on which the container value extractor is applied.
+ * @param <C> The type of containers accepted by the container value extractor.
+ * @param <V> The type of values extracted by the container value extractor.
+ */
+class PojoIndexingProcessorContainerElementNodeBuilder<P extends C, C, V> extends AbstractPojoProcessorNodeBuilder<C> {
 
 	private final BoundPojoModelPathValueNode<?, P, V> modelPath;
 	private final ContainerValueExtractor<C, V> extractor;

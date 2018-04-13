@@ -31,6 +31,11 @@ import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProces
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessorPropertyNode;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessorTypeNode;
 
+/**
+ * A builder of {@link PojoIndexingProcessorTypeNode}.
+ *
+ * @param <T> The processed type
+ */
 public class PojoIndexingProcessorTypeNodeBuilder<T> extends AbstractPojoProcessorNodeBuilder<T>
 		implements PojoMappingCollectorTypeNode {
 

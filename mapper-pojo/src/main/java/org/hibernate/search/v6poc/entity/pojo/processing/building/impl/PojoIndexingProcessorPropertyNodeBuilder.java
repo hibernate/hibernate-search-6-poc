@@ -35,7 +35,13 @@ import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoGenericTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessor;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessorPropertyNode;
 
-public class PojoIndexingProcessorPropertyNodeBuilder<T, P> extends AbstractPojoProcessorNodeBuilder<T>
+/**
+ * A builder of {@link PojoIndexingProcessorPropertyNode}.
+ *
+ * @param <T> The property holder type
+ * @param <P> The property type
+ */
+class PojoIndexingProcessorPropertyNodeBuilder<T, P> extends AbstractPojoProcessorNodeBuilder<T>
 		implements PojoMappingCollectorPropertyNode {
 
 	private final BoundPojoModelPathPropertyNode<T, P> modelPath;

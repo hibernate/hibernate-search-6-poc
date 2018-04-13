@@ -28,7 +28,14 @@ import org.hibernate.search.v6poc.entity.pojo.model.path.impl.BoundPojoModelPath
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessor;
 import org.hibernate.search.v6poc.entity.pojo.processing.impl.PojoIndexingProcessorValueBridgeNode;
 
-public class PojoIndexingProcessorValueNodeBuilderDelegate<P, V> implements PojoMappingCollectorValueNode {
+/**
+ * A delegate to be used by {@link PojoIndexingProcessorPropertyNodeBuilder}
+ * and {@link PojoIndexingProcessorContainerElementNodeBuilder}.
+ *
+ * @param <P> The type of the property from which values are retrieved (either directly or using an extractor).
+ * @param <V> The type of values extracted by the container value extractor.
+ */
+class PojoIndexingProcessorValueNodeBuilderDelegate<P, V> implements PojoMappingCollectorValueNode {
 
 	private final BoundPojoModelPathValueNode<?, P, V> modelPath;
 
