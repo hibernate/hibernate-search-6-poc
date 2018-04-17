@@ -11,18 +11,15 @@ import java.lang.invoke.MethodHandles;
 import java.util.concurrent.CompletableFuture;
 
 import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.Term;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexEntry;
-import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFields;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
-import org.hibernate.search.v6poc.backend.lucene.search.impl.LuceneQueries;
 import org.hibernate.search.v6poc.util.impl.common.Futures;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 /**
  * @author Guillaume Smet
  */
-public class UpdateEntryLuceneWork extends AbstractLuceneWork<Long> {
+public abstract class AbstractUpdateEntryLuceneWork extends AbstractLuceneWork<Long> {
 
 	private static final Log log = LoggerFactory.make( Log.class, MethodHandles.lookup() );
 
@@ -32,7 +29,7 @@ public class UpdateEntryLuceneWork extends AbstractLuceneWork<Long> {
 
 	private final LuceneIndexEntry indexEntry;
 
-	public UpdateEntryLuceneWork(String indexName, String tenantId, String id, LuceneIndexEntry indexEntry) {
+	protected AbstractUpdateEntryLuceneWork(String indexName, String tenantId, String id, LuceneIndexEntry indexEntry) {
 		super( "updateEntry", indexName );
 		this.tenantId = tenantId;
 		this.id = id;
@@ -47,21 +44,14 @@ public class UpdateEntryLuceneWork extends AbstractLuceneWork<Long> {
 
 	private long updateEntry(IndexWriter indexWriter) {
 		try {
-			if ( tenantId == null ) {
-				// if the tenantId is null, we can do an atomic update
-				// we don't expose the query construction in LuceneQueries as it is not considered safe and should be
-				// used with care
-				return indexWriter.updateDocuments( new Term( LuceneFields.idFieldName(), id ), indexEntry );
-			}
-			else {
-				indexWriter.deleteDocuments( LuceneQueries.documentIdQuery( tenantId, id ) );
-				return indexWriter.addDocuments( indexEntry );
-			}
+			return doUpdateEntry( indexWriter, tenantId, id, indexEntry );
 		}
 		catch (IOException e) {
 			throw log.unableToIndexEntry( indexName, tenantId, id, e );
 		}
 	}
+
+	protected abstract long doUpdateEntry(IndexWriter indexWriter, String tenantId, String id, LuceneIndexEntry indexEntry) throws IOException;
 
 	@Override
 	public String toString() {

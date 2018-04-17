@@ -11,17 +11,14 @@ import java.lang.invoke.MethodHandles;
 import java.util.concurrent.CompletableFuture;
 
 import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.Term;
-import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFields;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
-import org.hibernate.search.v6poc.backend.lucene.search.impl.LuceneQueries;
 import org.hibernate.search.v6poc.util.impl.common.Futures;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 /**
  * @author Guillaume Smet
  */
-public class DeleteEntryLuceneWork extends AbstractLuceneWork<Long> {
+public abstract class AbstractDeleteEntryLuceneWork extends AbstractLuceneWork<Long> {
 
 	private static final Log log = LoggerFactory.make( Log.class, MethodHandles.lookup() );
 
@@ -29,7 +26,7 @@ public class DeleteEntryLuceneWork extends AbstractLuceneWork<Long> {
 
 	private final String id;
 
-	public DeleteEntryLuceneWork(String indexName, String tenantId, String id) {
+	public AbstractDeleteEntryLuceneWork(String indexName, String tenantId, String id) {
 		super( "deleteEntry", indexName );
 		this.tenantId = tenantId;
 		this.id = id;
@@ -43,17 +40,14 @@ public class DeleteEntryLuceneWork extends AbstractLuceneWork<Long> {
 
 	private Long deleteDocuments(IndexWriter indexWriter) {
 		try {
-			if ( tenantId == null ) {
-				return indexWriter.deleteDocuments( new Term( LuceneFields.idFieldName(), id ) );
-			}
-			else {
-				return indexWriter.deleteDocuments( LuceneQueries.documentIdQuery( tenantId, id ) );
-			}
+			return doDeleteDocuments( indexWriter, tenantId, id );
 		}
 		catch (IOException e) {
 			throw log.unableToDeleteEntryFromIndex( indexName, tenantId, id, e );
 		}
 	}
+
+	protected abstract long doDeleteDocuments(IndexWriter indexWriter, String tenantId, String id) throws IOException;
 
 	@Override
 	public String toString() {
