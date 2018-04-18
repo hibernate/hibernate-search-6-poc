@@ -6,6 +6,7 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.search.dsl.sort;
 
+import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
 import org.hibernate.search.v6poc.search.dsl.sort.FieldSortContext;
 import org.hibernate.search.v6poc.search.dsl.sort.NonEmptySortContext;
@@ -21,5 +22,7 @@ import org.hibernate.search.v6poc.search.dsl.sort.SearchSortContainerContext;
 public interface LuceneSearchSortContainerContext<N> extends SearchSortContainerContext<N> {
 
 	NonEmptySortContext<N> fromLuceneSortField(SortField luceneSortField);
+
+	NonEmptySortContext<N> fromLuceneSort(Sort luceneSort);
 
 }

@@ -6,20 +6,23 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.search.sort.impl;
 
+import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
 import org.hibernate.search.v6poc.search.sort.spi.SearchSortContributor;
 
 
-class UserProvidedLuceneSortFieldSortContributor implements SearchSortContributor<LuceneSearchSortCollector> {
+class UserProvidedLuceneSortSortContributor implements SearchSortContributor<LuceneSearchSortCollector> {
 
-	private final SortField luceneSortField;
+	private final Sort luceneSort;
 
-	UserProvidedLuceneSortFieldSortContributor(SortField luceneSortField) {
-		this.luceneSortField = luceneSortField;
+	UserProvidedLuceneSortSortContributor(Sort luceneSort) {
+		this.luceneSort = luceneSort;
 	}
 
 	@Override
 	public void contribute(LuceneSearchSortCollector collector) {
-		collector.collectSortField( luceneSortField );
+		for ( SortField luceneSortField : luceneSort.getSort() ) {
+			collector.collectSortField( luceneSortField );
+		}
 	}
 }
