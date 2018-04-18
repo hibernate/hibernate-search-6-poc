@@ -6,12 +6,15 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.search.sort.impl;
 
+import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
 import org.hibernate.search.v6poc.search.sort.spi.SearchSortContributor;
 import org.hibernate.search.v6poc.search.sort.spi.SearchSortFactory;
 
 public interface LuceneSearchSortFactory extends SearchSortFactory<LuceneSearchSortCollector> {
 
-	SearchSortContributor<LuceneSearchSortCollector> fromLuceneSortField(SortField sortField);
+	SearchSortContributor<LuceneSearchSortCollector> fromLuceneSortField(SortField luceneSortField);
+
+	SearchSortContributor<LuceneSearchSortCollector> fromLuceneSort(Sort luceneSort);
 
 }
