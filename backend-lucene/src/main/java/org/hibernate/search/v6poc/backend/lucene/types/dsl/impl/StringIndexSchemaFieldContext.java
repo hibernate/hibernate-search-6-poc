@@ -19,6 +19,7 @@ import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexFieldA
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaFieldNode;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaNodeCollector;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaObjectNode;
+import org.hibernate.search.v6poc.backend.lucene.types.codec.impl.StringFieldCodec;
 import org.hibernate.search.v6poc.backend.lucene.types.formatter.impl.StringFieldFormatter;
 import org.hibernate.search.v6poc.backend.lucene.types.predicate.impl.StringFieldQueryFactory;
 import org.hibernate.search.v6poc.backend.lucene.types.sort.impl.StringFieldSortContributor;
@@ -61,7 +62,8 @@ public class StringIndexSchemaFieldContext extends AbstractLuceneIndexSchemaFiel
 		LuceneIndexSchemaFieldNode<String> schemaNode = new LuceneIndexSchemaFieldNode<>(
 				parentNode,
 				getFieldName(),
-				new StringFieldFormatter(
+				StringFieldFormatter.INSTANCE,
+				new StringFieldCodec(
 						sortable,
 						getFieldType( getStore(), analyzer != null ),
 						analyzerOrNormalizer

@@ -12,6 +12,7 @@ import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexFieldA
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaFieldNode;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaNodeCollector;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaObjectNode;
+import org.hibernate.search.v6poc.backend.lucene.types.codec.impl.IntegerFieldCodec;
 import org.hibernate.search.v6poc.backend.lucene.types.formatter.impl.IntegerFieldFormatter;
 import org.hibernate.search.v6poc.backend.lucene.types.predicate.impl.IntegerFieldQueryFactory;
 import org.hibernate.search.v6poc.backend.lucene.types.sort.impl.IntegerFieldSortContributor;
@@ -39,7 +40,8 @@ public class IntegerIndexSchemaFieldContext extends AbstractLuceneIndexSchemaFie
 		LuceneIndexSchemaFieldNode<Integer> schemaNode = new LuceneIndexSchemaFieldNode<>(
 				parentNode,
 				getFieldName(),
-				new IntegerFieldFormatter( getStore(), sortable ),
+				IntegerFieldFormatter.INSTANCE,
+				new IntegerFieldCodec( getStore(), sortable ),
 				IntegerFieldQueryFactory.INSTANCE,
 				IntegerFieldSortContributor.INSTANCE
 		);
