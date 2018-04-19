@@ -18,7 +18,7 @@ Backends:: The backends are where "things get done".
 They implement common indexing and searching interfaces for use by the mappers
 through "index managers", each providing access to one index.
 Examples include the Lucene backend, delegating to the Lucene library,
-and the Elasticsearch backend, delegating to a remove Elasticsearch cluster.
+and the Elasticsearch backend, delegating to a remote Elasticsearch cluster.
 +
 NOTE: The word "backend" may refer either to a whole Maven module
 (e.g. "the Elasticsearch backend") or to a single, central class in this module
@@ -67,7 +67,7 @@ Finally, the purpose of the backend and its index managers
 is to execute the actual work and return results when relevant.
 
 Some elements in the architecture may seem redundant in this example.
-For example, why expose the the `SearchMappingRepository`?
+For example, why expose the `SearchMappingRepository`?
 The main reason is to support more complex user configurations.
 The example below shows a Hibernate Search instance with two mappings: a POJO mapping and a JSON mapping.
 
@@ -114,7 +114,7 @@ allowing to start mapper bootstrapping with everything that is necessary:
 * organized metadata (`TypeMetadataContributorProvider`);
 * one handle to the backend layer (`IndexManagerBuildingState`) for each indexed type.
 
-All this is provided to the mapper trough the `MapperFactory` and `Mapper` interfaces.
+All this is provided to the mapper through the `MapperFactory` and `Mapper` interfaces.
 
 Mapper bootstrapping is really up to the mapper,
 but one thing that won't change is what mappers can do with the handles to the backend layer.
@@ -144,7 +144,7 @@ but it then needs to store the extracted data at the appropriate place in the do
 The accessor is responsible for exactly this: given a document,
 it sets the value of the field it represents to some mapper-provided value.
 
-The other part of indexing (or altering the index in any way) is to give an order the index manager:
+The other part of indexing (or altering the index in any way) is to give an order to the index manager:
 "add this document", "delete this document", "flush the index", ...
 This is done through the index "workers": `ChangesetIndexWorker` and `StreamIndexWorker`.
 The mapper should create a worker whenever it needs to execute a series of works.
@@ -312,7 +312,7 @@ image::internals-mapper-pojo-indexingprocessor-example1-builder.svg[Indexing pro
 
 While the mapped model was originally organized as a cyclic graph,
 the indexing processor nodes are organized as a tree, which means among others it is acyclic.
-This is necessary to be able to process entities in a straightforard way at runtime,
+This is necessary to be able to process entities in a straightforward way at runtime,
 without relying on complex logic, mutable states or metadata lookups.
 
 This transformation from a potentially cyclic graph into a tree
@@ -341,7 +341,7 @@ As a result, this node will be ignored when creating the indexing processor.
 ==== Implicit reindexing resolvers
 
 Reindexing resolvers are the objects responsible for determining, whenever an entity changes,
-which other entities include that changed entity in their indexed form and should thus be re-indexed.
+which other entities include that changed entity in their indexed form and should thus be reindexed.
 
 Similarly to indexing processors, they are organized as a tree,
 each node being an implementation of `PojoImplicitReindexingResolver`.
@@ -398,7 +398,7 @@ As we build the indexing processors, we will also build another tree to represen
 from the root type (`IndexedEntityClass`) to each dependency.
 This is where dependency collectors come into play.
 
-Dependency collectors are organized approximately same way as the indexing processor builders, as a tree.
+Dependency collectors are organized approximately the same way as the indexing processor builders, as a tree.
 A root node is provided to the root builder, then one node will be created for each of his children, and so on.
 Along the way, each builder will be able to notify its dependency collector
 that it will actually build an indexing processor (it wasn't trimmed down due to some optimization),
@@ -480,7 +480,7 @@ but have different inverse sides, and even different target types, depending on 
 There are all sorts of intricate corner cases to take into account, but they are for the main part addressed this way:
 +
  * Whenever we create a type node in the reindexing resolver building tree,
-we take care to determine all the possible concrete entity type for the considered type,
+we take care to determine all the possible concrete entity types for the considered type,
 and create one reindexing resolver type node builder per possible entity type.
  * Whenever we resolve the inverse side of an association,
 take care to resolve it for every concrete "source" entity type,
