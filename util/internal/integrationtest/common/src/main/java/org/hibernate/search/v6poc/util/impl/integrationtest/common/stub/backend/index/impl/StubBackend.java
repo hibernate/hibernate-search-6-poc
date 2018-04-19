@@ -6,15 +6,16 @@
  */
 package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.impl;
 
+import org.hibernate.search.v6poc.backend.Backend;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManagerBuilder;
-import org.hibernate.search.v6poc.backend.spi.Backend;
+import org.hibernate.search.v6poc.backend.spi.BackendImplementor;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.StubBackendBehavior;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.StubBackendUtils;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.impl.StubDocumentElement;
 
-public class StubBackend implements Backend<StubDocumentElement> {
+public class StubBackend implements BackendImplementor<StubDocumentElement>, Backend {
 
 	private final String name;
 
@@ -25,6 +26,11 @@ public class StubBackend implements Backend<StubDocumentElement> {
 	@Override
 	public String toString() {
 		return StubBackend.class.getSimpleName() + "[" + name + "]";
+	}
+
+	@Override
+	public Backend toAPI() {
+		return this;
 	}
 
 	public StubBackendBehavior getBehavior() {

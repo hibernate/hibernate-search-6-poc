@@ -6,6 +6,7 @@
  */
 package org.hibernate.search.v6poc.engine;
 
+import org.hibernate.search.v6poc.backend.Backend;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.impl.SearchMappingRepositoryBuilderImpl;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingKey;
@@ -13,6 +14,8 @@ import org.hibernate.search.v6poc.entity.mapping.spi.MappingKey;
 public interface SearchMappingRepository extends AutoCloseable {
 
 	<M> M getMapping(MappingKey<M> mappingKey);
+
+	Backend getBackend(String backendName);
 
 	@Override
 	void close();

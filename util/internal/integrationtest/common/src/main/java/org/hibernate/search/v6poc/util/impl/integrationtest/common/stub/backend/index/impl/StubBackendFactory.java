@@ -6,14 +6,14 @@
  */
 package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.impl;
 
-import org.hibernate.search.v6poc.backend.spi.Backend;
+import org.hibernate.search.v6poc.backend.spi.BackendImplementor;
 import org.hibernate.search.v6poc.backend.spi.BackendFactory;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 
 public class StubBackendFactory implements BackendFactory {
 	@Override
-	public Backend<?> create(String name, BuildContext context, ConfigurationPropertySource propertySource) {
+	public BackendImplementor<?> create(String name, BuildContext context, ConfigurationPropertySource propertySource) {
 		return new StubBackend( name );
 	}
 }

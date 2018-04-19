@@ -9,6 +9,7 @@ package org.hibernate.search.v6poc.backend.elasticsearch;
 import java.lang.invoke.MethodHandles;
 import java.util.Optional;
 
+import org.hibernate.search.v6poc.backend.Backend;
 import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldContext;
 import org.hibernate.search.v6poc.backend.document.model.spi.FieldModelExtension;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.ElasticsearchIndexSchemaFieldContext;
@@ -21,6 +22,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.search.predicate.impl.El
 import org.hibernate.search.v6poc.backend.elasticsearch.search.predicate.impl.ElasticsearchSearchPredicateFactory;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.sort.impl.ElasticsearchSearchSortCollector;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.sort.impl.ElasticsearchSearchSortFactory;
+import org.hibernate.search.v6poc.backend.spi.BackendExtension;
 import org.hibernate.search.v6poc.search.dsl.predicate.SearchPredicateContainerContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.spi.SearchPredicateContainerContextExtension;
 import org.hibernate.search.v6poc.search.dsl.predicate.spi.SearchPredicateDslContext;
@@ -34,7 +36,8 @@ import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 public final class ElasticsearchExtension<N>
 		implements SearchPredicateContainerContextExtension<N, ElasticsearchSearchPredicateContainerContext<N>>,
 		SearchSortContainerContextExtension<N, ElasticsearchSearchSortContainerContext<N>>,
-		FieldModelExtension<ElasticsearchIndexSchemaFieldContext> {
+		FieldModelExtension<ElasticsearchIndexSchemaFieldContext>,
+		BackendExtension<ElasticsearchBackend> {
 
 	private static final Log log = LoggerFactory.make( Log.class, MethodHandles.lookup() );
 
@@ -100,6 +103,16 @@ public final class ElasticsearchExtension<N>
 	public ElasticsearchIndexSchemaFieldContext extendOrFail(IndexSchemaFieldContext original) {
 		if ( original instanceof ElasticsearchIndexSchemaFieldContext ) {
 			return (ElasticsearchIndexSchemaFieldContext) original;
+		}
+		else {
+			throw log.elasticsearchExtensionOnUnknownType( original );
+		}
+	}
+
+	@Override
+	public ElasticsearchBackend extendOrFail(Backend original) {
+		if ( original instanceof ElasticsearchBackend ) {
+			return (ElasticsearchBackend) original;
 		}
 		else {
 			throw log.elasticsearchExtensionOnUnknownType( original );

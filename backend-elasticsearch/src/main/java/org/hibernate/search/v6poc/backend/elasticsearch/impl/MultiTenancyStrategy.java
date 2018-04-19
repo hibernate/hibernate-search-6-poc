@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.backend.elasticsearch.impl;
 
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.RootTypeMapping;
-import org.hibernate.search.v6poc.backend.spi.Backend;
+import org.hibernate.search.v6poc.backend.spi.BackendImplementor;
 
 import com.google.gson.JsonObject;
 
@@ -79,5 +79,5 @@ public interface MultiTenancyStrategy {
 	 * @param backend The backend.
 	 * @param tenantId The tenant id.
 	 */
-	void checkTenantId(Backend<?> backend, String tenantId);
+	void checkTenantId(BackendImplementor<?> backend, String tenantId);
 }

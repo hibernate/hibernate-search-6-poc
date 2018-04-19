@@ -18,7 +18,7 @@ import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.lucene.search.impl.LuceneQueries;
 import org.hibernate.search.v6poc.backend.lucene.work.impl.QueryBasedDeleteEntryLuceneWork;
 import org.hibernate.search.v6poc.backend.lucene.work.impl.QueryBasedUpdateEntryLuceneWork;
-import org.hibernate.search.v6poc.backend.spi.Backend;
+import org.hibernate.search.v6poc.backend.spi.BackendImplementor;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 class DiscriminatorMultiTenancyStrategyImpl implements MultiTenancyStrategy {
@@ -51,7 +51,7 @@ class DiscriminatorMultiTenancyStrategyImpl implements MultiTenancyStrategy {
 	}
 
 	@Override
-	public void checkTenantId(Backend<?> backend, String tenantId) {
+	public void checkTenantId(BackendImplementor<?> backend, String tenantId) {
 		if ( tenantId == null ) {
 			throw log.multiTenancyEnabledButNoTenantIdProvided( backend );
 		}

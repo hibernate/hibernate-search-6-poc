@@ -21,7 +21,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.ES5NormsTypeJs
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.GsonProvider;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWorkFactory;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.StubElasticsearchWorkFactory;
-import org.hibernate.search.v6poc.backend.spi.Backend;
+import org.hibernate.search.v6poc.backend.spi.BackendImplementor;
 import org.hibernate.search.v6poc.backend.spi.BackendFactory;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.cfg.spi.ConfigurationProperty;
@@ -49,7 +49,7 @@ public class ElasticsearchBackendFactory implements BackendFactory {
 					.build();
 
 	@Override
-	public Backend<?> create(String name, BuildContext context, ConfigurationPropertySource propertySource) {
+	public BackendImplementor<?> create(String name, BuildContext context, ConfigurationPropertySource propertySource) {
 		ElasticsearchClientFactory clientFactory = new DefaultElasticsearchClientFactory();
 
 		boolean logPrettyPrinting = LOG_JSON_PRETTY_PRINTING.get( propertySource );
@@ -65,7 +65,7 @@ public class ElasticsearchBackendFactory implements BackendFactory {
 
 		ElasticsearchWorkFactory workFactory = new StubElasticsearchWorkFactory( dialectSpecificGsonProvider );
 
-		return new ElasticsearchBackend( client, name, workFactory, getMultiTenancyStrategy( name, propertySource ) );
+		return new ElasticsearchBackendImpl( client, name, workFactory, getMultiTenancyStrategy( name, propertySource ) );
 	}
 
 	private GsonBuilder createES5GsonBuilderBase() {
