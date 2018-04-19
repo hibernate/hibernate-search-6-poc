@@ -4,7 +4,7 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.hibernate.search.v6poc.backend.lucene.document.model.impl;
+package org.hibernate.search.v6poc.backend.lucene.types.dsl.impl;
 
 import java.lang.invoke.MethodHandles;
 
@@ -16,6 +16,11 @@ import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedCo
 import org.hibernate.search.v6poc.backend.document.model.Sortable;
 import org.hibernate.search.v6poc.backend.document.model.Store;
 import org.hibernate.search.v6poc.backend.lucene.document.model.LuceneIndexSchemaFieldTypedContext;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFieldSortContributor;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaNodeCollector;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaNodeContributor;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaObjectNode;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.SortMissingValue;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.search.dsl.sort.SortOrder;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;

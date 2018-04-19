@@ -4,7 +4,7 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.hibernate.search.v6poc.backend.lucene.document.model.impl;
+package org.hibernate.search.v6poc.backend.lucene.types.dsl.impl;
 
 import java.util.Objects;
 
@@ -28,6 +28,13 @@ import org.hibernate.search.v6poc.backend.document.model.Sortable;
 import org.hibernate.search.v6poc.backend.document.model.Store;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneDocumentBuilder;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexFieldAccessor;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFieldFormatter;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFieldQueryFactory;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaFieldNode;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaNodeCollector;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaObjectNode;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.MatchQueryOptions;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.RangeQueryOptions;
 import org.hibernate.search.v6poc.backend.lucene.search.sort.impl.LuceneSearchSortCollector;
 import org.hibernate.search.v6poc.backend.lucene.util.impl.AnalyzerUtils;
 import org.hibernate.search.v6poc.search.dsl.sort.SortOrder;
@@ -35,7 +42,7 @@ import org.hibernate.search.v6poc.search.dsl.sort.SortOrder;
 /**
  * @author Guillaume Smet
  */
-class IndexSchemaFieldStringContext extends AbstractLuceneIndexSchemaFieldTypedContext<String> {
+public class IndexSchemaFieldStringContext extends AbstractLuceneIndexSchemaFieldTypedContext<String> {
 
 	private static final Analyzer STANDARD_ANALYZER = new StandardAnalyzer();
 
