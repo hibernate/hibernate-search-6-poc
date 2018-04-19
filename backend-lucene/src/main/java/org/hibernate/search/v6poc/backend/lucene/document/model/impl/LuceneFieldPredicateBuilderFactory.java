@@ -13,7 +13,7 @@ import org.hibernate.search.v6poc.search.predicate.spi.RangePredicateBuilder;
 /**
  * @author Guillaume Smet
  */
-public interface LuceneFieldQueryFactory {
+public interface LuceneFieldPredicateBuilderFactory {
 
 	MatchPredicateBuilder<LuceneSearchPredicateCollector> createMatchPredicateBuilder(String absoluteFieldPath);
 
