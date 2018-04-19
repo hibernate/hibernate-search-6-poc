@@ -7,7 +7,7 @@ to how Hibernate Search works.
 Knowledge of the Hibernate Search APIs and how to use them is a requirement to understand this section.
 
 [[internals-overall]]
-=== Overall view
+=== General overview
 
 This section focuses on describing what the different parts of Hibernate Search are at a high level
 and how they interact with each other.
@@ -38,7 +38,7 @@ start and stop Hibernate Search, and to "glue" mappers and backends together dur
 
 Those parts are strictly separated in order to allow to use them interchangeably.
 For instance the Elasticsearch backend could be used indifferently with a POJO mapper or a JSON mapper,
-and we will only have to implement once.
+and we will only have to implement the backend once.
 
 Here is an example of what Hibernate Search would look like at runtime, from a high level perspective:
 
@@ -50,13 +50,13 @@ A single POJO mapping, for instance, may support many indexed entities.
 The mapping was provided, during bootstrap, with several "index managers",
 each exposing SPIs allowing to search and index.
 The purpose of the mapping is to transform calls to their APIs into call to the index manager SPIs.
-This requires to perform conversions:
+This requires to perform conversions of:
 
-* of indexed data: the data manipulated by the mapping may take any form,
+* indexed data: the data manipulated by the mapping may take any form,
 but it has to be converted to a document accepted by the index manager.
-* of index references, e.g. a search query targeting classes `MyEntity` and `MyOtherEntity` must
+* index references, e.g. a search query targeting classes `MyEntity` and `MyOtherEntity` must
 instead target `index manager 1` and `index manager 2`.
-* of document references, e.g. a search query executed at the index manager level
+* document references, e.g. a search query executed at the index manager level
 may return "document 1 in index 1 matched the query",
 but the user wants to see "entity 1 of type MyEntity matched the query".
 
