@@ -11,5 +11,5 @@ package org.hibernate.search.v6poc.backend.lucene.document.model.impl;
  */
 public interface LuceneFieldFormatter<T> {
 
-	Object format(Object value);
+	T format(Object value);
 }
