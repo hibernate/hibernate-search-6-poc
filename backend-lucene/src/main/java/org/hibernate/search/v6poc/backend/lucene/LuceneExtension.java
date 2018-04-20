@@ -9,7 +9,6 @@ package org.hibernate.search.v6poc.backend.lucene;
 import java.lang.invoke.MethodHandles;
 import java.util.Optional;
 
-import org.hibernate.search.v6poc.backend.Backend;
 import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldContext;
 import org.hibernate.search.v6poc.backend.document.model.spi.FieldModelExtension;
 import org.hibernate.search.v6poc.backend.lucene.document.model.LuceneIndexSchemaFieldContext;
@@ -22,7 +21,6 @@ import org.hibernate.search.v6poc.backend.lucene.search.predicate.impl.LuceneSea
 import org.hibernate.search.v6poc.backend.lucene.search.predicate.impl.LuceneSearchPredicateFactory;
 import org.hibernate.search.v6poc.backend.lucene.search.sort.impl.LuceneSearchSortCollector;
 import org.hibernate.search.v6poc.backend.lucene.search.sort.impl.LuceneSearchSortFactory;
-import org.hibernate.search.v6poc.backend.spi.BackendExtension;
 import org.hibernate.search.v6poc.search.dsl.predicate.SearchPredicateContainerContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.spi.SearchPredicateContainerContextExtension;
 import org.hibernate.search.v6poc.search.dsl.predicate.spi.SearchPredicateDslContext;
@@ -36,8 +34,7 @@ import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 public final class LuceneExtension<N>
 		implements SearchPredicateContainerContextExtension<N, LuceneSearchPredicateContainerContext<N>>,
 		SearchSortContainerContextExtension<N, LuceneSearchSortContainerContext<N>>,
-		FieldModelExtension<LuceneIndexSchemaFieldContext>,
-		BackendExtension<LuceneBackend> {
+		FieldModelExtension<LuceneIndexSchemaFieldContext> {
 
 	private static final Log log = LoggerFactory.make( Log.class, MethodHandles.lookup() );
 
@@ -103,16 +100,6 @@ public final class LuceneExtension<N>
 	public LuceneIndexSchemaFieldContext extendOrFail(IndexSchemaFieldContext original) {
 		if ( original instanceof LuceneIndexSchemaFieldContext ) {
 			return (LuceneIndexSchemaFieldContext) original;
-		}
-		else {
-			throw log.luceneExtensionOnUnknownType( original );
-		}
-	}
-
-	@Override
-	public LuceneBackend extendOrFail(Backend original) {
-		if ( original instanceof LuceneBackend ) {
-			return (LuceneBackend) original;
 		}
 		else {
 			throw log.luceneExtensionOnUnknownType( original );
