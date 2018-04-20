@@ -6,8 +6,6 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.types.formatter.impl;
 
-import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFieldFormatter;
-
 public final class GeoPointFieldFormatter implements LuceneFieldFormatter<Void> {
 
 	public static final GeoPointFieldFormatter INSTANCE = new GeoPointFieldFormatter();

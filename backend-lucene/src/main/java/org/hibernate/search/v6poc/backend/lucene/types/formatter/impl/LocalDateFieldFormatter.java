@@ -8,8 +8,6 @@ package org.hibernate.search.v6poc.backend.lucene.types.formatter.impl;
 
 import java.time.LocalDate;
 
-import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFieldFormatter;
-
 public final class LocalDateFieldFormatter implements LuceneFieldFormatter<Long> {
 
 	public static final LocalDateFieldFormatter INSTANCE = new LocalDateFieldFormatter();

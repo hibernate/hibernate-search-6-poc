@@ -16,7 +16,6 @@ import org.apache.lucene.document.SortedDocValuesField;
 import org.apache.lucene.util.BytesRef;
 import org.hibernate.search.v6poc.backend.document.model.Sortable;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneDocumentBuilder;
-import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFieldCodec;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaObjectNode;
 import org.hibernate.search.v6poc.backend.lucene.util.impl.AnalyzerUtils;
 

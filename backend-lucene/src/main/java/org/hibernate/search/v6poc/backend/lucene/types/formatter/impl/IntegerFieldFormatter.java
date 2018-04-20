@@ -6,8 +6,6 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.types.formatter.impl;
 
-import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFieldFormatter;
-
 public final class IntegerFieldFormatter implements LuceneFieldFormatter<Integer> {
 
 	public static final IntegerFieldFormatter INSTANCE = new IntegerFieldFormatter();
