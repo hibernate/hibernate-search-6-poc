@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexModel;
 import org.hibernate.search.v6poc.backend.elasticsearch.impl.ElasticsearchBackendImpl;
 import org.hibernate.search.v6poc.backend.elasticsearch.logging.impl.Log;
+import org.hibernate.search.v6poc.backend.elasticsearch.search.impl.ElasticsearchSearchTargetModel;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTargetBuilder;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
@@ -48,7 +49,8 @@ class ElasticsearchIndexSearchTargetBuilder implements IndexSearchTargetBuilder 
 		// Use LinkedHashSet to ensure stable order when generating requests
 		Set<ElasticsearchIndexModel> indexModels = indexManagers.stream().map( ElasticsearchIndexManager::getModel )
 				.collect( Collectors.toCollection( LinkedHashSet::new ) );
-		return new ElasticsearchIndexSearchTarget( backend, indexModels );
+		ElasticsearchSearchTargetModel searchTargetModel = new ElasticsearchSearchTargetModel( indexModels );
+		return new ElasticsearchIndexSearchTarget( backend.getSearchContext(), searchTargetModel );
 	}
 
 	@Override
