@@ -16,7 +16,6 @@ import org.apache.lucene.index.IndexableField;
 import org.hibernate.search.v6poc.backend.document.model.dsl.Sortable;
 import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneDocumentBuilder;
-import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaObjectNode;
 
 public final class IntegerFieldCodec implements LuceneFieldCodec<Integer> {
 
@@ -30,20 +29,20 @@ public final class IntegerFieldCodec implements LuceneFieldCodec<Integer> {
 	}
 
 	@Override
-	public void encode(LuceneDocumentBuilder documentBuilder, LuceneIndexSchemaObjectNode parentNode, String fieldName, Integer value) {
+	public void encode(LuceneDocumentBuilder documentBuilder, String fieldName, Integer value) {
 		if ( value == null ) {
 			return;
 		}
 
 		if ( Store.YES.equals( store ) ) {
-			documentBuilder.addField( parentNode, new StoredField( fieldName, value ) );
+			documentBuilder.addField( new StoredField( fieldName, value ) );
 		}
 
 		if ( Sortable.YES.equals( sortable ) ) {
-			documentBuilder.addField( parentNode, new NumericDocValuesField( fieldName, value.longValue() ) );
+			documentBuilder.addField( new NumericDocValuesField( fieldName, value.longValue() ) );
 		}
 
-		documentBuilder.addField( parentNode, new IntPoint( fieldName, value ) );
+		documentBuilder.addField( new IntPoint( fieldName, value ) );
 	}
 
 	@Override
