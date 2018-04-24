@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.index.impl;
 
-import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.URLEncodedString;
+import org.hibernate.search.v6poc.backend.elasticsearch.util.impl.URLEncodedString;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.impl.ElasticsearchDocumentObjectBuilder;
 import org.hibernate.search.v6poc.backend.elasticsearch.multitenancy.impl.MultiTenancyStrategy;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWork;

@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.URLEncodedString;
+import org.hibernate.search.v6poc.backend.elasticsearch.util.impl.URLEncodedString;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.RootTypeMapping;
 
 /**

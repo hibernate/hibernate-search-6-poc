@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.backend.elasticsearch.work.impl;
 
 import java.util.Set;
 
-import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.URLEncodedString;
+import org.hibernate.search.v6poc.backend.elasticsearch.util.impl.URLEncodedString;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.RootTypeMapping;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.query.impl.SearchResultExtractor;
 import org.hibernate.search.v6poc.search.SearchResult;
