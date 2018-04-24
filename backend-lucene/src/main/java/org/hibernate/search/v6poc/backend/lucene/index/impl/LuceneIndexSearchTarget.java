@@ -11,10 +11,10 @@ import java.util.function.Function;
 
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTargetBase;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexModel;
-import org.hibernate.search.v6poc.backend.lucene.impl.LuceneBackendImplementor;
 import org.hibernate.search.v6poc.backend.lucene.index.spi.ReaderProvider;
 import org.hibernate.search.v6poc.backend.lucene.search.impl.LuceneSearchTargetModel;
 import org.hibernate.search.v6poc.backend.lucene.search.query.impl.LuceneSearchTargetContext;
+import org.hibernate.search.v6poc.backend.lucene.search.query.impl.SearchBackendContext;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.search.ObjectLoader;
@@ -32,9 +32,10 @@ class LuceneIndexSearchTarget extends IndexSearchTargetBase {
 	private final LuceneSearchTargetModel searchTargetModel;
 	private final SearchTargetContext<?> searchTargetContext;
 
-	LuceneIndexSearchTarget(LuceneBackendImplementor backend, Set<LuceneIndexModel> indexModels, Set<ReaderProvider> readerProviders) {
+	LuceneIndexSearchTarget(SearchBackendContext searchBackendContext,
+			Set<LuceneIndexModel> indexModels, Set<ReaderProvider> readerProviders) {
 		this.searchTargetModel = new LuceneSearchTargetModel( indexModels, readerProviders );
-		this.searchTargetContext = new LuceneSearchTargetContext( backend, searchTargetModel );
+		this.searchTargetContext = new LuceneSearchTargetContext( searchBackendContext, searchTargetModel );
 	}
 
 	@Override

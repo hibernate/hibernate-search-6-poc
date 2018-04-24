@@ -8,6 +8,7 @@ package org.hibernate.search.v6poc.backend.lucene.impl;
 
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneRootDocumentBuilder;
 import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.LuceneQueryWorkOrchestrator;
+import org.hibernate.search.v6poc.backend.lucene.search.query.impl.SearchBackendContext;
 import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWorkFactory;
 import org.hibernate.search.v6poc.backend.spi.BackendImplementor;
 
@@ -18,7 +19,7 @@ public interface LuceneBackendImplementor extends BackendImplementor<LuceneRootD
 
 	LuceneWorkFactory getWorkFactory();
 
-	LuceneQueryWorkOrchestrator getQueryOrchestrator();
-
 	MultiTenancyStrategy getMultiTenancyStrategy();
+
+	SearchBackendContext getSearchContext();
 }
