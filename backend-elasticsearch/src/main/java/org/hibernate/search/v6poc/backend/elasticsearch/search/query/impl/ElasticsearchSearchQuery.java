@@ -12,6 +12,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.util.impl.URLEncodedStri
 import org.hibernate.search.v6poc.backend.elasticsearch.orchestration.impl.ElasticsearchWorkOrchestrator;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWork;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWorkFactory;
+import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.SearchResultExtractor;
 import org.hibernate.search.v6poc.search.SearchQuery;
 import org.hibernate.search.v6poc.search.SearchResult;
 
