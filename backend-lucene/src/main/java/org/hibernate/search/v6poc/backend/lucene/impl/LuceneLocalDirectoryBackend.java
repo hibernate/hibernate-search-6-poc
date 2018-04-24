@@ -17,6 +17,7 @@ import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneRootDocumen
 import org.hibernate.search.v6poc.backend.lucene.index.impl.IndexingBackendContext;
 import org.hibernate.search.v6poc.backend.lucene.index.impl.LuceneDirectoryIndexManagerBuilder;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
+import org.hibernate.search.v6poc.backend.lucene.multitenancy.impl.MultiTenancyStrategy;
 import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.LuceneQueryWorkOrchestrator;
 import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.StubLuceneQueryWorkOrchestrator;
 import org.hibernate.search.v6poc.backend.lucene.search.query.impl.SearchBackendContext;

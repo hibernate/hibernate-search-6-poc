@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.backend.lucene.search.query.impl;
 import java.util.List;
 import java.util.function.Function;
 
-import org.hibernate.search.v6poc.backend.lucene.impl.MultiTenancyStrategy;
+import org.hibernate.search.v6poc.backend.lucene.multitenancy.impl.MultiTenancyStrategy;
 import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.LuceneQueryWorkOrchestrator;
 import org.hibernate.search.v6poc.backend.lucene.search.impl.LuceneQueries;
 import org.hibernate.search.v6poc.backend.lucene.search.impl.LuceneSearchQueryElementCollector;

@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.hibernate.search.v6poc.backend.lucene.impl.MultiTenancyStrategy;
+import org.hibernate.search.v6poc.backend.lucene.multitenancy.impl.MultiTenancyStrategy;
 import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.LuceneQueryWorkOrchestrator;
 import org.hibernate.search.v6poc.backend.lucene.search.impl.LuceneSearchTargetModel;
 import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWorkFactory;

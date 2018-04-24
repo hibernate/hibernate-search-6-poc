@@ -13,7 +13,7 @@ import java.util.Set;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexableField;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaObjectNode;
-import org.hibernate.search.v6poc.backend.lucene.impl.MultiTenancyStrategy;
+import org.hibernate.search.v6poc.backend.lucene.multitenancy.impl.MultiTenancyStrategy;
 
 /**
  * @author Guillaume Smet

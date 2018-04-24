@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.backend.lucene.work.impl;
 
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexEntry;
-import org.hibernate.search.v6poc.backend.lucene.impl.MultiTenancyStrategy;
+import org.hibernate.search.v6poc.backend.lucene.multitenancy.impl.MultiTenancyStrategy;
 import org.hibernate.search.v6poc.backend.lucene.search.query.impl.LuceneSearcher;
 
 

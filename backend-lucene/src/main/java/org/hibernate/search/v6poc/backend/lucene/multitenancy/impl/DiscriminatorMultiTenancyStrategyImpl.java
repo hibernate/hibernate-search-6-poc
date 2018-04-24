@@ -4,7 +4,7 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.hibernate.search.v6poc.backend.lucene.impl;
+package org.hibernate.search.v6poc.backend.lucene.multitenancy.impl;
 
 import java.lang.invoke.MethodHandles;
 
@@ -21,7 +21,7 @@ import org.hibernate.search.v6poc.backend.lucene.work.impl.QueryBasedUpdateEntry
 import org.hibernate.search.v6poc.backend.spi.BackendImplementor;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
-class DiscriminatorMultiTenancyStrategyImpl implements MultiTenancyStrategy {
+public class DiscriminatorMultiTenancyStrategyImpl implements MultiTenancyStrategy {
 
 	private static final Log log = LoggerFactory.make( Log.class, MethodHandles.lookup() );
 

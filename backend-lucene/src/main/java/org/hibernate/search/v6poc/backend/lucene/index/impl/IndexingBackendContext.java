@@ -11,7 +11,7 @@ import java.io.IOException;
 import org.hibernate.search.v6poc.backend.index.spi.ChangesetIndexWorker;
 import org.hibernate.search.v6poc.backend.index.spi.StreamIndexWorker;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneRootDocumentBuilder;
-import org.hibernate.search.v6poc.backend.lucene.impl.MultiTenancyStrategy;
+import org.hibernate.search.v6poc.backend.lucene.multitenancy.impl.MultiTenancyStrategy;
 import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.LuceneIndexWorkOrchestrator;
 import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWorkFactory;
 import org.hibernate.search.v6poc.backend.spi.BackendImplementor;

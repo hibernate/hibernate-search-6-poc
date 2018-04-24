@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 
 import org.hibernate.search.v6poc.backend.index.spi.ChangesetIndexWorker;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneRootDocumentBuilder;
-import org.hibernate.search.v6poc.backend.lucene.impl.MultiTenancyStrategy;
+import org.hibernate.search.v6poc.backend.lucene.multitenancy.impl.MultiTenancyStrategy;
 import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.LuceneIndexWorkOrchestrator;
 import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneIndexWork;
 import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWorkFactory;

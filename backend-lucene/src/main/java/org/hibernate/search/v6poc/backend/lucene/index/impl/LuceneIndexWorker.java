@@ -11,7 +11,7 @@ import org.hibernate.search.v6poc.backend.index.spi.DocumentReferenceProvider;
 import org.hibernate.search.v6poc.backend.index.spi.IndexWorker;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexEntry;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneRootDocumentBuilder;
-import org.hibernate.search.v6poc.backend.lucene.impl.MultiTenancyStrategy;
+import org.hibernate.search.v6poc.backend.lucene.multitenancy.impl.MultiTenancyStrategy;
 import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneIndexWork;
 import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWorkFactory;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
