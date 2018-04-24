@@ -10,10 +10,11 @@ import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaColl
 import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaNestingContext;
 import org.hibernate.search.v6poc.backend.lucene.document.model.dsl.LuceneIndexSchemaElement;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaNodeCollector;
+import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneRootIndexSchemaContributor;
 
 public class LuceneRootIndexSchemaCollectorImpl
 		extends AbstractLuceneIndexSchemaCollector<IndexSchemaTypeNodeBuilder>
-		implements IndexSchemaCollector {
+		implements IndexSchemaCollector, LuceneRootIndexSchemaContributor {
 
 	public LuceneRootIndexSchemaCollectorImpl() {
 		super( new IndexSchemaTypeNodeBuilder() );
@@ -34,6 +35,7 @@ public class LuceneRootIndexSchemaCollectorImpl
 		throw new UnsupportedOperationException( "explicitRouting not supported right now" );
 	}
 
+	@Override
 	public void contribute(LuceneIndexSchemaNodeCollector collector) {
 		nodeBuilder.contribute( collector );
 	}
