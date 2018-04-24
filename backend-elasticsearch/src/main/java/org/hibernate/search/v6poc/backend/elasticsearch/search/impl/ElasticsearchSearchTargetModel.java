@@ -10,7 +10,7 @@ import java.lang.invoke.MethodHandles;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
+import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
 import org.hibernate.search.v6poc.backend.elasticsearch.util.impl.URLEncodedString;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexModel;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexSchemaFieldNode;

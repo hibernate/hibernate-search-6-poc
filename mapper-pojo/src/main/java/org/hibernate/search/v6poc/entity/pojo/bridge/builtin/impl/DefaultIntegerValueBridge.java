@@ -6,8 +6,8 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.bridge.builtin.impl;
 
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldContext;
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTypedContext;
 import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
 
 public final class DefaultIntegerValueBridge implements ValueBridge<Integer, Integer> {

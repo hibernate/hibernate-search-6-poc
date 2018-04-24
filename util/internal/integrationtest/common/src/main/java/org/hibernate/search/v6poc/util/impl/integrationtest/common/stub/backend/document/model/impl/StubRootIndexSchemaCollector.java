@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.impl;
 
-import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaCollector;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaCollector;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.StubIndexSchemaNode;
 
 public class StubRootIndexSchemaCollector extends StubIndexSchemaCollector

@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
 import org.hibernate.search.v6poc.backend.index.spi.ChangesetIndexWorker;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManager;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;

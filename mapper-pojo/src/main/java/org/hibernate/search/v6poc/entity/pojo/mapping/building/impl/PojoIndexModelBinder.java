@@ -8,8 +8,8 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
 import java.util.Optional;
 
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 import org.hibernate.search.v6poc.entity.model.SearchModel;

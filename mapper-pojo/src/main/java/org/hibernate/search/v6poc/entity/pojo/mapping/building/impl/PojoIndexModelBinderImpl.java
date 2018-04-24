@@ -10,8 +10,8 @@ import java.lang.invoke.MethodHandles;
 import java.util.Optional;
 
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldContext;
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTypedContext;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;

@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.backend.elasticsearch.types.dsl.impl;
 
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.impl.DeferredInitializationIndexFieldAccessor;
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTerminalContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTerminalContext;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.impl.ElasticsearchIndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexSchemaFieldNode;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexSchemaNodeCollector;

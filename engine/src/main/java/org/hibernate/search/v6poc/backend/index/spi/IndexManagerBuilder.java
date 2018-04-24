@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.backend.index.spi;
 
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
-import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaCollector;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaCollector;
 
 /**
  * @author Yoann Rodiere

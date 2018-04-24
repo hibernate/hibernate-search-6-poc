@@ -13,8 +13,8 @@ import java.util.stream.Collector;
 
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
-import org.hibernate.search.v6poc.backend.document.model.Store;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
+import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
 import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoPoint;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;

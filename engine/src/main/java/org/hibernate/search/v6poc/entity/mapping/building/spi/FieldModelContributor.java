@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.entity.mapping.building.spi;
 
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTypedContext;
 
 /**
  * @author Yoann Rodiere

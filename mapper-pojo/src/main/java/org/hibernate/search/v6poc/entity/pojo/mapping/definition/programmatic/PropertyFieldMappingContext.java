@@ -6,8 +6,8 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic;
 
-import org.hibernate.search.v6poc.backend.document.model.Sortable;
-import org.hibernate.search.v6poc.backend.document.model.Store;
+import org.hibernate.search.v6poc.backend.document.model.dsl.Sortable;
+import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
 import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;

@@ -8,12 +8,12 @@ package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend
 
 import java.time.LocalDate;
 
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldContext;
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedContext;
-import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
-import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaNestingContext;
-import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaObjectField;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTypedContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaNestingContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaObjectField;
 import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.StubIndexSchemaNode;
 

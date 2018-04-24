@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.integrationtest.mapper.pojo;
 
-import org.hibernate.search.v6poc.backend.document.model.Store;
+import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
 import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoPoint;
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;

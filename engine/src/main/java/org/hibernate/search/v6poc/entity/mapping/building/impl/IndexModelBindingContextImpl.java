@@ -14,11 +14,11 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
-import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
-import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaCollector;
-import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaNestingContext;
-import org.hibernate.search.v6poc.backend.document.model.spi.ObjectFieldIndexSchemaCollector;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
+import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaCollector;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaNestingContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.ObjectFieldIndexSchemaCollector;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexSchemaContributionListener;
 import org.hibernate.search.v6poc.entity.model.SearchModel;

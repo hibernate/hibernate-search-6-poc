@@ -15,9 +15,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedContext;
-import org.hibernate.search.v6poc.backend.document.model.Sortable;
-import org.hibernate.search.v6poc.backend.document.model.Store;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTypedContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.Sortable;
+import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
 import org.hibernate.search.v6poc.engine.spi.BeanReference;
 import org.hibernate.search.v6poc.engine.spi.BeanResolver;
 import org.hibernate.search.v6poc.engine.spi.ImmutableBeanReference;

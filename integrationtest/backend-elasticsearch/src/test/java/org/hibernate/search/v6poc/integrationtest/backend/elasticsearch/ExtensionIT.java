@@ -12,7 +12,7 @@ import static org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.m
 import org.hibernate.search.v6poc.backend.Backend;
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
 import org.hibernate.search.v6poc.backend.elasticsearch.ElasticsearchBackend;
 import org.hibernate.search.v6poc.backend.elasticsearch.ElasticsearchExtension;
 import org.hibernate.search.v6poc.backend.index.spi.ChangesetIndexWorker;

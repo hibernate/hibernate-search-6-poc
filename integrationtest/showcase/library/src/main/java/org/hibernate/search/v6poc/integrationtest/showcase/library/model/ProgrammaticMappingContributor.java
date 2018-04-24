@@ -6,8 +6,8 @@
  */
 package org.hibernate.search.v6poc.integrationtest.showcase.library.model;
 
-import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
-import org.hibernate.search.v6poc.backend.document.model.Sortable;
+import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
+import org.hibernate.search.v6poc.backend.document.model.dsl.Sortable;
 import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmMappingContributor;
 import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmSearchMappingContributor;
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.GeoPointBridge;

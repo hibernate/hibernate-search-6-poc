@@ -8,9 +8,9 @@ package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend
 
 import java.util.function.Consumer;
 
-import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
-import org.hibernate.search.v6poc.backend.document.model.Sortable;
-import org.hibernate.search.v6poc.backend.document.model.Store;
+import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
+import org.hibernate.search.v6poc.backend.document.model.dsl.Sortable;
+import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.StubTreeNode;
 
 public final class StubIndexSchemaNode extends StubTreeNode<StubIndexSchemaNode> {

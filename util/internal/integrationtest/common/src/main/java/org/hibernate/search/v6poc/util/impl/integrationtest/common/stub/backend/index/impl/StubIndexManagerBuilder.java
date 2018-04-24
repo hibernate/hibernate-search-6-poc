@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.impl;
 
-import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaCollector;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaCollector;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManager;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManagerBuilder;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.impl.StubDocumentElement;

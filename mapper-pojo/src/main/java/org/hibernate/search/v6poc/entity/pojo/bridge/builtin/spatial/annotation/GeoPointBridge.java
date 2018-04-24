@@ -13,7 +13,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.hibernate.search.v6poc.backend.document.model.Store;
+import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
 import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeMapping;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeMappingBuilderReference;

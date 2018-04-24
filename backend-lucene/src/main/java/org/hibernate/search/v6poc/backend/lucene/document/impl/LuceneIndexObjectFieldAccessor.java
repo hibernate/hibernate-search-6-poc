@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.backend.lucene.document.impl;
 
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
-import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
+import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaObjectNode;
 
 

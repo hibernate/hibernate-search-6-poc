@@ -6,11 +6,11 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.index.impl;
 
-import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaCollector;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaCollector;
 import org.hibernate.search.v6poc.backend.elasticsearch.util.impl.URLEncodedString;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.impl.ElasticsearchDocumentObjectBuilder;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexModel;
-import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchRootIndexSchemaCollectorImpl;
+import org.hibernate.search.v6poc.backend.elasticsearch.document.model.dsl.impl.ElasticsearchRootIndexSchemaCollectorImpl;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.query.impl.SearchBackendContext;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManagerBuilder;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;

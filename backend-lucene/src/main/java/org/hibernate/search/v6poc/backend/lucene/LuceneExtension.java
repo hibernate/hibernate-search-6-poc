@@ -9,9 +9,9 @@ package org.hibernate.search.v6poc.backend.lucene;
 import java.lang.invoke.MethodHandles;
 import java.util.Optional;
 
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldContext;
-import org.hibernate.search.v6poc.backend.document.model.spi.FieldModelExtension;
-import org.hibernate.search.v6poc.backend.lucene.document.model.LuceneIndexSchemaFieldContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.FieldModelExtension;
+import org.hibernate.search.v6poc.backend.lucene.document.model.dsl.LuceneIndexSchemaFieldContext;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.lucene.search.dsl.predicate.LuceneSearchPredicateContainerContext;
 import org.hibernate.search.v6poc.backend.lucene.search.dsl.predicate.impl.LuceneSearchPredicateContainerContextImpl;

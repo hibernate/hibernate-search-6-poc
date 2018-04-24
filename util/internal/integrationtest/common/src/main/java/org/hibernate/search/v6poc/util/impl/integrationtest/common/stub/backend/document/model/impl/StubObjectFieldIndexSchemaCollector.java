@@ -6,9 +6,9 @@
  */
 package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.impl;
 
-import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaNestingContext;
-import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaObjectField;
-import org.hibernate.search.v6poc.backend.document.model.spi.ObjectFieldIndexSchemaCollector;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaNestingContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaObjectField;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.ObjectFieldIndexSchemaCollector;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.StubIndexSchemaNode;
 
 class StubObjectFieldIndexSchemaCollector extends StubIndexSchemaCollector

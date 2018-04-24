@@ -13,7 +13,7 @@ import org.hibernate.search.v6poc.backend.Backend;
 import org.hibernate.search.v6poc.backend.elasticsearch.ElasticsearchBackend;
 import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.ElasticsearchClient;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.impl.ElasticsearchDocumentObjectBuilder;
-import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchRootIndexSchemaCollectorImpl;
+import org.hibernate.search.v6poc.backend.elasticsearch.document.model.dsl.impl.ElasticsearchRootIndexSchemaCollectorImpl;
 import org.hibernate.search.v6poc.backend.elasticsearch.index.impl.ElasticsearchIndexManagerBuilder;
 import org.hibernate.search.v6poc.backend.elasticsearch.index.impl.IndexingBackendContext;
 import org.hibernate.search.v6poc.backend.elasticsearch.multitenancy.impl.MultiTenancyStrategy;

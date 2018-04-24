@@ -6,8 +6,8 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.bridge;
 
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldContext;
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTypedContext;
 
 /**
  * A bridge between a POJO-extracted value of type {@code T} and an index field of type {@code R}.

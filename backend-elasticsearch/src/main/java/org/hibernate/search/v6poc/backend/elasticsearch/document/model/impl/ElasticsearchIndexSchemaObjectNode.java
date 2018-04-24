@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl;
 
-import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
+import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
 
 /**
  * @author Yoann Rodiere

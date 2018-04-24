@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
+import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
 import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractorPath;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMappingCollectorPropertyNode;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMetadataContributor;

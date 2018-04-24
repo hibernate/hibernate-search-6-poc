@@ -9,9 +9,9 @@ package org.hibernate.search.v6poc.backend.elasticsearch;
 import java.lang.invoke.MethodHandles;
 import java.util.Optional;
 
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldContext;
-import org.hibernate.search.v6poc.backend.document.model.spi.FieldModelExtension;
-import org.hibernate.search.v6poc.backend.elasticsearch.document.model.ElasticsearchIndexSchemaFieldContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.FieldModelExtension;
+import org.hibernate.search.v6poc.backend.elasticsearch.document.model.dsl.ElasticsearchIndexSchemaFieldContext;
 import org.hibernate.search.v6poc.backend.elasticsearch.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.dsl.predicate.ElasticsearchSearchPredicateContainerContext;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.dsl.predicate.impl.ElasticsearchSearchPredicateContainerContextImpl;

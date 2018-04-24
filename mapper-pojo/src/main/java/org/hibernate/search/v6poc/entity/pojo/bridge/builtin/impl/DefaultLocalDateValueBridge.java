@@ -8,8 +8,8 @@ package org.hibernate.search.v6poc.entity.pojo.bridge.builtin.impl;
 
 import java.time.LocalDate;
 
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldContext;
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTypedContext;
 import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
 
 public final class DefaultLocalDateValueBridge implements ValueBridge<LocalDate, LocalDate> {

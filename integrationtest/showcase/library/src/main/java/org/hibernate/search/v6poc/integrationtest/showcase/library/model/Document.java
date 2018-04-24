@@ -17,8 +17,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
 import org.hibernate.Hibernate;
-import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
-import org.hibernate.search.v6poc.backend.document.model.Sortable;
+import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
+import org.hibernate.search.v6poc.backend.document.model.dsl.Sortable;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.DocumentId;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Field;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.IndexedEmbedded;

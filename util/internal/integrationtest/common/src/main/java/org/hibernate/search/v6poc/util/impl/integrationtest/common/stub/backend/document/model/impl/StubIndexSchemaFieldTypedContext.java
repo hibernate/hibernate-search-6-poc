@@ -7,9 +7,9 @@
 package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.impl;
 
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaFieldTypedContext;
-import org.hibernate.search.v6poc.backend.document.model.Sortable;
-import org.hibernate.search.v6poc.backend.document.model.Store;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTypedContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.Sortable;
+import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.StubIndexSchemaNode;
 
 class StubIndexSchemaFieldTypedContext<T> implements IndexSchemaFieldTypedContext<T> {

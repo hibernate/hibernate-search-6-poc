@@ -11,8 +11,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
-import org.hibernate.search.v6poc.backend.document.model.IndexSchemaElement;
-import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
+import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
 import org.hibernate.search.v6poc.entity.model.SearchModel;
 import org.hibernate.search.v6poc.entity.model.spi.MappableTypeModel;
 

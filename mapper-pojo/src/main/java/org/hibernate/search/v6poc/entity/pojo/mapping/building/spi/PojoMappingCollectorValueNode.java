@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.building.spi;
 
 import java.util.Set;
 
-import org.hibernate.search.v6poc.backend.document.model.ObjectFieldStorage;
+import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
 import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
