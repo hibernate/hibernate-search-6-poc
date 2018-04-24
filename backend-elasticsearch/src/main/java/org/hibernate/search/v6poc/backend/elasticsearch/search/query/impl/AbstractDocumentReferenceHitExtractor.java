@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.backend.elasticsearch.search.query.impl;
 
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
-import org.hibernate.search.v6poc.backend.elasticsearch.impl.MultiTenancyStrategy;
+import org.hibernate.search.v6poc.backend.elasticsearch.multitenancy.impl.MultiTenancyStrategy;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.impl.ElasticsearchDocumentReference;
 import org.hibernate.search.v6poc.search.DocumentReference;
 

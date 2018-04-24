@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.backend.elasticsearch.index.impl;
 
 import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.URLEncodedString;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.impl.ElasticsearchDocumentObjectBuilder;
-import org.hibernate.search.v6poc.backend.elasticsearch.impl.MultiTenancyStrategy;
+import org.hibernate.search.v6poc.backend.elasticsearch.multitenancy.impl.MultiTenancyStrategy;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWork;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWorkFactory;
 import org.hibernate.search.v6poc.backend.index.spi.DocumentContributor;

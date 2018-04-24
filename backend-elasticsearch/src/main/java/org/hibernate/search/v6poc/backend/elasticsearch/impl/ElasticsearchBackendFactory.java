@@ -19,6 +19,9 @@ import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.ES5FieldDataTy
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.ES5IndexTypeJsonAdapter;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.ES5NormsTypeJsonAdapter;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.GsonProvider;
+import org.hibernate.search.v6poc.backend.elasticsearch.multitenancy.impl.DiscriminatorMultiTenancyStrategyImpl;
+import org.hibernate.search.v6poc.backend.elasticsearch.multitenancy.impl.MultiTenancyStrategy;
+import org.hibernate.search.v6poc.backend.elasticsearch.multitenancy.impl.NoMultiTenancyStrategyImpl;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWorkFactory;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.StubElasticsearchWorkFactory;
 import org.hibernate.search.v6poc.backend.spi.BackendImplementor;

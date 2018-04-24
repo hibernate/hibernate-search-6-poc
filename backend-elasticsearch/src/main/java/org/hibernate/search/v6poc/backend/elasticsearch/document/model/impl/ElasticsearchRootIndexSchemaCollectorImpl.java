@@ -10,7 +10,7 @@ import org.hibernate.search.v6poc.backend.document.model.spi.IndexSchemaNestingC
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.ElasticsearchIndexSchemaElement;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.RootTypeMapping;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.RoutingType;
-import org.hibernate.search.v6poc.backend.elasticsearch.impl.MultiTenancyStrategy;
+import org.hibernate.search.v6poc.backend.elasticsearch.multitenancy.impl.MultiTenancyStrategy;
 
 public class ElasticsearchRootIndexSchemaCollectorImpl
 		extends AbstractElasticsearchIndexSchemaCollector<IndexSchemaRootTypeNodeBuilder> {

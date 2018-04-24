@@ -13,8 +13,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.Elasticsearc
 import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.URLEncodedString;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.impl.ElasticsearchDocumentObjectBuilder;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexModel;
-import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchRootIndexSchemaCollectorImpl;
-import org.hibernate.search.v6poc.backend.elasticsearch.impl.MultiTenancyStrategy;
+import org.hibernate.search.v6poc.backend.elasticsearch.multitenancy.impl.MultiTenancyStrategy;
 import org.hibernate.search.v6poc.backend.elasticsearch.orchestration.impl.ElasticsearchWorkOrchestrator;
 import org.hibernate.search.v6poc.backend.elasticsearch.orchestration.impl.StubElasticsearchWorkOrchestrator;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWork;
