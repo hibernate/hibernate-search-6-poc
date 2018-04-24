@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
-import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFields;
+import org.hibernate.search.v6poc.backend.lucene.util.impl.LuceneFields;
 
 /**
  * @author Guillaume Smet

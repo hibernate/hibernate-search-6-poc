@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.backend.lucene.document.model.dsl.impl;
 import org.hibernate.search.v6poc.backend.document.impl.DeferredInitializationIndexObjectFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexObjectFieldAccessor;
-import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneFields;
+import org.hibernate.search.v6poc.backend.lucene.util.impl.LuceneFields;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaNodeCollector;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaNodeContributor;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaObjectNode;

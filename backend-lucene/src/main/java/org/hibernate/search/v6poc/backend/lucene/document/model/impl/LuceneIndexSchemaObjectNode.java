@@ -7,6 +7,7 @@
 package org.hibernate.search.v6poc.backend.lucene.document.model.impl;
 
 import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
+import org.hibernate.search.v6poc.backend.lucene.util.impl.LuceneFields;
 
 /**
  * @author Guillaume Smet
