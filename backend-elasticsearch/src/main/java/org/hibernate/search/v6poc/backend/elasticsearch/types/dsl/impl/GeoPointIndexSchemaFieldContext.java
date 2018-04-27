@@ -15,6 +15,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esna
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.PropertyMapping;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
 import org.hibernate.search.v6poc.backend.elasticsearch.types.codec.impl.GeoPointFieldCodec;
+import org.hibernate.search.v6poc.backend.elasticsearch.types.predicate.impl.GeoPointFieldPredicateBuilderFactory;
 import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 
 import com.google.gson.JsonElement;
@@ -38,7 +39,8 @@ public class GeoPointIndexSchemaFieldContext extends AbstractScalarFieldTypedCon
 			ElasticsearchIndexSchemaObjectNode parentNode) {
 		PropertyMapping mapping = super.contribute( reference, collector, parentNode );
 
-		ElasticsearchIndexSchemaFieldNode node = new ElasticsearchIndexSchemaFieldNode( parentNode, GeoPointFieldCodec.INSTANCE );
+		ElasticsearchIndexSchemaFieldNode node = new ElasticsearchIndexSchemaFieldNode( parentNode, GeoPointFieldCodec.INSTANCE,
+				GeoPointFieldPredicateBuilderFactory.INSTANCE );
 
 		JsonAccessor<JsonElement> jsonAccessor = JsonAccessor.root().property( relativeFieldName );
 		reference.initialize( new ElasticsearchIndexFieldAccessor<>( jsonAccessor, node ) );
