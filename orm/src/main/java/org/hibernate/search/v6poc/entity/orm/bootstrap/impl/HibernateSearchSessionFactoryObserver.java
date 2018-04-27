@@ -6,8 +6,10 @@
  */
 package org.hibernate.search.v6poc.entity.orm.bootstrap.impl;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import org.hibernate.SessionFactory;
@@ -19,18 +21,21 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.mapping.PersistentClass;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.cfg.spi.ConfigurationProperty;
+import org.hibernate.search.v6poc.cfg.spi.UnusedPropertyTrackingConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.engine.spi.ReflectionBeanResolver;
 import org.hibernate.search.v6poc.entity.orm.cfg.SearchOrmSettings;
 import org.hibernate.search.v6poc.entity.orm.event.impl.FullTextIndexEventListener;
 import org.hibernate.search.v6poc.entity.orm.impl.HibernateSearchContextService;
+import org.hibernate.search.v6poc.entity.orm.logging.impl.Log;
 import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmMapping;
 import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmMappingContributor;
 import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmSearchMappingContributor;
 import org.hibernate.search.v6poc.entity.orm.spi.BeanResolver;
 import org.hibernate.search.v6poc.entity.orm.spi.EnvironmentSynchronizer;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.AnnotationMappingDefinition;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 /**
  * A {@code SessionFactoryObserver} registered with Hibernate ORM during the integration phase.
@@ -41,6 +46,8 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Anno
  */
 public class HibernateSearchSessionFactoryObserver implements SessionFactoryObserver {
 
+	private static final Log log = LoggerFactory.make( Log.class, MethodHandles.lookup() );
+
 	private static final ConfigurationProperty<Boolean> ENABLE_ANNOTATION_MAPPING =
 			ConfigurationProperty.forKey( SearchOrmSettings.Radicals.ENABLE_ANNOTATION_MAPPING )
 					.asBoolean()
@@ -48,6 +55,7 @@ public class HibernateSearchSessionFactoryObserver implements SessionFactoryObse
 					.build();
 
 	private final ConfigurationPropertySource propertySource;
+	private final UnusedPropertyTrackingConfigurationPropertySource unusedPropertyTrackingPropertySource;
 	private final JndiService namingService;
 	private final ClassLoaderService classLoaderService;
 	private final EnvironmentSynchronizer environmentSynchronizer;
@@ -64,6 +72,7 @@ public class HibernateSearchSessionFactoryObserver implements SessionFactoryObse
 	HibernateSearchSessionFactoryObserver(
 			Metadata metadata,
 			ConfigurationPropertySource propertySource,
+			UnusedPropertyTrackingConfigurationPropertySource unusedPropertyTrackingPropertySource,
 			FullTextIndexEventListener listener,
 			ClassLoaderService classLoaderService,
 			EnvironmentSynchronizer environmentSynchronizer,
@@ -71,6 +80,7 @@ public class HibernateSearchSessionFactoryObserver implements SessionFactoryObse
 			JndiService namingService) {
 		this.metadata = metadata;
 		this.propertySource = propertySource;
+		this.unusedPropertyTrackingPropertySource = unusedPropertyTrackingPropertySource;
 		this.listener = listener;
 		this.classLoaderService = classLoaderService;
 		this.environmentSynchronizer = environmentSynchronizer;
@@ -169,6 +179,13 @@ public class HibernateSearchSessionFactoryObserver implements SessionFactoryObse
 					sessionFactoryImplementor.getServiceRegistry().getService( HibernateSearchContextService.class );
 			contextService.initialize( mappingRepository, mapping );
 			contextFuture.complete( contextService );
+
+			if ( unusedPropertyTrackingPropertySource != null ) {
+				Set<String> unusedPropertyKeys = unusedPropertyTrackingPropertySource.getUnusedPropertyKeys();
+				if ( !unusedPropertyKeys.isEmpty() ) {
+					log.configurationPropertyTrackingUnusedProperties( unusedPropertyKeys );
+				}
+			}
 
 			failedBoot = false;
 		}
