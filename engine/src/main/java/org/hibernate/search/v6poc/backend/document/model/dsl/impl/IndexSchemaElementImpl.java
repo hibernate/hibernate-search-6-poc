@@ -11,7 +11,7 @@ import java.lang.invoke.MethodHandles;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldContext;
 import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
-import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaObjectField;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaObjectField;
 import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaObjectFieldNodeBuilder;
 import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaObjectNodeBuilder;
 import org.hibernate.search.v6poc.logging.impl.Log;
