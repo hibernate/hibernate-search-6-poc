@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
-import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaCollector;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaRootNodeBuilder;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManager;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManagerBuilder;
 import org.hibernate.search.v6poc.backend.spi.BackendImplementor;
@@ -20,7 +20,7 @@ import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.cfg.spi.ConfigurationProperty;
 import org.hibernate.search.v6poc.engine.spi.BeanResolver;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
-import org.hibernate.search.v6poc.entity.mapping.building.impl.IndexModelBindingContextImpl;
+import org.hibernate.search.v6poc.entity.mapping.building.impl.RootIndexModelBindingContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexManagerBuildingState;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 
@@ -75,8 +75,8 @@ class IndexManagerBuildingStateHolder {
 			BackendImplementor<D> backend, String normalizedIndexName, boolean multiTenancyEnabled,
 			ConfigurationPropertySource indexPropertySource) {
 		IndexManagerBuilder<D> builder = backend.createIndexManagerBuilder( normalizedIndexName, multiTenancyEnabled, buildContext, indexPropertySource );
-		IndexSchemaCollector schemaCollector = builder.getSchemaCollector();
-		IndexModelBindingContext bindingContext = new IndexModelBindingContextImpl( schemaCollector );
+		IndexSchemaRootNodeBuilder schemaRootNodeBuilder = builder.getSchemaRootNodeBuilder();
+		IndexModelBindingContext bindingContext = new RootIndexModelBindingContext( schemaRootNodeBuilder );
 		return new IndexMappingBuildingStateImpl<>( normalizedIndexName, builder, bindingContext );
 	}
 
