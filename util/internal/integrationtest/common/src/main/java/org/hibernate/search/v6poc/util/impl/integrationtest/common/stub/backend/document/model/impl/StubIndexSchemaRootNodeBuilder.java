@@ -6,21 +6,26 @@
  */
 package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.impl;
 
-import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaCollector;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaRootNodeBuilder;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.StubIndexSchemaNode;
 
-public class StubRootIndexSchemaCollector extends StubIndexSchemaCollector
-		implements IndexSchemaCollector {
+public class StubIndexSchemaRootNodeBuilder extends StubIndexSchemaObjectNodeBuilder
+		implements IndexSchemaRootNodeBuilder {
 
 	private final StubIndexSchemaNode.Builder builder;
 
-	public StubRootIndexSchemaCollector() {
+	public StubIndexSchemaRootNodeBuilder() {
 		this( StubIndexSchemaNode.schema() );
 	}
 
-	private StubRootIndexSchemaCollector(StubIndexSchemaNode.Builder builder) {
+	private StubIndexSchemaRootNodeBuilder(StubIndexSchemaNode.Builder builder) {
 		super( builder );
 		this.builder = builder;
+	}
+
+	@Override
+	public void explicitRouting() {
+		builder.explicitRouting();
 	}
 
 	public StubIndexSchemaNode build() {
