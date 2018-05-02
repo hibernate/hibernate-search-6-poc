@@ -7,8 +7,6 @@
 package org.hibernate.search.v6poc.backend.document.model.dsl;
 
 
-import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaObjectField;
-
 /**
  * @author Yoann Rodiere
  */

@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.backend.document.model.dsl.impl;
 
 import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
-import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaObjectField;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaObjectField;
 import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaObjectFieldNodeBuilder;
 
 class IndexSchemaObjectFieldImpl extends IndexSchemaElementImpl<IndexSchemaObjectFieldNodeBuilder>
