@@ -12,8 +12,8 @@ import java.util.Objects;
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexSchemaObjectNode;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
+import org.hibernate.search.v6poc.backend.elasticsearch.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.elasticsearch.multitenancy.impl.MultiTenancyStrategy;
-import org.hibernate.search.v6poc.logging.impl.Log;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 import com.google.gson.JsonObject;
