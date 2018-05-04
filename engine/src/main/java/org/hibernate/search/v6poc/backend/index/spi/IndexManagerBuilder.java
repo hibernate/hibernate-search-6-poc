@@ -7,14 +7,14 @@
 package org.hibernate.search.v6poc.backend.index.spi;
 
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
-import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaCollector;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaRootNodeBuilder;
 
 /**
  * @author Yoann Rodiere
  */
 public interface IndexManagerBuilder<D extends DocumentElement> {
 
-	IndexSchemaCollector getSchemaCollector();
+	IndexSchemaRootNodeBuilder getSchemaRootNodeBuilder();
 
 	IndexManager<D> build();
 

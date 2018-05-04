@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.types.dsl.impl;
 
-import org.hibernate.search.v6poc.backend.document.impl.DeferredInitializationIndexFieldAccessor;
+import org.hibernate.search.v6poc.backend.document.spi.DeferredInitializationIndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTypedContext;
 import org.hibernate.search.v6poc.backend.document.model.dsl.Sortable;
 import org.hibernate.search.v6poc.backend.document.model.dsl.Store;

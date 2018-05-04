@@ -12,7 +12,7 @@ import static org.junit.Assert.fail;
 import java.util.function.Consumer;
 
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
-import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaObjectField;
+import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaObjectField;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 import org.hibernate.search.v6poc.integrationtest.backend.tck.util.rule.SearchSetupHelper;
 import org.hibernate.search.v6poc.util.SearchException;

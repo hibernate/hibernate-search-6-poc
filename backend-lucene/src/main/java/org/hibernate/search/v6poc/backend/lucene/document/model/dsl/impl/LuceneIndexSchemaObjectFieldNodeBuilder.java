@@ -6,26 +6,29 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.document.model.dsl.impl;
 
-import org.hibernate.search.v6poc.backend.document.impl.DeferredInitializationIndexObjectFieldAccessor;
+import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
+import org.hibernate.search.v6poc.backend.document.spi.DeferredInitializationIndexObjectFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaObjectFieldNodeBuilder;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexObjectFieldAccessor;
 import org.hibernate.search.v6poc.backend.lucene.util.impl.LuceneFields;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaNodeCollector;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaNodeContributor;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaObjectNode;
 
-class IndexSchemaObjectPropertyNodeBuilder extends AbstractIndexSchemaNodeBuilder
-		implements LuceneIndexSchemaNodeContributor {
+class LuceneIndexSchemaObjectFieldNodeBuilder extends AbstractLuceneIndexSchemaObjectNodeBuilder
+		implements IndexSchemaObjectFieldNodeBuilder, LuceneIndexSchemaNodeContributor {
 
 	private final DeferredInitializationIndexObjectFieldAccessor accessor =
 			new DeferredInitializationIndexObjectFieldAccessor();
 
 	private final String absoluteFieldPath;
+	private final ObjectFieldStorage storage;
 
-	private ObjectFieldStorage storage = ObjectFieldStorage.DEFAULT;
-
-	IndexSchemaObjectPropertyNodeBuilder(String parentPath, String relativeFieldName) {
+	LuceneIndexSchemaObjectFieldNodeBuilder(String parentPath, String relativeFieldName,
+			ObjectFieldStorage storage) {
 		this.absoluteFieldPath = LuceneFields.compose( parentPath, relativeFieldName );
+		this.storage = storage;
 	}
 
 	@Override
@@ -33,12 +36,9 @@ class IndexSchemaObjectPropertyNodeBuilder extends AbstractIndexSchemaNodeBuilde
 		return absoluteFieldPath;
 	}
 
-	public DeferredInitializationIndexObjectFieldAccessor getAccessor() {
+	@Override
+	public IndexObjectFieldAccessor getAccessor() {
 		return accessor;
-	}
-
-	public void setStorage(ObjectFieldStorage storage) {
-		this.storage = storage;
 	}
 
 	@Override

@@ -10,8 +10,8 @@ import java.lang.invoke.MethodHandles;
 
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
-import org.hibernate.search.v6poc.logging.impl.Log;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
+import org.hibernate.search.v6poc.util.impl.common.logging.Log;
 
 class StubExcludedIndexFieldAccessor<T> implements IndexFieldAccessor<T> {
 

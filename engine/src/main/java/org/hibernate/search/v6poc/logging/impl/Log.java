@@ -13,9 +13,7 @@ import org.hibernate.search.v6poc.entity.model.spi.MappableTypeModel;
 import org.hibernate.search.v6poc.util.SearchException;
 
 import org.jboss.logging.BasicLogger;
-import org.jboss.logging.Logger;
 import org.jboss.logging.annotations.Cause;
-import org.jboss.logging.annotations.LogMessage;
 import org.jboss.logging.annotations.Message;
 import org.jboss.logging.annotations.MessageLogger;
 
@@ -43,16 +41,8 @@ public interface Log extends BasicLogger {
 	@Message(id = 7, value = "Cannot add multiple predicates to the query root; use an explicit boolean predicate instead.")
 	SearchException cannotAddMultiplePredicatesToQueryRoot();
 
-	@Message(id = 8, value = "Invalid parent object for this field accessor; expected path '%1$s', got '%2$s'.")
-	SearchException invalidParentDocumentObjectState(String expectedPath, String actualPath);
-
 	@Message(id = 9, value = "Cannot add multiple predicates to a nested predicate; use an explicit boolean predicate instead.")
 	SearchException cannotAddMultiplePredicatesToNestedPredicate();
-
-	@LogMessage(level = Logger.Level.INFO)
-	@Message(id = 10, value = "Cannot access the value of containing annotation '%1$s'."
-			+ " Ignoring annotation.")
-	void cannotAccessRepeateableContainingAnnotationValue(Class<?> containingAnnotationType, @Cause Throwable e);
 
 	@Message(id = 11, value = "Invalid value: the value to match in match predicates must be non-null." +
 			" Null value was passed to match predicate on fields %1$s")
@@ -67,4 +57,13 @@ public interface Log extends BasicLogger {
 			+ " As a result, mapping an abstract type to an index does not make sense,"
 			+ " since the index would always be empty.")
 	SearchException cannotMapAbstractTypeToIndex(MappableTypeModel typeModel, String indexName);
+
+	@Message(id = 14, value = "Field name '%1$s' is invalid: field names cannot be null or empty." )
+	SearchException relativeFieldNameCannotBeNullOrEmpty(String relativeFieldName);
+
+	@Message(id = 15, value = "Field name '%1$s' is invalid: field names cannot contain a dot ('.')."
+			+ " Remove the dot from your field name,"
+			+ " or if you are declaring the field in a bridge and want a tree of fields,"
+			+ " declare an object field using the objectField() method." )
+	SearchException relativeFieldNameCannotContainDot(String relativeFieldName);
 }

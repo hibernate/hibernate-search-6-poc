@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.types.dsl.impl;
 
-import org.hibernate.search.v6poc.backend.document.impl.DeferredInitializationIndexFieldAccessor;
+import org.hibernate.search.v6poc.backend.document.spi.DeferredInitializationIndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaFieldNode;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaNodeCollector;
