@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/hibernate/hibernate-search-6-poc.svg?branch=master)](https://travis-ci.org/hibernate/hibernate-search-6-poc)
 [![Coverage Status](https://coveralls.io/repos/github/hibernate/hibernate-search-6-poc/badge.svg?branch=master)](https://coveralls.io/github/hibernate/hibernate-search-6-poc?branch=master)
+[![Quality gate](https://sonarcloud.io/api/project_badges/measure?project=org.hibernate.search.v6poc%3Ahibernate-search-parent&metric=alert_status)](https://sonarcloud.io/dashboard?id=org.hibernate.search.v6poc%3Ahibernate-search-parent)
 
 This is where the Hibernate Search team experiments with concepts that may,
 or may not, end up in Hibernate Search 6.
