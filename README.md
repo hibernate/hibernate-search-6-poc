@@ -7,7 +7,7 @@ This is where the Hibernate Search team experiments with concepts that may,
 or may not, end up in Hibernate Search 6.
 
 WARNING: this is all experimental, and very much work in progress.
-APIs may change at any time, documentation is inexistent,
+APIs may change at any time, documentation is nonexistent,
 most features probably don't work completely yet,
 and API compatibility with Search 5 is undoubtedly broken.
 
