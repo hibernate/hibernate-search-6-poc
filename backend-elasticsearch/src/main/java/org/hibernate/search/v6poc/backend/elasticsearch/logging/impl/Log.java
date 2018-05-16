@@ -18,6 +18,7 @@ import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTargetBuilder;
 import org.hibernate.search.v6poc.backend.spi.BackendImplementor;
 import org.hibernate.search.v6poc.search.SearchPredicate;
 import org.hibernate.search.v6poc.search.SearchSort;
+import org.hibernate.search.v6poc.util.AssertionFailure;
 import org.hibernate.search.v6poc.util.SearchException;
 import org.jboss.logging.BasicLogger;
 import org.jboss.logging.Logger.Level;
@@ -143,4 +144,7 @@ public interface Log extends BasicLogger {
 
 	@Message(id = 525, value = "Invalid parent object for this field accessor; expected path '%1$s', got '%2$s'.")
 	SearchException invalidParentDocumentObjectState(String expectedPath, String actualPath);
+
+	@Message(id = 526, value = "Expected data was missing in the Elasticsearch response.")
+	AssertionFailure elasticsearchResponseMissingData();
 }
