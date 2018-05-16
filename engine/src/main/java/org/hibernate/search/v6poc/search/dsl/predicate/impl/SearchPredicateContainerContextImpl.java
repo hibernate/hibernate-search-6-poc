@@ -10,8 +10,8 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 import org.hibernate.search.v6poc.search.SearchPredicate;
-import org.hibernate.search.v6poc.search.dsl.predicate.MatchAllPredicateContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.BooleanJunctionPredicateContext;
+import org.hibernate.search.v6poc.search.dsl.predicate.MatchAllPredicateContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.MatchPredicateContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.NestedPredicateContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.RangePredicateContext;
@@ -34,14 +34,14 @@ public class SearchPredicateContainerContextImpl<N, C> implements SearchPredicat
 
 	@Override
 	public MatchAllPredicateContext<N> matchAll() {
-		MatchAllPredicateContextImpl<N, C> child = new MatchAllPredicateContextImpl<>( factory, dslContext::getNextContext );
+		MatchAllPredicateContextImpl<N, C> child = new MatchAllPredicateContextImpl<>( factory, dslContext::getNextContext, dslContext.getNestedPathContext() );
 		dslContext.addContributor( child );
 		return child;
 	}
 
 	@Override
 	public BooleanJunctionPredicateContext<N> bool() {
-		BooleanJunctionPredicateContextImpl<N, C> child = new BooleanJunctionPredicateContextImpl<>( factory, dslContext::getNextContext );
+		BooleanJunctionPredicateContextImpl<N, C> child = new BooleanJunctionPredicateContextImpl<>( factory, dslContext::getNextContext, dslContext.getNestedPathContext() );
 		dslContext.addContributor( child );
 		return child;
 	}
@@ -69,7 +69,7 @@ public class SearchPredicateContainerContextImpl<N, C> implements SearchPredicat
 
 	@Override
 	public NestedPredicateContext<N> nested() {
-		NestedPredicateContextImpl<N, C> child = new NestedPredicateContextImpl<>( factory, dslContext::getNextContext );
+		NestedPredicateContextImpl<N, C> child = new NestedPredicateContextImpl<N, C>( factory, dslContext::getNextContext, dslContext.getNestedPathContext() );
 		dslContext.addContributor( child );
 		return child;
 	}

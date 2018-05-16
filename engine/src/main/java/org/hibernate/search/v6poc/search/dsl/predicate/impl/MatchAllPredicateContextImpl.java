@@ -26,14 +26,15 @@ class MatchAllPredicateContextImpl<N, C>
 
 	private final SearchPredicateFactory<C> factory;
 	private final Supplier<N> nextContextProvider;
+	private final String nestedPathContext;
 
 	private final MatchAllPredicateBuilder<C> builder;
 	private MatchAllExceptContext exceptContext;
 
-	MatchAllPredicateContextImpl(SearchPredicateFactory<C> factory,
-			Supplier<N> nextContextProvider) {
+	MatchAllPredicateContextImpl(SearchPredicateFactory<C> factory, Supplier<N> nextContextProvider, String nestedPathContext) {
 		this.factory = factory;
 		this.nextContextProvider = nextContextProvider;
+		this.nestedPathContext = nestedPathContext;
 		this.builder = factory.matchAll();
 	}
 
@@ -105,6 +106,11 @@ class MatchAllPredicateContextImpl<N, C>
 		@Override
 		public MatchAllPredicateContext<N> getNextContext() {
 			return MatchAllPredicateContextImpl.this;
+		}
+
+		@Override
+		public String getNestedPathContext() {
+			return MatchAllPredicateContextImpl.this.nestedPathContext;
 		}
 
 		@Override

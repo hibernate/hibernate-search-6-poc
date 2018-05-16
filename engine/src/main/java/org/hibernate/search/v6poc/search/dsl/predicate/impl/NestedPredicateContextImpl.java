@@ -26,21 +26,25 @@ class NestedPredicateContextImpl<N, C>
 
 	private final SearchPredicateFactory<C> factory;
 	private final Supplier<N> nextContextProvider;
+	private final String nestedPathContext;
 
 	private final SearchPredicateContainerContextImpl<N, C> containerContext;
 
+	private String absoluteFieldPath;
 	private NestedPredicateBuilder<C> builder;
 	private SearchPredicateContributor<C> singlePredicateContributor;
 
-	NestedPredicateContextImpl(SearchPredicateFactory<C> factory, Supplier<N> nextContextProvider) {
+	NestedPredicateContextImpl(SearchPredicateFactory<C> factory, Supplier<N> nextContextProvider, String nestedPathContext) {
 		this.factory = factory;
 		this.nextContextProvider = nextContextProvider;
+		this.nestedPathContext = nestedPathContext;
 		this.containerContext = new SearchPredicateContainerContextImpl<>( factory, this );
 	}
 
 	@Override
 	public NestedPredicateFieldContext<N> onObjectField(String absoluteFieldPath) {
-		this.builder = factory.nested( absoluteFieldPath );
+		this.absoluteFieldPath = absoluteFieldPath;
+		this.builder = factory.nested( nestedPathContext, absoluteFieldPath );
 		return new NestedPredicateFieldContextImpl<>( containerContext, builder );
 	}
 
@@ -61,5 +65,10 @@ class NestedPredicateContextImpl<N, C>
 	@Override
 	public N getNextContext() {
 		return nextContextProvider.get();
+	}
+
+	@Override
+	public String getNestedPathContext() {
+		return absoluteFieldPath;
 	}
 }

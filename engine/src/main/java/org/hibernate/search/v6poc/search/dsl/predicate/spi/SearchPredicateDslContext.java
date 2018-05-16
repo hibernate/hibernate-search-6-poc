@@ -26,4 +26,8 @@ public interface SearchPredicateDslContext<N, C> {
 	 */
 	N getNextContext();
 
+	/**
+	 * @return The nested path context if the predicate is executed inside a nested predicate.
+	 */
+	String getNestedPathContext();
 }

@@ -6,6 +6,9 @@
  */
 package org.hibernate.search.v6poc.integrationtest.backend.tck;
 
+import static org.hibernate.search.v6poc.util.impl.integrationtest.common.assertion.DocumentReferencesSearchResultAssert.assertThat;
+import static org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.mapper.StubMapperUtils.referenceProvider;
+
 import java.time.LocalDate;
 import java.util.Arrays;
 
@@ -13,25 +16,20 @@ import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
-import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaObjectField;
+import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
 import org.hibernate.search.v6poc.backend.index.spi.ChangesetIndexWorker;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManager;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;
 import org.hibernate.search.v6poc.integrationtest.backend.tck.util.rule.SearchSetupHelper;
-import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.StubSessionContext;
 import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.search.SearchQuery;
 import org.hibernate.search.v6poc.util.SearchException;
-
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.StubSessionContext;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import static org.hibernate.search.v6poc.util.impl.integrationtest.common.assertion.DocumentReferencesSearchResultAssert.assertThat;
-import static org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.mapper.StubMapperUtils.referenceProvider;
 
 public class ObjectFieldStorageIT {
 
@@ -195,9 +193,7 @@ public class ObjectFieldStorageIT {
 				.hasHitCount( 1 );
 	}
 
-	// FIXME this test is ignored for now as the Lucene backend does not support several levels of nested
 	@Test
-	@Ignore
 	public void search_nestedOnTwoLevels() {
 		IndexSearchTarget searchTarget = indexManager.createSearchTarget().build();
 
@@ -309,7 +305,6 @@ public class ObjectFieldStorageIT {
 			// This object will trigger the match; others should not
 			object = accessors.self.add( document );
 			accessors.string.write( object, MATCHING_STRING );
-			accessors.string.write( object, NON_MATCHING_STRING );
 			accessors.string_analyzed.write( object, MATCHING_STRING_ANALYZED );
 			accessors.integer.write( object, MATCHING_INTEGER );
 			accessors.localDate.write( object, MATCHING_LOCAL_DATE );

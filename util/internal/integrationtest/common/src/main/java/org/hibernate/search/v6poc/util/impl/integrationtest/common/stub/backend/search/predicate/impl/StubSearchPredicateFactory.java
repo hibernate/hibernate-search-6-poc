@@ -50,7 +50,7 @@ public class StubSearchPredicateFactory implements SearchPredicateFactory<StubQu
 	}
 
 	@Override
-	public NestedPredicateBuilder<StubQueryElementCollector> nested(String absoluteFieldPath) {
+	public NestedPredicateBuilder<StubQueryElementCollector> nested(String nestedPathContext, String absoluteFieldPath) {
 		return new StubPredicateBuilder();
 	}
 }
