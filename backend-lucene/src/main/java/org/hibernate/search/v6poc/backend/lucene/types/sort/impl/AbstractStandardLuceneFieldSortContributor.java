@@ -9,13 +9,13 @@ package org.hibernate.search.v6poc.backend.lucene.types.sort.impl;
 import org.apache.lucene.search.SortField;
 import org.hibernate.search.v6poc.search.dsl.sort.SortOrder;
 
-abstract class AbstractScalarLuceneFieldSortContributor implements LuceneFieldSortContributor {
+abstract class AbstractStandardLuceneFieldSortContributor implements LuceneFieldSortContributor {
 
 	private Object sortMissingValueFirstPlaceholder;
 
 	private Object sortMissingValueLastPlaceholder;
 
-	protected AbstractScalarLuceneFieldSortContributor(Object sortMissingValueFirstPlaceholder, Object sortMissingValueLastPlaceholder) {
+	protected AbstractStandardLuceneFieldSortContributor(Object sortMissingValueFirstPlaceholder, Object sortMissingValueLastPlaceholder) {
 		this.sortMissingValueFirstPlaceholder = sortMissingValueFirstPlaceholder;
 		this.sortMissingValueLastPlaceholder = sortMissingValueLastPlaceholder;
 	}
