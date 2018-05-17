@@ -9,10 +9,13 @@ package org.hibernate.search.v6poc.backend.elasticsearch.types.predicate.impl;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.predicate.impl.ElasticsearchSearchPredicateCollector;
 import org.hibernate.search.v6poc.search.predicate.spi.MatchPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.RangePredicateBuilder;
+import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinCirclePredicateBuilder;
 
 public interface ElasticsearchFieldPredicateBuilderFactory {
 
 	MatchPredicateBuilder<ElasticsearchSearchPredicateCollector> createMatchPredicateBuilder(String absoluteFieldPath);
 
 	RangePredicateBuilder<ElasticsearchSearchPredicateCollector> createRangePredicateBuilder(String absoluteFieldPath);
+
+	SpatialWithinCirclePredicateBuilder<ElasticsearchSearchPredicateCollector> createSpatialWithinCirclePredicateBuilder(String absoluteFieldPath);
 }

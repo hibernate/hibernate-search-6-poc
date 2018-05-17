@@ -15,6 +15,7 @@ import org.hibernate.search.v6poc.search.dsl.predicate.MatchPredicateContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.NestedPredicateContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.RangePredicateContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.SearchPredicateContainerContext;
+import org.hibernate.search.v6poc.search.dsl.predicate.SpatialPredicateContext;
 
 /**
  * A delegating {@link SearchPredicateContainerContext}.
@@ -57,6 +58,11 @@ public class DelegatingSearchPredicateContainerContextImpl<N> implements SearchP
 	@Override
 	public NestedPredicateContext<N> nested() {
 		return delegate.nested();
+	}
+
+	@Override
+	public SpatialPredicateContext<N> spatial() {
+		return delegate.spatial();
 	}
 
 	@Override

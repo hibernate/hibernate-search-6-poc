@@ -10,7 +10,7 @@ import java.util.Objects;
 
 import org.hibernate.search.v6poc.backend.lucene.types.formatter.impl.LocalDateFieldFormatter;
 
-public final class LocalDateFieldPredicateBuilderFactory implements LuceneFieldPredicateBuilderFactory {
+public final class LocalDateFieldPredicateBuilderFactory extends AbstractStandardLuceneFieldPredicateBuilderFactory {
 
 	private final LocalDateFieldFormatter formatter;
 

@@ -8,16 +8,19 @@ package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend
 
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.StubQueryElementCollector;
 import org.hibernate.search.v6poc.search.predicate.spi.MatchAllPredicateBuilder;
+import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.search.predicate.spi.BooleanJunctionPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.MatchPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.NestedPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.RangePredicateBuilder;
+import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinCirclePredicateBuilder;
 
 public class StubPredicateBuilder implements MatchAllPredicateBuilder<StubQueryElementCollector>,
 		BooleanJunctionPredicateBuilder<StubQueryElementCollector>,
 		MatchPredicateBuilder<StubQueryElementCollector>,
 		RangePredicateBuilder<StubQueryElementCollector>,
-		NestedPredicateBuilder<StubQueryElementCollector> {
+		NestedPredicateBuilder<StubQueryElementCollector>,
+		SpatialWithinCirclePredicateBuilder<StubQueryElementCollector> {
 
 	@Override
 	public StubQueryElementCollector getMustCollector() {
@@ -66,6 +69,11 @@ public class StubPredicateBuilder implements MatchAllPredicateBuilder<StubQueryE
 
 	@Override
 	public void boost(float boost) {
+		// No-op
+	}
+
+	@Override
+	public void circle(GeoPoint center, double radiusInMeters) {
 		// No-op
 	}
 
