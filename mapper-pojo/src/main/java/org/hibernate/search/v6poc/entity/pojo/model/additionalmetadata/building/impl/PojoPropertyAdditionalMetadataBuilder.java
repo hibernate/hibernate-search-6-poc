@@ -9,6 +9,7 @@ package org.hibernate.search.v6poc.entity.pojo.model.additionalmetadata.building
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,8 +21,10 @@ import org.hibernate.search.v6poc.entity.pojo.model.additionalmetadata.impl.Pojo
 import org.hibernate.search.v6poc.entity.pojo.model.additionalmetadata.impl.PojoValueAdditionalMetadata;
 
 class PojoPropertyAdditionalMetadataBuilder implements PojoAdditionalMetadataCollectorPropertyNode {
-	private final Map<ContainerValueExtractorPath, PojoValueAdditionalMetadataBuilder> valueBuilders = new HashMap<>();
-	private final Map<Class<?>, List<?>> markers = new HashMap<>();
+	// Use a LinkedHashMap for deterministic iteration
+	private final Map<ContainerValueExtractorPath, PojoValueAdditionalMetadataBuilder> valueBuilders =
+			new LinkedHashMap<>();
+	private final Map<Class<?>, List<?>> markers = new LinkedHashMap<>();
 
 	@Override
 	public PojoAdditionalMetadataCollectorValueNode value(ContainerValueExtractorPath extractorPath) {
