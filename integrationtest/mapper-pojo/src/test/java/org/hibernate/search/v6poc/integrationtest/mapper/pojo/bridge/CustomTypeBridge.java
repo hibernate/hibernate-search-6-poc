@@ -21,12 +21,8 @@ import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelType;
 import org.hibernate.search.v6poc.integrationtest.mapper.pojo.bridge.annotation.CustomTypeBridgeAnnotation;
-import org.hibernate.search.v6poc.util.impl.test.rule.StaticCounters;
 
 public final class CustomTypeBridge implements TypeBridge {
-
-	public static final StaticCounters.Key INSTANCE_COUNTER_KEY = StaticCounters.createKey();
-	public static final StaticCounters.Key CLOSE_COUNTER_KEY = StaticCounters.createKey();
 
 	private static final String TEXT_PROPERTY_NAME = "text";
 	private static final String LOCAL_DATE_PROPERTY_NAME = "localDate";
@@ -62,7 +58,6 @@ public final class CustomTypeBridge implements TypeBridge {
 	private IndexFieldAccessor<LocalDate> localDateFieldAccessor;
 
 	private CustomTypeBridge(String objectName) {
-		StaticCounters.get().increment( INSTANCE_COUNTER_KEY );
 		this.objectName = objectName;
 	}
 
@@ -91,6 +86,6 @@ public final class CustomTypeBridge implements TypeBridge {
 
 	@Override
 	public void close() {
-		StaticCounters.get().increment( CLOSE_COUNTER_KEY );
+		// Nothing to do
 	}
 }
