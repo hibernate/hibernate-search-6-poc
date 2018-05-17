@@ -10,32 +10,16 @@ import java.lang.invoke.MethodHandles;
 
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.lucene.search.predicate.impl.LuceneSearchPredicateCollector;
-import org.hibernate.search.v6poc.search.predicate.spi.MatchPredicateBuilder;
-import org.hibernate.search.v6poc.search.predicate.spi.RangePredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinCirclePredicateBuilder;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
-public final class GeoPointFieldPredicateBuilderFactory implements LuceneFieldPredicateBuilderFactory {
+abstract class AbstractStandardLuceneFieldPredicateBuilderFactory implements LuceneFieldPredicateBuilderFactory {
 
 	private static final Log log = LoggerFactory.make( Log.class, MethodHandles.lookup() );
 
-	public static final GeoPointFieldPredicateBuilderFactory INSTANCE = new GeoPointFieldPredicateBuilderFactory();
-
-	private GeoPointFieldPredicateBuilderFactory() {
-	}
-
-	@Override
-	public MatchPredicateBuilder<LuceneSearchPredicateCollector> createMatchPredicateBuilder(String absoluteFieldPath) {
-		throw log.matchPredicatesNotSupportedByGeoPoint( absoluteFieldPath );
-	}
-
-	@Override
-	public RangePredicateBuilder<LuceneSearchPredicateCollector> createRangePredicateBuilder(String absoluteFieldPath) {
-		throw log.rangePredicatesNotSupportedByGeoPoint( absoluteFieldPath );
-	}
-
 	@Override
 	public SpatialWithinCirclePredicateBuilder<LuceneSearchPredicateCollector> createSpatialWithinCirclePredicateBuilder(String absoluteFieldPath) {
-		return new GeoPointSpatialWithinCirclePredicateBuilder( absoluteFieldPath );
+		throw log.spatialPredicatesNotSupportedByFieldType( absoluteFieldPath );
 	}
+
 }
