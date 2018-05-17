@@ -27,7 +27,7 @@ import org.hibernate.search.v6poc.integrationtest.orm.bridge.CustomMarkerConsumi
 import org.hibernate.search.v6poc.integrationtest.orm.bridge.annotation.CustomMarkerAnnotation;
 import org.hibernate.search.v6poc.integrationtest.orm.bridge.annotation.CustomMarkerConsumingPropertyBridgeAnnotation;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
-import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.StaticCounters;
+import org.hibernate.search.v6poc.util.impl.test.rule.StaticCounters;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.impl.StubBackendFactory;
 import org.hibernate.service.ServiceRegistry;
 

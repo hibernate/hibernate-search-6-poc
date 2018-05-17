@@ -21,7 +21,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Docu
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Field;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Indexed;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
-import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.ExpectedLog4jLog;
+import org.hibernate.search.v6poc.util.impl.test.rule.ExpectedLog4jLog;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.impl.StubBackendFactory;
 import org.hibernate.service.ServiceRegistry;
 

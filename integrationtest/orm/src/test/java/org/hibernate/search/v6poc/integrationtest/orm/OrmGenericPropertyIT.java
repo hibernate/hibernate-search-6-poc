@@ -26,7 +26,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Fiel
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Indexed;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.IndexedEmbedded;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
-import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.StaticCounters;
+import org.hibernate.search.v6poc.util.impl.test.rule.StaticCounters;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.impl.StubBackendFactory;
 import org.hibernate.search.v6poc.util.impl.integrationtest.orm.OrmUtils;
 import org.hibernate.service.ServiceRegistry;

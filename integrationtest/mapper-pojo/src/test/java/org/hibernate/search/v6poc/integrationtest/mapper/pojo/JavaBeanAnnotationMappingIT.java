@@ -45,7 +45,7 @@ import org.hibernate.search.v6poc.integrationtest.mapper.pojo.bridge.OptionalInt
 import org.hibernate.search.v6poc.integrationtest.mapper.pojo.bridge.annotation.CustomPropertyBridgeAnnotation;
 import org.hibernate.search.v6poc.integrationtest.mapper.pojo.bridge.annotation.CustomTypeBridgeAnnotation;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
-import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.StaticCounters;
+import org.hibernate.search.v6poc.util.impl.test.rule.StaticCounters;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.StubSearchWorkBehavior;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.impl.StubBackendFactory;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.impl.StubIndexManager;

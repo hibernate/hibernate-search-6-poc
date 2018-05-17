@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.integrationtest.orm.bridge;
 import java.util.OptionalInt;
 
 import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
-import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.StaticCounters;
+import org.hibernate.search.v6poc.util.impl.test.rule.StaticCounters;
 
 public final class OptionalIntAsStringValueBridge implements ValueBridge<OptionalInt, String> {
 
