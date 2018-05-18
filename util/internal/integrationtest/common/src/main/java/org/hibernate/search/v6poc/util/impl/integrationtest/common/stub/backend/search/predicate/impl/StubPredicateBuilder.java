@@ -6,21 +6,24 @@
  */
 package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.predicate.impl;
 
-import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.StubQueryElementCollector;
-import org.hibernate.search.v6poc.search.predicate.spi.MatchAllPredicateBuilder;
 import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
+import org.hibernate.search.v6poc.backend.spatial.GeoPolygon;
 import org.hibernate.search.v6poc.search.predicate.spi.BooleanJunctionPredicateBuilder;
+import org.hibernate.search.v6poc.search.predicate.spi.MatchAllPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.MatchPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.NestedPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.RangePredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinCirclePredicateBuilder;
+import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinPolygonPredicateBuilder;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.StubQueryElementCollector;
 
 public class StubPredicateBuilder implements MatchAllPredicateBuilder<StubQueryElementCollector>,
 		BooleanJunctionPredicateBuilder<StubQueryElementCollector>,
 		MatchPredicateBuilder<StubQueryElementCollector>,
 		RangePredicateBuilder<StubQueryElementCollector>,
 		NestedPredicateBuilder<StubQueryElementCollector>,
-		SpatialWithinCirclePredicateBuilder<StubQueryElementCollector> {
+		SpatialWithinCirclePredicateBuilder<StubQueryElementCollector>,
+		SpatialWithinPolygonPredicateBuilder<StubQueryElementCollector> {
 
 	@Override
 	public StubQueryElementCollector getMustCollector() {
@@ -74,6 +77,11 @@ public class StubPredicateBuilder implements MatchAllPredicateBuilder<StubQueryE
 
 	@Override
 	public void circle(GeoPoint center, double radiusInMeters) {
+		// No-op
+	}
+
+	@Override
+	public void polygon(GeoPolygon polygon) {
 		// No-op
 	}
 
