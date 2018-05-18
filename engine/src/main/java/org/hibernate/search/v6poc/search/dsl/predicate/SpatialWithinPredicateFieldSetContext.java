@@ -7,8 +7,10 @@
 package org.hibernate.search.v6poc.search.dsl.predicate;
 
 import org.hibernate.search.v6poc.backend.spatial.DistanceUnit;
+import org.hibernate.search.v6poc.backend.spatial.GeoBoundingBox;
 import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.backend.spatial.GeoPolygon;
+import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoBoundingBox;
 import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoPoint;
 import org.hibernate.search.v6poc.util.impl.common.Contracts;
 
@@ -40,4 +42,11 @@ public interface SpatialWithinPredicateFieldSetContext<N> extends MultiFieldPred
 	}
 
 	SpatialWithinPolygonPredicateContext<N> polygon(GeoPolygon polygon);
+
+	SpatialWithinBoundingBoxPredicateContext<N> boundingBox(GeoBoundingBox boundingBox);
+
+	default SpatialWithinBoundingBoxPredicateContext<N> boundingBox(double topLeftLatitude, double topLeftLongitude, double bottomRightLatitude,
+			double bottomRightLongitude) {
+		return boundingBox( new ImmutableGeoBoundingBox( topLeftLatitude, topLeftLongitude, bottomRightLatitude, bottomRightLongitude ) );
+	}
 }

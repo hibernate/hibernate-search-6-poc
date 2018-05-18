@@ -13,6 +13,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.search.predicate.impl.El
 import org.hibernate.search.v6poc.backend.elasticsearch.types.codec.impl.GeoPointFieldCodec;
 import org.hibernate.search.v6poc.search.predicate.spi.MatchPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.RangePredicateBuilder;
+import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinBoundingBoxPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinCirclePredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinPolygonPredicateBuilder;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
@@ -47,5 +48,11 @@ public class GeoPointFieldPredicateBuilderFactory implements ElasticsearchFieldP
 	@Override
 	public SpatialWithinPolygonPredicateBuilder<ElasticsearchSearchPredicateCollector> createSpatialWithinPolygonPredicateBuilder(String absoluteFieldPath) {
 		return new GeoPointSpatialWithinPolygonPredicateBuilder( absoluteFieldPath );
+	}
+
+	@Override
+	public SpatialWithinBoundingBoxPredicateBuilder<ElasticsearchSearchPredicateCollector> createSpatialWithinBoundingBoxPredicateBuilder(
+			String absoluteFieldPath) {
+		return new GeoPointSpatialWithinBoundingBoxPredicateBuilder( absoluteFieldPath, CODEC );
 	}
 }

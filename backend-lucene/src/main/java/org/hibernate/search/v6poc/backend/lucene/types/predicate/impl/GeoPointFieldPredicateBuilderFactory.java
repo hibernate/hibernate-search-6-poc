@@ -12,6 +12,7 @@ import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.lucene.search.predicate.impl.LuceneSearchPredicateCollector;
 import org.hibernate.search.v6poc.search.predicate.spi.MatchPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.RangePredicateBuilder;
+import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinBoundingBoxPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinCirclePredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinPolygonPredicateBuilder;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
@@ -43,5 +44,10 @@ public final class GeoPointFieldPredicateBuilderFactory implements LuceneFieldPr
 	@Override
 	public SpatialWithinPolygonPredicateBuilder<LuceneSearchPredicateCollector> createSpatialWithinPolygonPredicateBuilder(String absoluteFieldPath) {
 		return new GeoPointSpatialWithinPolygonPredicateBuilder( absoluteFieldPath );
+	}
+
+	@Override
+	public SpatialWithinBoundingBoxPredicateBuilder<LuceneSearchPredicateCollector> createSpatialWithinBoundingBoxPredicateBuilder(String absoluteFieldPath) {
+		return new GeoPointSpatialWithinBoundingBoxPredicateBuilder( absoluteFieldPath );
 	}
 }
