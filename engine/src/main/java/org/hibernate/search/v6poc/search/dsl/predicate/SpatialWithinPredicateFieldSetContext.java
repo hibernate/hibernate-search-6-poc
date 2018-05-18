@@ -8,6 +8,7 @@ package org.hibernate.search.v6poc.search.dsl.predicate;
 
 import org.hibernate.search.v6poc.backend.spatial.DistanceUnit;
 import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
+import org.hibernate.search.v6poc.backend.spatial.GeoPolygon;
 import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoPoint;
 import org.hibernate.search.v6poc.util.impl.common.Contracts;
 
@@ -37,4 +38,6 @@ public interface SpatialWithinPredicateFieldSetContext<N> extends MultiFieldPred
 
 		return circle( new ImmutableGeoPoint( latitude, longitude ), unit.toMeters( radius ) );
 	}
+
+	SpatialWithinPolygonPredicateContext<N> polygon(GeoPolygon polygon);
 }

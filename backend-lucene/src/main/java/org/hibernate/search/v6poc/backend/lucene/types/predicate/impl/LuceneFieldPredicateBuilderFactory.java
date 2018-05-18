@@ -10,6 +10,7 @@ import org.hibernate.search.v6poc.backend.lucene.search.predicate.impl.LuceneSea
 import org.hibernate.search.v6poc.search.predicate.spi.MatchPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.RangePredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinCirclePredicateBuilder;
+import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinPolygonPredicateBuilder;
 
 /**
  * @author Guillaume Smet
@@ -21,6 +22,8 @@ public interface LuceneFieldPredicateBuilderFactory {
 	RangePredicateBuilder<LuceneSearchPredicateCollector> createRangePredicateBuilder(String absoluteFieldPath);
 
 	SpatialWithinCirclePredicateBuilder<LuceneSearchPredicateCollector> createSpatialWithinCirclePredicateBuilder(String absoluteFieldPath);
+
+	SpatialWithinPolygonPredicateBuilder<LuceneSearchPredicateCollector> createSpatialWithinPolygonPredicateBuilder(String absoluteFieldPath);
 
 	// equals()/hashCode() needs to be implemented if the predicate factory is not a singleton
 
