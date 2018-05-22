@@ -9,6 +9,7 @@ package org.hibernate.search.v6poc.engine.impl;
 import java.util.Map;
 
 import org.hibernate.search.v6poc.backend.Backend;
+import org.hibernate.search.v6poc.backend.index.spi.IndexManagerImplementor;
 import org.hibernate.search.v6poc.backend.spi.BackendImplementor;
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingKey;
@@ -20,11 +21,14 @@ public class SearchMappingRepositoryImpl implements SearchMappingRepository {
 
 	private final Map<MappingKey<?>, MappingImplementor<?>> mappings;
 	private final Map<String, BackendImplementor<?>> backends;
+	private final Map<String, IndexManagerImplementor<?>> indexManagers;
 
 	SearchMappingRepositoryImpl(Map<MappingKey<?>, MappingImplementor<?>> mappings,
-			Map<String, BackendImplementor<?>> backends) {
+			Map<String, BackendImplementor<?>> backends,
+			Map<String, IndexManagerImplementor<?>> indexManagers) {
 		this.mappings = mappings;
 		this.backends = backends;
+		this.indexManagers = indexManagers;
 	}
 
 	@Override
@@ -51,6 +55,7 @@ public class SearchMappingRepositoryImpl implements SearchMappingRepository {
 	public void close() {
 		try ( Closer<RuntimeException> closer = new Closer<>() ) {
 			closer.pushAll( MappingImplementor::close, mappings.values() );
+			closer.pushAll( IndexManagerImplementor::close, indexManagers.values() );
 			closer.pushAll( BackendImplementor::close, backends.values() );
 		}
 	}

@@ -10,16 +10,16 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import org.hibernate.search.v6poc.backend.index.spi.ChangesetIndexWorker;
-import org.hibernate.search.v6poc.backend.index.spi.IndexManager;
+import org.hibernate.search.v6poc.backend.index.spi.IndexManagerImplementor;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTargetBuilder;
 import org.hibernate.search.v6poc.backend.index.spi.StreamIndexWorker;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
-import org.hibernate.search.v6poc.util.impl.test.rule.StaticCounters;
-import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.StubIndexWork;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.impl.StubDocumentElement;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.StubIndexSchemaNode;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.StubIndexWork;
+import org.hibernate.search.v6poc.util.impl.test.rule.StaticCounters;
 
-public class StubIndexManager implements IndexManager<StubDocumentElement> {
+public class StubIndexManager implements IndexManagerImplementor<StubDocumentElement> {
 
 	public static final StaticCounters.Key INSTANCE_COUNTER_KEY = StaticCounters.createKey();
 	public static final StaticCounters.Key CLOSE_COUNTER_KEY = StaticCounters.createKey();

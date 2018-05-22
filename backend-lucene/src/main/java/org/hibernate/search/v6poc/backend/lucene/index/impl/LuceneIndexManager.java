@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.index.impl;
 
-import org.hibernate.search.v6poc.backend.index.spi.IndexManager;
+import org.hibernate.search.v6poc.backend.index.spi.IndexManagerImplementor;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneRootDocumentBuilder;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexModel;
 import org.hibernate.search.v6poc.backend.lucene.index.spi.ReaderProvider;
@@ -14,7 +14,7 @@ import org.hibernate.search.v6poc.backend.lucene.index.spi.ReaderProvider;
 /**
  * @author Guillaume Smet
  */
-public interface LuceneIndexManager extends IndexManager<LuceneRootDocumentBuilder> {
+public interface LuceneIndexManager extends IndexManagerImplementor<LuceneRootDocumentBuilder> {
 
 	String getName();
 
