@@ -12,15 +12,12 @@ import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.
 public class StubIndexSchemaRootNodeBuilder extends StubIndexSchemaObjectNodeBuilder
 		implements IndexSchemaRootNodeBuilder {
 
-	private final StubIndexSchemaNode.Builder builder;
-
 	public StubIndexSchemaRootNodeBuilder() {
 		this( StubIndexSchemaNode.schema() );
 	}
 
 	private StubIndexSchemaRootNodeBuilder(StubIndexSchemaNode.Builder builder) {
 		super( builder );
-		this.builder = builder;
 	}
 
 	@Override
