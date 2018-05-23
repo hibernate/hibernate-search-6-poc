@@ -18,6 +18,7 @@ import org.hibernate.event.service.spi.DuplicationStrategy;
 import org.hibernate.event.service.spi.EventListenerRegistry;
 import org.hibernate.event.spi.EventType;
 import org.hibernate.integrator.spi.Integrator;
+import org.hibernate.resource.beans.spi.ManagedBeanRegistry;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.cfg.spi.ConfigurationProperty;
 import org.hibernate.search.v6poc.cfg.spi.UnusedPropertyTrackingConfigurationPropertySource;
@@ -26,7 +27,6 @@ import org.hibernate.search.v6poc.entity.orm.cfg.SearchOrmSettings;
 import org.hibernate.search.v6poc.entity.orm.cfg.impl.HibernateOrmConfigurationPropertySource;
 import org.hibernate.search.v6poc.entity.orm.event.impl.FullTextIndexEventListener;
 import org.hibernate.search.v6poc.entity.orm.logging.impl.Log;
-import org.hibernate.search.v6poc.entity.orm.spi.BeanResolver;
 import org.hibernate.search.v6poc.entity.orm.spi.EnvironmentSynchronizer;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 import org.hibernate.service.spi.ServiceBinding;
@@ -107,15 +107,17 @@ public class HibernateSearchIntegrator implements Integrator {
 		registerHibernateSearchEventListener( fullTextIndexEventListener, serviceRegistry );
 
 		ClassLoaderService hibernateOrmClassLoaderService = serviceRegistry.getService( ClassLoaderService.class );
-		ServiceBinding<EnvironmentSynchronizer> environmentSynchronizerBinding = serviceRegistry.locateServiceBinding( EnvironmentSynchronizer.class );
-		ServiceBinding<BeanResolver> hibernateOrmBeanResolverBinding = serviceRegistry.locateServiceBinding( BeanResolver.class );
+		ServiceBinding<EnvironmentSynchronizer> environmentSynchronizerBinding =
+				serviceRegistry.locateServiceBinding( EnvironmentSynchronizer.class );
+		ServiceBinding<ManagedBeanRegistry> managedBeanRegistryServiceBinding =
+				serviceRegistry.locateServiceBinding( ManagedBeanRegistry.class );
 		HibernateSearchSessionFactoryObserver observer = new HibernateSearchSessionFactoryObserver(
 				metadata,
 				propertySource, unusedPropertyTrackingPropertySource,
 				fullTextIndexEventListener,
 				hibernateOrmClassLoaderService,
 				environmentSynchronizerBinding == null ? null : serviceRegistry.getService( EnvironmentSynchronizer.class ),
-				hibernateOrmBeanResolverBinding == null ? null : serviceRegistry.getService( BeanResolver.class ),
+				managedBeanRegistryServiceBinding == null ? null : serviceRegistry.getService( ManagedBeanRegistry.class ),
 				namingService
 		);
 
