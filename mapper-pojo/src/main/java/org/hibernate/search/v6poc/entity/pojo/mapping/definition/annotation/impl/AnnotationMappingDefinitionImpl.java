@@ -11,6 +11,7 @@ import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.spi.BeanProvider;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MapperFactory;
@@ -53,7 +54,8 @@ public class AnnotationMappingDefinitionImpl implements AnnotationMappingDefinit
 	}
 
 	@Override
-	public void contribute(BuildContext buildContext, MetadataCollector collector) {
+	public void contribute(BuildContext buildContext, ConfigurationPropertySource propertySource,
+			MetadataCollector collector) {
 		BeanProvider beanProvider = buildContext.getServiceManager().getBeanProvider();
 
 		/*

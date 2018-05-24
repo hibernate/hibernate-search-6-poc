@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
@@ -33,7 +34,8 @@ public class StubMetadataContributor implements MetadataContributor {
 	}
 
 	@Override
-	public void contribute(BuildContext buildContext, MetadataCollector collector) {
+	public void contribute(BuildContext buildContext, ConfigurationPropertySource propertySource,
+			MetadataCollector collector) {
 		for ( StubTypeMetadataContributor mappingContributor : mappingContributors ) {
 			mappingContributor.contribute( mapperFactory, collector );
 		}

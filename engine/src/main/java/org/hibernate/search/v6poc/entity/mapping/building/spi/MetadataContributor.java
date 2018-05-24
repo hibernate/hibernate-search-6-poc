@@ -6,6 +6,7 @@
  */
 package org.hibernate.search.v6poc.entity.mapping.building.spi;
 
+import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 
 /**
@@ -13,6 +14,7 @@ import org.hibernate.search.v6poc.engine.spi.BuildContext;
  */
 public interface MetadataContributor {
 
-	void contribute(BuildContext buildContext, MetadataCollector collector);
+	void contribute(BuildContext buildContext, ConfigurationPropertySource propertySource,
+			MetadataCollector collector);
 
 }
