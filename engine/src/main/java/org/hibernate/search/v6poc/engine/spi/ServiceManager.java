@@ -12,6 +12,6 @@ package org.hibernate.search.v6poc.engine.spi;
  */
 public interface ServiceManager {
 
-	BeanResolver getBeanResolver();
+	BeanProvider getBeanProvider();
 
 }

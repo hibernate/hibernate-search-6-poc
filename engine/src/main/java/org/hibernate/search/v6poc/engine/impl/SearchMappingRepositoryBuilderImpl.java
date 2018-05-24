@@ -26,6 +26,7 @@ import java.util.stream.Stream;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
+import org.hibernate.search.v6poc.engine.spi.BeanProvider;
 import org.hibernate.search.v6poc.engine.spi.BeanResolver;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.engine.spi.ReflectionBeanResolver;
@@ -95,7 +96,9 @@ public class SearchMappingRepositoryBuilderImpl implements SearchMappingReposito
 			if ( beanResolver == null ) {
 				beanResolver = new ReflectionBeanResolver();
 			}
-			ServiceManager serviceManager = new ServiceManagerImpl( beanResolver );
+
+			BeanProvider beanProvider = new BeanProviderImpl( beanResolver );
+			ServiceManager serviceManager = new ServiceManagerImpl( beanProvider );
 			BuildContext buildContext = new BuildContextImpl( serviceManager );
 
 			ConfigurationPropertySource propertySource;
