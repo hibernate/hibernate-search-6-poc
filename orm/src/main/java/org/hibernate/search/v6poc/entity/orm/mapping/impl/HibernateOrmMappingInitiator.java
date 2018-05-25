@@ -4,7 +4,7 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.hibernate.search.v6poc.entity.orm.mapping;
+package org.hibernate.search.v6poc.entity.orm.mapping.impl;
 
 import java.util.Optional;
 
@@ -18,9 +18,9 @@ import org.hibernate.search.v6poc.engine.spi.BeanProvider;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MappingConfigurationCollector;
 import org.hibernate.search.v6poc.entity.orm.cfg.SearchOrmSettings;
-import org.hibernate.search.v6poc.entity.orm.mapping.impl.HibernateOrmMappingFactory;
-import org.hibernate.search.v6poc.entity.orm.mapping.impl.HibernateOrmMappingKey;
-import org.hibernate.search.v6poc.entity.orm.mapping.impl.HibernateOrmMetatadaContributor;
+import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmMapping;
+import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmMappingDefinition;
+import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmSearchMappingContributor;
 import org.hibernate.search.v6poc.entity.orm.model.impl.HibernateOrmBootstrapIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoTypeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingInitiatorImpl;
@@ -32,7 +32,8 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingInitiatorIm
  *     when the @DocumentId is NOT the @Id, always ignore the provided ID. See org.hibernate.search.engine.impl.WorkPlan.PerClassWork.extractProperId(Work)
  *  3. And more?
  */
-public class HibernateOrmMappingInitiator extends PojoMappingInitiatorImpl<HibernateOrmMapping> {
+public class HibernateOrmMappingInitiator extends PojoMappingInitiatorImpl<HibernateOrmMapping>
+		implements HibernateOrmMappingDefinition {
 
 	public static HibernateOrmMappingInitiator create(SearchMappingRepositoryBuilder mappingRepositoryBuilder,
 			Metadata metadata,

@@ -37,7 +37,7 @@ import org.hibernate.search.v6poc.entity.orm.Search;
 import org.hibernate.search.v6poc.entity.orm.cfg.SearchOrmSettings;
 import org.hibernate.search.v6poc.entity.orm.hibernate.FullTextQuery;
 import org.hibernate.search.v6poc.entity.orm.hibernate.FullTextSession;
-import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmMappingInitiator;
+import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmMappingDefinition;
 import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmSearchMappingContributor;
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.impl.DefaultIntegerIdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.extractor.builtin.MapKeyExtractor;
@@ -447,8 +447,8 @@ public class OrmProgrammaticMappingIT {
 
 	private class MyMappingContributor implements HibernateOrmSearchMappingContributor {
 		@Override
-		public void contribute(HibernateOrmMappingInitiator initiator) {
-			ProgrammaticMappingDefinition mapping = initiator.programmaticMapping();
+		public void contribute(HibernateOrmMappingDefinition definition) {
+			ProgrammaticMappingDefinition mapping = definition.programmaticMapping();
 			mapping.type( IndexedEntity.class )
 					.indexed( IndexedEntity.INDEX )
 					.bridge(
@@ -465,7 +465,7 @@ public class OrmProgrammaticMappingIT {
 									.maxDepth( 1 )
 									.includePaths( "customBridgeOnClass.text", "embedded.prefix_customBridgeOnClass.text" );
 
-			ProgrammaticMappingDefinition secondMapping = initiator.programmaticMapping();
+			ProgrammaticMappingDefinition secondMapping = definition.programmaticMapping();
 			secondMapping.type( ParentIndexedEntity.class )
 					.property( "localDate" )
 							.field( "myLocalDateField" )

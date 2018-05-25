@@ -32,7 +32,7 @@ import org.hibernate.search.v6poc.entity.orm.event.impl.FullTextIndexEventListen
 import org.hibernate.search.v6poc.entity.orm.impl.HibernateSearchContextService;
 import org.hibernate.search.v6poc.entity.orm.logging.impl.Log;
 import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmMapping;
-import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmMappingInitiator;
+import org.hibernate.search.v6poc.entity.orm.mapping.impl.HibernateOrmMappingInitiator;
 import org.hibernate.search.v6poc.entity.orm.spi.EnvironmentSynchronizer;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.AnnotationMappingDefinition;
 import org.hibernate.search.v6poc.util.impl.common.Closer;
