@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.integrationtest.mapper.pojo;
 
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
-import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingContributor;
+import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingInitiator;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.DocumentId;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Field;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Indexed;
@@ -40,12 +40,12 @@ public class JavaBeanAnnotationMappingDiscoveryIT {
 				.setProperty( "backend.stubBackend.type", StubBackendFactory.class.getName() )
 				.setProperty( "index.default.backend", "stubBackend" );
 
-		JavaBeanMappingContributor contributor = new JavaBeanMappingContributor( mappingRepositoryBuilder );
+		JavaBeanMappingInitiator initiator = new JavaBeanMappingInitiator( mappingRepositoryBuilder );
 
 		// Do not register NonExplicitlyRegistered* types, they should be discovered automatically if required
-		contributor.annotationMapping().add( IndexedEntity.class );
+		initiator.annotationMapping().add( IndexedEntity.class );
 
-		contributor.programmaticMapping()
+		initiator.programmaticMapping()
 				.type( IndexedEntity.class )
 						.property( "nonAnnotationMappedEmbedded" )
 								.indexedEmbedded();
@@ -81,14 +81,14 @@ public class JavaBeanAnnotationMappingDiscoveryIT {
 				.setProperty( "backend.stubBackend.type", StubBackendFactory.class.getName() )
 				.setProperty( "index.default.backend", "stubBackend" );
 
-		JavaBeanMappingContributor contributor = new JavaBeanMappingContributor(
+		JavaBeanMappingInitiator initiator = new JavaBeanMappingInitiator(
 				mappingRepositoryBuilder, false
 		);
 
 		// Do not register NonExplicitlyRegistered* types, they should be discovered automatically if required
-		contributor.annotationMapping().add( IndexedEntity.class );
+		initiator.annotationMapping().add( IndexedEntity.class );
 
-		contributor.programmaticMapping()
+		initiator.programmaticMapping()
 				.type( IndexedEntity.class )
 						.property( "nonAnnotationMappedEmbedded" )
 								.indexedEmbedded();

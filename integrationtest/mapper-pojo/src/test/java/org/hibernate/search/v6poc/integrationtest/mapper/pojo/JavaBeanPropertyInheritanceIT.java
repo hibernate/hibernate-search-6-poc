@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.integrationtest.mapper.pojo;
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
-import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingContributor;
+import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingInitiator;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.DocumentId;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Field;
@@ -44,9 +44,9 @@ public class JavaBeanPropertyInheritanceIT {
 				.setProperty( "backend.stubBackend.type", StubBackendFactory.class.getName() )
 				.setProperty( "index.default.backend", "stubBackend" );
 
-		JavaBeanMappingContributor contributor = new JavaBeanMappingContributor( mappingRepositoryBuilder );
+		JavaBeanMappingInitiator initiator = new JavaBeanMappingInitiator( mappingRepositoryBuilder );
 
-		contributor.annotationMapping().add( IndexedEntity.class );
+		initiator.annotationMapping().add( IndexedEntity.class );
 
 		backendMock.expectSchema( IndexedEntity.INDEX, b -> b
 				.field( "parentDeclaredProperty", String.class )
@@ -59,7 +59,7 @@ public class JavaBeanPropertyInheritanceIT {
 		);
 
 		mappingRepository = mappingRepositoryBuilder.build();
-		mapping = contributor.getResult();
+		mapping = initiator.getResult();
 		backendMock.verifyExpectationsMet();
 	}
 

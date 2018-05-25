@@ -9,6 +9,9 @@ package org.hibernate.search.v6poc.entity.mapping.building.spi;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingImplementor;
 import org.hibernate.search.v6poc.entity.model.spi.MappableTypeModel;
 
+/**
+ * @param <M> The Java type of the produced mapping
+ */
 public interface Mapper<M> {
 
 	/**

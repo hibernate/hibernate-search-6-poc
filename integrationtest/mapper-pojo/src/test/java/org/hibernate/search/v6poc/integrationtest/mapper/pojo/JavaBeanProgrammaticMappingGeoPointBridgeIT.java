@@ -12,7 +12,7 @@ import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoPoint;
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
-import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingContributor;
+import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingInitiator;
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.GeoPointBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.LatitudeMarker;
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.LongitudeMarker;
@@ -45,9 +45,9 @@ public class JavaBeanProgrammaticMappingGeoPointBridgeIT {
 				.setProperty( "backend.stubBackend.type", StubBackendFactory.class.getName() )
 				.setProperty( "index.default.backend", "stubBackend" );
 
-		JavaBeanMappingContributor contributor = new JavaBeanMappingContributor( mappingRepositoryBuilder );
+		JavaBeanMappingInitiator initiator = new JavaBeanMappingInitiator( mappingRepositoryBuilder );
 
-		ProgrammaticMappingDefinition mappingDefinition = contributor.programmaticMapping();
+		ProgrammaticMappingDefinition mappingDefinition = initiator.programmaticMapping();
 		mappingDefinition.type( GeoPointOnTypeEntity.class )
 				.indexed( GeoPointOnTypeEntity.INDEX )
 				.bridge( new GeoPointBridge.Builder()
@@ -112,7 +112,7 @@ public class JavaBeanProgrammaticMappingGeoPointBridgeIT {
 		);
 
 		mappingRepository = mappingRepositoryBuilder.build();
-		mapping = contributor.getResult();
+		mapping = initiator.getResult();
 		backendMock.verifyExpectationsMet();
 	}
 

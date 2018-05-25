@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.integrationtest.mapper.pojo;
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
-import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingContributor;
+import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingInitiator;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.DocumentId;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Field;
@@ -44,9 +44,9 @@ public class JavaBeanGenericPropertyIT {
 				.setProperty( "backend.stubBackend.type", StubBackendFactory.class.getName() )
 				.setProperty( "index.default.backend", "stubBackend" );
 
-		JavaBeanMappingContributor contributor = new JavaBeanMappingContributor( mappingRepositoryBuilder );
+		JavaBeanMappingInitiator initiator = new JavaBeanMappingInitiator( mappingRepositoryBuilder );
 
-		contributor.annotationMapping().add( IndexedEntity.class ).add( GenericEntity.class );
+		initiator.annotationMapping().add( IndexedEntity.class ).add( GenericEntity.class );
 
 		backendMock.expectSchema( IndexedEntity.INDEX, b -> b
 				.objectField( "genericProperty", b2 -> b2
@@ -60,7 +60,7 @@ public class JavaBeanGenericPropertyIT {
 		);
 
 		mappingRepository = mappingRepositoryBuilder.build();
-		mapping = contributor.getResult();
+		mapping = initiator.getResult();
 		backendMock.verifyExpectationsMet();
 	}
 
