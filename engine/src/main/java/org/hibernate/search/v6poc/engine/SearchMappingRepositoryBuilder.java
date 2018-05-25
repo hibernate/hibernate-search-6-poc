@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.engine;
 import java.util.Properties;
 
 import org.hibernate.search.v6poc.engine.spi.BeanResolver;
-import org.hibernate.search.v6poc.entity.mapping.building.spi.MetadataContributor;
+import org.hibernate.search.v6poc.entity.mapping.building.spi.MappingInitiator;
 
 /**
  * @author Yoann Rodiere
@@ -22,7 +22,7 @@ public interface SearchMappingRepositoryBuilder {
 
 	SearchMappingRepositoryBuilder setProperties(Properties properties);
 
-	SearchMappingRepositoryBuilder addMetadataContributor(MetadataContributor contributor);
+	SearchMappingRepositoryBuilder addMappingInitiator(MappingInitiator initiator);
 
 	SearchMappingRepository build();
 

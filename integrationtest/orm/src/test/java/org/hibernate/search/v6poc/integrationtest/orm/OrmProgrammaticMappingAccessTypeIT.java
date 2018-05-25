@@ -24,7 +24,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.SessionFactoryBuilder;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.search.v6poc.entity.orm.cfg.SearchOrmSettings;
-import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmMappingContributor;
+import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmMappingInitiator;
 import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmSearchMappingContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.ProgrammaticMappingDefinition;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
@@ -154,8 +154,8 @@ public class OrmProgrammaticMappingAccessTypeIT {
 
 	private class MyMappingContributor implements HibernateOrmSearchMappingContributor {
 		@Override
-		public void contribute(HibernateOrmMappingContributor contributor) {
-			ProgrammaticMappingDefinition mapping = contributor.programmaticMapping();
+		public void contribute(HibernateOrmMappingInitiator initiator) {
+			ProgrammaticMappingDefinition mapping = initiator.programmaticMapping();
 			mapping.type( IndexedEntity.class )
 					.indexed( IndexedEntity.INDEX )
 					.property( "id" ).documentId()
