@@ -22,11 +22,14 @@ import org.hibernate.search.v6poc.search.predicate.spi.NestedPredicateBuilder;
 class NestedPredicateBuilderImpl extends AbstractSearchPredicateBuilder
 		implements NestedPredicateBuilder<LuceneSearchPredicateCollector> {
 
+	private final String nestedPathContext;
+
 	private final String absoluteFieldPath;
 
 	private Query nestedQuery;
 
-	NestedPredicateBuilderImpl(String absoluteFieldPath) {
+	NestedPredicateBuilderImpl(String nestedPathContext, String absoluteFieldPath) {
+		this.nestedPathContext = nestedPathContext;
 		this.absoluteFieldPath = absoluteFieldPath;
 	}
 
@@ -46,9 +49,15 @@ class NestedPredicateBuilderImpl extends AbstractSearchPredicateBuilder
 		childQueryBuilder.add( LuceneQueries.nestedDocumentPathQuery( absoluteFieldPath ), Occur.FILTER );
 		childQueryBuilder.add( nestedQuery, Occur.MUST );
 
-		// TODO we should probably also filter the parent documents on the tenantId but we don't have the SessionContext at hand for now
+		Query parentQuery;
+		if ( nestedPathContext == null ) {
+			parentQuery = LuceneQueries.mainDocumentQuery();
+		}
+		else {
+			parentQuery = LuceneQueries.nestedDocumentPathQuery( nestedPathContext );
+		}
 
 		// TODO at some point we should have a parameter for the score mode
-		return new ToParentBlockJoinQuery( childQueryBuilder.build(), new QueryBitSetProducer( LuceneQueries.mainDocumentQuery() ), ScoreMode.Avg );
+		return new ToParentBlockJoinQuery( childQueryBuilder.build(), new QueryBitSetProducer( parentQuery ), ScoreMode.Avg );
 	}
 }

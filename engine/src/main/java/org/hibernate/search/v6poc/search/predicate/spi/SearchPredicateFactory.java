@@ -31,6 +31,6 @@ public interface SearchPredicateFactory<C> {
 
 	RangePredicateBuilder<C> range(String absoluteFieldPath);
 
-	NestedPredicateBuilder<C> nested(String absoluteFieldPath);
+	NestedPredicateBuilder<C> nested(String nestedPathContext, String absoluteFieldPath);
 
 }

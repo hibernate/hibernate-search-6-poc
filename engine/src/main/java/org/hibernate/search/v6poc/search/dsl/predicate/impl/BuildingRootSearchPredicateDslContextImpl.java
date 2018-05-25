@@ -45,4 +45,9 @@ public final class BuildingRootSearchPredicateDslContextImpl<C>
 	public void contribute(C collector) {
 		singlePredicateContributor.contribute( collector );
 	}
+
+	@Override
+	public String getNestedPathContext() {
+		return null;
+	}
 }

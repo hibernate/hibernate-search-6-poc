@@ -27,6 +27,8 @@ class BooleanJunctionPredicateContextImpl<N, C>
 
 	private final Supplier<N> nextContextProvider;
 
+	private final String nestedPathContext;
+
 	private final BooleanJunctionPredicateBuilder<C> builder;
 
 	private final OccurContext must;
@@ -34,10 +36,10 @@ class BooleanJunctionPredicateContextImpl<N, C>
 	private final OccurContext should;
 	private final OccurContext filter;
 
-	BooleanJunctionPredicateContextImpl(SearchPredicateFactory<C> factory,
-			Supplier<N> nextContextProvider) {
+	BooleanJunctionPredicateContextImpl(SearchPredicateFactory<C> factory, Supplier<N> nextContextProvider, String nestedPathContext) {
 		this.factory = factory;
 		this.nextContextProvider = nextContextProvider;
+		this.nestedPathContext = nestedPathContext;
 		this.builder = factory.bool();
 		this.must = new OccurContext();
 		this.mustNot = new OccurContext();
@@ -146,15 +148,14 @@ class BooleanJunctionPredicateContextImpl<N, C>
 			children.add( child );
 		}
 
-		public void addPredicate(SearchPredicate child) {
-			SearchPredicateContributor<C> contributor =
-					BooleanJunctionPredicateContextImpl.this.factory.toContributor( child );
-			addContributor( contributor );
-		}
-
 		@Override
 		public BooleanJunctionPredicateContext<N> getNextContext() {
 			return BooleanJunctionPredicateContextImpl.this;
+		}
+
+		@Override
+		public String getNestedPathContext() {
+			return BooleanJunctionPredicateContextImpl.this.nestedPathContext;
 		}
 
 		@Override

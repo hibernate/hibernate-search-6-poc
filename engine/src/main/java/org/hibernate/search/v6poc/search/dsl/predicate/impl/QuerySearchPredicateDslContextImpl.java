@@ -47,4 +47,9 @@ public final class QuerySearchPredicateDslContextImpl<N, C>
 		singlePredicateContributor.contribute( collector );
 		return nextContextSupplier.get();
 	}
+
+	@Override
+	public String getNestedPathContext() {
+		return null;
+	}
 }

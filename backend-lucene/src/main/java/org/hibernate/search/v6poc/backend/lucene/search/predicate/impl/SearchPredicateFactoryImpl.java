@@ -70,9 +70,9 @@ public class SearchPredicateFactoryImpl implements LuceneSearchPredicateFactory 
 	}
 
 	@Override
-	public NestedPredicateBuilder<LuceneSearchPredicateCollector> nested(String absoluteFieldPath) {
+	public NestedPredicateBuilder<LuceneSearchPredicateCollector> nested(String nestedPathContext, String absoluteFieldPath) {
 		searchTargetModel.checkNestedField( absoluteFieldPath );
-		return new NestedPredicateBuilderImpl( absoluteFieldPath );
+		return new NestedPredicateBuilderImpl( nestedPathContext, absoluteFieldPath );
 	}
 
 	@Override

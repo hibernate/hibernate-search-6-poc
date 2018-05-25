@@ -76,7 +76,7 @@ public class SearchPredicateFactoryImpl implements ElasticsearchSearchPredicateF
 	}
 
 	@Override
-	public NestedPredicateBuilder<ElasticsearchSearchPredicateCollector> nested(String absoluteFieldPath) {
+	public NestedPredicateBuilder<ElasticsearchSearchPredicateCollector> nested(String nestedPathContext, String absoluteFieldPath) {
 		searchTargetModel.checkNestedField( absoluteFieldPath );
 		return new NestedPredicateBuilderImpl( absoluteFieldPath );
 	}
