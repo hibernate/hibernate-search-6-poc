@@ -6,6 +6,8 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.impl;
 
+import java.util.Locale;
+
 import org.hibernate.search.v6poc.backend.elasticsearch.cfg.MultiTenancyStrategyConfiguration;
 import org.hibernate.search.v6poc.backend.elasticsearch.cfg.SearchBackendElasticsearchSettings;
 import org.hibernate.search.v6poc.backend.elasticsearch.client.impl.DefaultElasticsearchClientFactory;
@@ -94,8 +96,10 @@ public class ElasticsearchBackendFactory implements BackendFactory {
 			case DISCRIMINATOR:
 				return new DiscriminatorMultiTenancyStrategyImpl();
 			default:
-				throw new AssertionFailure( String.format( "Unsupported multi-tenancy strategy '%2$s' for backend '%1$s'", backendName,
-						multiTenancyStrategyConfiguration ) );
+				throw new AssertionFailure( String.format(
+						Locale.ROOT, "Unsupported multi-tenancy strategy '%2$s' for backend '%1$s'",
+						backendName, multiTenancyStrategyConfiguration
+				) );
 		}
 	}
 }
