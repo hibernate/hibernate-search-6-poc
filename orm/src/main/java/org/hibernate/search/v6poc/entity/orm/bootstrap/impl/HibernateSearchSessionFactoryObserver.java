@@ -7,7 +7,6 @@
 package org.hibernate.search.v6poc.entity.orm.bootstrap.impl;
 
 import java.lang.invoke.MethodHandles;
-import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
@@ -17,24 +16,20 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.registry.classloading.spi.ClassLoaderService;
 import org.hibernate.engine.jndi.spi.JndiService;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
-import org.hibernate.mapping.PersistentClass;
 import org.hibernate.resource.beans.container.spi.BeanContainer;
 import org.hibernate.resource.beans.spi.ManagedBeanRegistry;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
-import org.hibernate.search.v6poc.cfg.spi.ConfigurationProperty;
 import org.hibernate.search.v6poc.cfg.spi.UnusedPropertyTrackingConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.engine.spi.BeanResolver;
 import org.hibernate.search.v6poc.engine.spi.ReflectionBeanResolver;
-import org.hibernate.search.v6poc.entity.orm.cfg.SearchOrmSettings;
 import org.hibernate.search.v6poc.entity.orm.event.impl.FullTextIndexEventListener;
 import org.hibernate.search.v6poc.entity.orm.impl.HibernateSearchContextService;
 import org.hibernate.search.v6poc.entity.orm.logging.impl.Log;
 import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmMapping;
 import org.hibernate.search.v6poc.entity.orm.mapping.impl.HibernateOrmMappingInitiator;
 import org.hibernate.search.v6poc.entity.orm.spi.EnvironmentSynchronizer;
-import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.AnnotationMappingDefinition;
 import org.hibernate.search.v6poc.util.impl.common.Closer;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 import org.hibernate.search.v6poc.util.impl.common.SuppressingCloser;
@@ -49,12 +44,6 @@ import org.hibernate.search.v6poc.util.impl.common.SuppressingCloser;
 public class HibernateSearchSessionFactoryObserver implements SessionFactoryObserver {
 
 	private static final Log log = LoggerFactory.make( Log.class, MethodHandles.lookup() );
-
-	private static final ConfigurationProperty<Boolean> ENABLE_ANNOTATION_MAPPING =
-			ConfigurationProperty.forKey( SearchOrmSettings.Radicals.ENABLE_ANNOTATION_MAPPING )
-					.asBoolean()
-					.withDefault( SearchOrmSettings.Defaults.ENABLE_ANNOTATION_MAPPING )
-					.build();
 
 	private final ConfigurationPropertySource propertySource;
 	private final UnusedPropertyTrackingConfigurationPropertySource unusedPropertyTrackingPropertySource;
@@ -147,10 +136,8 @@ public class HibernateSearchSessionFactoryObserver implements SessionFactoryObse
 		try {
 			SearchMappingRepositoryBuilder builder = SearchMappingRepository.builder( propertySource );
 
-			boolean enableAnnotationMapping = ENABLE_ANNOTATION_MAPPING.get( propertySource );
-
 			HibernateOrmMappingInitiator mappingInitiator = HibernateOrmMappingInitiator.create(
-					builder, metadata, sessionFactoryImplementor, enableAnnotationMapping
+					builder, metadata, sessionFactoryImplementor
 			);
 
 			if ( managedBeanRegistry != null ) {
@@ -165,15 +152,6 @@ public class HibernateSearchSessionFactoryObserver implements SessionFactoryObse
 				beanResolver = new ReflectionBeanResolver();
 			}
 			builder.setBeanResolver( beanResolver );
-
-			if ( enableAnnotationMapping ) {
-				AnnotationMappingDefinition annotationMapping = mappingInitiator.annotationMapping();
-				metadata.getEntityBindings().stream()
-						.map( PersistentClass::getMappedClass )
-						// getMappedClass() can return null, which should be ignored
-						.filter( Objects::nonNull )
-						.forEach( annotationMapping::add );
-			}
 
 			// TODO namingService (JMX)
 			// TODO ClassLoaderService
