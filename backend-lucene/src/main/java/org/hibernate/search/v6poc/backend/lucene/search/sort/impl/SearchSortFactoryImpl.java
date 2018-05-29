@@ -14,7 +14,9 @@ import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndex
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.lucene.search.impl.LuceneSearchQueryElementCollector;
 import org.hibernate.search.v6poc.backend.lucene.search.impl.LuceneSearchTargetModel;
+import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.search.SearchSort;
+import org.hibernate.search.v6poc.search.sort.spi.DistanceSortBuilder;
 import org.hibernate.search.v6poc.search.sort.spi.FieldSortBuilder;
 import org.hibernate.search.v6poc.search.sort.spi.ScoreSortBuilder;
 import org.hibernate.search.v6poc.search.sort.spi.SearchSortContributor;
@@ -61,6 +63,15 @@ public class SearchSortFactoryImpl implements LuceneSearchSortFactory {
 				absoluteFieldPath,
 				schemaNode.getFormatter(),
 				schemaNode.getSortContributor()
+		);
+	}
+
+	@Override
+	public DistanceSortBuilder<LuceneSearchSortCollector> distance(String absoluteFieldPath, GeoPoint location) {
+		return new DistanceSortBuilderImpl(
+				absoluteFieldPath,
+				location,
+				searchTargetModel.getSchemaNode( absoluteFieldPath ).getSortContributor()
 		);
 	}
 

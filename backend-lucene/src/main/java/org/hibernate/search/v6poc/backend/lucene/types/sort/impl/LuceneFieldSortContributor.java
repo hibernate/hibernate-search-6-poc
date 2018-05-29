@@ -7,11 +7,14 @@
 package org.hibernate.search.v6poc.backend.lucene.types.sort.impl;
 
 import org.hibernate.search.v6poc.backend.lucene.search.sort.impl.LuceneSearchSortCollector;
+import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.search.dsl.sort.SortOrder;
 
 public interface LuceneFieldSortContributor {
 
 	void contribute(LuceneSearchSortCollector collector, String absoluteFieldPath, SortOrder order, Object missingValue);
+
+	void contributeDistanceSort(LuceneSearchSortCollector collector, String absoluteFieldPath, GeoPoint location, SortOrder order);
 
 	// equals()/hashCode() needs to be implemented if the sort contributor is not a singleton
 
