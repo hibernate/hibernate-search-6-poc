@@ -7,8 +7,6 @@
 package org.hibernate.search.v6poc.integrationtest.mapper.pojo;
 
 import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
-import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoPoint;
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
@@ -18,6 +16,8 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.LatitudeMar
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.LongitudeMarker;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.ProgrammaticMappingDefinition;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
+import org.hibernate.search.v6poc.spatial.ImmutableGeoPoint;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.impl.StubBackendFactory;
 

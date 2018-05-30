@@ -16,7 +16,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esna
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
 import org.hibernate.search.v6poc.backend.elasticsearch.types.codec.impl.GeoPointFieldCodec;
 import org.hibernate.search.v6poc.backend.elasticsearch.types.predicate.impl.GeoPointFieldPredicateBuilderFactory;
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
 
 import com.google.gson.JsonElement;
 

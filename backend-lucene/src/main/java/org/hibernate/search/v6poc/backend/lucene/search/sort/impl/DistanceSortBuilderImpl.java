@@ -10,9 +10,9 @@ import java.lang.invoke.MethodHandles;
 
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.lucene.types.sort.impl.LuceneFieldSortContributor;
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.search.dsl.sort.SortOrder;
 import org.hibernate.search.v6poc.search.sort.spi.DistanceSortBuilder;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 class DistanceSortBuilderImpl extends AbstractSearchSortBuilder

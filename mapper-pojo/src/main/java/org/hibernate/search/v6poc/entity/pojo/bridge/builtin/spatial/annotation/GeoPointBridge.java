@@ -14,11 +14,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeMapping;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeMappingBuilderReference;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeMapping;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeMappingBuilderReference;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
 
 /**
  * Defines a GeoPoint bridge, mapping a latitude and longitude, in degrees,

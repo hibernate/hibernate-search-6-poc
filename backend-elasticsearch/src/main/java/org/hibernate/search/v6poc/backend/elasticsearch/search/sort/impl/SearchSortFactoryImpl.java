@@ -11,12 +11,12 @@ import java.lang.invoke.MethodHandles;
 import org.hibernate.search.v6poc.backend.elasticsearch.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.impl.ElasticsearchSearchQueryElementCollector;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.impl.ElasticsearchSearchTargetModel;
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.search.SearchSort;
 import org.hibernate.search.v6poc.search.sort.spi.DistanceSortBuilder;
 import org.hibernate.search.v6poc.search.sort.spi.FieldSortBuilder;
 import org.hibernate.search.v6poc.search.sort.spi.ScoreSortBuilder;
 import org.hibernate.search.v6poc.search.sort.spi.SearchSortContributor;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 import com.google.gson.Gson;

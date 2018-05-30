@@ -12,7 +12,7 @@ import org.apache.lucene.document.LatLonPoint;
 import org.apache.lucene.geo.Polygon;
 import org.apache.lucene.search.Query;
 import org.hibernate.search.v6poc.backend.lucene.search.predicate.impl.AbstractSpatialWithinPolygonPredicateBuilder;
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
 
 class GeoPointSpatialWithinPolygonPredicateBuilder extends AbstractSpatialWithinPolygonPredicateBuilder<GeoPoint> {
 

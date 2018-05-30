@@ -10,9 +10,9 @@ import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonObjectAccessor;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.predicate.impl.AbstractSearchPredicateBuilder;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.predicate.impl.ElasticsearchSearchPredicateCollector;
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
-import org.hibernate.search.v6poc.backend.spatial.GeoPolygon;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinPolygonPredicateBuilder;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
+import org.hibernate.search.v6poc.spatial.GeoPolygon;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

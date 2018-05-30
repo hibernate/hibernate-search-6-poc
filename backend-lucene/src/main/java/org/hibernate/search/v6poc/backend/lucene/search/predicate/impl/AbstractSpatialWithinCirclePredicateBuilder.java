@@ -6,8 +6,8 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.search.predicate.impl;
 
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinCirclePredicateBuilder;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
 
 
 public abstract class AbstractSpatialWithinCirclePredicateBuilder<T> extends AbstractSearchPredicateBuilder

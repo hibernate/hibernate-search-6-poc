@@ -11,8 +11,8 @@ import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonObjectAcce
 import org.hibernate.search.v6poc.backend.elasticsearch.search.predicate.impl.AbstractSearchPredicateBuilder;
 import org.hibernate.search.v6poc.backend.elasticsearch.search.predicate.impl.ElasticsearchSearchPredicateCollector;
 import org.hibernate.search.v6poc.backend.elasticsearch.types.codec.impl.ElasticsearchFieldCodec;
-import org.hibernate.search.v6poc.backend.spatial.GeoBoundingBox;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinBoundingBoxPredicateBuilder;
+import org.hibernate.search.v6poc.spatial.GeoBoundingBox;
 
 import com.google.gson.JsonObject;
 

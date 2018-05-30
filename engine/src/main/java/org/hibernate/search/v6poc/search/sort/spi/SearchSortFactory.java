@@ -6,8 +6,8 @@
  */
 package org.hibernate.search.v6poc.search.sort.spi;
 
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.search.SearchSort;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
 
 /**
  * A factory for search sorts.
