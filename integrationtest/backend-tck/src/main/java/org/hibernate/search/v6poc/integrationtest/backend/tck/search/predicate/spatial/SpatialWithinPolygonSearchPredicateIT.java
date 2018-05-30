@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
-import org.hibernate.search.v6poc.backend.spatial.GeoPolygon;
-import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoPoint;
-import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoPolygon;
 import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.search.SearchQuery;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
+import org.hibernate.search.v6poc.spatial.GeoPolygon;
+import org.hibernate.search.v6poc.spatial.ImmutableGeoPoint;
+import org.hibernate.search.v6poc.spatial.ImmutableGeoPolygon;
 import org.hibernate.search.v6poc.util.SearchException;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.assertion.DocumentReferencesSearchResultAssert;
 import org.junit.Test;

@@ -7,8 +7,8 @@
 package org.hibernate.search.v6poc.backend.lucene.types.sort.impl;
 
 import org.hibernate.search.v6poc.backend.lucene.search.sort.impl.LuceneSearchSortCollector;
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.search.dsl.sort.SortOrder;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
 
 public interface LuceneFieldSortContributor {
 

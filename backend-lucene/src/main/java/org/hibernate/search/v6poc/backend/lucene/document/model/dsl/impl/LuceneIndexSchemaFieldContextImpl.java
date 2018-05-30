@@ -17,7 +17,7 @@ import org.hibernate.search.v6poc.backend.lucene.types.dsl.impl.GeoPointIndexSch
 import org.hibernate.search.v6poc.backend.lucene.types.dsl.impl.IntegerIndexSchemaFieldContext;
 import org.hibernate.search.v6poc.backend.lucene.types.dsl.impl.LocalDateIndexSchemaFieldContext;
 import org.hibernate.search.v6poc.backend.lucene.types.dsl.impl.StringIndexSchemaFieldContext;
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
 import org.hibernate.search.v6poc.util.SearchException;
 
 

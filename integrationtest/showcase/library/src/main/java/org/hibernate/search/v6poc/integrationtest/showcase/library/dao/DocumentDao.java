@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.entity.orm.Search;
 import org.hibernate.search.v6poc.entity.orm.jpa.FullTextEntityManager;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.model.Book;
@@ -23,6 +22,7 @@ import org.hibernate.search.v6poc.integrationtest.showcase.library.model.Library
 import org.hibernate.search.v6poc.integrationtest.showcase.library.model.Video;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.model.VideoCopy;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.model.VideoMedium;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
 
 public abstract class DocumentDao {
 

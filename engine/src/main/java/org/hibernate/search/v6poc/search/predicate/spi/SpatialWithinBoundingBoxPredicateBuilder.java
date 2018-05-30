@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.search.predicate.spi;
 
-import org.hibernate.search.v6poc.backend.spatial.GeoBoundingBox;
+import org.hibernate.search.v6poc.spatial.GeoBoundingBox;
 
 public interface SpatialWithinBoundingBoxPredicateBuilder<C> extends SearchPredicateBuilder<C> {
 

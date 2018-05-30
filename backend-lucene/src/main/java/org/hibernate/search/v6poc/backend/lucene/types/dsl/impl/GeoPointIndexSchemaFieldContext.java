@@ -16,7 +16,7 @@ import org.hibernate.search.v6poc.backend.lucene.types.codec.impl.GeoPointFieldC
 import org.hibernate.search.v6poc.backend.lucene.types.formatter.impl.GeoPointFieldFormatter;
 import org.hibernate.search.v6poc.backend.lucene.types.predicate.impl.GeoPointFieldPredicateBuilderFactory;
 import org.hibernate.search.v6poc.backend.lucene.types.sort.impl.GeoPointFieldSortContributor;
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
 
 /**
  * @author Guillaume Smet

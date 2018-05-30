@@ -9,7 +9,6 @@ package org.hibernate.search.v6poc.search.dsl.sort.impl;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.search.SearchSort;
 import org.hibernate.search.v6poc.search.dsl.sort.DistanceSortContext;
 import org.hibernate.search.v6poc.search.dsl.sort.FieldSortContext;
@@ -19,6 +18,7 @@ import org.hibernate.search.v6poc.search.dsl.sort.SearchSortContainerContext;
 import org.hibernate.search.v6poc.search.dsl.sort.spi.SearchSortContainerContextExtension;
 import org.hibernate.search.v6poc.search.dsl.sort.spi.SearchSortDslContext;
 import org.hibernate.search.v6poc.search.sort.spi.SearchSortFactory;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
 
 
 public class SearchSortContainerContextImpl<N, C> implements SearchSortContainerContext<N> {

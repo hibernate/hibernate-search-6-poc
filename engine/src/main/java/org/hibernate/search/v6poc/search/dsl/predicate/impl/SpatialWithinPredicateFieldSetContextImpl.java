@@ -12,9 +12,6 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import org.hibernate.search.v6poc.backend.spatial.GeoBoundingBox;
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
-import org.hibernate.search.v6poc.backend.spatial.GeoPolygon;
 import org.hibernate.search.v6poc.search.dsl.predicate.SpatialWithinBoundingBoxPredicateContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.SpatialWithinCirclePredicateContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.SpatialWithinPolygonPredicateContext;
@@ -24,6 +21,9 @@ import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateFactory;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinBoundingBoxPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinCirclePredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinPolygonPredicateBuilder;
+import org.hibernate.search.v6poc.spatial.GeoBoundingBox;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
+import org.hibernate.search.v6poc.spatial.GeoPolygon;
 import org.hibernate.search.v6poc.util.impl.common.CollectionHelper;
 import org.hibernate.search.v6poc.util.impl.common.Contracts;
 

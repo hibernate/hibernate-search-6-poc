@@ -25,8 +25,6 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.SessionFactoryBuilder;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.search.v6poc.backend.elasticsearch.impl.ElasticsearchBackendFactory;
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
-import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoPoint;
 import org.hibernate.search.v6poc.entity.orm.cfg.SearchOrmSettings;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.dao.DaoFactory;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.dao.DocumentDao;
@@ -47,6 +45,8 @@ import org.hibernate.search.v6poc.integrationtest.showcase.library.model.Program
 import org.hibernate.search.v6poc.integrationtest.showcase.library.model.Video;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.model.VideoCopy;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.model.VideoMedium;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
+import org.hibernate.search.v6poc.spatial.ImmutableGeoPoint;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.tool.schema.Action;
 

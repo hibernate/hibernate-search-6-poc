@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 
-import org.hibernate.search.v6poc.backend.spatial.DistanceUnit;
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.entity.orm.hibernate.FullTextSession;
 import org.hibernate.search.v6poc.entity.orm.jpa.FullTextQuery;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.dao.DocumentDao;
@@ -19,6 +17,8 @@ import org.hibernate.search.v6poc.integrationtest.showcase.library.model.Book;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.model.BookMedium;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.model.Document;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.model.LibraryService;
+import org.hibernate.search.v6poc.spatial.DistanceUnit;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
 
 class LambdaSyntaxDocumentDao extends DocumentDao {
 	LambdaSyntaxDocumentDao(EntityManager entityManager) {

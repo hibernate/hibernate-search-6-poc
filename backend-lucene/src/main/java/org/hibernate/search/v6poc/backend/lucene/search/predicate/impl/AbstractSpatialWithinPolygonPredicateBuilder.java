@@ -6,8 +6,8 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.search.predicate.impl;
 
-import org.hibernate.search.v6poc.backend.spatial.GeoPolygon;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinPolygonPredicateBuilder;
+import org.hibernate.search.v6poc.spatial.GeoPolygon;
 
 
 public abstract class AbstractSpatialWithinPolygonPredicateBuilder<T> extends AbstractSearchPredicateBuilder

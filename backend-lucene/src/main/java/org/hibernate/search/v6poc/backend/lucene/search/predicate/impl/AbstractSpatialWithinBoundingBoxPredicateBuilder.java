@@ -6,8 +6,8 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.search.predicate.impl;
 
-import org.hibernate.search.v6poc.backend.spatial.GeoBoundingBox;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinBoundingBoxPredicateBuilder;
+import org.hibernate.search.v6poc.spatial.GeoBoundingBox;
 
 
 public abstract class AbstractSpatialWithinBoundingBoxPredicateBuilder<T> extends AbstractSearchPredicateBuilder

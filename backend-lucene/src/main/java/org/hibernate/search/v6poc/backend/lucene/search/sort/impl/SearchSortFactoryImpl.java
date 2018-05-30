@@ -14,12 +14,12 @@ import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndex
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.lucene.search.impl.LuceneSearchQueryElementCollector;
 import org.hibernate.search.v6poc.backend.lucene.search.impl.LuceneSearchTargetModel;
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.search.SearchSort;
 import org.hibernate.search.v6poc.search.sort.spi.DistanceSortBuilder;
 import org.hibernate.search.v6poc.search.sort.spi.FieldSortBuilder;
 import org.hibernate.search.v6poc.search.sort.spi.ScoreSortBuilder;
 import org.hibernate.search.v6poc.search.sort.spi.SearchSortContributor;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 /**

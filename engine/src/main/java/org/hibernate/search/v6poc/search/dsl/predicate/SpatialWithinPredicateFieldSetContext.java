@@ -6,12 +6,12 @@
  */
 package org.hibernate.search.v6poc.search.dsl.predicate;
 
-import org.hibernate.search.v6poc.backend.spatial.DistanceUnit;
-import org.hibernate.search.v6poc.backend.spatial.GeoBoundingBox;
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
-import org.hibernate.search.v6poc.backend.spatial.GeoPolygon;
-import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoBoundingBox;
-import org.hibernate.search.v6poc.backend.spatial.ImmutableGeoPoint;
+import org.hibernate.search.v6poc.spatial.DistanceUnit;
+import org.hibernate.search.v6poc.spatial.GeoBoundingBox;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
+import org.hibernate.search.v6poc.spatial.GeoPolygon;
+import org.hibernate.search.v6poc.spatial.ImmutableGeoBoundingBox;
+import org.hibernate.search.v6poc.spatial.ImmutableGeoPoint;
 import org.hibernate.search.v6poc.util.impl.common.Contracts;
 
 /**

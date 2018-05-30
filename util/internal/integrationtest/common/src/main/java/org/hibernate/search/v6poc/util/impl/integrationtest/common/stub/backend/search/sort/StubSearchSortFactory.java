@@ -7,13 +7,13 @@
 package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.sort;
 
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.StubQueryElementCollector;
-import org.hibernate.search.v6poc.backend.spatial.GeoPoint;
 import org.hibernate.search.v6poc.search.SearchSort;
 import org.hibernate.search.v6poc.search.sort.spi.DistanceSortBuilder;
 import org.hibernate.search.v6poc.search.sort.spi.FieldSortBuilder;
 import org.hibernate.search.v6poc.search.sort.spi.ScoreSortBuilder;
 import org.hibernate.search.v6poc.search.sort.spi.SearchSortContributor;
 import org.hibernate.search.v6poc.search.sort.spi.SearchSortFactory;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
 
 public class StubSearchSortFactory implements SearchSortFactory<StubQueryElementCollector> {
 	@Override
