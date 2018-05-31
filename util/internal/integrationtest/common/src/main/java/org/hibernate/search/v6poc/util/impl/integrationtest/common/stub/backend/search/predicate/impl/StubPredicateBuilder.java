@@ -14,6 +14,7 @@ import org.hibernate.search.v6poc.search.predicate.spi.RangePredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinBoundingBoxPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinCirclePredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinPolygonPredicateBuilder;
+import org.hibernate.search.v6poc.spatial.DistanceUnit;
 import org.hibernate.search.v6poc.spatial.GeoBoundingBox;
 import org.hibernate.search.v6poc.spatial.GeoPoint;
 import org.hibernate.search.v6poc.spatial.GeoPolygon;
@@ -79,7 +80,7 @@ public class StubPredicateBuilder implements MatchAllPredicateBuilder<StubQueryE
 	}
 
 	@Override
-	public void circle(GeoPoint center, double radiusInMeters) {
+	public void circle(GeoPoint center, double radius, DistanceUnit unit) {
 		// No-op
 	}
 
