@@ -6,10 +6,11 @@
  */
 package org.hibernate.search.v6poc.search.predicate.spi;
 
+import org.hibernate.search.v6poc.spatial.DistanceUnit;
 import org.hibernate.search.v6poc.spatial.GeoPoint;
 
 public interface SpatialWithinCirclePredicateBuilder<C> extends SearchPredicateBuilder<C> {
 
-	void circle(GeoPoint center, double radiusInMeters);
+	void circle(GeoPoint center, double radius, DistanceUnit unit);
 
 }
