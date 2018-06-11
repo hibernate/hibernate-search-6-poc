@@ -15,6 +15,7 @@ import org.hibernate.search.v6poc.entity.pojo.dirtiness.impl.PojoImplicitReindex
 import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;
 import org.hibernate.search.v6poc.entity.pojo.model.path.PojoModelPathValueNode;
 import org.hibernate.search.v6poc.entity.pojo.model.path.impl.BoundPojoModelPathValueNode;
+import org.hibernate.search.v6poc.entity.pojo.model.path.spi.PojoPathFilterFactory;
 
 class PojoImplicitReindexingResolverContainerElementNodeBuilder<C, V>
 		extends AbstractPojoImplicitReindexingResolverNodeBuilder<C> {
@@ -48,11 +49,12 @@ class PojoImplicitReindexingResolverContainerElementNodeBuilder<C, V>
 	}
 
 	@Override
-	Optional<PojoImplicitReindexingResolver<C>> doBuild(Set<PojoModelPathValueNode> allPotentialDirtyPaths) {
+	<S> Optional<PojoImplicitReindexingResolver<C, S>> doBuild(PojoPathFilterFactory<S> pathFilterFactory,
+			Set<PojoModelPathValueNode> allPotentialDirtyPaths) {
 		checkFrozen();
 
-		Collection<PojoImplicitReindexingResolver<V>> valueTypeNodes =
-				valueBuilderDelegate.buildTypeNodes( allPotentialDirtyPaths );
+		Collection<PojoImplicitReindexingResolver<V, S>> valueTypeNodes =
+				valueBuilderDelegate.buildTypeNodes( pathFilterFactory, allPotentialDirtyPaths );
 
 		if ( valueTypeNodes.isEmpty() ) {
 			/*
