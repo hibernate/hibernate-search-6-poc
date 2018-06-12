@@ -26,7 +26,7 @@ import org.hibernate.search.v6poc.entity.model.spi.MappableTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.bridge.impl.BridgeResolver;
 import org.hibernate.search.v6poc.entity.pojo.dirtiness.building.impl.PojoAssociationPathInverter;
 import org.hibernate.search.v6poc.entity.pojo.dirtiness.building.impl.PojoImplicitReindexingResolverBuildingHelper;
-import org.hibernate.search.v6poc.entity.pojo.dirtiness.impl.PojoImplicitReindexingResolverNode;
+import org.hibernate.search.v6poc.entity.pojo.dirtiness.impl.PojoImplicitReindexingResolver;
 import org.hibernate.search.v6poc.entity.pojo.extractor.impl.ContainerValueExtractorBinder;
 import org.hibernate.search.v6poc.entity.pojo.logging.impl.Log;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMappingCollectorTypeNode;
@@ -205,7 +205,7 @@ public class PojoMapper<M> implements Mapper<M> {
 		PojoPathFilterFactory<Set<String>> pathFilterFactory = typeAdditionalMetadataProvider.get( entityType )
 				.getEntityTypeMetadata().orElseThrow( () -> log.missingEntityTypeMetadata( entityType ) )
 				.getPathFilterFactory();
-		Optional<? extends PojoImplicitReindexingResolverNode<T, Set<String>>> reindexingResolverOptional =
+		Optional<? extends PojoImplicitReindexingResolver<T, Set<String>>> reindexingResolverOptional =
 				reindexingResolverBuildingHelper.build( entityType, pathFilterFactory );
 		if ( reindexingResolverOptional.isPresent() ) {
 			PojoContainedTypeManager<T> typeManager = new PojoContainedTypeManager<>(
