@@ -20,6 +20,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Docu
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Indexed;
 import org.hibernate.search.v6poc.spatial.GeoPoint;
 import org.hibernate.search.v6poc.spatial.ImmutableGeoPoint;
+import org.hibernate.search.v6poc.util.impl.common.CollectionHelper;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.impl.StubBackendFactory;
 
@@ -46,6 +47,12 @@ public class JavaBeanAnnotationMappingGeoPointBridgeIT {
 				.setProperty( "index.default.backend", "stubBackend" );
 
 		JavaBeanMappingInitiator initiator = JavaBeanMappingInitiator.create( mappingRepositoryBuilder );
+
+		initiator.addEntityTypes( CollectionHelper.asSet(
+				GeoPointOnTypeEntity.class,
+				GeoPointOnCoordinatesPropertyEntity.class,
+				GeoPointOnCustomCoordinatesPropertyEntity.class
+		) );
 
 		AnnotationMappingDefinition mappingDefinition = initiator.annotationMapping();
 
