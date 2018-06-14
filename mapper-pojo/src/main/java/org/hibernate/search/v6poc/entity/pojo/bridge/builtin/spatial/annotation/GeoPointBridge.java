@@ -15,9 +15,9 @@ import java.lang.annotation.Target;
 
 import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeMapping;
-import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeMappingBuilderReference;
+import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeAnnotationBuilderReference;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeMapping;
-import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeMappingBuilderReference;
+import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeAnnotationBuilderReference;
 import org.hibernate.search.v6poc.spatial.GeoPoint;
 
 /**
@@ -63,10 +63,10 @@ import org.hibernate.search.v6poc.spatial.GeoPoint;
  * @hsearch.experimental Spatial support is still considered experimental
  * @author Nicolas Helleringer
  */
-@PropertyBridgeMapping(builder = @PropertyBridgeMappingBuilderReference(
+@PropertyBridgeMapping(builder = @PropertyBridgeAnnotationBuilderReference(
 		type = org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.GeoPointBridge.Builder.class
 ))
-@TypeBridgeMapping(builder = @TypeBridgeMappingBuilderReference(
+@TypeBridgeMapping(builder = @TypeBridgeAnnotationBuilderReference(
 		type = org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.GeoPointBridge.Builder.class
 ))
 @Retention(RetentionPolicy.RUNTIME)
