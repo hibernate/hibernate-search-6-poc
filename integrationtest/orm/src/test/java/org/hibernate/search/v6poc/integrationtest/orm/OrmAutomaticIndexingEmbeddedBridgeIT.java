@@ -36,7 +36,7 @@ import org.hibernate.search.v6poc.entity.orm.cfg.SearchOrmSettings;
 import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.TypeBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeMapping;
-import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeMappingBuilderReference;
+import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeAnnotationBuilderReference;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.AnnotationBridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.DocumentId;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Field;
@@ -310,7 +310,7 @@ public class OrmAutomaticIndexingEmbeddedBridgeIT {
 
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target({ ElementType.TYPE })
-	@TypeBridgeMapping(builder = @TypeBridgeMappingBuilderReference(type = FirstTypeBridge.Builder.class))
+	@TypeBridgeMapping(builder = @TypeBridgeAnnotationBuilderReference(type = FirstTypeBridge.Builder.class))
 	public @interface FirstTypeBridgeAnnotation {
 	}
 
@@ -353,7 +353,7 @@ public class OrmAutomaticIndexingEmbeddedBridgeIT {
 
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target({ ElementType.TYPE })
-	@TypeBridgeMapping(builder = @TypeBridgeMappingBuilderReference(type = SecondTypeBridge.Builder.class))
+	@TypeBridgeMapping(builder = @TypeBridgeAnnotationBuilderReference(type = SecondTypeBridge.Builder.class))
 	public @interface SecondTypeBridgeAnnotation {
 	}
 
