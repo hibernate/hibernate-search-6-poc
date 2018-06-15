@@ -31,7 +31,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.search.v6poc.entity.orm.cfg.SearchOrmSettings;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.AssociationInverseSide;
-import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.DocumentId;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Field;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Indexed;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.IndexedEmbedded;
@@ -1458,7 +1457,6 @@ public class OrmAutomaticIndexingEmbeddableIT {
 		static final String INDEX = "IndexedEntity";
 
 		@Id
-		@DocumentId
 		private Integer id;
 
 		@OneToOne(mappedBy = "parent")

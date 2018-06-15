@@ -31,7 +31,6 @@ import org.hibernate.search.v6poc.entity.orm.cfg.SearchOrmSettings;
 import org.hibernate.search.v6poc.entity.pojo.extractor.builtin.MapKeyExtractor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.AssociationInverseSide;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.ContainerValueExtractorBeanReference;
-import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.DocumentId;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Field;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Indexed;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.IndexedEmbedded;
@@ -768,7 +767,6 @@ public class OrmAutomaticIndexingMapKeysAssociationIT {
 	public static class ContainingEntity {
 
 		@Id
-		@DocumentId
 		private Integer id;
 
 		@OneToOne

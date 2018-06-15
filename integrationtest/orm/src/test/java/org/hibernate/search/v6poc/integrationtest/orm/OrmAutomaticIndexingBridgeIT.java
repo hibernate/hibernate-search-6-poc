@@ -38,7 +38,6 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeM
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeReference;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeMapping;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeReference;
-import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.DocumentId;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Indexed;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
@@ -611,7 +610,6 @@ public class OrmAutomaticIndexingBridgeIT {
 	public static class ContainingEntity {
 
 		@Id
-		@DocumentId
 		private Integer id;
 
 		@OneToOne
