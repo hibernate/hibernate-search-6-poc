@@ -6,6 +6,8 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.dirtiness.building.impl;
 
+import org.hibernate.search.v6poc.entity.pojo.dirtiness.ReindexOnUpdate;
+
 abstract class AbstractPojoIndexingDependencyCollectorNode {
 
 	final PojoImplicitReindexingResolverBuildingHelper buildingHelper;
@@ -13,5 +15,7 @@ abstract class AbstractPojoIndexingDependencyCollectorNode {
 	AbstractPojoIndexingDependencyCollectorNode(PojoImplicitReindexingResolverBuildingHelper buildingHelper) {
 		this.buildingHelper = buildingHelper;
 	}
+
+	abstract ReindexOnUpdate getReindexOnUpdate();
 
 }
