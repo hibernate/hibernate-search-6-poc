@@ -17,6 +17,7 @@ import java.util.Optional;
 import org.hibernate.search.v6poc.engine.spi.BeanProvider;
 import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;
+import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractorPath;
 import org.hibernate.search.v6poc.entity.pojo.extractor.builtin.ArrayElementExtractor;
 import org.hibernate.search.v6poc.entity.pojo.extractor.builtin.CollectionElementExtractor;
 import org.hibernate.search.v6poc.entity.pojo.extractor.builtin.IterableElementExtractor;
@@ -25,10 +26,9 @@ import org.hibernate.search.v6poc.entity.pojo.extractor.builtin.OptionalDoubleVa
 import org.hibernate.search.v6poc.entity.pojo.extractor.builtin.OptionalIntValueExtractor;
 import org.hibernate.search.v6poc.entity.pojo.extractor.builtin.OptionalLongValueExtractor;
 import org.hibernate.search.v6poc.entity.pojo.extractor.builtin.OptionalValueExtractor;
-import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractorPath;
 import org.hibernate.search.v6poc.entity.pojo.logging.impl.Log;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoGenericTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoBootstrapIntrospector;
+import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoGenericTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.model.typepattern.impl.TypePatternMatcher;
 import org.hibernate.search.v6poc.entity.pojo.model.typepattern.impl.TypePatternMatcherFactory;
 import org.hibernate.search.v6poc.entity.pojo.util.impl.GenericTypeContext;
@@ -209,6 +209,18 @@ public class ContainerValueExtractorBinder {
 		}
 		// tryCreate will always return a non-empty result in this case, since the resolved path is non-empty
 		return tryCreate( boundPath ).get();
+	}
+
+	public boolean isDefaultExtractorPath(PojoBootstrapIntrospector introspector, PojoGenericTypeModel<?> sourceType,
+			ContainerValueExtractorPath extractorPath) {
+		Optional<? extends BoundContainerValueExtractorPath<?, ?>> boundDefaultExtractorPathOptional =
+				tryBindPath(
+						introspector, sourceType,
+						ContainerValueExtractorPath.defaultExtractors()
+				);
+		return boundDefaultExtractorPathOptional.isPresent() && extractorPath.equals(
+				boundDefaultExtractorPathOptional.get().getExtractorPath()
+		);
 	}
 
 	@SuppressWarnings( "rawtypes" ) // Checks are implemented using reflection
