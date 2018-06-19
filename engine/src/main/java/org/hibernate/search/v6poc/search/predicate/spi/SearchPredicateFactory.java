@@ -19,7 +19,7 @@ import org.hibernate.search.v6poc.search.SearchPredicate;
  */
 public interface SearchPredicateFactory<C> {
 
-	SearchPredicate toSearchPredicate(SearchPredicateContributor<C> contributor);
+	SearchPredicate toSearchPredicate(SearchPredicateContributor<? super C> contributor);
 
 	SearchPredicateContributor<C> toContributor(SearchPredicate predicate);
 
