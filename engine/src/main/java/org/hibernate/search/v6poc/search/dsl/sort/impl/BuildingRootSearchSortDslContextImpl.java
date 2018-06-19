@@ -8,12 +8,21 @@ package org.hibernate.search.v6poc.search.dsl.sort.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
+import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;
 import org.hibernate.search.v6poc.search.SearchSort;
+import org.hibernate.search.v6poc.search.dsl.query.SearchQueryContext;
 import org.hibernate.search.v6poc.search.dsl.sort.spi.SearchSortDslContext;
 import org.hibernate.search.v6poc.search.sort.spi.SearchSortContributor;
 import org.hibernate.search.v6poc.search.sort.spi.SearchSortFactory;
 
+/**
+ * A DSL context used when building a {@link SearchSort} object,
+ * either when calling {@link IndexSearchTarget#sort()} from a search target
+ * or when calling {@link SearchQueryContext#sort(Consumer)} to build the sort using a lambda
+ * (in which case the lambda may retrieve the resulting {@link SearchSort} object and cache it).
+ */
 public final class BuildingRootSearchSortDslContextImpl<C>
 		implements SearchSortDslContext<SearchSort, C>, SearchSortContributor<C> {
 
