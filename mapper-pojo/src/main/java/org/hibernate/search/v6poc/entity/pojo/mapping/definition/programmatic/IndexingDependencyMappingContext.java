@@ -9,6 +9,7 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic;
 import org.hibernate.search.v6poc.entity.pojo.dirtiness.ReindexOnUpdate;
 import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;
 import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractorPath;
+import org.hibernate.search.v6poc.entity.pojo.model.path.PojoModelPathValueNode;
 
 /**
  * @author Yoann Rodiere
@@ -16,6 +17,8 @@ import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractorP
 public interface IndexingDependencyMappingContext extends PropertyMappingContext {
 
 	IndexingDependencyMappingContext reindexOnUpdate(ReindexOnUpdate reindexOnUpdate);
+
+	IndexingDependencyMappingContext derivedFrom(PojoModelPathValueNode pojoModelPath);
 
 	default IndexingDependencyMappingContext withExtractor(
 			Class<? extends ContainerValueExtractor> extractorClass) {

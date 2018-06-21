@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTypedContext;
 import org.hibernate.search.v6poc.backend.document.model.dsl.Sortable;
 import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
-import org.hibernate.search.v6poc.engine.spi.BeanReference;
 import org.hibernate.search.v6poc.engine.spi.BeanProvider;
+import org.hibernate.search.v6poc.engine.spi.BeanReference;
 import org.hibernate.search.v6poc.engine.spi.ImmutableBeanReference;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
 import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
@@ -29,14 +29,14 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.TypeBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.MarkerMapping;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.MarkerMappingBuilderReference;
-import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeMapping;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeAnnotationBuilderReference;
+import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeMapping;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.PropertyBridgeReference;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.RoutingKeyBridgeAnnotationBuilderReference;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.RoutingKeyBridgeMapping;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.RoutingKeyBridgeReference;
-import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeMapping;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeAnnotationBuilderReference;
+import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeMapping;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeReference;
 import org.hibernate.search.v6poc.entity.pojo.bridge.impl.BeanResolverBridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.AnnotationBridgeBuilder;
@@ -62,11 +62,13 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Valu
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.ValueBridgeBuilderBeanReference;
 import org.hibernate.search.v6poc.entity.pojo.model.additionalmetadata.building.spi.PojoAdditionalMetadataCollectorPropertyNode;
 import org.hibernate.search.v6poc.entity.pojo.model.additionalmetadata.building.spi.PojoAdditionalMetadataCollectorTypeNode;
+import org.hibernate.search.v6poc.entity.pojo.model.additionalmetadata.building.spi.PojoAdditionalMetadataCollectorValueNode;
 import org.hibernate.search.v6poc.entity.pojo.model.path.PojoModelPath;
 import org.hibernate.search.v6poc.entity.pojo.model.path.PojoModelPathValueNode;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoPropertyModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRawTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PropertyHandle;
+import org.hibernate.search.v6poc.util.impl.common.CollectionHelper;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 class AnnotationPojoTypeMetadataContributorImpl implements PojoTypeMetadataContributor {
@@ -108,7 +110,7 @@ class AnnotationPojoTypeMetadataContributorImpl implements PojoTypeMetadataContr
 		propertyModel.getAnnotationsByType( AssociationInverseSide.class )
 				.forEach( annotation -> addAssociationInverseSide( collector.property( name ), propertyModel, annotation ) );
 		propertyModel.getAnnotationsByType( IndexingDependency.class )
-				.forEach( annotation -> addIndexingDependency( collector.property( name ), annotation ) );
+				.forEach( annotation -> addIndexingDependency( collector.property( name ), propertyModel, annotation ) );
 	}
 
 	private void contributePropertyMapping(PojoMappingCollectorTypeNode collector, PojoPropertyModel<?> propertyModel) {
@@ -144,14 +146,30 @@ class AnnotationPojoTypeMetadataContributorImpl implements PojoTypeMetadataContr
 	}
 
 	private void addIndexingDependency(PojoAdditionalMetadataCollectorPropertyNode collector,
-			IndexingDependency annotation) {
+			PojoPropertyModel<?> propertyModel, IndexingDependency annotation) {
 		ContainerValueExtractorPath extractorPath = getExtractorPath(
 				annotation.extractors(), IndexingDependency.DefaultExtractors.class
 		);
 
 		ReindexOnUpdate reindexOnUpdate = annotation.reindexOnUpdate();
 
-		collector.value( extractorPath ).indexingDependency( reindexOnUpdate );
+		PojoAdditionalMetadataCollectorValueNode collectorValueNode = collector.value( extractorPath );
+
+		collectorValueNode.reindexOnUpdate( reindexOnUpdate );
+
+		ObjectPath[] derivedFromAnnotations = annotation.derivedFrom();
+		if ( derivedFromAnnotations.length > 0 ) {
+			// Use a LinkedHashSet for deterministic iteration
+			Set<PojoModelPathValueNode> derivedFrom = CollectionHelper.newLinkedHashSet( derivedFromAnnotations.length );
+			for ( ObjectPath objectPath : annotation.derivedFrom() ) {
+				Optional<PojoModelPathValueNode> pojoModelPathOptional = getPojoModelPathValueNode( objectPath );
+				if ( !pojoModelPathOptional.isPresent() ) {
+					throw log.missingPathInIndexingDependencyDerivedFrom( typeModel, propertyModel.getName() );
+				}
+				derivedFrom.add( pojoModelPathOptional.get() );
+			}
+			collectorValueNode.derivedFrom( derivedFrom );
+		}
 	}
 
 	private void addDocumentId(PojoMappingCollectorPropertyNode collector, PojoPropertyModel<?> propertyModel, DocumentId annotation) {
