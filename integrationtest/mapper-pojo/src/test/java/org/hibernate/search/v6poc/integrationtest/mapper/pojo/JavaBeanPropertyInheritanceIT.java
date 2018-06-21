@@ -16,6 +16,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Docu
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Field;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Indexed;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.IndexedEmbedded;
+import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.ObjectPath;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.PropertyValue;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
 import org.hibernate.search.v6poc.util.impl.test.rule.StaticCounters;
@@ -118,7 +119,7 @@ public class JavaBeanPropertyInheritanceIT {
 		}
 
 		@IndexedEmbedded(maxDepth = 1)
-		@AssociationInverseSide( inversePath = @PropertyValue( propertyName = "embedding"))
+		@AssociationInverseSide(inversePath = @ObjectPath(@PropertyValue( propertyName = "embedding")))
 		public abstract ParentIndexedEntity getEmbedded();
 	}
 
