@@ -16,6 +16,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Docu
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Field;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Indexed;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.IndexedEmbedded;
+import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.ObjectPath;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.PropertyValue;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
 import org.hibernate.search.v6poc.util.impl.test.rule.StaticCounters;
@@ -121,7 +122,7 @@ public class JavaBeanGenericPropertyIT {
 		}
 
 		@IndexedEmbedded
-		@AssociationInverseSide(inversePath = @PropertyValue(propertyName = "parent"))
+		@AssociationInverseSide(inversePath = @ObjectPath(@PropertyValue(propertyName = "parent")))
 		public GenericEntity<String> getGenericProperty() {
 			return genericProperty;
 		}
