@@ -15,9 +15,6 @@ import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTargetBase;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTargetBuilder;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
-import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.StubQueryElementCollector;
-import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.predicate.impl.StubSearchPredicateFactory;
-import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.sort.StubSearchSortFactory;
 import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.search.ObjectLoader;
 import org.hibernate.search.v6poc.search.dsl.query.SearchQueryResultDefinitionContext;
@@ -26,8 +23,11 @@ import org.hibernate.search.v6poc.search.dsl.spi.SearchTargetContext;
 import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateFactory;
 import org.hibernate.search.v6poc.search.query.spi.SearchQueryFactory;
 import org.hibernate.search.v6poc.search.sort.spi.SearchSortFactory;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.StubQueryElementCollector;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.predicate.impl.StubSearchPredicateFactory;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.sort.StubSearchSortFactory;
 
-class StubIndexSearchTarget extends IndexSearchTargetBase implements SearchTargetContext<StubQueryElementCollector> {
+class StubIndexSearchTarget extends IndexSearchTargetBase implements SearchTargetContext<Void, StubQueryElementCollector> {
 	private final StubSearchPredicateFactory predicateFactory;
 	private final StubSearchSortFactory sortFactory;
 	private final StubSearchQueryFactory queryFactory;
@@ -47,7 +47,7 @@ class StubIndexSearchTarget extends IndexSearchTargetBase implements SearchTarge
 	}
 
 	@Override
-	public SearchPredicateFactory<? super StubQueryElementCollector> getSearchPredicateFactory() {
+	public SearchPredicateFactory<Void, ? super StubQueryElementCollector> getSearchPredicateFactory() {
 		return predicateFactory;
 	}
 
@@ -62,7 +62,7 @@ class StubIndexSearchTarget extends IndexSearchTargetBase implements SearchTarge
 	}
 
 	@Override
-	protected SearchTargetContext<?> getSearchTargetContext() {
+	protected SearchTargetContext<Void, ?> getSearchTargetContext() {
 		return this;
 	}
 

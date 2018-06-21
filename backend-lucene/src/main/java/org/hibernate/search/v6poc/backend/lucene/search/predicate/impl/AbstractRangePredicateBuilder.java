@@ -10,7 +10,8 @@ import org.hibernate.search.v6poc.backend.lucene.types.formatter.impl.LuceneFiel
 import org.hibernate.search.v6poc.search.predicate.spi.RangePredicateBuilder;
 
 
-public abstract class AbstractRangePredicateBuilder<T> extends AbstractSearchPredicateBuilder implements RangePredicateBuilder<LuceneSearchPredicateCollector> {
+public abstract class AbstractRangePredicateBuilder<T> extends AbstractSearchPredicateBuilder
+		implements RangePredicateBuilder<LuceneSearchPredicateContext, LuceneSearchPredicateCollector> {
 
 	protected final String absoluteFieldPath;
 
