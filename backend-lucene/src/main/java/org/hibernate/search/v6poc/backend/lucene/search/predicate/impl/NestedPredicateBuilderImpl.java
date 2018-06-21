@@ -20,7 +20,7 @@ import org.hibernate.search.v6poc.search.predicate.spi.NestedPredicateBuilder;
  * @author Guillaume Smet
  */
 class NestedPredicateBuilderImpl extends AbstractSearchPredicateBuilder
-		implements NestedPredicateBuilder<LuceneSearchPredicateCollector> {
+		implements NestedPredicateBuilder<LuceneSearchPredicateContext, LuceneSearchPredicateCollector> {
 
 	private final String absoluteFieldPath;
 
