@@ -15,3 +15,7 @@ and API compatibility with Search 5 is undoubtedly broken.
 In short, you are welcome to try this library if you are curious,
 but you should absolutely not expect to use it in a real-life project.
 
+Documentation is still in its early stages,
+but a technical documentation of the internal architecture can be generated through the following command,
+executed from the root of your cloned repository: `mvn clean install -pl documentation`.
+The documentation will be available as a HTML file at `documentation/target/asciidoctor/en-US/html_single/index.html`.
