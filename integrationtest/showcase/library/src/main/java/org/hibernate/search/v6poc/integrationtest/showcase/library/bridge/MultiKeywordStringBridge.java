@@ -11,10 +11,10 @@ import java.util.regex.Pattern;
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
-import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.model.SearchModel;
 import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.AnnotationBridgeBuilder;
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuildContext;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelProperty;
@@ -44,7 +44,7 @@ public class MultiKeywordStringBridge implements PropertyBridge {
 		}
 
 		@Override
-		public PropertyBridge build(BuildContext buildContext) {
+		public PropertyBridge build(BridgeBuildContext buildContext) {
 			if ( fieldName == null || fieldName.isEmpty() ) {
 				throw new IllegalArgumentException( "fieldName is a mandatory parameter" );
 			}

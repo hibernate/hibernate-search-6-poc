@@ -15,11 +15,11 @@ import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
 import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
-import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.entity.model.SearchModel;
 import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.TypeBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.AnnotationBridgeBuilder;
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuildContext;
 import org.hibernate.search.v6poc.entity.pojo.logging.impl.Log;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
@@ -70,7 +70,7 @@ public class GeoPointBridge implements TypeBridge, PropertyBridge {
 		}
 
 		@Override
-		public GeoPointBridge build(BuildContext buildContext) {
+		public GeoPointBridge build(BridgeBuildContext buildContext) {
 			return new GeoPointBridge( fieldName, store, markerSet );
 		}
 

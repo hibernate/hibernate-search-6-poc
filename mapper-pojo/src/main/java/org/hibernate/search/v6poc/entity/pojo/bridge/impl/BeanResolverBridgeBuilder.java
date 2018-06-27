@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.entity.pojo.bridge.impl;
 
 import org.hibernate.search.v6poc.engine.spi.BeanReference;
 import org.hibernate.search.v6poc.engine.spi.BeanProvider;
-import org.hibernate.search.v6poc.engine.spi.BuildContext;
+import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuildContext;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 
 public class BeanResolverBridgeBuilder<T> implements BridgeBuilder<T> {
@@ -28,7 +28,7 @@ public class BeanResolverBridgeBuilder<T> implements BridgeBuilder<T> {
 	}
 
 	@Override
-	public T build(BuildContext buildContext) {
+	public T build(BridgeBuildContext buildContext) {
 		BeanProvider beanProvider = buildContext.getServiceManager().getBeanProvider();
 		return beanProvider.getBean( beanReference, expectedType );
 	}
