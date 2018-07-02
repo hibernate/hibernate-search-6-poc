@@ -8,22 +8,21 @@ package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.i
 
 import org.hibernate.search.v6poc.engine.spi.BeanReference;
 import org.hibernate.search.v6poc.engine.spi.ImmutableBeanReference;
+import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.impl.BeanResolverBridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
-import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
-import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMappingCollectorPropertyNode;
-import org.hibernate.search.v6poc.entity.pojo.model.additionalmetadata.building.spi.PojoAdditionalMetadataCollectorPropertyNode;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoPropertyMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyDocumentIdMappingContext;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.PropertyMappingContext;
+import org.hibernate.search.v6poc.entity.pojo.model.additionalmetadata.building.spi.PojoAdditionalMetadataCollectorPropertyNode;
 
 
 /**
  * @author Yoann Rodiere
  */
 public class PropertyDocumentIdMappingContextImpl extends DelegatingPropertyMappingContext
-		implements PropertyDocumentIdMappingContext,
-		PojoMetadataContributor<PojoAdditionalMetadataCollectorPropertyNode, PojoMappingCollectorPropertyNode> {
+		implements PropertyDocumentIdMappingContext, PojoPropertyMetadataContributor {
 
 	private BridgeBuilder<? extends IdentifierBridge<?>> bridgeBuilder;
 
