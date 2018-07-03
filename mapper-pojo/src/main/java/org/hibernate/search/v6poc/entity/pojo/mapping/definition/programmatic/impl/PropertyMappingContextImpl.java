@@ -6,18 +6,15 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.hibernate.search.v6poc.engine.spi.BeanReference;
 import org.hibernate.search.v6poc.engine.spi.ImmutableBeanReference;
 import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.impl.BeanResolverBridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.MarkerBuilder;
+import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.DelegatingPojoPropertyMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMappingCollectorPropertyNode;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMappingCollectorTypeNode;
-import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoPropertyMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoTypeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.AssociationInverseSideMappingContext;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.IndexingDependencyMappingContext;
@@ -37,7 +34,8 @@ public class PropertyMappingContextImpl
 	private final TypeMappingContext parent;
 	private final PropertyHandle propertyHandle;
 
-	private final List<PojoPropertyMetadataContributor> children = new ArrayList<>();
+	private final DelegatingPojoPropertyMetadataContributor children =
+			new DelegatingPojoPropertyMetadataContributor();
 
 	PropertyMappingContextImpl(TypeMappingContext parent, PropertyHandle propertyHandle) {
 		this.parent = parent;
@@ -46,14 +44,15 @@ public class PropertyMappingContextImpl
 
 	@Override
 	public void contributeModel(PojoAdditionalMetadataCollectorTypeNode collector) {
-		PojoAdditionalMetadataCollectorPropertyNode propertyNodeCollector = collector.property( propertyHandle.getName() );
-		children.forEach( child -> child.contributeModel( propertyNodeCollector ) );
+		PojoAdditionalMetadataCollectorPropertyNode collectorPropertyNode =
+				collector.property( propertyHandle.getName() );
+		children.contributeModel( collectorPropertyNode );
 	}
 
 	@Override
 	public void contributeMapping(PojoMappingCollectorTypeNode collector) {
-		PojoMappingCollectorPropertyNode propertyNodeCollector = collector.property( propertyHandle );
-		children.forEach( child -> child.contributeMapping( propertyNodeCollector ) );
+		PojoMappingCollectorPropertyNode collectorPropertyNode = collector.property( propertyHandle );
+		children.contributeMapping( collectorPropertyNode );
 	}
 
 	@Override
