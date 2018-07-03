@@ -17,12 +17,14 @@ import org.hibernate.search.v6poc.entity.mapping.spi.MappingBuildContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MappingConfigurationCollector;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataDiscoverer;
 import org.hibernate.search.v6poc.entity.model.spi.MappableTypeModel;
+import org.hibernate.search.v6poc.entity.pojo.logging.spi.PojoFailureContexts;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoTypeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.AnnotationMappingDefinition;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Indexed;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingConfigurationContributor;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoBootstrapIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoRawTypeModel;
+import org.hibernate.search.v6poc.logging.spi.FailureCollector;
 
 public class AnnotationMappingDefinitionImpl implements AnnotationMappingDefinition,
 		PojoMappingConfigurationContributor {
@@ -57,8 +59,9 @@ public class AnnotationMappingDefinitionImpl implements AnnotationMappingDefinit
 	public void configure(MappingBuildContext buildContext, ConfigurationPropertySource propertySource,
 			MappingConfigurationCollector<PojoTypeMetadataContributor> collector) {
 		BeanProvider beanProvider = buildContext.getServiceManager().getBeanProvider();
+		FailureCollector failureCollector = buildContext.getFailureCollector();
 		AnnotationProcessorProvider annotationProcessorProvider =
-				new AnnotationProcessorProvider( beanProvider );
+				new AnnotationProcessorProvider( beanProvider, failureCollector );
 		AnnotationPojoTypeMetadataContributorFactory contributorFactory =
 				new AnnotationPojoTypeMetadataContributorFactory( annotationProcessorProvider );
 
@@ -80,7 +83,14 @@ public class AnnotationMappingDefinitionImpl implements AnnotationMappingDefinit
 				.forEach( typeModel -> {
 					Optional<Indexed> indexedAnnotation = typeModel.getAnnotationByType( Indexed.class );
 					if ( indexedAnnotation.isPresent() ) {
-						collector.mapToIndex( typeModel, indexedAnnotation.get().index() );
+						try {
+							collector.mapToIndex( typeModel, indexedAnnotation.get().index() );
+						}
+						catch (RuntimeException e) {
+							failureCollector.withContext( PojoFailureContexts.fromType( typeModel ) )
+									.withContext( PojoFailureContexts.fromAnnotation( indexedAnnotation.get() ) )
+									.add( e );
+						}
 					}
 
 					PojoTypeMetadataContributor contributor = contributorFactory.create( typeModel );

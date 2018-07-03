@@ -7,11 +7,21 @@
 package org.hibernate.search.v6poc.engine.impl;
 
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingBuildContext;
+import org.hibernate.search.v6poc.entity.mapping.spi.MappingKey;
+import org.hibernate.search.v6poc.logging.spi.ContextualFailureCollector;
 
 class MappingBuildContextImpl extends DelegatingBuildContext implements MappingBuildContext {
 
-	MappingBuildContextImpl(RootBuildContext delegate) {
+	private final ContextualFailureCollector failureCollector;
+
+
+	MappingBuildContextImpl(RootBuildContext delegate, MappingKey<?> mappingKey) {
 		super( delegate );
+		failureCollector = delegate.getFailureCollector().withContext( mappingKey );
 	}
 
+	@Override
+	public ContextualFailureCollector getFailureCollector() {
+		return failureCollector;
+	}
 }

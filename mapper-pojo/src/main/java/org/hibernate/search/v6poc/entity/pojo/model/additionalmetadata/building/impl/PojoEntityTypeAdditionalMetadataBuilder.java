@@ -11,13 +11,23 @@ import java.util.Optional;
 import org.hibernate.search.v6poc.entity.pojo.model.additionalmetadata.building.spi.PojoAdditionalMetadataCollectorEntityTypeNode;
 import org.hibernate.search.v6poc.entity.pojo.model.additionalmetadata.impl.PojoEntityTypeAdditionalMetadata;
 import org.hibernate.search.v6poc.entity.pojo.model.path.spi.PojoPathFilterFactory;
+import org.hibernate.search.v6poc.logging.spi.ContextualFailureCollector;
 
 class PojoEntityTypeAdditionalMetadataBuilder implements PojoAdditionalMetadataCollectorEntityTypeNode {
+	private final PojoTypeAdditionalMetadataBuilder rootBuilder;
 	private final PojoPathFilterFactory pathFilterFactory;
 	private String entityIdPropertyName;
 
-	PojoEntityTypeAdditionalMetadataBuilder(PojoPathFilterFactory pathFilterFactory) {
+	PojoEntityTypeAdditionalMetadataBuilder(PojoTypeAdditionalMetadataBuilder rootBuilder,
+			PojoPathFilterFactory pathFilterFactory) {
+		this.rootBuilder = rootBuilder;
 		this.pathFilterFactory = pathFilterFactory;
+	}
+
+	@Override
+	public ContextualFailureCollector getFailureCollector() {
+		// There's nothing to add to the context
+		return rootBuilder.getFailureCollector();
 	}
 
 	@Override

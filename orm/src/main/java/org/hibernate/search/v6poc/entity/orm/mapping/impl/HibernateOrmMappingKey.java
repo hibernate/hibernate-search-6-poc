@@ -7,7 +7,18 @@
 package org.hibernate.search.v6poc.entity.orm.mapping.impl;
 
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingKey;
+import org.hibernate.search.v6poc.entity.orm.logging.impl.HibernateOrmFailureContextMessages;
 import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmMapping;
 
+import org.jboss.logging.Messages;
+
 public final class HibernateOrmMappingKey implements MappingKey<HibernateOrmMapping> {
+	private static final HibernateOrmFailureContextMessages MESSAGES =
+			Messages.getBundle( HibernateOrmFailureContextMessages.class );
+
+	@Override
+	public String render() {
+		return MESSAGES.mapping();
+	}
+
 }

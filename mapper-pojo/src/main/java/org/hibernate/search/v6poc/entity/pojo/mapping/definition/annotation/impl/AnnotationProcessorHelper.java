@@ -50,6 +50,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Valu
 import org.hibernate.search.v6poc.entity.pojo.model.path.PojoModelPath;
 import org.hibernate.search.v6poc.entity.pojo.model.path.PojoModelPathValueNode;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoPropertyModel;
+import org.hibernate.search.v6poc.logging.spi.FailureCollector;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 class AnnotationProcessorHelper {
@@ -57,9 +58,15 @@ class AnnotationProcessorHelper {
 	private static final Log log = LoggerFactory.make( Log.class, MethodHandles.lookup() );
 
 	private final BeanProvider beanProvider;
+	private final FailureCollector rootFailureCollector;
 
-	AnnotationProcessorHelper(BeanProvider beanProvider) {
+	AnnotationProcessorHelper(BeanProvider beanProvider, FailureCollector rootFailureCollector) {
 		this.beanProvider = beanProvider;
+		this.rootFailureCollector = rootFailureCollector;
+	}
+
+	FailureCollector getRootFailureCollector() {
+		return rootFailureCollector;
 	}
 
 	Optional<PojoModelPathValueNode> getPojoModelPathValueNode(ObjectPath objectPath) {

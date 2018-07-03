@@ -7,10 +7,13 @@
 package org.hibernate.search.v6poc.entity.pojo.processing.building.impl;
 
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
+import org.hibernate.search.v6poc.entity.pojo.logging.spi.PojoFailureContexts;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoMappingHelper;
+import org.hibernate.search.v6poc.entity.pojo.model.path.PojoModelPath;
 import org.hibernate.search.v6poc.entity.pojo.model.path.impl.BoundPojoModelPath;
+import org.hibernate.search.v6poc.logging.spi.ContextualFailureCollector;
 
-abstract class AbstractPojoProcessorNodeBuilder<T> {
+abstract class AbstractPojoProcessorNodeBuilder {
 
 	final PojoMappingHelper mappingHelper;
 	final IndexModelBindingContext bindingContext;
@@ -29,4 +32,22 @@ abstract class AbstractPojoProcessorNodeBuilder<T> {
 	abstract BoundPojoModelPath getModelPath();
 
 	abstract void closeOnFailure();
+
+	public final ContextualFailureCollector getFailureCollector() {
+		BoundPojoModelPath modelPath = getModelPath();
+
+		ContextualFailureCollector failureCollector = mappingHelper.getFailureCollector()
+				.withContext(
+						PojoFailureContexts.fromType( modelPath.getRootType().getRawType() )
+				);
+
+		PojoModelPath unboundPath = modelPath.toUnboundPath();
+		if ( unboundPath != null ) {
+			failureCollector = failureCollector.withContext(
+					PojoFailureContexts.fromPath( modelPath.toUnboundPath() )
+			);
+		}
+
+		return failureCollector;
+	}
 }

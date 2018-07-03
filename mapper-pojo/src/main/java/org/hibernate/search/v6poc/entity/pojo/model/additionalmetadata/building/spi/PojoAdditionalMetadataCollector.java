@@ -6,6 +6,10 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.model.additionalmetadata.building.spi;
 
+import org.hibernate.search.v6poc.logging.spi.ContextualFailureCollector;
+
 public interface PojoAdditionalMetadataCollector {
+
+	ContextualFailureCollector getFailureCollector();
 
 }
