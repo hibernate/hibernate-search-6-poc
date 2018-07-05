@@ -23,7 +23,7 @@ import org.hibernate.search.v6poc.backend.spi.BackendImplementor;
 import org.hibernate.search.v6poc.backend.spi.BackendFactory;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.cfg.spi.ConfigurationProperty;
-import org.hibernate.search.v6poc.engine.spi.BuildContext;
+import org.hibernate.search.v6poc.backend.spi.BackendBuildContext;
 import org.hibernate.search.v6poc.util.AssertionFailure;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
@@ -53,7 +53,7 @@ public class LuceneBackendFactory implements BackendFactory {
 					.build();
 
 	@Override
-	public BackendImplementor<?> create(String name, BuildContext context, ConfigurationPropertySource propertySource) {
+	public BackendImplementor<?> create(String name, BackendBuildContext context, ConfigurationPropertySource propertySource) {
 		// TODO be more clever about the type, also supports providing a class
 		Optional<String> directoryProviderProperty = DIRECTORY_PROVIDER.get( propertySource );
 

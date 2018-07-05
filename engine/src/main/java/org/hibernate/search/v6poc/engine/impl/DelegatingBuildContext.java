@@ -6,24 +6,16 @@
  */
 package org.hibernate.search.v6poc.engine.impl;
 
-import org.hibernate.search.v6poc.engine.spi.BuildContext;
 import org.hibernate.search.v6poc.engine.spi.ServiceManager;
 
+class DelegatingBuildContext {
+	private final RootBuildContext delegate;
 
-/**
- * @author Yoann Rodiere
- */
-public class BuildContextImpl implements BuildContext {
-
-	private final ServiceManager serviceManager;
-
-	public BuildContextImpl(ServiceManager serviceManager) {
-		this.serviceManager = serviceManager;
+	DelegatingBuildContext(RootBuildContext delegate) {
+		this.delegate = delegate;
 	}
 
-	@Override
 	public ServiceManager getServiceManager() {
-		return serviceManager;
+		return delegate.getServiceManager();
 	}
-
 }

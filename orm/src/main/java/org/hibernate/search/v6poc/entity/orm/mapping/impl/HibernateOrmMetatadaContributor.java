@@ -21,7 +21,7 @@ import org.hibernate.mapping.Property;
 import org.hibernate.mapping.ToOne;
 import org.hibernate.mapping.Value;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
-import org.hibernate.search.v6poc.engine.spi.BuildContext;
+import org.hibernate.search.v6poc.entity.mapping.spi.MappingBuildContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MappingConfigurationCollector;
 import org.hibernate.search.v6poc.entity.orm.model.impl.HibernateOrmBootstrapIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;
@@ -48,7 +48,7 @@ public final class HibernateOrmMetatadaContributor implements PojoMappingConfigu
 	}
 
 	@Override
-	public void configure(BuildContext buildContext, ConfigurationPropertySource propertySource,
+	public void configure(MappingBuildContext buildContext, ConfigurationPropertySource propertySource,
 			MappingConfigurationCollector<PojoTypeMetadataContributor> configurationCollector) {
 		PropertyDelegatesCollector delegatesCollector = new PropertyDelegatesCollector();
 

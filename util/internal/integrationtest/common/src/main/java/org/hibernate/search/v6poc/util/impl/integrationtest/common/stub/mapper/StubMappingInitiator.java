@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
-import org.hibernate.search.v6poc.engine.spi.BuildContext;
+import org.hibernate.search.v6poc.entity.mapping.spi.MappingBuildContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.Mapper;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MappingConfigurationCollector;
@@ -43,7 +43,7 @@ public class StubMappingInitiator implements MappingInitiator<StubTypeMetadataCo
 	}
 
 	@Override
-	public void configure(BuildContext buildContext, ConfigurationPropertySource propertySource,
+	public void configure(MappingBuildContext buildContext, ConfigurationPropertySource propertySource,
 			MappingConfigurationCollector<StubTypeMetadataContributor> configurationCollector) {
 		if ( multiTenancyEnabled ) {
 			configurationCollector.enableMultiTenancy();
@@ -54,7 +54,7 @@ public class StubMappingInitiator implements MappingInitiator<StubTypeMetadataCo
 	}
 
 	@Override
-	public Mapper<StubMapping> createMapper(BuildContext buildContext, ConfigurationPropertySource propertySource,
+	public Mapper<StubMapping> createMapper(MappingBuildContext buildContext, ConfigurationPropertySource propertySource,
 			TypeMetadataContributorProvider<StubTypeMetadataContributor> contributorProvider) {
 		return new StubMapper( contributorProvider );
 	}

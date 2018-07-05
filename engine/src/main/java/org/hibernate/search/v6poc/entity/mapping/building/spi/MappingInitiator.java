@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.entity.mapping.building.spi;
 
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
-import org.hibernate.search.v6poc.engine.spi.BuildContext;
+import org.hibernate.search.v6poc.entity.mapping.spi.MappingBuildContext;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingKey;
 
 /**
@@ -21,10 +21,10 @@ public interface MappingInitiator<C, M> {
 
 	MappingKey<M> getMappingKey();
 
-	void configure(BuildContext buildContext, ConfigurationPropertySource propertySource,
+	void configure(MappingBuildContext buildContext, ConfigurationPropertySource propertySource,
 			MappingConfigurationCollector<C> configurationCollector);
 
-	Mapper<M> createMapper(BuildContext buildContext, ConfigurationPropertySource propertySource,
+	Mapper<M> createMapper(MappingBuildContext buildContext, ConfigurationPropertySource propertySource,
 			TypeMetadataContributorProvider<C> contributorProvider);
 
 }
