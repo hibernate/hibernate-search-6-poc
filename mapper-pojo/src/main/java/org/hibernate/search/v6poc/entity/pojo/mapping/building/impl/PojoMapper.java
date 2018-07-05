@@ -17,6 +17,7 @@ import java.util.Set;
 import java.util.function.BiFunction;
 
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
+import org.hibernate.search.v6poc.entity.mapping.building.spi.MappingAbortedException;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingBuildContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexManagerBuildingState;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.Mapper;
@@ -29,6 +30,7 @@ import org.hibernate.search.v6poc.entity.pojo.dirtiness.building.impl.PojoImplic
 import org.hibernate.search.v6poc.entity.pojo.dirtiness.impl.PojoImplicitReindexingResolver;
 import org.hibernate.search.v6poc.entity.pojo.extractor.impl.ContainerValueExtractorBinder;
 import org.hibernate.search.v6poc.entity.pojo.logging.impl.Log;
+import org.hibernate.search.v6poc.entity.pojo.logging.spi.PojoFailureContexts;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMappingCollectorTypeNode;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoTypeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoContainedTypeManager;
@@ -132,7 +134,7 @@ public class PojoMapper<M> implements Mapper<M> {
 	}
 
 	@Override
-	public MappingImplementor<M> build() {
+	public MappingImplementor<M> build() throws MappingAbortedException {
 		Set<PojoRawTypeModel<?>> entityTypes = computeEntityTypes();
 		log.detectedEntityTypes( entityTypes );
 
@@ -152,6 +154,9 @@ public class PojoMapper<M> implements Mapper<M> {
 		for ( PojoIndexedTypeManagerBuilder<?, ?> pojoIndexedTypeManagerBuilder : indexedTypeManagerBuilders.values() ) {
 			pojoIndexedTypeManagerBuilder.preBuild( reindexingResolverBuildingHelper );
 		}
+		if ( failureCollector.hasFailure() ) {
+			throw new MappingAbortedException();
+		}
 
 		PojoMappingDelegate mappingImplementor = null;
 		try {
@@ -160,19 +165,34 @@ public class PojoMapper<M> implements Mapper<M> {
 					: indexedTypeManagerBuilders.entrySet() ) {
 				PojoRawTypeModel<?> typeModel = entry.getKey();
 				PojoIndexedTypeManagerBuilder<?, ?> pojoIndexedTypeManagerBuilder = entry.getValue();
-				pojoIndexedTypeManagerBuilder.buildAndAddTo(
-						indexedTypeManagerContainerBuilder, reindexingResolverBuildingHelper,
-						typeAdditionalMetadataProvider.get( typeModel )
-				);
+				try {
+					pojoIndexedTypeManagerBuilder.buildAndAddTo(
+							indexedTypeManagerContainerBuilder, reindexingResolverBuildingHelper,
+							typeAdditionalMetadataProvider.get( typeModel )
+					);
+				}
+				catch (RuntimeException e) {
+					failureCollector.withContext( PojoFailureContexts.fromType( typeModel ) )
+							.add( e );
+				}
 			}
 			// Third phase: build the non-indexed, contained type managers and their reindexing resolvers
 			for ( PojoRawTypeModel<?> entityType : entityTypes ) {
 				// Ignore abstract classes: we create one manager per concrete subclass, which is enough
 				if ( !entityType.isAbstract() && !indexedTypeManagerBuilders.containsKey( entityType ) ) {
-					buildAndAddContainedTypeManagerTo(
-							containedTypeManagerContainerBuilder, reindexingResolverBuildingHelper, entityType
-					);
+					try {
+						buildAndAddContainedTypeManagerTo(
+								containedTypeManagerContainerBuilder, reindexingResolverBuildingHelper, entityType
+						);
+					}
+					catch (RuntimeException e) {
+						failureCollector.withContext( PojoFailureContexts.fromType( entityType ) )
+								.add( e );
+					}
 				}
+			}
+			if ( failureCollector.hasFailure() ) {
+				throw new MappingAbortedException();
 			}
 
 			mappingImplementor = new PojoMappingDelegateImpl(
@@ -180,7 +200,7 @@ public class PojoMapper<M> implements Mapper<M> {
 					containedTypeManagerContainerBuilder.build()
 			);
 		}
-		catch (RuntimeException e) {
+		catch (MappingAbortedException | RuntimeException e) {
 			new SuppressingCloser( e )
 					.push(
 							PojoIndexedTypeManagerContainer.Builder::closeOnFailure,

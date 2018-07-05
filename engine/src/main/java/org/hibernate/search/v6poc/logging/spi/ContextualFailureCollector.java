@@ -13,6 +13,8 @@ package org.hibernate.search.v6poc.logging.spi;
  */
 public interface ContextualFailureCollector extends FailureCollector {
 
+	boolean hasFailure();
+
 	void add(Throwable t);
 
 }
