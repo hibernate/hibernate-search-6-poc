@@ -19,6 +19,7 @@ import org.hibernate.search.v6poc.backend.lucene.types.dsl.impl.LocalDateIndexSc
 import org.hibernate.search.v6poc.backend.lucene.types.dsl.impl.StringIndexSchemaFieldContext;
 import org.hibernate.search.v6poc.spatial.GeoPoint;
 import org.hibernate.search.v6poc.util.SearchException;
+import org.hibernate.search.v6poc.util.impl.common.Contracts;
 
 
 /**
@@ -77,7 +78,8 @@ public class LuceneIndexSchemaFieldContextImpl implements IndexSchemaFieldContex
 
 	@Override
 	public void contribute(LuceneIndexSchemaNodeCollector collector, LuceneIndexSchemaObjectNode parentNode) {
-		// TODO error if delegate is null
+		Contracts.assertNotNull( delegate, "delegate" );
+
 		delegate.contribute( collector, parentNode );
 	}
 
