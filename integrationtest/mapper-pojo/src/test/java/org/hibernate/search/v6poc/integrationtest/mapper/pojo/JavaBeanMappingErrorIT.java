@@ -12,8 +12,6 @@ import java.beans.Transient;
 import java.lang.invoke.MethodHandles;
 import java.util.Set;
 
-import org.hibernate.search.v6poc.engine.SearchMappingRepository;
-import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingInitiator;
 import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractorPath;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.DocumentId;
@@ -25,7 +23,7 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Prop
 import org.hibernate.search.v6poc.entity.pojo.model.path.PojoModelPathValueNode;
 import org.hibernate.search.v6poc.util.impl.common.CollectionHelper;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
-import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.impl.StubBackendFactory;
+import org.hibernate.search.v6poc.integrationtest.mapper.pojo.test.util.rule.JavaBeanMappingSetupHelper;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -38,6 +36,9 @@ public class JavaBeanMappingErrorIT {
 
 	@Rule
 	public BackendMock backendMock = new BackendMock( "stubBackend" );
+
+	@Rule
+	public JavaBeanMappingSetupHelper setupHelper = new JavaBeanMappingSetupHelper();
 
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
@@ -138,24 +139,23 @@ public class JavaBeanMappingErrorIT {
 	}
 
 	private void startup(Set<Class<?>> entityTypes, Set<Class<?>> annotatedTypes) {
-		SearchMappingRepositoryBuilder mappingRepositoryBuilder = SearchMappingRepository.builder()
-				.setProperty( "backend.stubBackend.type", StubBackendFactory.class.getName() )
-				.setProperty( "index.default.backend", "stubBackend" );
+		setupHelper.withBackendMock( backendMock )
+				.setup( mappingRepositoryBuilder -> {
+					JavaBeanMappingInitiator initiator = JavaBeanMappingInitiator.create(
+							mappingRepositoryBuilder,
+							MethodHandles.lookup(),
+							true,
+							false
+					);
 
-		JavaBeanMappingInitiator initiator = JavaBeanMappingInitiator.create(
-				mappingRepositoryBuilder,
-				MethodHandles.lookup(),
-				true,
-				false
-		);
+					initiator.addEntityTypes( entityTypes );
 
-		initiator.addEntityTypes( entityTypes );
+					initiator.annotationMapping().add( annotatedTypes );
 
-		initiator.annotationMapping().add( annotatedTypes );
+					return initiator;
+				} );
 
-		try ( SearchMappingRepository ignored = mappingRepositoryBuilder.build() ) {
-			fail( "Expected a failure" );
-		}
+		fail( "Expected a failure" );
 	}
 
 }
