@@ -6,6 +6,9 @@
  */
 package org.hibernate.search.v6poc.logging.spi;
 
+import java.util.List;
+import java.util.StringJoiner;
+
 import org.hibernate.search.v6poc.entity.model.spi.MappableTypeModel;
 import org.hibernate.search.v6poc.logging.impl.FailureContextMessages;
 
@@ -69,6 +72,14 @@ public class FailureContexts {
 				return MESSAGES.indexFieldAbsolutePath( param );
 			}
 		};
+	}
+
+	static String renderForException(List<FailureContextElement> contextElements) {
+		StringJoiner contextJoiner = new StringJoiner( MESSAGES.contextSeparator() );
+		for ( FailureContextElement element : contextElements ) {
+			contextJoiner.add( element.render() );
+		}
+		return MESSAGES.contextPrefixInException() + contextJoiner.toString();
 	}
 
 }
