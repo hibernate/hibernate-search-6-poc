@@ -13,7 +13,6 @@ import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaContext;
 import org.hibernate.search.v6poc.backend.document.spi.DeferredInitializationIndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTypedContext;
-import org.hibernate.search.v6poc.backend.document.model.dsl.Sortable;
 import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
 import org.hibernate.search.v6poc.backend.lucene.document.model.dsl.LuceneIndexSchemaFieldTypedContext;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaNodeCollector;
@@ -59,11 +58,6 @@ public abstract class AbstractLuceneIndexSchemaFieldTypedContext<T>
 	public IndexSchemaFieldTypedContext<T> store(Store store) {
 		this.store = store;
 		return this;
-	}
-
-	@Override
-	public IndexSchemaFieldTypedContext<T> sortable(Sortable sortable) {
-		throw log.cannotUseSortableOnFieldType( relativeFieldName );
 	}
 
 	@Override
