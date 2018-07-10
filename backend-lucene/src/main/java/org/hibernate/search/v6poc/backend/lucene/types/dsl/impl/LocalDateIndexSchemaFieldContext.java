@@ -8,6 +8,7 @@ package org.hibernate.search.v6poc.backend.lucene.types.dsl.impl;
 
 import java.time.LocalDate;
 
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaContext;
 import org.hibernate.search.v6poc.backend.document.spi.DeferredInitializationIndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.dsl.Sortable;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexFieldAccessor;
@@ -26,8 +27,8 @@ public class LocalDateIndexSchemaFieldContext extends AbstractLuceneIndexSchemaF
 
 	private Sortable sortable;
 
-	public LocalDateIndexSchemaFieldContext(String relativeFieldName) {
-		super( relativeFieldName );
+	public LocalDateIndexSchemaFieldContext(IndexSchemaContext schemaContext, String relativeFieldName) {
+		super( schemaContext, relativeFieldName );
 	}
 
 	@Override

@@ -7,6 +7,7 @@
 package org.hibernate.search.v6poc.backend.lucene.types.dsl.impl;
 
 import org.hibernate.search.v6poc.backend.document.model.dsl.Sortable;
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaContext;
 import org.hibernate.search.v6poc.backend.document.spi.DeferredInitializationIndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneIndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaFieldNode;
@@ -25,8 +26,8 @@ public class GeoPointIndexSchemaFieldContext extends AbstractLuceneIndexSchemaFi
 
 	private Sortable sortable;
 
-	public GeoPointIndexSchemaFieldContext(String relativeFieldName) {
-		super( relativeFieldName );
+	public GeoPointIndexSchemaFieldContext(IndexSchemaContext schemaContext, String relativeFieldName) {
+		super( schemaContext, relativeFieldName );
 	}
 
 	@Override

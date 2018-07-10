@@ -11,6 +11,8 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.FieldType;
 import org.apache.lucene.index.IndexOptions;
 import org.apache.lucene.util.QueryBuilder;
+
+import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaContext;
 import org.hibernate.search.v6poc.backend.document.spi.DeferredInitializationIndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTypedContext;
 import org.hibernate.search.v6poc.backend.document.model.dsl.Sortable;
@@ -37,8 +39,8 @@ public class StringIndexSchemaFieldContext extends AbstractLuceneIndexSchemaFiel
 
 	private Analyzer normalizer;
 
-	public StringIndexSchemaFieldContext(String relativeFieldName) {
-		super( relativeFieldName );
+	public StringIndexSchemaFieldContext(IndexSchemaContext schemaContext, String relativeFieldName) {
+		super( schemaContext, relativeFieldName );
 	}
 
 	@Override

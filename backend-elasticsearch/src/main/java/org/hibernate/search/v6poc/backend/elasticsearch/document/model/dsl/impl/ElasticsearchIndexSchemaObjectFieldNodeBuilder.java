@@ -22,6 +22,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esna
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.PropertyMapping;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonObjectAccessor;
+import org.hibernate.search.v6poc.backend.elasticsearch.util.impl.ElasticsearchFields;
 import org.hibernate.search.v6poc.logging.spi.FailureContextElement;
 import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 
@@ -40,7 +41,8 @@ class ElasticsearchIndexSchemaObjectFieldNodeBuilder extends AbstractElasticsear
 			String relativeFieldName, ObjectFieldStorage storage) {
 		this.parent = parent;
 		String parentAbsolutePath = parent.getAbsolutePath();
-		this.absoluteFieldPath = parentAbsolutePath == null ? relativeFieldName : parentAbsolutePath + "." + relativeFieldName;
+		this.absoluteFieldPath = parentAbsolutePath == null ? relativeFieldName
+				: ElasticsearchFields.compose( parentAbsolutePath, relativeFieldName );
 		this.relativeFieldName = relativeFieldName;
 		this.storage = storage;
 	}
