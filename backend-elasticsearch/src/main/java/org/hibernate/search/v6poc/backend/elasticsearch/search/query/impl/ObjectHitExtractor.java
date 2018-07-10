@@ -6,7 +6,6 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.search.query.impl;
 
-import org.hibernate.search.v6poc.backend.elasticsearch.multitenancy.impl.MultiTenancyStrategy;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.search.query.spi.HitAggregator;
 import org.hibernate.search.v6poc.search.query.spi.LoadingHitCollector;
@@ -19,15 +18,22 @@ import com.google.gson.JsonObject;
  *
  * @see SearchQueryFactory#asObjects(SessionContext, HitAggregator)
  */
-class ObjectHitExtractor extends AbstractDocumentReferenceHitExtractor<LoadingHitCollector> {
+class ObjectHitExtractor implements HitExtractor<LoadingHitCollector> {
 
-	ObjectHitExtractor(MultiTenancyStrategy multiTenancyStrategy) {
-		super( multiTenancyStrategy );
+	private final DocumentReferenceExtractorHelper helper;
+
+	ObjectHitExtractor(DocumentReferenceExtractorHelper helper) {
+		this.helper = helper;
+	}
+
+	@Override
+	public void contributeRequest(JsonObject requestBody) {
+		helper.contributeRequest( requestBody );
 	}
 
 	@Override
 	public void extract(LoadingHitCollector collector, JsonObject responseBody, JsonObject hit) {
-		collector.collectForLoading( extractDocumentReference( hit ) );
+		collector.collectForLoading( helper.extractDocumentReference( hit ) );
 	}
 
 }
