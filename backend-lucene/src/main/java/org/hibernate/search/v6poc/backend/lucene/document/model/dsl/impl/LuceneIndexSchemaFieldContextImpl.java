@@ -7,8 +7,6 @@
 package org.hibernate.search.v6poc.backend.lucene.document.model.dsl.impl;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
 
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTerminalContext;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTypedContext;
@@ -25,7 +23,7 @@ import org.hibernate.search.v6poc.backend.lucene.types.dsl.impl.LocalDateIndexSc
 import org.hibernate.search.v6poc.backend.lucene.types.dsl.impl.LuceneFieldIndexSchemaFieldContext;
 import org.hibernate.search.v6poc.backend.lucene.types.dsl.impl.StringIndexSchemaFieldContext;
 import org.hibernate.search.v6poc.backend.lucene.util.impl.LuceneFields;
-import org.hibernate.search.v6poc.logging.spi.FailureContextElement;
+import org.hibernate.search.v6poc.logging.spi.FailureContext;
 import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 import org.hibernate.search.v6poc.spatial.GeoPoint;
 import org.hibernate.search.v6poc.util.SearchException;
@@ -108,8 +106,8 @@ class LuceneIndexSchemaFieldContextImpl
 	}
 
 	@Override
-	public List<FailureContextElement> getFailureContext() {
-		return Arrays.asList(
+	public FailureContext getFailureContext() {
+		return FailureContext.create(
 				parent.getRootNodeBuilder().getIndexFailureContextElement(),
 				FailureContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
 		);

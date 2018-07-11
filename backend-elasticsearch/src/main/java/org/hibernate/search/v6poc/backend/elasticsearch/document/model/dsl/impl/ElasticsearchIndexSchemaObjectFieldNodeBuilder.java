@@ -6,13 +6,10 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.document.model.dsl.impl;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
-import org.hibernate.search.v6poc.backend.document.spi.DeferredInitializationIndexObjectFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
 import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaObjectFieldNodeBuilder;
+import org.hibernate.search.v6poc.backend.document.spi.DeferredInitializationIndexObjectFieldAccessor;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.impl.ElasticsearchIndexObjectFieldAccessor;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexSchemaNodeCollector;
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexSchemaNodeContributor;
@@ -23,7 +20,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esna
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonAccessor;
 import org.hibernate.search.v6poc.backend.elasticsearch.gson.impl.JsonObjectAccessor;
 import org.hibernate.search.v6poc.backend.elasticsearch.util.impl.ElasticsearchFields;
-import org.hibernate.search.v6poc.logging.spi.FailureContextElement;
+import org.hibernate.search.v6poc.logging.spi.FailureContext;
 import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 
 class ElasticsearchIndexSchemaObjectFieldNodeBuilder extends AbstractElasticsearchIndexSchemaObjectNodeBuilder
@@ -48,8 +45,8 @@ class ElasticsearchIndexSchemaObjectFieldNodeBuilder extends AbstractElasticsear
 	}
 
 	@Override
-	public List<FailureContextElement> getFailureContext() {
-		return Arrays.asList(
+	public FailureContext getFailureContext() {
+		return FailureContext.create(
 				getRootNodeBuilder().getIndexFailureContextElement(),
 				FailureContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
 		);

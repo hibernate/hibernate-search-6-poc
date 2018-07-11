@@ -6,13 +6,11 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.document.model.dsl.impl;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaRootNodeBuilder;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaNodeCollector;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaObjectNode;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneRootIndexSchemaContributor;
+import org.hibernate.search.v6poc.logging.spi.FailureContext;
 import org.hibernate.search.v6poc.logging.spi.FailureContextElement;
 import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 
@@ -26,8 +24,8 @@ public class LuceneIndexSchemaRootNodeBuilder extends AbstractLuceneIndexSchemaO
 	}
 
 	@Override
-	public List<FailureContextElement> getFailureContext() {
-		return Arrays.asList(
+	public FailureContext getFailureContext() {
+		return FailureContext.create(
 				getIndexFailureContextElement(),
 				FailureContexts.indexSchemaRoot()
 		);
