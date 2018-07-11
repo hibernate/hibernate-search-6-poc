@@ -10,8 +10,8 @@ import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaRoot
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaNodeCollector;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaObjectNode;
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneRootIndexSchemaContributor;
-import org.hibernate.search.v6poc.util.FailureContext;
-import org.hibernate.search.v6poc.logging.spi.FailureContexts;
+import org.hibernate.search.v6poc.util.EventContext;
+import org.hibernate.search.v6poc.logging.spi.EventContexts;
 
 public class LuceneIndexSchemaRootNodeBuilder extends AbstractLuceneIndexSchemaObjectNodeBuilder
 		implements IndexSchemaRootNodeBuilder, LuceneRootIndexSchemaContributor {
@@ -23,8 +23,8 @@ public class LuceneIndexSchemaRootNodeBuilder extends AbstractLuceneIndexSchemaO
 	}
 
 	@Override
-	public FailureContext getFailureContext() {
-		return getIndexFailureContext().append( FailureContexts.indexSchemaRoot() );
+	public EventContext getEventContext() {
+		return getIndexEventContext().append( EventContexts.indexSchemaRoot() );
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class LuceneIndexSchemaRootNodeBuilder extends AbstractLuceneIndexSchemaO
 		return null;
 	}
 
-	FailureContext getIndexFailureContext() {
-		return FailureContexts.fromIndexName( indexName );
+	EventContext getIndexEventContext() {
+		return EventContexts.fromIndexName( indexName );
 	}
 }

@@ -21,7 +21,7 @@ import org.hibernate.search.v6poc.backend.index.spi.IndexManager;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.integrationtest.backend.tck.util.rule.SearchSetupHelper;
-import org.hibernate.search.v6poc.logging.spi.FailureContexts;
+import org.hibernate.search.v6poc.logging.spi.EventContexts;
 import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.search.SearchQuery;
 import org.hibernate.search.v6poc.spatial.GeoPoint;
@@ -124,7 +124,7 @@ public class MatchSearchPredicateIT {
 					.isInstanceOf( SearchException.class )
 					.hasMessageContaining( "Match predicates are not supported by" )
 					.satisfies( FailureReportUtils.hasContext(
-							FailureContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
+							EventContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
 					) );
 		}
 	}

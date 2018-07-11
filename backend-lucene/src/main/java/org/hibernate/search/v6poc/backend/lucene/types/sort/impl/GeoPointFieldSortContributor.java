@@ -11,7 +11,7 @@ import java.lang.invoke.MethodHandles;
 import org.apache.lucene.document.LatLonDocValuesField;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.lucene.search.sort.impl.LuceneSearchSortCollector;
-import org.hibernate.search.v6poc.logging.spi.FailureContexts;
+import org.hibernate.search.v6poc.logging.spi.EventContexts;
 import org.hibernate.search.v6poc.search.dsl.sort.SortOrder;
 import org.hibernate.search.v6poc.spatial.GeoPoint;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
@@ -28,7 +28,7 @@ public class GeoPointFieldSortContributor implements LuceneFieldSortContributor 
 	@Override
 	public void contribute(LuceneSearchSortCollector collector, String absoluteFieldPath, SortOrder order, Object missingValue) {
 		throw log.traditionalSortNotSupportedByGeoPoint(
-				FailureContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
+				EventContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
 		);
 	}
 

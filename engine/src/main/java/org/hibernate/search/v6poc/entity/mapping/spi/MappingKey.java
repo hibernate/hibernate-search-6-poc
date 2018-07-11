@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.entity.mapping.spi;
 
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
-import org.hibernate.search.v6poc.util.FailureContextElement;
+import org.hibernate.search.v6poc.util.EventContextElement;
 
 /**
  * Tagging interface for objects used as a key to retrieve mappings in
@@ -15,6 +15,6 @@ import org.hibernate.search.v6poc.util.FailureContextElement;
  *
  * @param <M> The Java type of the mapping
  */
-public interface MappingKey<M> extends FailureContextElement {
+public interface MappingKey<M> extends EventContextElement {
 
 }

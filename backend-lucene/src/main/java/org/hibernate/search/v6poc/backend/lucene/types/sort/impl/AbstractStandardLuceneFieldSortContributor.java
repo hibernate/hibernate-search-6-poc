@@ -11,7 +11,7 @@ import java.lang.invoke.MethodHandles;
 import org.apache.lucene.search.SortField;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.lucene.search.sort.impl.LuceneSearchSortCollector;
-import org.hibernate.search.v6poc.logging.spi.FailureContexts;
+import org.hibernate.search.v6poc.logging.spi.EventContexts;
 import org.hibernate.search.v6poc.search.dsl.sort.SortOrder;
 import org.hibernate.search.v6poc.spatial.GeoPoint;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
@@ -52,7 +52,7 @@ abstract class AbstractStandardLuceneFieldSortContributor implements LuceneField
 	@Override
 	public void contributeDistanceSort(LuceneSearchSortCollector collector, String absoluteFieldPath, GeoPoint location, SortOrder order) {
 		throw log.distanceOperationsNotSupportedByFieldType(
-				FailureContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
+				EventContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
 		);
 	}
 }

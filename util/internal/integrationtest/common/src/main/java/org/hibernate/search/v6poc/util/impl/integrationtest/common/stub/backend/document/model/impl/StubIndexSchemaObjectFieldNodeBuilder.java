@@ -8,8 +8,8 @@ package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend
 
 import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaObjectFieldNodeBuilder;
-import org.hibernate.search.v6poc.util.FailureContext;
-import org.hibernate.search.v6poc.logging.spi.FailureContexts;
+import org.hibernate.search.v6poc.util.EventContext;
+import org.hibernate.search.v6poc.logging.spi.EventContexts;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.StubIndexSchemaNode;
 
 class StubIndexSchemaObjectFieldNodeBuilder extends StubIndexSchemaObjectNodeBuilder
@@ -27,9 +27,9 @@ class StubIndexSchemaObjectFieldNodeBuilder extends StubIndexSchemaObjectNodeBui
 	}
 
 	@Override
-	public FailureContext getFailureContext() {
-		return getRootNodeBuilder().getIndexFailureContext()
-				.append( FailureContexts.fromIndexFieldAbsolutePath( builder.getAbsolutePath() ) );
+	public EventContext getEventContext() {
+		return getRootNodeBuilder().getIndexEventContext()
+				.append( EventContexts.fromIndexFieldAbsolutePath( builder.getAbsolutePath() ) );
 	}
 
 	@Override

@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.entity.pojo.processing.building.impl;
 
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
-import org.hibernate.search.v6poc.entity.pojo.logging.spi.PojoFailureContexts;
+import org.hibernate.search.v6poc.entity.pojo.logging.spi.PojoEventContexts;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.impl.PojoMappingHelper;
 import org.hibernate.search.v6poc.entity.pojo.model.path.PojoModelPath;
 import org.hibernate.search.v6poc.entity.pojo.model.path.impl.BoundPojoModelPath;
@@ -38,13 +38,13 @@ abstract class AbstractPojoProcessorNodeBuilder {
 
 		ContextualFailureCollector failureCollector = mappingHelper.getFailureCollector()
 				.withContext(
-						PojoFailureContexts.fromType( modelPath.getRootType().getRawType() )
+						PojoEventContexts.fromType( modelPath.getRootType().getRawType() )
 				);
 
 		PojoModelPath unboundPath = modelPath.toUnboundPath();
 		if ( unboundPath != null ) {
 			failureCollector = failureCollector.withContext(
-					PojoFailureContexts.fromPath( modelPath.toUnboundPath() )
+					PojoEventContexts.fromPath( modelPath.toUnboundPath() )
 			);
 		}
 

@@ -12,7 +12,7 @@ import java.util.Set;
 
 import org.hibernate.search.v6poc.entity.pojo.dirtiness.ReindexOnUpdate;
 import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractorPath;
-import org.hibernate.search.v6poc.entity.pojo.logging.spi.PojoFailureContexts;
+import org.hibernate.search.v6poc.entity.pojo.logging.spi.PojoEventContexts;
 import org.hibernate.search.v6poc.entity.pojo.model.additionalmetadata.building.spi.PojoAdditionalMetadataCollectorValueNode;
 import org.hibernate.search.v6poc.entity.pojo.model.additionalmetadata.impl.PojoValueAdditionalMetadata;
 import org.hibernate.search.v6poc.entity.pojo.model.path.PojoModelPath;
@@ -39,7 +39,7 @@ class PojoValueAdditionalMetadataBuilder implements PojoAdditionalMetadataCollec
 	@Override
 	public ContextualFailureCollector getFailureCollector() {
 		return rootBuilder.getFailureCollector().withContext(
-				PojoFailureContexts.fromPath( PojoModelPath.fromRoot( propertyName ).value( extractorPath ) )
+				PojoEventContexts.fromPath( PojoModelPath.fromRoot( propertyName ).value( extractorPath ) )
 		);
 	}
 

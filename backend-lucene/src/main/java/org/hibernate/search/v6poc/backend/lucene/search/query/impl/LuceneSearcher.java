@@ -15,8 +15,8 @@ import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.TopDocs;
 import org.hibernate.search.v6poc.backend.lucene.index.spi.ReaderProvider;
 import org.hibernate.search.v6poc.backend.lucene.search.reader.impl.MultiReaderFactory;
-import org.hibernate.search.v6poc.util.FailureContext;
-import org.hibernate.search.v6poc.logging.spi.FailureContexts;
+import org.hibernate.search.v6poc.util.EventContext;
+import org.hibernate.search.v6poc.logging.spi.EventContexts;
 import org.hibernate.search.v6poc.search.SearchResult;
 
 /**
@@ -74,8 +74,8 @@ public class LuceneSearcher<T> implements AutoCloseable {
 		return indexNames;
 	}
 
-	public FailureContext getFailureContext() {
-		return FailureContexts.fromIndexNames( indexNames );
+	public EventContext getEventContext() {
+		return EventContexts.fromIndexNames( indexNames );
 	}
 
 	@Override

@@ -30,7 +30,7 @@ import org.hibernate.search.v6poc.entity.pojo.dirtiness.building.impl.PojoImplic
 import org.hibernate.search.v6poc.entity.pojo.dirtiness.impl.PojoImplicitReindexingResolver;
 import org.hibernate.search.v6poc.entity.pojo.extractor.impl.ContainerValueExtractorBinder;
 import org.hibernate.search.v6poc.entity.pojo.logging.impl.Log;
-import org.hibernate.search.v6poc.entity.pojo.logging.spi.PojoFailureContexts;
+import org.hibernate.search.v6poc.entity.pojo.logging.spi.PojoEventContexts;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoMappingCollectorTypeNode;
 import org.hibernate.search.v6poc.entity.pojo.mapping.building.spi.PojoTypeMetadataContributor;
 import org.hibernate.search.v6poc.entity.pojo.mapping.impl.PojoContainedTypeManager;
@@ -172,7 +172,7 @@ public class PojoMapper<M> implements Mapper<M> {
 					);
 				}
 				catch (RuntimeException e) {
-					failureCollector.withContext( PojoFailureContexts.fromType( typeModel ) )
+					failureCollector.withContext( PojoEventContexts.fromType( typeModel ) )
 							.add( e );
 				}
 			}
@@ -186,7 +186,7 @@ public class PojoMapper<M> implements Mapper<M> {
 						);
 					}
 					catch (RuntimeException e) {
-						failureCollector.withContext( PojoFailureContexts.fromType( entityType ) )
+						failureCollector.withContext( PojoEventContexts.fromType( entityType ) )
 								.add( e );
 					}
 				}

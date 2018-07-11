@@ -6,13 +6,13 @@
  */
 package org.hibernate.search.v6poc.util.impl.common.logging;
 
-import org.hibernate.search.v6poc.util.FailureContext;
+import org.hibernate.search.v6poc.util.EventContext;
 
-public class FailureContextFormatter {
+public class EventContextFormatter {
 
 	private final String formatted;
 
-	public FailureContextFormatter(FailureContext typeModel) {
+	public EventContextFormatter(EventContext typeModel) {
 		this.formatted = typeModel.render();
 	}
 

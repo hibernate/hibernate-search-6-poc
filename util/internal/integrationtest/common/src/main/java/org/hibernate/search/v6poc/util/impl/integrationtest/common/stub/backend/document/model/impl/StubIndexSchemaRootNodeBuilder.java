@@ -7,8 +7,8 @@
 package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.impl;
 
 import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaRootNodeBuilder;
-import org.hibernate.search.v6poc.util.FailureContext;
-import org.hibernate.search.v6poc.logging.spi.FailureContexts;
+import org.hibernate.search.v6poc.util.EventContext;
+import org.hibernate.search.v6poc.logging.spi.EventContexts;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.StubBackendBehavior;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.StubIndexSchemaNode;
 
@@ -35,8 +35,8 @@ public class StubIndexSchemaRootNodeBuilder extends StubIndexSchemaObjectNodeBui
 	}
 
 	@Override
-	public FailureContext getFailureContext() {
-		return getIndexFailureContext().append( FailureContexts.indexSchemaRoot() );
+	public EventContext getEventContext() {
+		return getIndexEventContext().append( EventContexts.indexSchemaRoot() );
 	}
 
 	public StubIndexSchemaNode build() {
@@ -48,8 +48,8 @@ public class StubIndexSchemaRootNodeBuilder extends StubIndexSchemaObjectNodeBui
 		return this;
 	}
 
-	FailureContext getIndexFailureContext() {
-		return FailureContexts.fromIndexName( indexName );
+	EventContext getIndexEventContext() {
+		return EventContexts.fromIndexName( indexName );
 	}
 
 	StubBackendBehavior getBackendBehavior() {

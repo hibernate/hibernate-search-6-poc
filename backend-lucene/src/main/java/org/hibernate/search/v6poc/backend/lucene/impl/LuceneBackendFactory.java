@@ -24,8 +24,8 @@ import org.hibernate.search.v6poc.backend.spi.BackendFactory;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.cfg.spi.ConfigurationProperty;
 import org.hibernate.search.v6poc.backend.spi.BackendBuildContext;
-import org.hibernate.search.v6poc.util.FailureContext;
-import org.hibernate.search.v6poc.logging.spi.FailureContexts;
+import org.hibernate.search.v6poc.util.EventContext;
+import org.hibernate.search.v6poc.logging.spi.EventContexts;
 import org.hibernate.search.v6poc.util.AssertionFailure;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
@@ -59,7 +59,7 @@ public class LuceneBackendFactory implements BackendFactory {
 		// TODO be more clever about the type, also supports providing a class
 		Optional<String> directoryProviderProperty = DIRECTORY_PROVIDER.get( propertySource );
 
-		FailureContext backendContext = FailureContexts.fromBackendName( name );
+		EventContext backendContext = EventContexts.fromBackendName( name );
 
 		if ( !directoryProviderProperty.isPresent() ) {
 			throw log.undefinedLuceneDirectoryProvider( backendContext );
@@ -79,7 +79,7 @@ public class LuceneBackendFactory implements BackendFactory {
 		throw log.unrecognizedLuceneDirectoryProvider( directoryProvider, backendContext );
 	}
 
-	private MultiTenancyStrategy getMultiTenancyStrategy(FailureContext backendContext, ConfigurationPropertySource propertySource) {
+	private MultiTenancyStrategy getMultiTenancyStrategy(EventContext backendContext, ConfigurationPropertySource propertySource) {
 		MultiTenancyStrategyConfiguration multiTenancyStrategyConfiguration = MULTI_TENANCY_STRATEGY.get( propertySource );
 
 		switch ( multiTenancyStrategyConfiguration ) {

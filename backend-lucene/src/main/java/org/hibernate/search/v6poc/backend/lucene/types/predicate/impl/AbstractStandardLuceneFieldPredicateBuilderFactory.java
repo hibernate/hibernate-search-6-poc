@@ -11,7 +11,7 @@ import java.lang.invoke.MethodHandles;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.lucene.search.predicate.impl.LuceneSearchPredicateCollector;
 import org.hibernate.search.v6poc.backend.lucene.search.predicate.impl.LuceneSearchPredicateContext;
-import org.hibernate.search.v6poc.logging.spi.FailureContexts;
+import org.hibernate.search.v6poc.logging.spi.EventContexts;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinBoundingBoxPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinCirclePredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinPolygonPredicateBuilder;
@@ -25,7 +25,7 @@ abstract class AbstractStandardLuceneFieldPredicateBuilderFactory implements Luc
 	public SpatialWithinCirclePredicateBuilder<LuceneSearchPredicateContext, LuceneSearchPredicateCollector> createSpatialWithinCirclePredicateBuilder(
 			String absoluteFieldPath) {
 		throw log.spatialPredicatesNotSupportedByFieldType(
-				FailureContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
+				EventContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
 		);
 	}
 
@@ -33,7 +33,7 @@ abstract class AbstractStandardLuceneFieldPredicateBuilderFactory implements Luc
 	public SpatialWithinPolygonPredicateBuilder<LuceneSearchPredicateContext, LuceneSearchPredicateCollector> createSpatialWithinPolygonPredicateBuilder(
 			String absoluteFieldPath) {
 		throw log.spatialPredicatesNotSupportedByFieldType(
-				FailureContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
+				EventContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
 		);
 	}
 
@@ -41,7 +41,7 @@ abstract class AbstractStandardLuceneFieldPredicateBuilderFactory implements Luc
 	public SpatialWithinBoundingBoxPredicateBuilder<LuceneSearchPredicateContext, LuceneSearchPredicateCollector> createSpatialWithinBoundingBoxPredicateBuilder(
 			String absoluteFieldPath) {
 		throw log.spatialPredicatesNotSupportedByFieldType(
-				FailureContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
+				EventContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
 		);
 	}
 }

@@ -4,18 +4,18 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
  */
-package org.hibernate.search.v6poc.entity.orm.logging.impl;
+package org.hibernate.search.v6poc.entity.javabean.log.impl;
 
 import org.jboss.logging.annotations.Message;
 import org.jboss.logging.annotations.MessageBundle;
 
 /**
- * Message bundle for failure contexts in the Hibernate ORM mapper.
+ * Message bundle for event contexts in the JavaBean mapper.
  */
 @MessageBundle(projectCode = "HSEARCH")
-public interface HibernateOrmFailureContextMessages {
+public interface JavaBeanEventContextMessages {
 
-	@Message(value = "Hibernate ORM mapping")
+	@Message(value = "JavaBean mapping")
 	String mapping();
 
 }

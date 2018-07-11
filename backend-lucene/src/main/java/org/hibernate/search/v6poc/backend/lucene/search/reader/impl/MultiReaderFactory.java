@@ -12,7 +12,7 @@ import java.util.Set;
 
 import org.hibernate.search.v6poc.backend.lucene.index.spi.ReaderProvider;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
-import org.hibernate.search.v6poc.logging.spi.FailureContexts;
+import org.hibernate.search.v6poc.logging.spi.EventContexts;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 import org.apache.lucene.index.IndexReader;
@@ -41,7 +41,7 @@ public final class MultiReaderFactory {
 			}
 			catch (IOException e) {
 				throw log.ioExceptionOnMultiReaderRefresh(
-						FailureContexts.fromIndexNames( indexNames ), e
+						EventContexts.fromIndexNames( indexNames ), e
 				);
 			}
 		}

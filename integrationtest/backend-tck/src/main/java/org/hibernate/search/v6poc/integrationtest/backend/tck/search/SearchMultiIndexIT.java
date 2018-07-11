@@ -22,7 +22,7 @@ import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTargetBuilder;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.integrationtest.backend.tck.util.rule.SearchSetupHelper;
-import org.hibernate.search.v6poc.logging.spi.FailureContexts;
+import org.hibernate.search.v6poc.logging.spi.EventContexts;
 import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.search.SearchQuery;
 import org.hibernate.search.v6poc.util.SearchException;
@@ -235,7 +235,7 @@ public class SearchMultiIndexIT {
 				.isInstanceOf( SearchException.class )
 				.hasMessageContaining( "Unknown field 'unknownField'" )
 				.satisfies( FailureReportUtils.hasContext(
-						FailureContexts.fromIndexNames(
+						EventContexts.fromIndexNames(
 								INDEX_NAME_1_1,
 								INDEX_NAME_1_2
 						)
@@ -251,7 +251,7 @@ public class SearchMultiIndexIT {
 				.isInstanceOf( SearchException.class )
 				.hasMessageContaining( "Unknown field 'unknownField'" )
 				.satisfies( FailureReportUtils.hasContext(
-						FailureContexts.fromIndexNames(
+						EventContexts.fromIndexNames(
 								INDEX_NAME_1_1,
 								INDEX_NAME_1_2
 						)
@@ -267,7 +267,7 @@ public class SearchMultiIndexIT {
 				.isInstanceOf( SearchException.class )
 				.hasMessageContaining( "Unknown projections [unknownField]" )
 				.satisfies( FailureReportUtils.hasContext(
-						FailureContexts.fromIndexNames(
+						EventContexts.fromIndexNames(
 								INDEX_NAME_1_1,
 								INDEX_NAME_1_2
 						)

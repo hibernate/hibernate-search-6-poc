@@ -23,8 +23,8 @@ import org.hibernate.search.v6poc.backend.lucene.types.dsl.impl.LocalDateIndexSc
 import org.hibernate.search.v6poc.backend.lucene.types.dsl.impl.LuceneFieldIndexSchemaFieldContext;
 import org.hibernate.search.v6poc.backend.lucene.types.dsl.impl.StringIndexSchemaFieldContext;
 import org.hibernate.search.v6poc.backend.lucene.util.impl.LuceneFields;
-import org.hibernate.search.v6poc.util.FailureContext;
-import org.hibernate.search.v6poc.logging.spi.FailureContexts;
+import org.hibernate.search.v6poc.util.EventContext;
+import org.hibernate.search.v6poc.logging.spi.EventContexts;
 import org.hibernate.search.v6poc.spatial.GeoPoint;
 import org.hibernate.search.v6poc.util.SearchException;
 import org.hibernate.search.v6poc.util.impl.common.Contracts;
@@ -106,9 +106,9 @@ class LuceneIndexSchemaFieldContextImpl
 	}
 
 	@Override
-	public FailureContext getFailureContext() {
-		return parent.getRootNodeBuilder().getIndexFailureContext()
-				.append( FailureContexts.fromIndexFieldAbsolutePath( absoluteFieldPath ) );
+	public EventContext getEventContext() {
+		return parent.getRootNodeBuilder().getIndexEventContext()
+				.append( EventContexts.fromIndexFieldAbsolutePath( absoluteFieldPath ) );
 	}
 
 	private <T extends LuceneIndexSchemaNodeContributor> T setDelegate(T context) {
