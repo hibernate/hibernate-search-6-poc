@@ -18,7 +18,7 @@ import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.lucene.search.query.impl.SearchBackendContext;
 import org.hibernate.search.v6poc.backend.spi.BackendBuildContext;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
-import org.hibernate.search.v6poc.logging.spi.FailureContext;
+import org.hibernate.search.v6poc.util.FailureContext;
 import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 import org.hibernate.search.v6poc.util.impl.common.SuppressingCloser;

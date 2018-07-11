@@ -25,7 +25,7 @@ import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWorkFactory;
 import org.hibernate.search.v6poc.backend.spi.BackendImplementor;
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
 import org.hibernate.search.v6poc.backend.spi.BackendBuildContext;
-import org.hibernate.search.v6poc.logging.spi.FailureContext;
+import org.hibernate.search.v6poc.util.FailureContext;
 import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 import org.hibernate.search.v6poc.util.impl.common.Closer;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;

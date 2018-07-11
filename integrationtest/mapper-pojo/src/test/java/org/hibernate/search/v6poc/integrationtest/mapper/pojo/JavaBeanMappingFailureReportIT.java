@@ -12,9 +12,8 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Docu
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Field;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Indexed;
 import org.hibernate.search.v6poc.integrationtest.mapper.pojo.test.util.rule.JavaBeanMappingSetupHelper;
-import org.hibernate.search.v6poc.logging.spi.FailureContext;
 import org.hibernate.search.v6poc.logging.spi.FailureContexts;
-import org.hibernate.search.v6poc.logging.spi.SearchExceptionWithContext;
+import org.hibernate.search.v6poc.util.SearchExceptionWithContext;
 import org.hibernate.search.v6poc.util.SearchException;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
 import org.hibernate.search.v6poc.util.impl.test.ExceptionMatcherBuilder;

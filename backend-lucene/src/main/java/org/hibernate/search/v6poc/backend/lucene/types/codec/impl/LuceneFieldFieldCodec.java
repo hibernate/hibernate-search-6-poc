@@ -15,7 +15,6 @@ import org.hibernate.search.v6poc.backend.lucene.document.impl.LuceneDocumentBui
 import org.hibernate.search.v6poc.backend.lucene.document.model.LuceneFieldContributor;
 import org.hibernate.search.v6poc.backend.lucene.document.model.LuceneFieldValueExtractor;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
-import org.hibernate.search.v6poc.logging.spi.FailureContext;
 import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 

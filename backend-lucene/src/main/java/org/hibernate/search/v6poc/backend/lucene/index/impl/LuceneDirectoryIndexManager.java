@@ -20,7 +20,7 @@ import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.LuceneIndexW
 import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.StubLuceneIndexWorkOrchestrator;
 import org.hibernate.search.v6poc.backend.lucene.search.query.impl.SearchBackendContext;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
-import org.hibernate.search.v6poc.logging.spi.FailureContext;
+import org.hibernate.search.v6poc.util.FailureContext;
 import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 import org.hibernate.search.v6poc.util.SearchException;
 import org.hibernate.search.v6poc.util.impl.common.Closer;

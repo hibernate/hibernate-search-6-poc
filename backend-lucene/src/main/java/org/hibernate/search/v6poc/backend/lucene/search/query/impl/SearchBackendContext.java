@@ -15,7 +15,7 @@ import org.hibernate.search.v6poc.backend.lucene.orchestration.impl.LuceneQueryW
 import org.hibernate.search.v6poc.backend.lucene.search.impl.LuceneSearchTargetModel;
 import org.hibernate.search.v6poc.backend.lucene.work.impl.LuceneWorkFactory;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
-import org.hibernate.search.v6poc.logging.spi.FailureContext;
+import org.hibernate.search.v6poc.util.FailureContext;
 import org.hibernate.search.v6poc.search.query.spi.HitAggregator;
 
 public class SearchBackendContext {

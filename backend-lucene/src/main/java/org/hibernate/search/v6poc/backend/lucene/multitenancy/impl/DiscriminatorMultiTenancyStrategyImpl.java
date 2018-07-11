@@ -14,7 +14,7 @@ import org.hibernate.search.v6poc.backend.lucene.search.impl.LuceneQueries;
 import org.hibernate.search.v6poc.backend.lucene.util.impl.LuceneFields;
 import org.hibernate.search.v6poc.backend.lucene.work.impl.QueryBasedDeleteEntryLuceneWork;
 import org.hibernate.search.v6poc.backend.lucene.work.impl.QueryBasedUpdateEntryLuceneWork;
-import org.hibernate.search.v6poc.logging.spi.FailureContext;
+import org.hibernate.search.v6poc.util.FailureContext;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 import org.apache.lucene.document.Document;

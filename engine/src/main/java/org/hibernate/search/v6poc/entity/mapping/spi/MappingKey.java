@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.entity.mapping.spi;
 
 import org.hibernate.search.v6poc.engine.SearchMappingRepository;
-import org.hibernate.search.v6poc.logging.spi.FailureContextElement;
+import org.hibernate.search.v6poc.util.FailureContextElement;
 
 /**
  * Tagging interface for objects used as a key to retrieve mappings in

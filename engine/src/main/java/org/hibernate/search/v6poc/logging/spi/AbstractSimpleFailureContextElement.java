@@ -8,6 +8,8 @@ package org.hibernate.search.v6poc.logging.spi;
 
 import java.util.Objects;
 
+import org.hibernate.search.v6poc.util.FailureContextElement;
+
 /**
  * An abstract base for simple failure contexts based on a single parameter
  * passed to a rendering function.

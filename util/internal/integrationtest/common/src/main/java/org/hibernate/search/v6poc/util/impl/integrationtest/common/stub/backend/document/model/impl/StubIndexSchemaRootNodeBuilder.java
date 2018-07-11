@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.impl;
 
 import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaRootNodeBuilder;
-import org.hibernate.search.v6poc.logging.spi.FailureContext;
+import org.hibernate.search.v6poc.util.FailureContext;
 import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.StubBackendBehavior;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.StubIndexSchemaNode;

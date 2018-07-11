@@ -17,7 +17,7 @@ import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaObjectFi
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 import org.hibernate.search.v6poc.integrationtest.backend.tck.util.rule.SearchSetupHelper;
 import org.hibernate.search.v6poc.logging.spi.FailureContexts;
-import org.hibernate.search.v6poc.logging.spi.SearchExceptionWithContext;
+import org.hibernate.search.v6poc.util.SearchExceptionWithContext;
 import org.hibernate.search.v6poc.util.SearchException;
 import org.hibernate.search.v6poc.util.impl.common.CollectionHelper;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.FailureReportUtils;

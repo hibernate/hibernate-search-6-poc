@@ -15,7 +15,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.multitenancy.impl.MultiT
 import org.hibernate.search.v6poc.backend.elasticsearch.orchestration.impl.ElasticsearchWorkOrchestrator;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWorkFactory;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
-import org.hibernate.search.v6poc.logging.spi.FailureContext;
+import org.hibernate.search.v6poc.util.FailureContext;
 import org.hibernate.search.v6poc.search.query.spi.HitAggregator;
 
 public class SearchBackendContext {

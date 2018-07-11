@@ -16,7 +16,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.Elas
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.ElasticsearchIndexSchemaObjectNode;
 import org.hibernate.search.v6poc.backend.elasticsearch.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.elasticsearch.util.impl.URLEncodedString;
-import org.hibernate.search.v6poc.logging.spi.FailureContext;
+import org.hibernate.search.v6poc.util.FailureContext;
 import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 

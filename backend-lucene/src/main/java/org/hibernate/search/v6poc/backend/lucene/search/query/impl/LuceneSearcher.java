@@ -15,7 +15,7 @@ import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.TopDocs;
 import org.hibernate.search.v6poc.backend.lucene.index.spi.ReaderProvider;
 import org.hibernate.search.v6poc.backend.lucene.search.reader.impl.MultiReaderFactory;
-import org.hibernate.search.v6poc.logging.spi.FailureContext;
+import org.hibernate.search.v6poc.util.FailureContext;
 import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 import org.hibernate.search.v6poc.search.SearchResult;
 

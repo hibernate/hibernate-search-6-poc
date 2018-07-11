@@ -8,7 +8,7 @@ package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend
 
 import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaObjectFieldNodeBuilder;
-import org.hibernate.search.v6poc.logging.spi.FailureContext;
+import org.hibernate.search.v6poc.util.FailureContext;
 import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.StubIndexSchemaNode;
 

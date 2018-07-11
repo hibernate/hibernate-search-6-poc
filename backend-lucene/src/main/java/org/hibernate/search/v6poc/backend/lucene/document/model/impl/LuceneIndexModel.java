@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.backend.lucene.document.model.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.hibernate.search.v6poc.logging.spi.FailureContext;
+import org.hibernate.search.v6poc.util.FailureContext;
 import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 import org.hibernate.search.v6poc.util.impl.common.CollectionHelper;
 

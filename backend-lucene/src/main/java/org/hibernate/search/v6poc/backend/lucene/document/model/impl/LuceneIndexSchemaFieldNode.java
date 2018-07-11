@@ -14,7 +14,7 @@ import org.hibernate.search.v6poc.backend.lucene.types.codec.impl.LuceneFieldCod
 import org.hibernate.search.v6poc.backend.lucene.types.formatter.impl.LuceneFieldFormatter;
 import org.hibernate.search.v6poc.backend.lucene.types.predicate.impl.LuceneFieldPredicateBuilderFactory;
 import org.hibernate.search.v6poc.backend.lucene.types.sort.impl.LuceneFieldSortContributor;
-import org.hibernate.search.v6poc.logging.spi.FailureContext;
+import org.hibernate.search.v6poc.util.FailureContext;
 import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
