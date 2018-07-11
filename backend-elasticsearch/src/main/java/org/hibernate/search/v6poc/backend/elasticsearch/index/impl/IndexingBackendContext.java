@@ -20,12 +20,11 @@ import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchW
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWorkFactory;
 import org.hibernate.search.v6poc.backend.index.spi.ChangesetIndexWorker;
 import org.hibernate.search.v6poc.backend.index.spi.StreamIndexWorker;
-import org.hibernate.search.v6poc.backend.spi.BackendImplementor;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
+import org.hibernate.search.v6poc.logging.spi.FailureContext;
 
 public class IndexingBackendContext {
-	// TODO use a dedicated object for the error context instead of the backend
-	private final BackendImplementor<?> backend;
+	private final FailureContext failureContext;
 
 	private final ElasticsearchClient client;
 	private final ElasticsearchWorkFactory workFactory;
@@ -33,12 +32,12 @@ public class IndexingBackendContext {
 
 	private final ElasticsearchWorkOrchestrator streamOrchestrator;
 
-	public IndexingBackendContext(BackendImplementor<?> backend,
+	public IndexingBackendContext(FailureContext failureContext,
 			ElasticsearchClient client,
 			ElasticsearchWorkFactory workFactory,
 			MultiTenancyStrategy multiTenancyStrategy,
 			ElasticsearchWorkOrchestrator streamOrchestrator) {
-		this.backend = backend;
+		this.failureContext = failureContext;
 		this.client = client;
 		this.multiTenancyStrategy = multiTenancyStrategy;
 		this.workFactory = workFactory;
@@ -47,7 +46,11 @@ public class IndexingBackendContext {
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + "[backend=" + backend + "]";
+		return getClass().getSimpleName() + "[" + failureContext + "]";
+	}
+
+	FailureContext getFailureContext() {
+		return failureContext;
 	}
 
 	CompletableFuture<?> initializeIndex(URLEncodedString indexName, URLEncodedString typeName,
@@ -65,7 +68,7 @@ public class IndexingBackendContext {
 			ElasticsearchWorkOrchestrator orchestrator,
 			URLEncodedString indexName, URLEncodedString typeName,
 			SessionContext sessionContext) {
-		multiTenancyStrategy.checkTenantId( backend, sessionContext.getTenantIdentifier() );
+		multiTenancyStrategy.checkTenantId( sessionContext.getTenantIdentifier(), failureContext );
 
 		return new ElasticsearchChangesetIndexWorker( workFactory, multiTenancyStrategy, orchestrator,
 				indexName, typeName, sessionContext );
@@ -74,7 +77,7 @@ public class IndexingBackendContext {
 	StreamIndexWorker<ElasticsearchDocumentObjectBuilder> createStreamIndexWorker(
 			URLEncodedString indexName, URLEncodedString typeName,
 			SessionContext sessionContext) {
-		multiTenancyStrategy.checkTenantId( backend, sessionContext.getTenantIdentifier() );
+		multiTenancyStrategy.checkTenantId( sessionContext.getTenantIdentifier(), failureContext );
 
 		return new ElasticsearchStreamIndexWorker( workFactory, multiTenancyStrategy, streamOrchestrator,
 				indexName, typeName, sessionContext );

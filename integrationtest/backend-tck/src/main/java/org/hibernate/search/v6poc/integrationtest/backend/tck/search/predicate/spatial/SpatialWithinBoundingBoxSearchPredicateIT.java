@@ -11,6 +11,7 @@ import static org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.m
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.index.spi.ChangesetIndexWorker;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;
+import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.search.SearchQuery;
 import org.hibernate.search.v6poc.spatial.GeoBoundingBox;
@@ -18,6 +19,7 @@ import org.hibernate.search.v6poc.spatial.GeoPoint;
 import org.hibernate.search.v6poc.spatial.ImmutableGeoBoundingBox;
 import org.hibernate.search.v6poc.spatial.ImmutableGeoPoint;
 import org.hibernate.search.v6poc.util.SearchException;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.FailureReportUtils;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.assertion.DocumentReferencesSearchResultAssert;
 import org.hibernate.search.v6poc.util.impl.test.SubTest;
 
@@ -120,7 +122,9 @@ public class SpatialWithinBoundingBoxSearchPredicateIT extends AbstractSpatialWi
 				.assertThrown()
 				.isInstanceOf( SearchException.class )
 				.hasMessageContaining( "Spatial predicates are not supported by" )
-				.hasMessageContaining( " of field 'string'" );
+				.satisfies( FailureReportUtils.hasContext(
+						FailureContexts.fromIndexFieldAbsolutePath( "string" )
+				) );
 	}
 
 	@Test

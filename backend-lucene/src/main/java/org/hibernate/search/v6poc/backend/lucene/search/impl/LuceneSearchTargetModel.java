@@ -16,6 +16,8 @@ import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndex
 import org.hibernate.search.v6poc.backend.lucene.document.model.impl.LuceneIndexSchemaObjectNode;
 import org.hibernate.search.v6poc.backend.lucene.index.spi.ReaderProvider;
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
+import org.hibernate.search.v6poc.logging.spi.FailureContext;
+import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 public class LuceneSearchTargetModel {
@@ -36,6 +38,10 @@ public class LuceneSearchTargetModel {
 
 	public Set<String> getIndexNames() {
 		return indexNames;
+	}
+
+	public FailureContext getIndexesFailureContext() {
+		return FailureContexts.fromIndexNames( indexNames );
 	}
 
 	public Set<LuceneIndexModel> getIndexModels() {
@@ -60,13 +66,17 @@ public class LuceneSearchTargetModel {
 				else if ( !selectedSchemaNode.isCompatibleWith( schemaNode ) ) {
 					throw log.conflictingFieldTypesForSearch(
 							absoluteFieldPath,
-							selectedSchemaNode, indexModelForSelectedSchemaNode.getIndexName(),
-							schemaNode, indexModel.getIndexName() );
+							selectedSchemaNode, schemaNode,
+							FailureContexts.fromIndexNames(
+									indexModelForSelectedSchemaNode.getIndexName(),
+									indexModel.getIndexName()
+							)
+					);
 				}
 			}
 		}
 		if ( selectedSchemaNode == null ) {
-			throw log.unknownFieldForSearch( absoluteFieldPath, getIndexNames() );
+			throw log.unknownFieldForSearch( absoluteFieldPath, getIndexesFailureContext() );
 		}
 		return selectedSchemaNode;
 	}
@@ -79,7 +89,9 @@ public class LuceneSearchTargetModel {
 			if ( schemaNode != null ) {
 				found = true;
 				if ( !ObjectFieldStorage.NESTED.equals( schemaNode.getStorage() ) ) {
-					throw log.nonNestedFieldForNestedQuery( indexModel.getIndexName(), absoluteFieldPath );
+					throw log.nonNestedFieldForNestedQuery(
+							absoluteFieldPath, indexModel.getFailureContext()
+					);
 				}
 			}
 		}
@@ -87,10 +99,12 @@ public class LuceneSearchTargetModel {
 			for ( LuceneIndexModel indexModel : indexModels ) {
 				LuceneIndexSchemaFieldNode<?> schemaNode = indexModel.getFieldNode( absoluteFieldPath );
 				if ( schemaNode != null ) {
-					throw log.nonObjectFieldForNestedQuery( indexModel.getIndexName(), absoluteFieldPath );
+					throw log.nonObjectFieldForNestedQuery(
+							absoluteFieldPath, indexModel.getFailureContext()
+					);
 				}
 			}
-			throw log.unknownFieldForSearch( absoluteFieldPath, getIndexNames() );
+			throw log.unknownFieldForSearch( absoluteFieldPath, getIndexesFailureContext() );
 		}
 	}
 }

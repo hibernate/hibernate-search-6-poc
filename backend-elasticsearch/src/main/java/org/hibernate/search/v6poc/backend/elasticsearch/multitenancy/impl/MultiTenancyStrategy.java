@@ -7,7 +7,7 @@
 package org.hibernate.search.v6poc.backend.elasticsearch.multitenancy.impl;
 
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.RootTypeMapping;
-import org.hibernate.search.v6poc.backend.spi.BackendImplementor;
+import org.hibernate.search.v6poc.logging.spi.FailureContext;
 
 import com.google.gson.JsonObject;
 
@@ -76,8 +76,8 @@ public interface MultiTenancyStrategy {
 	/**
 	 * Check that the tenant id value is consistent with the strategy.
 	 *
-	 * @param backend The backend.
 	 * @param tenantId The tenant id.
+	 * @param backendContext The backend.
 	 */
-	void checkTenantId(BackendImplementor<?> backend, String tenantId);
+	void checkTenantId(String tenantId, FailureContext backendContext);
 }

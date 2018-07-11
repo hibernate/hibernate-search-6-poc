@@ -10,6 +10,7 @@ import java.lang.invoke.MethodHandles;
 
 import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.lucene.types.sort.impl.LuceneFieldSortContributor;
+import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 import org.hibernate.search.v6poc.search.dsl.sort.SortOrder;
 import org.hibernate.search.v6poc.search.sort.spi.DistanceSortBuilder;
 import org.hibernate.search.v6poc.spatial.GeoPoint;
@@ -36,7 +37,9 @@ class DistanceSortBuilderImpl extends AbstractSearchSortBuilder
 	public void order(SortOrder order) {
 		// TODO contribute the support of descending order to Lucene
 		if ( SortOrder.DESC == order ) {
-			throw log.descendingOrderNotSupportedByDistanceSort( absoluteFieldPath );
+			throw log.descendingOrderNotSupportedByDistanceSort(
+					FailureContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
+			);
 		}
 	}
 

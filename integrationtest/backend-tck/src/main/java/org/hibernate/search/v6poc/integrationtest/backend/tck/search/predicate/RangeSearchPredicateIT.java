@@ -21,12 +21,14 @@ import org.hibernate.search.v6poc.backend.index.spi.IndexManager;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.integrationtest.backend.tck.util.rule.SearchSetupHelper;
+import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 import org.hibernate.search.v6poc.search.DocumentReference;
 import org.hibernate.search.v6poc.search.SearchQuery;
 import org.hibernate.search.v6poc.search.dsl.predicate.RangeBoundInclusion;
 import org.hibernate.search.v6poc.spatial.GeoPoint;
 import org.hibernate.search.v6poc.spatial.ImmutableGeoPoint;
 import org.hibernate.search.v6poc.util.SearchException;
+import org.hibernate.search.v6poc.util.impl.integrationtest.common.FailureReportUtils;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.assertion.DocumentReferencesSearchResultAssert;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.StubSessionContext;
 import org.hibernate.search.v6poc.util.impl.test.SubTest;
@@ -323,7 +325,9 @@ public class RangeSearchPredicateIT {
 					.assertThrown()
 					.isInstanceOf( SearchException.class )
 					.hasMessageContaining( "Range predicates are not supported by" )
-					.hasMessageContaining( " of field '" + absoluteFieldPath + "'" );
+					.satisfies( FailureReportUtils.hasContext(
+							FailureContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
+					) );
 		}
 	}
 
