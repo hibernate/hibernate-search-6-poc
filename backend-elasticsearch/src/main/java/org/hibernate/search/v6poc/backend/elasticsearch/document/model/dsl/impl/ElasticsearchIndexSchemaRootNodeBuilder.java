@@ -15,7 +15,6 @@ import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esna
 import org.hibernate.search.v6poc.backend.elasticsearch.document.model.impl.esnative.RoutingType;
 import org.hibernate.search.v6poc.backend.elasticsearch.multitenancy.impl.MultiTenancyStrategy;
 import org.hibernate.search.v6poc.logging.spi.FailureContext;
-import org.hibernate.search.v6poc.logging.spi.FailureContextElement;
 import org.hibernate.search.v6poc.logging.spi.FailureContexts;
 
 public class ElasticsearchIndexSchemaRootNodeBuilder extends AbstractElasticsearchIndexSchemaObjectNodeBuilder
@@ -34,10 +33,8 @@ public class ElasticsearchIndexSchemaRootNodeBuilder extends AbstractElasticsear
 
 	@Override
 	public FailureContext getFailureContext() {
-		return FailureContext.create(
-				getIndexFailureContextElement(),
-				FailureContexts.indexSchemaRoot()
-		);
+		return getIndexFailureContext()
+				.append( FailureContexts.indexSchemaRoot() );
 	}
 
 	@Override
@@ -74,7 +71,7 @@ public class ElasticsearchIndexSchemaRootNodeBuilder extends AbstractElasticsear
 		return null;
 	}
 
-	FailureContextElement getIndexFailureContextElement() {
+	FailureContext getIndexFailureContext() {
 		return FailureContexts.fromIndexName( hibernateSearchIndexName );
 	}
 }
