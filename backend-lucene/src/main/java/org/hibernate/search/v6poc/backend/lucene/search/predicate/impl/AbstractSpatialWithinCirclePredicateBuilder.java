@@ -12,7 +12,7 @@ import org.hibernate.search.v6poc.spatial.GeoPoint;
 
 
 public abstract class AbstractSpatialWithinCirclePredicateBuilder<T> extends AbstractSearchPredicateBuilder
-		implements SpatialWithinCirclePredicateBuilder<LuceneSearchPredicateContext, LuceneSearchPredicateCollector> {
+		implements SpatialWithinCirclePredicateBuilder<LuceneSearchPredicateBuilder> {
 
 	protected final String absoluteFieldPath;
 

@@ -6,11 +6,11 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.search.sort.impl;
 
-import org.hibernate.search.v6poc.search.sort.spi.SearchSortContributor;
 import org.hibernate.search.v6poc.search.sort.spi.SearchSortFactory;
 
-public interface ElasticsearchSearchSortFactory extends SearchSortFactory<ElasticsearchSearchSortCollector> {
+public interface ElasticsearchSearchSortFactory
+		extends SearchSortFactory<ElasticsearchSearchSortCollector, ElasticsearchSearchSortBuilder> {
 
-	SearchSortContributor<ElasticsearchSearchSortCollector> fromJsonString(String jsonString);
+	ElasticsearchSearchSortBuilder fromJsonString(String jsonString);
 
 }

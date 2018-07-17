@@ -6,12 +6,11 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.search.predicate.impl;
 
-import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateContributor;
 import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateFactory;
 
 public interface ElasticsearchSearchPredicateFactory
-		extends SearchPredicateFactory<Void, ElasticsearchSearchPredicateCollector> {
+		extends SearchPredicateFactory<ElasticsearchSearchPredicateCollector, ElasticsearchSearchPredicateBuilder> {
 
-	SearchPredicateContributor<Void, ElasticsearchSearchPredicateCollector> fromJsonString(String jsonString);
+	ElasticsearchSearchPredicateBuilder fromJsonString(String jsonString);
 
 }

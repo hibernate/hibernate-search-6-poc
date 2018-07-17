@@ -6,13 +6,17 @@
  */
 package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.predicate.impl;
 
-import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.StubQueryElementCollector;
 import org.hibernate.search.v6poc.search.SearchPredicate;
-import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateContributor;
 
-class StubSearchPredicate implements SearchPredicate, SearchPredicateContributor<Void, StubQueryElementCollector> {
-	@Override
-	public void contribute(Void context, StubQueryElementCollector collector) {
-		collector.simulateCollectCall();
+class StubSearchPredicate implements SearchPredicate {
+	private final StubPredicateBuilder builder;
+
+	StubSearchPredicate(
+			StubPredicateBuilder builder) {
+		this.builder = builder;
+	}
+
+	StubPredicateBuilder get() {
+		return builder;
 	}
 }

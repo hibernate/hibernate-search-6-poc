@@ -7,21 +7,23 @@
 package org.hibernate.search.v6poc.backend.lucene.search.sort.impl;
 
 import org.hibernate.search.v6poc.search.dsl.sort.SortOrder;
-import org.hibernate.search.v6poc.search.sort.spi.SearchSortContributor;
+import org.hibernate.search.v6poc.search.sort.spi.SearchSortBuilder;
 
 
 /**
  * @author Guillaume Smet
  */
-abstract class AbstractSearchSortBuilder implements SearchSortContributor<LuceneSearchSortCollector> {
+abstract class AbstractSearchSortBuilder implements SearchSortBuilder<LuceneSearchSortBuilder>, LuceneSearchSortBuilder {
 
 	protected SortOrder order;
+
+	@Override
+	public LuceneSearchSortBuilder toImplementation() {
+		return this;
+	}
 
 	public void order(SortOrder order) {
 		this.order = order;
 	}
-
-	@Override
-	public abstract void contribute(LuceneSearchSortCollector collector);
 
 }

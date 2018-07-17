@@ -20,19 +20,16 @@ import org.hibernate.search.v6poc.search.ObjectLoader;
 import org.hibernate.search.v6poc.search.dsl.query.SearchQueryResultDefinitionContext;
 import org.hibernate.search.v6poc.search.dsl.query.spi.SearchQueryResultDefinitionContextImpl;
 import org.hibernate.search.v6poc.search.dsl.spi.SearchTargetContext;
-import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateFactory;
-import org.hibernate.search.v6poc.search.query.spi.SearchQueryFactory;
-import org.hibernate.search.v6poc.search.sort.spi.SearchSortFactory;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.StubQueryElementCollector;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.predicate.impl.StubSearchPredicateFactory;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.sort.StubSearchSortFactory;
 
-class StubIndexSearchTarget extends IndexSearchTargetBase implements SearchTargetContext<Void, StubQueryElementCollector> {
+class StubIndexSearchTarget extends IndexSearchTargetBase implements SearchTargetContext<StubQueryElementCollector> {
 	private final StubSearchPredicateFactory predicateFactory;
 	private final StubSearchSortFactory sortFactory;
 	private final StubSearchQueryFactory queryFactory;
 
-	StubIndexSearchTarget(Builder builder) {
+	private StubIndexSearchTarget(Builder builder) {
 		this.predicateFactory = new StubSearchPredicateFactory();
 		this.sortFactory = new StubSearchSortFactory();
 		List<String> immutableIndexNames = Collections.unmodifiableList( new ArrayList<>( builder.indexNames ) );
@@ -47,22 +44,22 @@ class StubIndexSearchTarget extends IndexSearchTargetBase implements SearchTarge
 	}
 
 	@Override
-	public SearchPredicateFactory<Void, ? super StubQueryElementCollector> getSearchPredicateFactory() {
+	public StubSearchPredicateFactory getSearchPredicateFactory() {
 		return predicateFactory;
 	}
 
 	@Override
-	public SearchSortFactory<? super StubQueryElementCollector> getSearchSortFactory() {
+	public StubSearchSortFactory getSearchSortFactory() {
 		return sortFactory;
 	}
 
 	@Override
-	public SearchQueryFactory<StubQueryElementCollector> getSearchQueryFactory() {
+	public StubSearchQueryFactory getSearchQueryFactory() {
 		return queryFactory;
 	}
 
 	@Override
-	protected SearchTargetContext<Void, ?> getSearchTargetContext() {
+	protected SearchTargetContext<?> getSearchTargetContext() {
 		return this;
 	}
 

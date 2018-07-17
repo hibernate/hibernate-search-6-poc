@@ -6,8 +6,7 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.types.predicate.impl;
 
-import org.hibernate.search.v6poc.backend.lucene.search.predicate.impl.LuceneSearchPredicateCollector;
-import org.hibernate.search.v6poc.backend.lucene.search.predicate.impl.LuceneSearchPredicateContext;
+import org.hibernate.search.v6poc.backend.lucene.search.predicate.impl.LuceneSearchPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.MatchPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.RangePredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinBoundingBoxPredicateBuilder;
@@ -19,17 +18,17 @@ import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinPolygonPredi
  */
 public interface LuceneFieldPredicateBuilderFactory {
 
-	MatchPredicateBuilder<LuceneSearchPredicateContext, LuceneSearchPredicateCollector> createMatchPredicateBuilder(String absoluteFieldPath);
+	MatchPredicateBuilder<LuceneSearchPredicateBuilder> createMatchPredicateBuilder(String absoluteFieldPath);
 
-	RangePredicateBuilder<LuceneSearchPredicateContext, LuceneSearchPredicateCollector> createRangePredicateBuilder(String absoluteFieldPath);
+	RangePredicateBuilder<LuceneSearchPredicateBuilder> createRangePredicateBuilder(String absoluteFieldPath);
 
-	SpatialWithinCirclePredicateBuilder<LuceneSearchPredicateContext, LuceneSearchPredicateCollector> createSpatialWithinCirclePredicateBuilder(
+	SpatialWithinCirclePredicateBuilder<LuceneSearchPredicateBuilder> createSpatialWithinCirclePredicateBuilder(
 			String absoluteFieldPath);
 
-	SpatialWithinPolygonPredicateBuilder<LuceneSearchPredicateContext, LuceneSearchPredicateCollector> createSpatialWithinPolygonPredicateBuilder(
+	SpatialWithinPolygonPredicateBuilder<LuceneSearchPredicateBuilder> createSpatialWithinPolygonPredicateBuilder(
 			String absoluteFieldPath);
 
-	SpatialWithinBoundingBoxPredicateBuilder<LuceneSearchPredicateContext, LuceneSearchPredicateCollector> createSpatialWithinBoundingBoxPredicateBuilder(
+	SpatialWithinBoundingBoxPredicateBuilder<LuceneSearchPredicateBuilder> createSpatialWithinBoundingBoxPredicateBuilder(
 			String absoluteFieldPath);
 
 	// equals()/hashCode() needs to be implemented if the predicate factory is not a singleton

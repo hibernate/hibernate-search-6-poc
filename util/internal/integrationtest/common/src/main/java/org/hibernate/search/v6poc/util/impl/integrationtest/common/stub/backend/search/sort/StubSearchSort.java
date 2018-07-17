@@ -6,13 +6,18 @@
  */
 package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.sort;
 
-import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.search.StubQueryElementCollector;
-import org.hibernate.search.v6poc.search.SearchSort;
-import org.hibernate.search.v6poc.search.sort.spi.SearchSortContributor;
+import java.util.List;
 
-class StubSearchSort implements SearchSort, SearchSortContributor<StubQueryElementCollector> {
-	@Override
-	public void contribute(StubQueryElementCollector collector) {
-		collector.simulateCollectCall();
+import org.hibernate.search.v6poc.search.SearchSort;
+
+class StubSearchSort implements SearchSort {
+	private final List<StubSortBuilder> builders;
+
+	StubSearchSort(List<StubSortBuilder> builders) {
+		this.builders = builders;
+	}
+
+	List<StubSortBuilder> getBuilders() {
+		return builders;
 	}
 }

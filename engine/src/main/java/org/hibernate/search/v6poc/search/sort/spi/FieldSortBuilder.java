@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.search.sort.spi;
 
-public interface FieldSortBuilder<C> extends SearchSortBuilder<C> {
+public interface FieldSortBuilder<B> extends SearchSortBuilder<B> {
 
 	void missingFirst();
 

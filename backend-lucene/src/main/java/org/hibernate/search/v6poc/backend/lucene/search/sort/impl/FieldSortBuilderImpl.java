@@ -12,7 +12,7 @@ import org.hibernate.search.v6poc.backend.lucene.types.sort.impl.SortMissingValu
 import org.hibernate.search.v6poc.search.sort.spi.FieldSortBuilder;
 
 class FieldSortBuilderImpl extends AbstractSearchSortBuilder
-		implements FieldSortBuilder<LuceneSearchSortCollector> {
+		implements FieldSortBuilder<LuceneSearchSortBuilder> {
 
 	private final String absoluteFieldPath;
 
@@ -44,7 +44,7 @@ class FieldSortBuilderImpl extends AbstractSearchSortBuilder
 	}
 
 	@Override
-	public void contribute(LuceneSearchSortCollector collector) {
+	public void buildAndAddTo(LuceneSearchSortCollector collector) {
 		fieldSortContributor.contribute( collector, absoluteFieldPath, order, missingValue );
 	}
 }

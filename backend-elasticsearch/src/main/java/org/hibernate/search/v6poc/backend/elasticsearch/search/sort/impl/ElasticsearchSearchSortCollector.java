@@ -6,6 +6,8 @@
  */
 package org.hibernate.search.v6poc.backend.elasticsearch.search.sort.impl;
 
+import java.util.List;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
@@ -15,8 +17,8 @@ import com.google.gson.JsonElement;
  * <p>
  * Used by Elasticsearch-specific sort contributors.
  *
- * @see org.hibernate.search.v6poc.search.sort.spi.SearchSortContributor
- * @see org.hibernate.search.v6poc.backend.elasticsearch.search.sort.impl.AbstractSearchSortBuilder
+ * @see SearchSortFactoryImpl#contribute(Object, List)
+ * @see ElasticsearchSearchSortBuilder
  */
 public interface ElasticsearchSearchSortCollector {
 
