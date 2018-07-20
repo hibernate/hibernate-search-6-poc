@@ -22,8 +22,6 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.annotation.
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.annotation.Longitude;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Field;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Indexed;
-import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.ValueBridgeBeanReference;
-import org.hibernate.search.v6poc.integrationtest.showcase.library.bridge.LibraryServiceBridge;
 
 /**
  * A place where documents are available.
@@ -58,8 +56,7 @@ public class Library {
 	private Double longitude;
 
 	@ElementCollection
-	// TODO add default bridge (and maybe field type?) for enums
-	@Field(valueBridge = @ValueBridgeBeanReference(type = LibraryServiceBridge.class))
+	@Field
 	private List<LibraryService> services;
 
 	@OneToMany(mappedBy = "library")
