@@ -9,8 +9,6 @@ package org.hibernate.search.v6poc.integrationtest.showcase.library.model;
 import javax.persistence.Entity;
 
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Field;
-import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.ValueBridgeBeanReference;
-import org.hibernate.search.v6poc.integrationtest.showcase.library.bridge.BookMediumBridge;
 
 /**
  * A concrete copy of a book document.
@@ -20,8 +18,7 @@ import org.hibernate.search.v6poc.integrationtest.showcase.library.bridge.BookMe
 @Entity
 public class BookCopy extends DocumentCopy<Book> {
 
-	// TODO add default bridge (and maybe field type?) for enums
-	@Field(valueBridge = @ValueBridgeBeanReference(type = BookMediumBridge.class))
+	@Field
 	// TODO facet
 	private BookMedium medium;
 
