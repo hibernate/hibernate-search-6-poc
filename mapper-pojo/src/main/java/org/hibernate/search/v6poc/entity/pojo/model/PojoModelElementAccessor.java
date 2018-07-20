@@ -8,7 +8,9 @@ package org.hibernate.search.v6poc.entity.pojo.model;
 
 
 /**
- * @author Yoann Rodiere
+ * An accessor allowing to retrieve information from a {@link PojoElement}.
+ * <p>
+ * Accessors are created by {@link PojoModelCompositeElement} instances.
  */
 public interface PojoModelElementAccessor<T> {
 

@@ -20,7 +20,7 @@ import org.hibernate.search.v6poc.entity.pojo.model.path.impl.BoundPojoModelPath
 /**
  * @param <P> The type of the property used as a root element.
  */
-public class PojoModelPropertyRootElement<P> extends AbstractPojoModelElement<P> implements PojoModelProperty {
+public class PojoModelPropertyRootElement<P> extends AbstractPojoModelCompositeElement<P> implements PojoModelProperty {
 
 	private final BoundPojoModelPathValueNode<?, P, P> modelPath;
 

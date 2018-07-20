@@ -22,7 +22,7 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.AnnotationBridgeBui
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuildContext;
 import org.hibernate.search.v6poc.entity.pojo.logging.impl.Log;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElement;
+import org.hibernate.search.v6poc.entity.pojo.model.PojoModelCompositeElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelProperty;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelType;
@@ -117,7 +117,7 @@ public class GeoPointBridge implements TypeBridge, PropertyBridge {
 	}
 
 	private void bind(String defaultedFieldName, IndexSchemaElement indexSchemaElement,
-			PojoModelElement bridgedPojoModelElement) {
+			PojoModelCompositeElement bridgedPojoModelElement) {
 		fieldAccessor = indexSchemaElement.field( defaultedFieldName ).asGeoPoint().store( store ).createAccessor();
 
 		if ( bridgedPojoModelElement.isAssignableTo( GeoPoint.class ) ) {
@@ -149,7 +149,7 @@ public class GeoPointBridge implements TypeBridge, PropertyBridge {
 		}
 	}
 
-	private static Collector<PojoModelElement, ?, PojoModelElement> singleMarkedProperty(
+	private static Collector<PojoModelCompositeElement, ?, PojoModelCompositeElement> singleMarkedProperty(
 			String markerName, String fieldName, String markerSet) {
 		return StreamHelper.singleElement(
 				() -> new SearchException( "Could not find a property with the " + markerName

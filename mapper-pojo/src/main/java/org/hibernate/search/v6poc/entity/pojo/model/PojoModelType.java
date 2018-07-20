@@ -7,8 +7,10 @@
 package org.hibernate.search.v6poc.entity.pojo.model;
 
 /**
- * @author Yoann Rodiere
+ * A model element representing a type bound to a bridge.
+ *
+ * @see org.hibernate.search.v6poc.entity.pojo.bridge.TypeBridge
  */
-public interface PojoModelType extends PojoModelElement {
+public interface PojoModelType extends PojoModelCompositeElement {
 
 }
