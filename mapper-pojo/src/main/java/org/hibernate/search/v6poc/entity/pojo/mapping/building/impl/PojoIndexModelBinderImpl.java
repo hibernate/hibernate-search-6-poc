@@ -12,10 +12,10 @@ import java.util.Optional;
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldContext;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTypedContext;
-import org.hibernate.search.v6poc.entity.mapping.spi.MappingBuildContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexSchemaContributionListener;
+import org.hibernate.search.v6poc.entity.mapping.spi.MappingBuildContext;
 import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
@@ -25,9 +25,9 @@ import org.hibernate.search.v6poc.entity.pojo.bridge.impl.BridgeResolver;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuildContext;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;
+import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractorPath;
 import org.hibernate.search.v6poc.entity.pojo.extractor.impl.BoundContainerValueExtractorPath;
 import org.hibernate.search.v6poc.entity.pojo.extractor.impl.ContainerValueExtractorBinder;
-import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractorPath;
 import org.hibernate.search.v6poc.entity.pojo.logging.impl.Log;
 import org.hibernate.search.v6poc.entity.pojo.model.additionalmetadata.building.impl.PojoTypeAdditionalMetadataProvider;
 import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoModelPropertyRootElement;
@@ -36,7 +36,6 @@ import org.hibernate.search.v6poc.entity.pojo.model.impl.PojoModelValueElement;
 import org.hibernate.search.v6poc.entity.pojo.model.path.impl.BoundPojoModelPathPropertyNode;
 import org.hibernate.search.v6poc.entity.pojo.model.path.impl.BoundPojoModelPathTypeNode;
 import org.hibernate.search.v6poc.entity.pojo.model.path.impl.BoundPojoModelPathValueNode;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoBootstrapIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoGenericTypeModel;
 import org.hibernate.search.v6poc.entity.pojo.util.impl.GenericTypeContext;
 import org.hibernate.search.v6poc.entity.pojo.util.impl.ReflectionUtils;
@@ -50,16 +49,14 @@ public class PojoIndexModelBinderImpl implements PojoIndexModelBinder {
 	private static final Log log = LoggerFactory.make( Log.class, MethodHandles.lookup() );
 
 	private final BridgeBuildContext bridgeBuildContext;
-	private final PojoBootstrapIntrospector introspector;
 	private final ContainerValueExtractorBinder extractorBinder;
 	private final BridgeResolver bridgeResolver;
 	private final PojoTypeAdditionalMetadataProvider typeAdditionalMetadataProvider;
 
-	PojoIndexModelBinderImpl(MappingBuildContext buildContext, PojoBootstrapIntrospector introspector,
+	PojoIndexModelBinderImpl(MappingBuildContext buildContext,
 			ContainerValueExtractorBinder extractorBinder, BridgeResolver bridgeResolver,
 			PojoTypeAdditionalMetadataProvider typeAdditionalMetadataProvider) {
 		this.bridgeBuildContext = new BridgeBuildContextImpl( buildContext );
-		this.introspector = introspector;
 		this.extractorBinder = extractorBinder;
 		this.bridgeResolver = bridgeResolver;
 		this.typeAdditionalMetadataProvider = typeAdditionalMetadataProvider;
@@ -68,13 +65,13 @@ public class PojoIndexModelBinderImpl implements PojoIndexModelBinder {
 	@Override
 	public <C> BoundContainerValueExtractorPath<C, ?> bindExtractorPath(
 			PojoGenericTypeModel<C> pojoGenericTypeModel, ContainerValueExtractorPath extractorPath) {
-		return extractorBinder.bindPath( introspector, pojoGenericTypeModel, extractorPath );
+		return extractorBinder.bindPath( pojoGenericTypeModel, extractorPath );
 	}
 
 	@Override
 	public <C> Optional<BoundContainerValueExtractorPath<C, ?>> tryBindExtractorPath(
 			PojoGenericTypeModel<C> pojoGenericTypeModel, ContainerValueExtractorPath extractorPath) {
-		return extractorBinder.tryBindPath( introspector, pojoGenericTypeModel, extractorPath );
+		return extractorBinder.tryBindPath( pojoGenericTypeModel, extractorPath );
 	}
 
 	@Override
