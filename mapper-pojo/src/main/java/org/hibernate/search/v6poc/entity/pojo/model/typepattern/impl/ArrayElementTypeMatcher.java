@@ -9,7 +9,6 @@ package org.hibernate.search.v6poc.entity.pojo.model.typepattern.impl;
 import java.util.Optional;
 
 import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoGenericTypeModel;
-import org.hibernate.search.v6poc.entity.pojo.model.spi.PojoBootstrapIntrospector;
 
 class ArrayElementTypeMatcher implements TypePatternMatcher {
 	@Override
@@ -18,8 +17,7 @@ class ArrayElementTypeMatcher implements TypePatternMatcher {
 	}
 
 	@Override
-	public Optional<? extends PojoGenericTypeModel<?>> match(
-			PojoBootstrapIntrospector introspector, PojoGenericTypeModel<?> typeToInspect) {
+	public Optional<? extends PojoGenericTypeModel<?>> match(PojoGenericTypeModel<?> typeToInspect) {
 		return typeToInspect.getArrayElementType();
 	}
 }
