@@ -23,7 +23,12 @@ import org.hibernate.search.v6poc.util.impl.test.SubTest;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class JavaBeanMappingFieldIT {
+/**
+ * Test common use cases of the {@code @Field} annotation.
+ *
+ * Does not test default bridges, which are tested in {@link JavaBeanMappingFieldDefaultBridgeIT}.
+ */
+public class JavaBeanMappingFieldBaseIT {
 
 	@Rule
 	public BackendMock backendMock = new BackendMock( "stubBackend" );

@@ -21,7 +21,12 @@ import org.hibernate.search.v6poc.util.impl.test.SubTest;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class JavaBeanMappingDocumentIdIT {
+/**
+ * Test common use cases of the {@code @DocumentId} annotation.
+ *
+ * Does not test default bridges, which are tested in {@link JavaBeanMappingDocumentIdDefaultBridgeIT}.
+ */
+public class JavaBeanMappingDocumentIdBaseIT {
 
 	@Rule
 	public BackendMock backendMock = new BackendMock( "stubBackend" );
