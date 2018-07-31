@@ -10,14 +10,12 @@ import java.util.regex.Pattern;
 
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
-import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
-import org.hibernate.search.v6poc.entity.model.SearchModel;
 import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.binding.PropertyBridgeBindingContext;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.AnnotationBridgeBuilder;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuildContext;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoModelProperty;
 
 public class MultiKeywordStringBridge implements PropertyBridge {
 
@@ -64,10 +62,9 @@ public class MultiKeywordStringBridge implements PropertyBridge {
 	}
 
 	@Override
-	public void bind(IndexSchemaElement indexSchemaElement, PojoModelProperty bridgedPojoModelProperty,
-			SearchModel searchModel) {
-		sourceAccessor = bridgedPojoModelProperty.createAccessor( String.class );
-		valueFieldAccessor = indexSchemaElement.field( fieldName ).asString().createAccessor();
+	public void bind(PropertyBridgeBindingContext context) {
+		sourceAccessor = context.getBridgedElement().createAccessor( String.class );
+		valueFieldAccessor = context.getIndexSchemaElement().field( fieldName ).asString().createAccessor();
 	}
 
 	@Override
