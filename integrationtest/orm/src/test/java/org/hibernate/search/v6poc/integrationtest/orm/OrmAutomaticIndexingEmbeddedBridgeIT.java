@@ -28,19 +28,17 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
-import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaObjectField;
-import org.hibernate.search.v6poc.entity.model.SearchModel;
 import org.hibernate.search.v6poc.entity.orm.cfg.SearchOrmSettings;
 import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.TypeBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.binding.TypeBridgeBindingContext;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeMapping;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.TypeBridgeReference;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Indexed;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.IndexedEmbedded;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoModelType;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.impl.StubBackendFactory;
 import org.hibernate.search.v6poc.util.impl.integrationtest.orm.OrmUtils;
@@ -314,12 +312,11 @@ public class OrmAutomaticIndexingEmbeddedBridgeIT {
 		private IndexFieldAccessor<String> valueTargetAccessor;
 
 		@Override
-		public void bind(IndexSchemaElement indexSchemaElement, PojoModelType bridgedPojoModelType,
-				SearchModel searchModel) {
-			valueSourceAccessor = bridgedPojoModelType.property( "firstContained" )
+		public void bind(TypeBridgeBindingContext context) {
+			valueSourceAccessor = context.getBridgedElement().property( "firstContained" )
 					.property( "includedInFirstBridge" )
 					.createAccessor( String.class );
-			IndexSchemaObjectField objectField = indexSchemaElement.objectField( "firstBridge" );
+			IndexSchemaObjectField objectField = context.getIndexSchemaElement().objectField( "firstBridge" );
 			objectFieldAccessor = objectField.createAccessor();
 			valueTargetAccessor = objectField.field( "value" ).asString().createAccessor();
 		}
@@ -344,12 +341,11 @@ public class OrmAutomaticIndexingEmbeddedBridgeIT {
 		private IndexFieldAccessor<String> valueTargetAccessor;
 
 		@Override
-		public void bind(IndexSchemaElement indexSchemaElement, PojoModelType bridgedPojoModelType,
-				SearchModel searchModel) {
-			valueSourceAccessor = bridgedPojoModelType.property( "secondContained" )
+		public void bind(TypeBridgeBindingContext context) {
+			valueSourceAccessor = context.getBridgedElement().property( "secondContained" )
 					.property( "includedInSecondBridge" )
 					.createAccessor( String.class );
-			IndexSchemaObjectField objectField = indexSchemaElement.objectField( "secondBridge" );
+			IndexSchemaObjectField objectField = context.getIndexSchemaElement().objectField( "secondBridge" );
 			objectFieldAccessor = objectField.createAccessor();
 			valueTargetAccessor = objectField.field( "value" ).asString().createAccessor();
 		}

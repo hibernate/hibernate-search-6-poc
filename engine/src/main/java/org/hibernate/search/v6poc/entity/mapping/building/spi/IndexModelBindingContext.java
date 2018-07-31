@@ -13,8 +13,8 @@ import java.util.Set;
 import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
 import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
-import org.hibernate.search.v6poc.entity.model.SearchModel;
 import org.hibernate.search.v6poc.entity.model.spi.MappableTypeModel;
+import org.hibernate.search.v6poc.entity.model.spi.SearchModel;
 
 public interface IndexModelBindingContext {
 

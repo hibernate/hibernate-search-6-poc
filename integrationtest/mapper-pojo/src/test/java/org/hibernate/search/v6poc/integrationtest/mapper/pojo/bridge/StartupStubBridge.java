@@ -7,16 +7,15 @@
 package org.hibernate.search.v6poc.integrationtest.mapper.pojo.bridge;
 
 import org.hibernate.search.v6poc.backend.document.DocumentElement;
-import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
-import org.hibernate.search.v6poc.entity.model.SearchModel;
 import org.hibernate.search.v6poc.entity.pojo.bridge.IdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.PropertyBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.binding.PropertyBridgeBindingContext;
 import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.binding.RoutingKeyBridgeBindingContext;
 import org.hibernate.search.v6poc.entity.pojo.bridge.TypeBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.binding.TypeBridgeBindingContext;
 import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoModelProperty;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoModelType;
 import org.hibernate.search.v6poc.util.AssertionFailure;
 import org.hibernate.search.v6poc.util.impl.test.rule.StaticCounters;
 
@@ -63,21 +62,19 @@ public class StartupStubBridge
 	}
 
 	@Override
-	public void bind(IndexSchemaElement indexSchemaElement, PojoModelProperty bridgedPojoModelProperty,
-			SearchModel searchModel) {
+	public void bind(PropertyBridgeBindingContext context) {
 		// Add at least one field so that the bridge is not removed
-		indexSchemaElement.field( "fieldFromPropertyBridge" ).asString().createAccessor();
+		context.getIndexSchemaElement().field( "fieldFromPropertyBridge" ).asString().createAccessor();
 	}
 
 	@Override
-	public void bind(IndexSchemaElement indexSchemaElement, PojoModelType bridgedPojoModelType,
-			SearchModel searchModel) {
+	public void bind(TypeBridgeBindingContext context) {
 		// Add at least one field so that the bridge is not removed
-		indexSchemaElement.field( "fieldFromTypeBridge" ).asString().createAccessor();
+		context.getIndexSchemaElement().field( "fieldFromTypeBridge" ).asString().createAccessor();
 	}
 
 	@Override
-	public void bind(PojoModelType pojoModelType) {
+	public void bind(RoutingKeyBridgeBindingContext context) {
 		// Nothing to do
 	}
 

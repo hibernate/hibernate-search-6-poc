@@ -6,18 +6,15 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.bridge.builtin.impl;
 
-import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldContext;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTypedContext;
 import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
-import org.hibernate.search.v6poc.entity.pojo.model.PojoModelValue;
+import org.hibernate.search.v6poc.entity.pojo.bridge.binding.ValueBridgeBindingContext;
 
 public final class DefaultStringValueBridge implements ValueBridge<String, String> {
 
 	@Override
-	public IndexSchemaFieldTypedContext<String> bind(
-			PojoModelValue<String> pojoModelValue,
-			IndexSchemaFieldContext fieldContext) {
-		return fieldContext.asString();
+	public IndexSchemaFieldTypedContext<String> bind(ValueBridgeBindingContext context) {
+		return context.getIndexSchemaFieldContext().asString();
 	}
 
 	@Override
