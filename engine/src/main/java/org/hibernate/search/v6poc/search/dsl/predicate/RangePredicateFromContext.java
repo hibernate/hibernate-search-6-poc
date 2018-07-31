@@ -6,6 +6,7 @@
  */
 package org.hibernate.search.v6poc.search.dsl.predicate;
 
+import org.hibernate.search.v6poc.search.dsl.ExplicitEndContext;
 
 /**
  * The context used when defining a range predicate,
@@ -15,10 +16,10 @@ package org.hibernate.search.v6poc.search.dsl.predicate;
  */
 public interface RangePredicateFromContext<N> {
 
-	default N to(Object value) {
+	default ExplicitEndContext<N> to(Object value) {
 		return to( value, RangeBoundInclusion.INCLUDED );
 	}
 
-	N to(Object value, RangeBoundInclusion inclusion);
+	ExplicitEndContext<N> to(Object value, RangeBoundInclusion inclusion);
 
 }

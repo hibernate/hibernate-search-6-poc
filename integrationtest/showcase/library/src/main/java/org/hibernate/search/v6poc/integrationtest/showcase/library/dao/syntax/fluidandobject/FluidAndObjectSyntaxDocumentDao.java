@@ -40,7 +40,7 @@ class FluidAndObjectSyntaxDocumentDao extends DocumentDao {
 		org.hibernate.search.v6poc.entity.orm.hibernate.FullTextQuery<Book> query =
 				fullTextSession.search( Book.class ).query()
 				.asEntities()
-				.predicate().match().onField( "isbn" ).matching( isbnAsString )
+				.predicate().match().onField( "isbn" ).matching( isbnAsString ).end()
 				.build();
 
 		return Optional.ofNullable( query.uniqueResult() );
