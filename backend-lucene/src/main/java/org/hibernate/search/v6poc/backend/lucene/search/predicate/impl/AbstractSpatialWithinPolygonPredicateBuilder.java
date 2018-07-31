@@ -10,7 +10,7 @@ import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinPolygonPredi
 import org.hibernate.search.v6poc.spatial.GeoPolygon;
 
 
-public abstract class AbstractSpatialWithinPolygonPredicateBuilder<T> extends AbstractSearchPredicateBuilder
+public abstract class AbstractSpatialWithinPolygonPredicateBuilder<F> extends AbstractSearchPredicateBuilder
 		implements SpatialWithinPolygonPredicateBuilder<LuceneSearchPredicateBuilder> {
 
 	protected final String absoluteFieldPath;

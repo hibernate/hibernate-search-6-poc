@@ -10,7 +10,7 @@ import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinBoundingBoxP
 import org.hibernate.search.v6poc.spatial.GeoBoundingBox;
 
 
-public abstract class AbstractSpatialWithinBoundingBoxPredicateBuilder<T> extends AbstractSearchPredicateBuilder
+public abstract class AbstractSpatialWithinBoundingBoxPredicateBuilder<F> extends AbstractSearchPredicateBuilder
 		implements SpatialWithinBoundingBoxPredicateBuilder<LuceneSearchPredicateBuilder> {
 
 	protected final String absoluteFieldPath;
