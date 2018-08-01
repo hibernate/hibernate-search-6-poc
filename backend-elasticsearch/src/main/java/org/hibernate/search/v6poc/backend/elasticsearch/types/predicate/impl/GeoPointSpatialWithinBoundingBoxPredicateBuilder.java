@@ -13,6 +13,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.search.predicate.impl.El
 import org.hibernate.search.v6poc.backend.elasticsearch.types.codec.impl.ElasticsearchFieldCodec;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinBoundingBoxPredicateBuilder;
 import org.hibernate.search.v6poc.spatial.GeoBoundingBox;
+import org.hibernate.search.v6poc.spatial.GeoPoint;
 
 import com.google.gson.JsonObject;
 
@@ -27,9 +28,9 @@ class GeoPointSpatialWithinBoundingBoxPredicateBuilder extends AbstractSearchPre
 
 	private final String absoluteFieldPath;
 
-	private final ElasticsearchFieldCodec codec;
+	private final ElasticsearchFieldCodec<GeoPoint> codec;
 
-	GeoPointSpatialWithinBoundingBoxPredicateBuilder(String absoluteFieldPath, ElasticsearchFieldCodec codec) {
+	GeoPointSpatialWithinBoundingBoxPredicateBuilder(String absoluteFieldPath, ElasticsearchFieldCodec<GeoPoint> codec) {
 		this.absoluteFieldPath = absoluteFieldPath;
 		this.codec = codec;
 	}
