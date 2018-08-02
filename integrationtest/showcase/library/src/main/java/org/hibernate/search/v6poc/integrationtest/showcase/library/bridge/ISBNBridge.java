@@ -6,12 +6,19 @@
  */
 package org.hibernate.search.v6poc.integrationtest.showcase.library.bridge;
 
+import org.hibernate.search.v6poc.backend.document.model.dsl.StandardIndexSchemaFieldTypedContext;
 import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
+import org.hibernate.search.v6poc.entity.pojo.bridge.binding.ValueBridgeBindingContext;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.model.ISBN;
 
 public class ISBNBridge implements ValueBridge<ISBN, String> {
 
 	// TODO use a default normalizer that removes hyphens
+	@Override
+	public StandardIndexSchemaFieldTypedContext<String> bind(ValueBridgeBindingContext context) {
+		return context.getIndexSchemaFieldContext().asString()
+				.projectionConverter( this::fromIndexedValue );
+	}
 
 	@Override
 	public String toIndexedValue(ISBN value) {
@@ -28,8 +35,7 @@ public class ISBNBridge implements ValueBridge<ISBN, String> {
 		return getClass().equals( other.getClass() );
 	}
 
-	@Override
-	public Object fromIndexedValue(String indexedValue) {
+	private Object fromIndexedValue(String indexedValue) {
 		return indexedValue == null ? null : new ISBN( indexedValue );
 	}
 }
