@@ -6,13 +6,16 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.types.predicate.impl;
 
+import java.time.LocalDate;
+
 import org.apache.lucene.document.LongPoint;
 import org.apache.lucene.search.Query;
+
 import org.hibernate.search.v6poc.backend.lucene.search.predicate.impl.AbstractMatchPredicateBuilder;
 import org.hibernate.search.v6poc.backend.lucene.search.predicate.impl.LuceneSearchPredicateContext;
 import org.hibernate.search.v6poc.backend.lucene.types.converter.impl.LocalDateFieldConverter;
 
-class LocalDateMatchPredicateBuilder extends AbstractMatchPredicateBuilder<Long> {
+class LocalDateMatchPredicateBuilder extends AbstractMatchPredicateBuilder<LocalDate, Long> {
 
 	LocalDateMatchPredicateBuilder(String absoluteFieldPath, LocalDateFieldConverter converter) {
 		super( absoluteFieldPath, converter );

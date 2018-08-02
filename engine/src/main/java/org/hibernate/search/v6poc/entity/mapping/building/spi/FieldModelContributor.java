@@ -6,13 +6,13 @@
  */
 package org.hibernate.search.v6poc.entity.mapping.building.spi;
 
-import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTypedContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.StandardIndexSchemaFieldTypedContext;
 
 /**
  * @author Yoann Rodiere
  */
 public interface FieldModelContributor {
 
-	void contribute(IndexSchemaFieldTypedContext<?> context);
+	void contribute(StandardIndexSchemaFieldTypedContext<?> context);
 
 }

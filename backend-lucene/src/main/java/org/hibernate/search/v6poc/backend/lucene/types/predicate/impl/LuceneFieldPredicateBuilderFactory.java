@@ -7,6 +7,7 @@
 package org.hibernate.search.v6poc.backend.lucene.types.predicate.impl;
 
 import org.hibernate.search.v6poc.backend.lucene.search.predicate.impl.LuceneSearchPredicateBuilder;
+import org.hibernate.search.v6poc.backend.lucene.types.converter.impl.LuceneFieldConverter;
 import org.hibernate.search.v6poc.search.predicate.spi.MatchPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.RangePredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinBoundingBoxPredicateBuilder;
@@ -17,6 +18,18 @@ import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinPolygonPredi
  * @author Guillaume Smet
  */
 public interface LuceneFieldPredicateBuilderFactory {
+
+	/**
+	 * Determine whether another predicate builder factory is DSL-compatible with this one,
+	 * i.e. whether it creates builders that behave the same way.
+	 *
+	 * @see LuceneFieldConverter#isDslCompatibleWith(LuceneFieldConverter)
+	 *
+	 * @param other Another {@link LuceneFieldPredicateBuilderFactory}, never {@code null}.
+	 * @return {@code true} if the given predicate builder factory is DSL-compatible.
+	 * {@code false} otherwise, or when in doubt.
+	 */
+	boolean isDslCompatibleWith(LuceneFieldPredicateBuilderFactory other);
 
 	MatchPredicateBuilder<LuceneSearchPredicateBuilder> createMatchPredicateBuilder(String absoluteFieldPath);
 
