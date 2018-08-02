@@ -7,10 +7,11 @@
 package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.impl;
 
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
-import org.hibernate.search.v6poc.backend.document.model.dsl.StandardIndexSchemaFieldTypedContext;
-import org.hibernate.search.v6poc.backend.document.model.dsl.Sortable;
-import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
+import org.hibernate.search.v6poc.backend.document.converter.FromIndexFieldValueConverter;
 import org.hibernate.search.v6poc.backend.document.converter.ToIndexFieldValueConverter;
+import org.hibernate.search.v6poc.backend.document.model.dsl.Sortable;
+import org.hibernate.search.v6poc.backend.document.model.dsl.StandardIndexSchemaFieldTypedContext;
+import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
 import org.hibernate.search.v6poc.backend.document.spi.IndexSchemaFieldDefinitionHelper;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.model.StubIndexSchemaNode;
 
@@ -29,6 +30,12 @@ class StubIndexSchemaFieldTypedContext<F> implements StandardIndexSchemaFieldTyp
 	@Override
 	public StandardIndexSchemaFieldTypedContext<F> dslConverter(
 			ToIndexFieldValueConverter<?, ? extends F> toIndexConverter) {
+		return this;
+	}
+
+	@Override
+	public StandardIndexSchemaFieldTypedContext<F> projectionConverter(
+			FromIndexFieldValueConverter<? super F, ?> fromIndexConverter) {
 		return this;
 	}
 

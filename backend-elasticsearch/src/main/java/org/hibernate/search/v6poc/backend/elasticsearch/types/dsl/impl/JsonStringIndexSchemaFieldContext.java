@@ -7,6 +7,7 @@
 package org.hibernate.search.v6poc.backend.elasticsearch.types.dsl.impl;
 
 import org.hibernate.search.v6poc.backend.document.IndexFieldAccessor;
+import org.hibernate.search.v6poc.backend.document.converter.FromIndexFieldValueConverter;
 import org.hibernate.search.v6poc.backend.document.converter.ToIndexFieldValueConverter;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaFieldTypedContext;
 import org.hibernate.search.v6poc.backend.document.model.dsl.spi.IndexSchemaContext;
@@ -54,6 +55,13 @@ public class JsonStringIndexSchemaFieldContext implements IndexSchemaFieldTypedC
 	public IndexSchemaFieldTypedContext<String> dslConverter(
 			ToIndexFieldValueConverter<?, ? extends String> toIndexConverter) {
 		helper.dslConverter( toIndexConverter );
+		return this;
+	}
+
+	@Override
+	public IndexSchemaFieldTypedContext<String> projectionConverter(
+			FromIndexFieldValueConverter<? super String, ?> fromIndexConverter) {
+		helper.projectionConverter( fromIndexConverter );
 		return this;
 	}
 
