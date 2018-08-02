@@ -7,6 +7,7 @@
 package org.hibernate.search.v6poc.backend.elasticsearch.types.predicate.impl;
 
 import org.hibernate.search.v6poc.backend.elasticsearch.search.predicate.impl.ElasticsearchSearchPredicateBuilder;
+import org.hibernate.search.v6poc.backend.elasticsearch.types.converter.impl.ElasticsearchFieldConverter;
 import org.hibernate.search.v6poc.search.predicate.spi.MatchPredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.RangePredicateBuilder;
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinBoundingBoxPredicateBuilder;
@@ -14,6 +15,18 @@ import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinCirclePredic
 import org.hibernate.search.v6poc.search.predicate.spi.SpatialWithinPolygonPredicateBuilder;
 
 public interface ElasticsearchFieldPredicateBuilderFactory {
+
+	/**
+	 * Determine whether another predicate builder factory is DSL-compatible with this one,
+	 * i.e. whether it creates builders that behave the same way.
+	 *
+	 * @see ElasticsearchFieldConverter#isDslCompatibleWith(ElasticsearchFieldConverter)
+	 *
+	 * @param other Another {@link ElasticsearchFieldPredicateBuilderFactory}, never {@code null}.
+	 * @return {@code true} if the given predicate builder factory is DSL-compatible.
+	 * {@code false} otherwise, or when in doubt.
+	 */
+	boolean isDslCompatibleWith(ElasticsearchFieldPredicateBuilderFactory other);
 
 	MatchPredicateBuilder<ElasticsearchSearchPredicateBuilder> createMatchPredicateBuilder(String absoluteFieldPath);
 
