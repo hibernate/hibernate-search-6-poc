@@ -6,12 +6,19 @@
  */
 package org.hibernate.search.v6poc.backend.lucene.search.predicate.impl;
 
+import java.lang.invoke.MethodHandles;
+
+import org.hibernate.search.v6poc.backend.lucene.logging.impl.Log;
 import org.hibernate.search.v6poc.backend.lucene.types.converter.impl.LuceneFieldConverter;
+import org.hibernate.search.v6poc.logging.spi.EventContexts;
 import org.hibernate.search.v6poc.search.predicate.spi.RangePredicateBuilder;
+import org.hibernate.search.v6poc.util.impl.common.LoggerFactory;
 
 
 public abstract class AbstractRangePredicateBuilder<F> extends AbstractSearchPredicateBuilder
 		implements RangePredicateBuilder<LuceneSearchPredicateBuilder> {
+
+	private static final Log log = LoggerFactory.make( Log.class, MethodHandles.lookup() );
 
 	protected final String absoluteFieldPath;
 
@@ -32,7 +39,14 @@ public abstract class AbstractRangePredicateBuilder<F> extends AbstractSearchPre
 
 	@Override
 	public void lowerLimit(Object value) {
-		lowerLimit = converter.convertFromDsl( value );
+		try {
+			lowerLimit = converter.convertFromDsl( value );
+		}
+		catch (RuntimeException e) {
+			throw log.cannotConvertDslParameter(
+					e.getMessage(), e, EventContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
+			);
+		}
 	}
 
 	@Override
@@ -42,7 +56,14 @@ public abstract class AbstractRangePredicateBuilder<F> extends AbstractSearchPre
 
 	@Override
 	public void upperLimit(Object value) {
-		upperLimit = converter.convertFromDsl( value );
+		try {
+			upperLimit = converter.convertFromDsl( value );
+		}
+		catch (RuntimeException e) {
+			throw log.cannotConvertDslParameter(
+					e.getMessage(), e, EventContexts.fromIndexFieldAbsolutePath( absoluteFieldPath )
+			);
+		}
 	}
 
 	@Override
