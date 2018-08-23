@@ -19,6 +19,7 @@ import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.model.Account;
 import org.hibernate.search.v6poc.integrationtest.showcase.library.model.Borrowal;
+import org.hibernate.search.v6poc.search.dsl.predicate.SearchPredicateContainerContext;
 
 /**
  * Create a summary of borrowals for a given user:
@@ -46,6 +47,31 @@ public class AccountBorrowalSummaryBridge implements TypeBridge {
 	public void bind(TypeBridgeBindingContext context) {
 		// TODO allow to access collections properly, and more importantly to declare dependencies on parts of collection items
 		accountAccessor = context.getBridgedElement().createAccessor( Account.class );
+
+		IndexSchemaObjectField colourObjectField = ...;
+
+		// Used when the user calls .predicate().match().onField( "....colour" ).matching( (Colour) someColour ).end()
+		colourObjectField.predicates().match( b -> new MatchPredicateBuilder() {
+			private Colour colour;
+
+			@Override
+			void boost(double boost)  {
+				...
+			}
+
+			@Override
+			void value(Object value) {
+				colour = (Colour) value;
+			}
+
+			@Override
+			void apply(SearchPredicateContainerContext<?> c) {
+				c.bool().should().match().onField( "colour.r" ).matching( colour.r ).end() // becomes car.colour.r for example
+						.should().match().onField( "colour.g" ).matching( colour.g ).end()
+						.should().match().onField( "colour.b" ).matching( colour.b ).end();
+			}
+
+		})
 
 		IndexSchemaObjectField borrowalsObjectField = context.getIndexSchemaElement().objectField( "borrowals" );
 		borrowalsObjectFieldAccessor = borrowalsObjectField.createAccessor();
