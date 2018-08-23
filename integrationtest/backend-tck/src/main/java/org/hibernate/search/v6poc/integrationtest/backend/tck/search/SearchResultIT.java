@@ -116,36 +116,143 @@ public class SearchResultIT {
 	public void projections() {
 		IndexSearchTarget searchTarget = indexManager.createSearchTarget().build();
 
+		// Before
 		SearchQuery<List<?>> query = searchTarget.query( sessionContext )
-				.asProjections( "string", "string_analyzed", "integer", "localDate", "geoPoint" )
+				.asProjections( "myStringField" )
 				.predicate().matchAll().end()
 				.build();
-		assertThat( query ).hasProjectionsHitsAnyOrder( b -> {
-			b.projection( STRING_VALUE, STRING_ANALYZED_VALUE, INTEGER_VALUE, LOCAL_DATE_VALUE, GEO_POINT_VALUE );
-			b.projection( null, null, null, null, null ); // Empty document
-		} );
 
-		// Project twice on the same field
-		query = searchTarget.query( sessionContext )
-				.asProjections( "string", "integer", "string" )
-				.predicate().matchAll().end()
-				.build();
-		assertThat( query ).hasProjectionsHitsAnyOrder( b -> {
-			b.projection( STRING_VALUE, INTEGER_VALUE, STRING_VALUE );
-			b.projection( null, null, null ); // Empty document
-		} );
+		List<List<?>> results = query.execute().getHits();
 
-		// Special projections without any document transformer nor object loader (those cases are addressed in other methods)
-		DocumentReference mainReference = reference( INDEX_NAME, MAIN_ID );
-		DocumentReference emptyReference = reference( INDEX_NAME, EMPTY_ID );
-		query = searchTarget.query( sessionContext )
-				.asProjections( ProjectionConstants.DOCUMENT_REFERENCE, ProjectionConstants.REFERENCE, ProjectionConstants.OBJECT )
+		// New method - 1 projection
+		SearchProjection<String> myProjection = searchTarget.projection()
+				.field( "myStringField" ).as( String.class )
+				.toProjection();
+
+		SearchQuery<String> query = searchTarget.query( sessionContext )
+				.asProjections( myProjection )
 				.predicate().matchAll().end()
 				.build();
-		assertThat( query ).hasProjectionsHitsAnyOrder( b -> {
-			b.projection( mainReference, mainReference, mainReference );
-			b.projection( emptyReference, emptyReference, emptyReference );
-		} );
+
+		List<String> results = query.execute().getHits();
+
+		// New method - 2 projections
+		SearchProjection<String> myProjection = searchTarget.projection()
+				.field( "myStringField" ).as( String.class )
+				.toProjection();
+		SearchProjection<Integer> myOtherProjection = searchTarget.projection()
+				.field( "myIntField" ).as( Integer.class )
+				.toProjection();
+		SearchProjection<MyType> myCompositeProjection = searchTarget.projection()
+				.composite().from( myProjection, myOtherProjection )
+				.withCombiner( a, b -> new MyType( a, b ) )
+				.toProjection();
+
+		SearchQuery<MyType> query = searchTarget.query( sessionContext )
+				.asProjections( myCompositeProjection )
+				.predicate().matchAll().end()
+				.build();
+
+		List<MyType> results = query.execute().getHits();
+
+		// New method - 2 projections
+		SearchProjection<String> myProjection = searchTarget.projection()
+				.field( "myStringField" ).as( String.class )
+				.toProjection();
+		SearchProjection<Integer> myOtherProjection = searchTarget.projection()
+				.field( "myIntField" ).as( Integer.class )
+				.toProjection();
+
+		SearchQuery<Pair<String, Integer>> query = searchTarget.query( sessionContext )
+				.asProjections( myProjection, myOtherProjection )
+				.predicate().matchAll().end()
+				.build();
+
+		List<Pair<String, Integer>> results = query.execute().getHits();
+
+		// New method - 2 projections
+		SearchProjection<String> myProjection = searchTarget.projection()
+				.field( "myStringField" ).as( String.class )
+				.toProjection();
+		SearchProjection<Integer> myOtherProjection = searchTarget.projection()
+				.field( "myIntField" ).as( Integer.class )
+				.toProjection();
+
+		SearchQuery<MyType> query = searchTarget.query( sessionContext )
+				.asProjections( MyType::new )
+					.field( "myStringField", String.class )
+					.and().field( "myIntField", Integer.class )
+					.end()
+				.predicate().matchAll().end()
+				.build();
+
+		List<MyType> results = query.execute().getHits();
+				.field( "myStringField" ).as( String.class ).....toProjection() // asString()
+
+
+		/// OUR CHOICE BELOW
+
+		// WARNING: ALSO DROP THE OLD SYNTAX WITH A VARARGS STRING PARAMETERS and the ProjectionConstants class, keep them only in the compatibility layer
+
+		// New method - 3 projections
+		SearchProjection<MyType> myCompositeProjection = searchTarget.projection()
+				.field( "myStringField", String.class, c -> { c.setSomeOption( ... ) } )
+				.field( "myIntField", Integer.class )
+				.score()
+				.toProjection( MyType::new );
+
+		SearchQuery<MyType> query = searchTarget.query( sessionContext )
+				.asProjections( myCompositeProjection )
+				.predicate().matchAll().end()
+				.build();
+
+		List<MyType> results = query.execute().getHits();
+
+		// New method - 3 projections - lambda
+		SearchQuery<MyType> query = searchTarget.query( sessionContext )
+				.asProjections( c -> {
+					return c.field( "myStringField", String.class, c -> { c.setSomeOption( ... ) } )
+					.field( "myIntField", Integer.class )
+					.score()
+					.toProjection( MyType::new );
+				} )
+				.predicate().matchAll().end()
+				.build();
+
+		List<MyType> results = query.execute().getHits();
+	}
+	
+	// If MyType::new is provided at the start
+	interface BaseContext {
+		<A, R> NextContext<EndContext> composite(Function<A, R> f);
+		<A, B, R> NextContext<NextContext<EndContext>> composite(BiFunction<A, B, R> f);
+	}
+	
+	// If MyType::new is provided at the end
+	interface BaseContext {
+		<P> BaseContext field(...);
+	}
+	interface NoParamContext extends BaseContext {
+		<P> OneParamContext<P> field(...);
+	}
+	interface OneParamContext<P1> extends BaseContext {
+		<P> TwoParamContext<P1, P> field(...);
+		SearchProjection<P1> toProjection();
+		<R> SearchProjection<R> toProjection(Function<P, R> f);
+	}
+	interface TwoParamContext<P1, P2> extends BaseContext {
+		<P> ThreeParamContext<P> field(...);
+		<R> SearchProjection<R> toProjection(BiFunction<P1, P2, R> f);
+		<R> SearchProjection<R> toProjection(Function<List<?>, R> f); // Maybe
+	}
+	interface ThreeParamContext<P1, P2, P3 extends BaseContext {
+		<P> TooManyParamContext field(...);
+		<R> SearchProjection<R> toProjection(TriFunction<P1, P2, P3, R> f);
+		<R> SearchProjection<R> toProjection(Function<List<?>, R> f); // Maybe
+	}
+	interface TooManyParamContext extends BaseContext {
+		<P> TooManyParamContext field(...);
+		<R> SearchProjection<R> toProjection(Function<List<?>, R> f);
 	}
 
 	@Test
