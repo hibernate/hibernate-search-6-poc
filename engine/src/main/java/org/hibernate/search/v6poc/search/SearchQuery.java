@@ -6,6 +6,8 @@
  */
 package org.hibernate.search.v6poc.search;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * @author Yoann Rodiere
  */
@@ -18,5 +20,7 @@ public interface SearchQuery<T> {
 	String getQueryString();
 
 	SearchResult<T> execute();
+
+	CompletableFuture<SearchResult<T>> executeAsync();
 
 }
