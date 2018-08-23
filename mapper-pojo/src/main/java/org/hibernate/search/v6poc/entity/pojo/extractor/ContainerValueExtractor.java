@@ -12,4 +12,5 @@ public interface ContainerValueExtractor<C, V> {
 
 	Stream<V> extract(C container);
 
+	boolean isMultiValued();
 }
