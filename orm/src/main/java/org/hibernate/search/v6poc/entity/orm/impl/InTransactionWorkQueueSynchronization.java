@@ -44,12 +44,9 @@ class InTransactionWorkQueueSynchronization implements Synchronization {
 					"Processing Transaction's beforeCompletion() phase for %s. Performing work.", this
 			);
 			CompletableFuture<?> future = worker.execute();
-			/*
-			 * TODO decide whether we want the sync/async setting to be scoped per index,
-			 * or per EntityManager/SearchManager, or both (with one scope overriding the other).
-			 * See also PostTransactionWorkQueueSynchronization#afterCompletion, PojoSearchManagerImpl#close
-			 */
-			future.join();
+			// TODO if the backend enlists in transaction, wait explicitly before calling the completion handler
+			// future.join();
+			completionHandler.handle( future );
 		}
 		finally {
 			//clean the Synchronization per Transaction

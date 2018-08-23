@@ -48,12 +48,7 @@ public class PostTransactionWorkQueueSynchronization implements Synchronization 
 			if ( Status.STATUS_COMMITTED == i ) {
 				log.tracef( "Processing Transaction's afterCompletion() phase for %s. Performing work.", this );
 				CompletableFuture<?> future = worker.execute();
-				/*
-				 * TODO decide whether we want the sync/async setting to be scoped per index,
-				 * or per EntityManager/SearchManager, or both (with one scope overriding the other).
-				 * See also PojoSearchManagerImpl#close, InTransactionWorkQueueSynchronization#beforeCompletion
-				 */
-				future.join();
+				completionHandler.handle( future );
 			}
 			else {
 				log.tracef(

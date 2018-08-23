@@ -7,6 +7,7 @@
 package org.hibernate.search.v6poc.entity.orm.hibernate;
 
 import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
 
 import org.hibernate.Session;
 import org.hibernate.search.v6poc.entity.orm.jpa.FullTextEntityManager;
@@ -21,5 +22,14 @@ public interface FullTextSession extends Session, FullTextEntityManager {
 
 	@Override
 	<T> FullTextSearchTarget<T> search(Collection<? extends Class<? extends T>> types);
+
+	void setIndexingCompletionHandler(CompletionHandler h);
+
+	interface CompletionHandler {
+		CompletionHandler SYNCHRONOUS = CompletableFuture::join;
+		CompletionHandler ASYNCHRONOUS = future -> { };
+
+		void handle(CompletableFuture<?> future);
+	}
 
 }
