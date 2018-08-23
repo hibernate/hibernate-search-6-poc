@@ -22,7 +22,7 @@ import org.hibernate.search.v6poc.entity.pojo.model.PojoModelValue;
  *
  * @author Yoann Rodiere
  */
-public interface ValueBridge<T, R> extends AutoCloseable {
+public interface ValueBridge<T, R, C extends IndexSchemaFieldTypedContext<R>> extends AutoCloseable {
 
 	/**
 	 * Bind this bridge instance to the given index field model and the given POJO model element.
@@ -40,7 +40,7 @@ public interface ValueBridge<T, R> extends AutoCloseable {
 	 * (for instance {@code return fieldContext.asString()}). {@code null} to let Hibernate Search derive the expectations
 	 * from the {@code ValueBridge}'s generic type parameters.
 	 */
-	default IndexSchemaFieldTypedContext<R> bind(PojoModelValue<T> pojoModelValue,
+	default C bind(PojoModelValue<T> pojoModelValue,
 			IndexSchemaFieldContext fieldContext) {
 		return null; // Auto-detect the return type and use default encoding
 	}

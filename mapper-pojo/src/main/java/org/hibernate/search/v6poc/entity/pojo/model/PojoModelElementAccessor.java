@@ -14,6 +14,6 @@ package org.hibernate.search.v6poc.entity.pojo.model;
  */
 public interface PojoModelElementAccessor<T> {
 
-	T read(PojoElement bridgedElement);
+	T read(PojoElement bridgedElement, Object ... params);
 
 }

@@ -14,6 +14,7 @@ import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaObjectField;
 import org.hibernate.search.v6poc.backend.document.model.dsl.Sortable;
+import org.hibernate.search.v6poc.backend.elasticsearch.ElasticsearchExtension;
 import org.hibernate.search.v6poc.entity.model.SearchModel;
 import org.hibernate.search.v6poc.entity.pojo.bridge.TypeBridge;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
@@ -45,11 +46,13 @@ public class AccountBorrowalSummaryBridge implements TypeBridge {
 	}
 
 	@Override
-	public void bind(IndexSchemaElement indexSchemaElement, PojoModelType bridgedPojoModelType,
-			SearchModel searchModel) {
+	public void bind(IndexSchemaElement indexSchemaElement, BindingContext context) {
 		// TODO allow to access collections properly, and more importantly to declare dependencies on parts of collection items
-		accountAccessor = bridgedPojoModelType.createAccessor( Account.class );
+		accountAccessor = bridgedPojoModelType.property( "a" ).property( "b").asLocalDate();
 
+		depModel.onType( A.class ).property( parent ).thenReindex( a -> { ... ; return stuffToReindex; });
+
+		indexSchemaElement.field( "sss" ).withExtension( ElasticsearchExtension.get() ).
 		IndexSchemaObjectField borrowalsObjectField = indexSchemaElement.objectField( "borrowals" );
 		borrowalsObjectFieldAccessor = borrowalsObjectField.createAccessor();
 		shortTermBorrowalCountAccessor = borrowalsObjectField.field( "shortTermCount" ).asInteger()
@@ -64,19 +67,16 @@ public class AccountBorrowalSummaryBridge implements TypeBridge {
 	}
 
 	@Override
-	public void write(DocumentElement target, PojoElement source) {
-		Account account = accountAccessor.read( source );
-		if ( account == null ) {
-			return;
-		}
+	public void write(DocumentElement target, PojoElement source, WriteContext context) {
 
-		// TODO this is bad, see the bind() method
-		List<Borrowal> borrowals = account.getBorrowals();
+		context.witheExtension( ORMExtension.get() ).doSomething();
+
+		ListPojoElement borrowals = borrowalAccessor.read( source );
 
 		int shortTermBorrowalCount = 0;
 		int longTermBorrowalCount = 0;
-		for ( Borrowal borrowal : borrowals ) {
-			switch ( borrowal.getType() ) {
+		for ( PojoElement borrowal : borrowalsListElementAccessor.read( borrowals ) ) {
+			switch ( borrowalTypeAccessor.read( borrowal ) ) {
 				case SHORT_TERM:
 					++shortTermBorrowalCount;
 					break;
@@ -86,8 +86,8 @@ public class AccountBorrowalSummaryBridge implements TypeBridge {
 			}
 		}
 
-		DocumentElement borrowalsObject = target.addNew( borrowalsObjectFieldReference );
-		borrowalsObject.add( shortTermBorrowalCountReference, shortTermBorrowalCount );
+		DocumentElement borrowalsObject = borrowalsObjectFieldAccessor.add( target );
+		shortTermBorrowalCountAccessor.write( borrowalsObject, shortTermBorrowalCount );
 		longTermBorrowalCountAccessor.write( borrowalsObject, longTermBorrowalCount );
 		totalBorrowalCountAccessor.write( borrowalsObject, borrowals.size() );
 	}
