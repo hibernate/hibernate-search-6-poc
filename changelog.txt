@@ -1,0 +1,4 @@
+Hibernate Search Changelog
+==========================
+
+
