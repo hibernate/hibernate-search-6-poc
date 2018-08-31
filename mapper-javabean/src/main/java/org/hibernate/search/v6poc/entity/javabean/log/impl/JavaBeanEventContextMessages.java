@@ -6,13 +6,15 @@
  */
 package org.hibernate.search.v6poc.entity.javabean.log.impl;
 
+import org.hibernate.search.v6poc.util.impl.common.MessageConstants;
+
 import org.jboss.logging.annotations.Message;
 import org.jboss.logging.annotations.MessageBundle;
 
 /**
  * Message bundle for event contexts in the JavaBean mapper.
  */
-@MessageBundle(projectCode = "HSEARCH")
+@MessageBundle(projectCode = MessageConstants.PROJECT_CODE)
 public interface JavaBeanEventContextMessages {
 
 	@Message(value = "JavaBean mapping")
