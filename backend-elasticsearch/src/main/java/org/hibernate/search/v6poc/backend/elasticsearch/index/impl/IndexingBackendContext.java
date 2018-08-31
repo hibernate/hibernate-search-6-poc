@@ -18,7 +18,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.orchestration.impl.Elast
 import org.hibernate.search.v6poc.backend.elasticsearch.orchestration.impl.StubElasticsearchWorkOrchestrator;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWork;
 import org.hibernate.search.v6poc.backend.elasticsearch.work.impl.ElasticsearchWorkFactory;
-import org.hibernate.search.v6poc.backend.index.spi.ChangesetIndexWorker;
+import org.hibernate.search.v6poc.backend.index.spi.IndexWorkPlan;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.util.EventContext;
 
@@ -59,17 +59,17 @@ public class IndexingBackendContext {
 		return streamOrchestrator.submit( Arrays.asList( dropWork, createWork ) );
 	}
 
-	ElasticsearchWorkOrchestrator createChangesetOrchestrator() {
+	ElasticsearchWorkOrchestrator createWorkPlanOrchestrator() {
 		return new StubElasticsearchWorkOrchestrator( client );
 	}
 
-	ChangesetIndexWorker<ElasticsearchDocumentObjectBuilder> createChangesetIndexWorker(
+	IndexWorkPlan<ElasticsearchDocumentObjectBuilder> createWorkPlan(
 			ElasticsearchWorkOrchestrator orchestrator,
 			URLEncodedString indexName, URLEncodedString typeName,
 			SessionContext sessionContext) {
 		multiTenancyStrategy.checkTenantId( sessionContext.getTenantIdentifier(), eventContext );
 
-		return new ElasticsearchChangesetIndexWorker( workFactory, multiTenancyStrategy, orchestrator,
+		return new ElasticsearchIndexWorkPlan( workFactory, multiTenancyStrategy, orchestrator,
 				indexName, typeName, sessionContext );
 	}
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import org.hibernate.search.v6poc.backend.index.spi.ChangesetIndexWorker;
+import org.hibernate.search.v6poc.backend.index.spi.IndexWorkPlan;
 import org.hibernate.search.v6poc.backend.index.spi.DocumentContributor;
 import org.hibernate.search.v6poc.backend.index.spi.DocumentReferenceProvider;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
@@ -18,7 +18,7 @@ import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.index.StubIndexWork;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.impl.StubDocumentElement;
 
-class StubChangesetIndexWorker implements ChangesetIndexWorker<StubDocumentElement> {
+class StubIndexWorkPlan implements IndexWorkPlan<StubDocumentElement> {
 	private final StubIndexManager indexManager;
 	private final SessionContext sessionContext;
 
@@ -26,7 +26,7 @@ class StubChangesetIndexWorker implements ChangesetIndexWorker<StubDocumentEleme
 
 	private int preparedIndex = 0;
 
-	StubChangesetIndexWorker(StubIndexManager indexManager, SessionContext sessionContext) {
+	StubIndexWorkPlan(StubIndexManager indexManager, SessionContext sessionContext) {
 		this.sessionContext = sessionContext;
 		this.indexManager = indexManager;
 	}
