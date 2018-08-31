@@ -11,7 +11,6 @@ import java.util.Collection;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.entity.pojo.mapping.ChangesetPojoWorker;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoMapping;
-import org.hibernate.search.v6poc.entity.pojo.mapping.StreamPojoWorker;
 
 public interface PojoMappingDelegate extends PojoMapping, AutoCloseable {
 
@@ -19,8 +18,6 @@ public interface PojoMappingDelegate extends PojoMapping, AutoCloseable {
 	void close();
 
 	ChangesetPojoWorker createWorker(PojoSessionContext sessionContext);
-
-	StreamPojoWorker createStreamWorker(PojoSessionContext sessionContext);
 
 	<T> PojoSearchTargetDelegate<T> createPojoSearchTarget(Collection<? extends Class<? extends T>> targetedTypes,
 			SessionContext sessionContext);
