@@ -20,7 +20,7 @@ import org.hibernate.search.v6poc.backend.document.IndexObjectFieldAccessor;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaElement;
 import org.hibernate.search.v6poc.backend.document.model.dsl.IndexSchemaObjectField;
 import org.hibernate.search.v6poc.backend.document.model.dsl.ObjectFieldStorage;
-import org.hibernate.search.v6poc.backend.index.spi.ChangesetIndexWorker;
+import org.hibernate.search.v6poc.backend.index.spi.IndexWorkPlan;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManager;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.IndexModelBindingContext;
@@ -236,9 +236,9 @@ public class IndexFieldAccessorIT {
 	}
 
 	private void executeAdd(String id, Consumer<DocumentElement> documentContributor) {
-		ChangesetIndexWorker<? extends DocumentElement> worker = indexManager.createWorker( sessionContext );
-		worker.add( referenceProvider( id ), documentContributor::accept );
-		worker.execute().join();
+		IndexWorkPlan<? extends DocumentElement> workPlan = indexManager.createWorkPlan( sessionContext );
+		workPlan.add( referenceProvider( id ), documentContributor::accept );
+		workPlan.execute().join();
 	}
 
 	/**

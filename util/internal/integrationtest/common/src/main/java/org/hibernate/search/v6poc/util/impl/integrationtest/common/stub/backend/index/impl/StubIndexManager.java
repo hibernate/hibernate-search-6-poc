@@ -9,7 +9,7 @@ package org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import org.hibernate.search.v6poc.backend.index.spi.ChangesetIndexWorker;
+import org.hibernate.search.v6poc.backend.index.spi.IndexWorkPlan;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManagerImplementor;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTargetBuilder;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
@@ -55,8 +55,8 @@ public class StubIndexManager implements IndexManagerImplementor<StubDocumentEle
 	}
 
 	@Override
-	public ChangesetIndexWorker<StubDocumentElement> createWorker(SessionContext context) {
-		return new StubChangesetIndexWorker( this, context );
+	public IndexWorkPlan<StubDocumentElement> createWorkPlan(SessionContext context) {
+		return new StubIndexWorkPlan( this, context );
 	}
 
 	@Override
