@@ -12,16 +12,25 @@
         <groupId>org.hibernate.search.v6poc</groupId>
         <artifactId>hibernate-search-parent</artifactId>
         <version>6.0-SNAPSHOT</version>
+        <relativePath>../..</relativePath>
     </parent>
-    <artifactId>hibernate-search-mapper-javabean</artifactId>
+    <artifactId>hibernate-search-backend-elasticsearch</artifactId>
 
-    <name>Hibernate Search Mapper - JavaBean</name>
-    <description>Hibernate Search Mapper for POJOs following the JavaBean conventions</description>
+    <name>Hibernate Search Backend - Elasticsearch</name>
+    <description>Hibernate Search Backend relying on remote Elasticsearch clusters</description>
 
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>hibernate-search-mapper-pojo</artifactId>
+            <artifactId>hibernate-search-engine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-client-sniffer</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.logging</groupId>
@@ -31,8 +40,12 @@
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging-annotations</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
     </dependencies>
-
+    
     <build>
         <plugins>
             <plugin>

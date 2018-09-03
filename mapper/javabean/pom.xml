@@ -12,16 +12,17 @@
         <groupId>org.hibernate.search.v6poc</groupId>
         <artifactId>hibernate-search-parent</artifactId>
         <version>6.0-SNAPSHOT</version>
+        <relativePath>../..</relativePath>
     </parent>
-    <artifactId>hibernate-search-mapper-pojo</artifactId>
+    <artifactId>hibernate-search-mapper-javabean</artifactId>
 
-    <name>Hibernate Search Mapper - POJO</name>
-    <description>Abstract base and common implementations for Hibernate Search Mappers for POJOs</description>
+    <name>Hibernate Search Mapper - JavaBean</name>
+    <description>Hibernate Search Mapper for POJOs following the JavaBean conventions</description>
 
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>hibernate-search-engine</artifactId>
+            <artifactId>hibernate-search-mapper-pojo</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.logging</groupId>
@@ -30,12 +31,6 @@
         <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging-annotations</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>hibernate-search-util-internal-test</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
