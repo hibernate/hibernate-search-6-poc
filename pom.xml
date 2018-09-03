@@ -30,12 +30,12 @@
         <module>util/internal/common</module>
         <module>util/internal/test</module>
         <module>engine</module>
-        <module>backend-elasticsearch</module>
-        <module>backend-lucene</module>
-        <module>mapper-pojo</module>
-        <module>mapper-javabean</module>
-        <module>mapper-protobuf</module>
-        <module>orm</module>
+        <module>backend/elasticsearch</module>
+        <module>backend/lucene</module>
+        <module>mapper/pojo</module>
+        <module>mapper/javabean</module>
+        <module>mapper/protobuf</module>
+        <module>mapper/orm</module>
         <module>util/internal/integrationtest</module>
         <module>integrationtest</module>
         <module>documentation</module>
