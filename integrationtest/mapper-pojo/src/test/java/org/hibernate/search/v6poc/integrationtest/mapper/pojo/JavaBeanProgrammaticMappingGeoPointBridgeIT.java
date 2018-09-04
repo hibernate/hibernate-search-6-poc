@@ -8,17 +8,16 @@ package org.hibernate.search.v6poc.integrationtest.mapper.pojo;
 
 import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
-import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingInitiator;
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.GeoPointBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.LatitudeMarker;
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.spatial.LongitudeMarker;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
 import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.ProgrammaticMappingDefinition;
+import org.hibernate.search.v6poc.integrationtest.mapper.pojo.test.util.rule.JavaBeanMappingSetupHelper;
 import org.hibernate.search.v6poc.spatial.GeoPoint;
 import org.hibernate.search.v6poc.spatial.ImmutableGeoPoint;
 import org.hibernate.search.v6poc.util.impl.common.CollectionHelper;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
-import org.hibernate.search.v6poc.integrationtest.mapper.pojo.test.util.rule.JavaBeanMappingSetupHelper;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -53,16 +52,14 @@ public class JavaBeanProgrammaticMappingGeoPointBridgeIT {
 		);
 
 		mapping = setupHelper.withBackendMock( backendMock )
-				.setup( mappingRepositoryBuilder -> {
-					JavaBeanMappingInitiator initiator = JavaBeanMappingInitiator.create( mappingRepositoryBuilder );
-
-					initiator.addEntityTypes( CollectionHelper.asSet(
+				.withConfiguration( builder -> {
+					builder.addEntityTypes( CollectionHelper.asSet(
 							GeoPointOnTypeEntity.class,
 							GeoPointOnCoordinatesPropertyEntity.class,
 							GeoPointOnCustomCoordinatesPropertyEntity.class
 					) );
 
-					ProgrammaticMappingDefinition mappingDefinition = initiator.programmaticMapping();
+					ProgrammaticMappingDefinition mappingDefinition = builder.programmaticMapping();
 					mappingDefinition.type( GeoPointOnTypeEntity.class )
 							.indexed( GeoPointOnTypeEntity.INDEX )
 							.bridge( new GeoPointBridge.Builder()
@@ -112,9 +109,8 @@ public class JavaBeanProgrammaticMappingGeoPointBridgeIT {
 									.marker( new LatitudeMarker.Builder() )
 							.property( "lon" )
 									.marker( new LongitudeMarker.Builder() );
-
-					return initiator;
-				} );
+				} )
+				.setup();
 
 		backendMock.verifyExpectationsMet();
 	}

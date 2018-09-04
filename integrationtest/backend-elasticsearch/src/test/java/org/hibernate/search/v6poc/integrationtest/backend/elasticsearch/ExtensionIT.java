@@ -18,7 +18,7 @@ import org.hibernate.search.v6poc.backend.elasticsearch.ElasticsearchExtension;
 import org.hibernate.search.v6poc.backend.index.spi.IndexWorkPlan;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManager;
 import org.hibernate.search.v6poc.backend.index.spi.IndexSearchTarget;
-import org.hibernate.search.v6poc.engine.SearchMappingRepository;
+import org.hibernate.search.v6poc.engine.spi.SearchMappingRepository;
 import org.hibernate.search.v6poc.engine.spi.SessionContext;
 import org.hibernate.search.v6poc.integrationtest.backend.tck.util.rule.SearchSetupHelper;
 import org.hibernate.search.v6poc.util.SearchException;

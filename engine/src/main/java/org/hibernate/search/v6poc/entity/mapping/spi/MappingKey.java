@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.entity.mapping.spi;
 
-import org.hibernate.search.v6poc.engine.SearchMappingRepository;
+import org.hibernate.search.v6poc.engine.spi.SearchMappingRepository;
 import org.hibernate.search.v6poc.util.EventContextElement;
 
 /**
