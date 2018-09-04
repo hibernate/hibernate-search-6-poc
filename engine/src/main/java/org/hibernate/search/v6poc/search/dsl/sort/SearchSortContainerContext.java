@@ -9,7 +9,6 @@ package org.hibernate.search.v6poc.search.dsl.sort;
 import java.util.function.Consumer;
 
 import org.hibernate.search.v6poc.search.SearchSort;
-import org.hibernate.search.v6poc.search.dsl.sort.spi.SearchSortContainerContextExtension;
 import org.hibernate.search.v6poc.spatial.GeoPoint;
 import org.hibernate.search.v6poc.spatial.ImmutableGeoPoint;
 import org.hibernate.search.v6poc.util.SearchException;

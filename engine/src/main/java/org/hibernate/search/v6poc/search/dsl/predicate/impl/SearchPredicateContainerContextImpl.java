@@ -17,7 +17,7 @@ import org.hibernate.search.v6poc.search.dsl.predicate.NestedPredicateContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.RangePredicateContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.SearchPredicateContainerContext;
 import org.hibernate.search.v6poc.search.dsl.predicate.SpatialPredicateContext;
-import org.hibernate.search.v6poc.search.dsl.predicate.spi.SearchPredicateContainerContextExtension;
+import org.hibernate.search.v6poc.search.dsl.predicate.SearchPredicateContainerContextExtension;
 import org.hibernate.search.v6poc.search.dsl.predicate.spi.SearchPredicateDslContext;
 import org.hibernate.search.v6poc.search.predicate.spi.SearchPredicateFactory;
 
