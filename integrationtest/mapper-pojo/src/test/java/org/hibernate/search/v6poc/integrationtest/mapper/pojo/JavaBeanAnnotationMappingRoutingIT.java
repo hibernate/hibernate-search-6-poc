@@ -13,7 +13,6 @@ import java.lang.annotation.Target;
 import java.util.Collections;
 
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
-import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingInitiator;
 import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.binding.RoutingKeyBridgeBindingContext;
 import org.hibernate.search.v6poc.entity.pojo.bridge.declaration.RoutingKeyBridgeMapping;
@@ -25,9 +24,9 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.annotation.Inde
 import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 import org.hibernate.search.v6poc.entity.pojo.search.PojoReference;
+import org.hibernate.search.v6poc.integrationtest.mapper.pojo.test.util.rule.JavaBeanMappingSetupHelper;
 import org.hibernate.search.v6poc.search.SearchQuery;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
-import org.hibernate.search.v6poc.integrationtest.mapper.pojo.test.util.rule.JavaBeanMappingSetupHelper;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.StubSearchWorkBehavior;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.StubDocumentNode;
 
@@ -53,15 +52,7 @@ public class JavaBeanAnnotationMappingRoutingIT {
 		);
 
 		mapping = setupHelper.withBackendMock( backendMock )
-				.setup( mappingRepositoryBuilder -> {
-					JavaBeanMappingInitiator initiator = JavaBeanMappingInitiator.create( mappingRepositoryBuilder );
-
-					initiator.addEntityType( IndexedEntity.class );
-
-					initiator.annotationMapping().add( IndexedEntity.class );
-
-					return initiator;
-				} );
+				.setup( IndexedEntity.class );
 
 		backendMock.verifyExpectationsMet();
 	}

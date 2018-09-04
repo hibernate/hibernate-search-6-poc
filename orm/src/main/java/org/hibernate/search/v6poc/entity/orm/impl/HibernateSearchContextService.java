@@ -22,7 +22,7 @@ import org.hibernate.engine.spi.ActionQueue;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.search.v6poc.engine.SearchManager;
-import org.hibernate.search.v6poc.engine.SearchMappingRepository;
+import org.hibernate.search.v6poc.engine.spi.SearchMappingRepository;
 import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmSearchManager;
 import org.hibernate.search.v6poc.entity.orm.logging.impl.Log;
 import org.hibernate.search.v6poc.entity.orm.mapping.HibernateOrmMapping;

@@ -20,7 +20,6 @@ import java.util.Optional;
 import java.util.OptionalInt;
 
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
-import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingInitiator;
 import org.hibernate.search.v6poc.entity.pojo.bridge.builtin.impl.DefaultIntegerIdentifierBridge;
 import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractorPath;
 import org.hibernate.search.v6poc.entity.pojo.extractor.builtin.MapKeyExtractor;
@@ -33,11 +32,11 @@ import org.hibernate.search.v6poc.integrationtest.mapper.pojo.bridge.CustomPrope
 import org.hibernate.search.v6poc.integrationtest.mapper.pojo.bridge.CustomTypeBridge;
 import org.hibernate.search.v6poc.integrationtest.mapper.pojo.bridge.IntegerAsStringValueBridge;
 import org.hibernate.search.v6poc.integrationtest.mapper.pojo.bridge.OptionalIntAsStringValueBridge;
+import org.hibernate.search.v6poc.integrationtest.mapper.pojo.test.util.rule.JavaBeanMappingSetupHelper;
 import org.hibernate.search.v6poc.search.ProjectionConstants;
 import org.hibernate.search.v6poc.search.SearchQuery;
 import org.hibernate.search.v6poc.util.impl.common.CollectionHelper;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
-import org.hibernate.search.v6poc.integrationtest.mapper.pojo.test.util.rule.JavaBeanMappingSetupHelper;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.StubSearchWorkBehavior;
 import org.hibernate.search.v6poc.util.impl.test.rule.StaticCounters;
 
@@ -135,16 +134,14 @@ public class JavaBeanProgrammaticMappingIT {
 		);
 
 		mapping = setupHelper.withBackendMock( backendMock )
-				.setup( mappingRepositoryBuilder -> {
-					JavaBeanMappingInitiator initiator = JavaBeanMappingInitiator.create( mappingRepositoryBuilder );
-
-					initiator.addEntityTypes( CollectionHelper.asSet(
+				.withConfiguration( builder -> {
+					builder.addEntityTypes( CollectionHelper.asSet(
 							IndexedEntity.class,
 							OtherIndexedEntity.class,
 							YetAnotherIndexedEntity.class
 					) );
 
-					ProgrammaticMappingDefinition mappingDefinition = initiator.programmaticMapping();
+					ProgrammaticMappingDefinition mappingDefinition = builder.programmaticMapping();
 					mappingDefinition.type( IndexedEntity.class )
 							.indexed( IndexedEntity.INDEX )
 							.bridge(
@@ -161,7 +158,7 @@ public class JavaBeanProgrammaticMappingIT {
 											.maxDepth( 1 )
 											.includePaths( "customBridgeOnClass.text", "embedded.prefix_customBridgeOnClass.text" );
 
-					ProgrammaticMappingDefinition secondMappingDefinition = initiator.programmaticMapping();
+					ProgrammaticMappingDefinition secondMappingDefinition = builder.programmaticMapping();
 					secondMappingDefinition.type( ParentIndexedEntity.class )
 							.property( "localDate" )
 									.field( "myLocalDateField" )
@@ -223,9 +220,8 @@ public class JavaBeanProgrammaticMappingIT {
 									)
 									.field( "embeddedMapKeys" ).withExtractor( MapKeyExtractor.class )
 									.indexedEmbedded().includePaths( "embedded.prefix_myLocalDateField" );
-
-					return initiator;
-				} );
+				} )
+				.setup();
 
 		backendMock.verifyExpectationsMet();
 	}

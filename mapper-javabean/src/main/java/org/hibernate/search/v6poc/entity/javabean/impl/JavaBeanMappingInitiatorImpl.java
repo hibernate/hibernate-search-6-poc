@@ -6,46 +6,25 @@
  */
 package org.hibernate.search.v6poc.entity.javabean.impl;
 
-import java.util.Set;
-
-import org.hibernate.search.v6poc.engine.SearchMappingRepositoryBuilder;
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
-import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingInitiator;
 import org.hibernate.search.v6poc.entity.javabean.mapping.impl.JavaBeanMappingFactory;
-import org.hibernate.search.v6poc.entity.javabean.mapping.impl.JavaBeanMappingKey;
 import org.hibernate.search.v6poc.entity.javabean.model.impl.JavaBeanBootstrapIntrospector;
 import org.hibernate.search.v6poc.entity.pojo.mapping.spi.PojoMappingInitiatorImpl;
 
-public class JavaBeanMappingInitiatorImpl extends PojoMappingInitiatorImpl<JavaBeanMapping>
-		implements JavaBeanMappingInitiator {
+public class JavaBeanMappingInitiatorImpl extends PojoMappingInitiatorImpl<JavaBeanMapping> {
 
 	private final JavaBeanTypeConfigurationContributor typeConfigurationContributor;
 
-	public JavaBeanMappingInitiatorImpl(SearchMappingRepositoryBuilder mappingRepositoryBuilder,
-			JavaBeanBootstrapIntrospector introspector,
-			boolean annotatedTypeDiscoveryEnabled, boolean multiTenancyEnabled) {
+	public JavaBeanMappingInitiatorImpl(JavaBeanBootstrapIntrospector introspector) {
 		super(
-				mappingRepositoryBuilder, new JavaBeanMappingKey(),
 				new JavaBeanMappingFactory(),
-				introspector, false,
-				multiTenancyEnabled
+				introspector
 		);
-		if ( annotatedTypeDiscoveryEnabled ) {
-			enableAnnotatedTypeDiscovery();
-		}
 		typeConfigurationContributor = new JavaBeanTypeConfigurationContributor( introspector );
 		addConfigurationContributor( typeConfigurationContributor );
 	}
 
-	@Override
 	public void addEntityType(Class<?> type) {
 		typeConfigurationContributor.addEntityType( type );
-	}
-
-	@Override
-	public void addEntityTypes(Set<Class<?>> types) {
-		for ( Class<?> type : types ) {
-			addEntityType( type );
-		}
 	}
 }

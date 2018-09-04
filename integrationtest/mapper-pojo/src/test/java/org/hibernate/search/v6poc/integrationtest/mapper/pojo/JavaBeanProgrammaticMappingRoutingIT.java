@@ -9,7 +9,6 @@ package org.hibernate.search.v6poc.integrationtest.mapper.pojo;
 import java.util.Collections;
 
 import org.hibernate.search.v6poc.entity.javabean.JavaBeanMapping;
-import org.hibernate.search.v6poc.entity.javabean.JavaBeanMappingInitiator;
 import org.hibernate.search.v6poc.entity.pojo.bridge.RoutingKeyBridge;
 import org.hibernate.search.v6poc.entity.pojo.bridge.binding.RoutingKeyBridgeBindingContext;
 import org.hibernate.search.v6poc.entity.pojo.mapping.PojoSearchManager;
@@ -17,9 +16,9 @@ import org.hibernate.search.v6poc.entity.pojo.mapping.definition.programmatic.Pr
 import org.hibernate.search.v6poc.entity.pojo.model.PojoElement;
 import org.hibernate.search.v6poc.entity.pojo.model.PojoModelElementAccessor;
 import org.hibernate.search.v6poc.entity.pojo.search.PojoReference;
+import org.hibernate.search.v6poc.integrationtest.mapper.pojo.test.util.rule.JavaBeanMappingSetupHelper;
 import org.hibernate.search.v6poc.search.SearchQuery;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.BackendMock;
-import org.hibernate.search.v6poc.integrationtest.mapper.pojo.test.util.rule.JavaBeanMappingSetupHelper;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.rule.StubSearchWorkBehavior;
 import org.hibernate.search.v6poc.util.impl.integrationtest.common.stub.backend.document.StubDocumentNode;
 
@@ -48,21 +47,18 @@ public class JavaBeanProgrammaticMappingRoutingIT {
 		);
 
 		mapping = setupHelper.withBackendMock( backendMock )
-				.setup( mappingRepositoryBuilder -> {
-					JavaBeanMappingInitiator initiator = JavaBeanMappingInitiator.create( mappingRepositoryBuilder );
+				.withConfiguration( builder -> {
+					builder.addEntityType( IndexedEntity.class );
 
-					initiator.addEntityType( IndexedEntity.class );
-
-					ProgrammaticMappingDefinition mappingDefinition = initiator.programmaticMapping();
+					ProgrammaticMappingDefinition mappingDefinition = builder.programmaticMapping();
 					mappingDefinition.type( IndexedEntity.class )
 							.indexed( IndexedEntity.INDEX )
 							.routingKeyBridge( MyRoutingKeyBridge.class )
 							.property( "id" )
 									.documentId()
 							.property( "value" ).field();
-
-					return initiator;
-				} );
+				} )
+				.setup();
 
 		backendMock.verifyExpectationsMet();
 	}

@@ -11,7 +11,7 @@ import java.util.Map;
 import org.hibernate.search.v6poc.backend.Backend;
 import org.hibernate.search.v6poc.backend.index.spi.IndexManagerImplementor;
 import org.hibernate.search.v6poc.backend.spi.BackendImplementor;
-import org.hibernate.search.v6poc.engine.SearchMappingRepository;
+import org.hibernate.search.v6poc.engine.spi.SearchMappingRepository;
 import org.hibernate.search.v6poc.engine.spi.BeanResolver;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingImplementor;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingKey;
