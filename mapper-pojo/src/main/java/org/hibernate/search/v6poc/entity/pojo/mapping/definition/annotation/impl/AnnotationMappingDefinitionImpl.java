@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.hibernate.search.v6poc.cfg.ConfigurationPropertySource;
-import org.hibernate.search.v6poc.engine.spi.BeanProvider;
+import org.hibernate.search.v6poc.engine.BeanProvider;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingBuildContext;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.MappingConfigurationCollector;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.TypeMetadataDiscoverer;

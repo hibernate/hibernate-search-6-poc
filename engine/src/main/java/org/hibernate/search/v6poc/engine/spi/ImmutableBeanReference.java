@@ -9,6 +9,8 @@ package org.hibernate.search.v6poc.engine.spi;
 
 import java.util.StringJoiner;
 
+import org.hibernate.search.v6poc.engine.BeanReference;
+
 /**
  * @author Yoann Rodiere
  */

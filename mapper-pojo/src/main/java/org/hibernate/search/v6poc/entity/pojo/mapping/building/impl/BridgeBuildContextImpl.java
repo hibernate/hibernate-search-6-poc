@@ -6,8 +6,8 @@
  */
 package org.hibernate.search.v6poc.entity.pojo.mapping.building.impl;
 
+import org.hibernate.search.v6poc.engine.BeanProvider;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingBuildContext;
-import org.hibernate.search.v6poc.engine.spi.ServiceManager;
 import org.hibernate.search.v6poc.entity.pojo.bridge.mapping.BridgeBuildContext;
 
 public class BridgeBuildContextImpl implements BridgeBuildContext {
@@ -19,7 +19,7 @@ public class BridgeBuildContextImpl implements BridgeBuildContext {
 	}
 
 	@Override
-	public ServiceManager getServiceManager() {
-		return buildContext.getServiceManager();
+	public BeanProvider getBeanProvider() {
+		return buildContext.getServiceManager().getBeanProvider();
 	}
 }
