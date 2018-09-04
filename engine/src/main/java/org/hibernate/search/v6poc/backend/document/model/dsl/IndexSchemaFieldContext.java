@@ -8,7 +8,6 @@ package org.hibernate.search.v6poc.backend.document.model.dsl;
 
 import java.time.LocalDate;
 
-import org.hibernate.search.v6poc.backend.document.model.dsl.spi.FieldModelExtension;
 import org.hibernate.search.v6poc.spatial.GeoPoint;
 
 
@@ -31,7 +30,7 @@ public interface IndexSchemaFieldContext {
 	// TODO JavaTimeBridgeProvider
 	// TODO BasicJDKTypesBridgeProvider
 
-	default <T> T withExtension(FieldModelExtension<T> extension) {
+	default <T> T withExtension(IndexSchemaFieldContextExtension<T> extension) {
 		return extension.extendOrFail( this );
 	}
 

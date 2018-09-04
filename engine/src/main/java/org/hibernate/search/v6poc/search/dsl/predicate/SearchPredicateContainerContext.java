@@ -10,7 +10,6 @@ package org.hibernate.search.v6poc.search.dsl.predicate;
 import java.util.function.Consumer;
 
 import org.hibernate.search.v6poc.search.SearchPredicate;
-import org.hibernate.search.v6poc.search.dsl.predicate.spi.SearchPredicateContainerContextExtension;
 
 /**
  * A context allowing to specify the type of a predicate.

@@ -14,6 +14,7 @@ import org.hibernate.search.v6poc.search.dsl.sort.FieldSortContext;
 import org.hibernate.search.v6poc.search.dsl.sort.NonEmptySortContext;
 import org.hibernate.search.v6poc.search.dsl.sort.ScoreSortContext;
 import org.hibernate.search.v6poc.search.dsl.sort.SearchSortContainerContext;
+import org.hibernate.search.v6poc.search.dsl.sort.SearchSortContainerContextExtension;
 import org.hibernate.search.v6poc.spatial.GeoPoint;
 
 /**
