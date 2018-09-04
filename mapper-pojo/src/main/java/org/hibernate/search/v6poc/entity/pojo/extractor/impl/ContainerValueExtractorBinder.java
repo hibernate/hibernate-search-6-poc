@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.hibernate.search.v6poc.engine.spi.BeanProvider;
+import org.hibernate.search.v6poc.engine.BeanProvider;
 import org.hibernate.search.v6poc.entity.mapping.spi.MappingBuildContext;
 import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractor;
 import org.hibernate.search.v6poc.entity.pojo.extractor.ContainerValueExtractorPath;

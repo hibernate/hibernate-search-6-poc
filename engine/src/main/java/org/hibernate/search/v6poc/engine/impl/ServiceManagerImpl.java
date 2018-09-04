@@ -6,7 +6,7 @@
  */
 package org.hibernate.search.v6poc.engine.impl;
 
-import org.hibernate.search.v6poc.engine.spi.BeanProvider;
+import org.hibernate.search.v6poc.engine.BeanProvider;
 import org.hibernate.search.v6poc.engine.spi.ServiceManager;
 
 

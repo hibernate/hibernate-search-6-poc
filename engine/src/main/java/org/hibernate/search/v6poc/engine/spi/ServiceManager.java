@@ -7,6 +7,8 @@
 package org.hibernate.search.v6poc.engine.spi;
 
 
+import org.hibernate.search.v6poc.engine.BeanProvider;
+
 /**
  * @author Yoann Rodiere
  */

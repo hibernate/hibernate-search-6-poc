@@ -12,7 +12,7 @@ import java.util.List;
 import org.hibernate.search.v6poc.backend.document.model.dsl.StandardIndexSchemaFieldTypedContext;
 import org.hibernate.search.v6poc.backend.document.model.dsl.Sortable;
 import org.hibernate.search.v6poc.backend.document.model.dsl.Store;
-import org.hibernate.search.v6poc.engine.spi.BeanReference;
+import org.hibernate.search.v6poc.engine.BeanReference;
 import org.hibernate.search.v6poc.engine.spi.ImmutableBeanReference;
 import org.hibernate.search.v6poc.entity.mapping.building.spi.FieldModelContributor;
 import org.hibernate.search.v6poc.entity.pojo.bridge.ValueBridge;
