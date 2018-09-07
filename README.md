@@ -5,18 +5,16 @@
 [![Quality gate](https://sonarcloud.io/api/project_badges/measure?project=org.hibernate.search.v6poc%3Ahibernate-search-parent&metric=alert_status)](https://sonarcloud.io/dashboard?id=org.hibernate.search.v6poc%3Ahibernate-search-parent)
 [![Language Grade: Java](https://img.shields.io/lgtm/grade/java/g/hibernate/hibernate-search-6-poc.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hibernate/hibernate-search-6-poc/context:java)
 
-This is where the Hibernate Search team experiments with concepts that may,
-or may not, end up in Hibernate Search 6.
+## WARNING: this repository is archived
 
-WARNING: this is all experimental, and very much work in progress.
-APIs may change at any time, documentation is nonexistent,
-most features probably don't work completely yet,
-and API compatibility with Search 5 is undoubtedly broken.
+All content from this "proof of concept" repository has been moved to the main Hibernate Search repository, on the master branch:
 
-In short, you are welcome to try this library if you are curious,
-but you should absolutely not expect to use it in a real-life project.
+* Main Hibernate Search repository: https://github.com/hibernate/hibernate-search
+* Pull request merging this "proof of concept" repository into the main repository: https://github.com/hibernate/hibernate-search/pull/1723/
+* Code that was merged into the main repository: https://github.com/hibernate/hibernate-search-6-poc/tree/merged
+   * Tag: https://github.com/hibernate/hibernate-search-6-poc/releases/tag/merged
 
-Documentation is still in its early stages,
-but a technical documentation of the internal architecture can be generated through the following command,
-executed from the root of your cloned repository: `mvn clean install -pl documentation`.
-The documentation will be available as a HTML file at `documentation/target/asciidoctor/en-US/html_single/index.html`.
+## History
+
+This is where the Hibernate Search team experimented with concepts that ended up in Hibernate Search 6.
+
